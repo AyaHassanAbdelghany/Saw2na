@@ -8,30 +8,30 @@ import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.Products
 import com.google.gson.Gson
 import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
 
 class RemoteSource : IRemoteSource {
+    private val gson = Gson()
+
     private val api : ShopifyService =
         ShopifyRetrofitHelper.getInstance().create(ShopifyService::class.java)
 
 
     override suspend fun getCustomCollections(): ArrayList<CustomCollections> {
         val res = api.get(Keys.CUSTOM_COLLECTIONS)
-
-        return parsingJsonToObject(res.body()!!.get("custom_collections").asJsonArray)
+        return gson.fromJson(
+            res.body()!!.get("custom_collections") as JsonArray,
+            object : TypeToken<ArrayList<CustomCollections>>() {}.type
+        )
     }
 
     override suspend fun getAllProducts(): ArrayList<Products> {
-
         val res = api.get(Keys.PRODUCTS)
-
-        return parsingJsonToObject(res.body()!!.get("products").asJsonArray)
+        return gson.fromJson(
+            res.body()!!.get("products") as JsonArray,
+            object : TypeToken<ArrayList<Products>>() {}.type
+        )
     }
-
-
-
-
-
-
 
 
     private inline fun <reified T>parsingJsonToObject(jsonObject: JsonArray) : T {

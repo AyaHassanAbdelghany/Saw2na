@@ -25,7 +25,7 @@ class HomeViewModel : ViewModel() {
 //            val gson = Gson()
 
             val d = ShopifyRepo.getInstance(RemoteSource())
-            Log.d("RepoProduct", d.getProducts().count().toString())
+            Log.d("RepoProduct", d.getCustomCollections()[0].title!!)
 //            val p = d.getAllProducts()
 //            Log.i("TAG", "getProduct:  ${p.count()}")
 
