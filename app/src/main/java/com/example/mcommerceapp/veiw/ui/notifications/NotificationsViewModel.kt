@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.ui.notifications
+package com.example.mcommerceapp.veiw.ui.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
