@@ -18,4 +18,5 @@
     <string name="prompt_retype_password">Retype password</string>
     <string name="AlreadyHaveAccount">Already have an account?</string>
     <string name="Signin">Signin</string>
+    <string name="DonNotHaveAccount">You do not hava an account?</string>
 </resources>

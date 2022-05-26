@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.shopify_repository.IProducts
 import com.example.mcommerceapp.model.shopify_repository.ShopifyRepo
 import com.example.mcommerceapp.pojo.products.Products
 import kotlinx.coroutines.launch
