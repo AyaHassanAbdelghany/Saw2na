@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Variants(
     @SerializedName("id")
-    var id: Int? = null,
+    var id: Double? = null,
     @SerializedName("product_id")
-    var productId: Int? = null,
+    var productId: Double? = null,
     @SerializedName("title")
     var title: String? = null,
     @SerializedName("price")
@@ -46,7 +46,7 @@ data class Variants(
     @SerializedName("weight_unit")
     var weightUnit: String? = null,
     @SerializedName("inventory_item_id")
-    var inventoryItemId: Int? = null,
+    var inventoryItemId: Double? = null,
     @SerializedName("inventory_quantity")
     var inventoryQuantity: Int? = null,
     @SerializedName("old_inventory_quantity")

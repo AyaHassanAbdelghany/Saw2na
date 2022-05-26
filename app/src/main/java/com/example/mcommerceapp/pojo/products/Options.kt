@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Options(
     @SerializedName("id")
-    var id: Int? = null,
+    var id: Double? = null,
     @SerializedName("product_id")
-    var productId: Int? = null,
+    var productId: Double? = null,
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("position")

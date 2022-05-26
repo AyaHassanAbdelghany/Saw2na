@@ -27,13 +27,15 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             val s: ShopifyService =
                 ShopifyRetrofitHelper.getInstance().create(ShopifyService::class.java)
-            val res = s.getProducts<ProductResponse>("products.json")
-            val gson = Gson()
-            //_text.postValue(gson.fromJson<>(res.body(),Products::class.java))
-            var parsed = res.body() as LinkedTreeMap<String, List<Products>>
-            Log.d("parsed",parsed.get("products").toString())
-            var x = gson.fromJson( parsed.toString() ,Products::class.java)
-            Log.d("x", x.title!!)
+            val res = s.getProducts("products.json")
+            Log.d("parsed", res.products?.get(0)?.title.toString())
+//            val gson = Gson()
+//            //_text.postValue(gson.fromJson<>(res.body(),Products::class.java))
+//            var parsed = res.body() as LinkedTreeMap<String, List<Products>>
+//            Log.d("parsed",parsed.get("products").toString())
+//            var x = gson.fromJson( parsed.toString() ,Products::class.java)
+//            Log.d("x", x.title!!)
+//
 
             //var result = gson.fromJson( x ,Products::class.java) as ArrayList<Products>
             //_text.postValue(res.body()!!.products)
