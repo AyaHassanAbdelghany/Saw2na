@@ -9,5 +9,7 @@ class Keys {
 
         val BASE_URL: String =
             "https://" + API_KEY + ":" + PASSWORD + "@" + HOST_NAME + "/admin/api/" + VERSION + "/"
+
+        val URL: String = ""
     }
 }
