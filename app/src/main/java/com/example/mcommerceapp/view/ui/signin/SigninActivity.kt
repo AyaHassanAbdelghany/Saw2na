@@ -4,9 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySigninBinding
+import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.ShopifyRepo
 import com.example.mcommerceapp.view.ui.signup.SignUpActivity
 
 
@@ -33,5 +34,8 @@ class SigninActivity : AppCompatActivity() {
         signup.setOnClickListener{
             startActivity(Intent(this , SignUpActivity::class.java))
         }
+
+
+
     }
 }
