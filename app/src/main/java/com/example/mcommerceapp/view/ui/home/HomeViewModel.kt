@@ -5,16 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcommerceapp.network.ShopifyRetrofitHelper
-import com.example.mcommerceapp.network.ShopifyService
-import com.example.mcommerceapp.pojo.products.ProductResponse
+import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.IProducts
+import com.example.mcommerceapp.model.shopify_repository.ShopifyRepo
 import com.example.mcommerceapp.pojo.products.Products
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.internal.LinkedTreeMap
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import java.util.ArrayList
 
 
 class HomeViewModel : ViewModel() {
@@ -22,21 +17,27 @@ class HomeViewModel : ViewModel() {
     private val _text = MutableLiveData<List<Products>>()
     val text: LiveData<List<Products>> = _text
 
-    fun  getProduct(){
+    fun getProduct() {
 
         viewModelScope.launch {
-            val s: ShopifyService =
-                ShopifyRetrofitHelper.getInstance().create(ShopifyService::class.java)
-            val res = s.getProducts("products.json")
-            Log.d("parsed", res.products?.get(0)?.title.toString())
+//            val s: ShopifyService =
+//                ShopifyRetrofitHelper.getInstance().create(ShopifyService::class.java)
+//            val res = s.getProducts("products.json")
 //            val gson = Gson()
-//            //_text.postValue(gson.fromJson<>(res.body(),Products::class.java))
-//            var parsed = res.body() as LinkedTreeMap<String, List<Products>>
-//            Log.d("parsed",parsed.get("products").toString())
-//            var x = gson.fromJson( parsed.toString() ,Products::class.java)
-//            Log.d("x", x.title!!)
-//
 
+            val d = ShopifyRepo.getInstance(RemoteSource())
+            Log.d("RepoProduct", d.getProducts().count().toString())
+//            val p = d.getAllProducts()
+//            Log.i("TAG", "getProduct:  ${p.count()}")
+
+            //  var jsonObject = gson.toJsonTree(res).asJsonObject;
+
+            //   var parsed = res.body() as LinkedTreeMap<String, List<Products>>
+//            Log.d("parsed", res.body().toString())
+//
+//           // var x1 = parsed["products"].toString().replace("\\0"," ")
+//            var x :List<Products> = gson.fromJson( res.body()!!.get("products") , Array<Products>::class.java).toList()
+//            Log.d("x", x.count().toString())
             //var result = gson.fromJson( x ,Products::class.java) as ArrayList<Products>
             //_text.postValue(res.body()!!.products)
         }

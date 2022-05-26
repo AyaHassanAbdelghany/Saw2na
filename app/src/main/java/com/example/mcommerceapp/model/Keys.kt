@@ -7,9 +7,10 @@ class Keys {
         val HOST_NAME = "madalex20220.myshopify.com"
         val VERSION = "2022-01"
 
-        val BASE_URL: String =
-            "https://" + API_KEY + ":" + PASSWORD + "@" + HOST_NAME + "/admin/api/" + VERSION + "/"
+        val PRODUCTS ="products.json"
 
-        val URL: String = ""
+        val CUSTOM_COLLECTIONS ="custom_collections.json"
+        val BASE_URL: String ="https://madalex20220.myshopify.com/admin/api/2022-01/"
+
     }
 }

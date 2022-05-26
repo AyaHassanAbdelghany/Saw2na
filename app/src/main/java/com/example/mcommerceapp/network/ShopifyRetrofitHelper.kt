@@ -18,9 +18,9 @@ class ShopifyRetrofitHelper {
                 var client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
                 retrofit = Retrofit.Builder()
-                    .baseUrl("https://madalex20220.myshopify.com/admin/api/2022-01/")
+                    .baseUrl(Keys.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
+                  //  .client(client)
                     .build()
             }
             return retrofit!!
