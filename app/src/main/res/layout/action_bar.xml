@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.appcompat.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
 
     <SearchView
         android:id="@+id/simpleSearchView"
@@ -12,7 +18,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="5dp"
         android:queryHint="Search"
-        android:background="@drawable/corner_shape"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -36,4 +41,5 @@
         android:src="@drawable/ic_baseline_shopping_cart_24"
         app:layout_constraintTop_toTopOf="@id/filterImage"
         app:layout_constraintStart_toEndOf="@id/filterImage"/>
+</androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>
