@@ -12,16 +12,19 @@
         android:theme="@style/Theme.MCommerceApp">
 
       <activity android:name=".MainActivity"/>
-        <activity android:name=".view.ui.signin.SigninActivity"/>
-        <activity android:name=".view.ui.signup.SignUpActivity"/>
-        <activity
-            android:name=".view.ui.feature_product.CategorizedProductActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+        <activity android:name="com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivity"/>
+        <activity
+            android:name=".view.ui.feature_product.CategorizedProductActivity"
+            android:exported="false"
+            android:label="@string/app_name">
+
         </activity>
     </application>
 
