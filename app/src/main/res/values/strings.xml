@@ -19,4 +19,6 @@
     <string name="AlreadyHaveAccount">Already have an account?</string>
     <string name="Signin">Signin</string>
     <string name="DonNotHaveAccount">You do not hava an account?</string>
+
+    <string name="categorytype">CategoryType</string>
 </resources>
