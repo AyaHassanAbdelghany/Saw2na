@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_signin.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_advertise.xml" value="0.5542763157894737" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_brand.xml" value="0.1526268115942029" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_catogery.xml" value="0.1526268115942029" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable/myrect.xml" value="0.153" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1435374149659864" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />

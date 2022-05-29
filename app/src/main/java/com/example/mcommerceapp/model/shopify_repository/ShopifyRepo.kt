@@ -13,7 +13,7 @@ class ShopifyRepo private  constructor(private var remoteSource :RemoteSource):I
 
         fun getInstance(remoteSource: RemoteSource): ShopifyRepo {
 
-                return shopifyRepo ?: ShopifyRepo(remoteSource)
+            return shopifyRepo ?: ShopifyRepo(remoteSource)
         }
     }
 
@@ -23,7 +23,7 @@ class ShopifyRepo private  constructor(private var remoteSource :RemoteSource):I
     }
 
     override suspend fun getCustomCollections(): ArrayList<CustomCollections> {
-      return  remoteSource.getCustomCollections()
+        return  remoteSource.getCustomCollections()
     }
 
 }
