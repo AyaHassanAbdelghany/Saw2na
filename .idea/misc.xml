@@ -16,10 +16,28 @@
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_sign_up.xml" value="0.19114583333333332" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_signin.xml" value="0.19114583333333332" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable/card_border.xml" value="0.1495" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable/myrect.xml" value="0.1495" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/action_bar.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_categorized_product.xml" value="0.1" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_main.xml" value="0.11458333333333333" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_product_detail.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_sign_up.xml" value="0.11458333333333333" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_signin.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_checkout.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_review.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/image_slider_item.xml" value="0.11458333333333333" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_advertise.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_brand.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_catogery.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/product_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/size_item.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
