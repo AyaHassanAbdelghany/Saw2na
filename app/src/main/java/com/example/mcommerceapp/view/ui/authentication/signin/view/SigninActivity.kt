@@ -7,10 +7,13 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySigninBinding
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.example.mcommerceapp.view.ui.authentication.signin.view_model.SigninViewModel
+import com.example.mcommerceapp.view.ui.authentication.signin.view_model.factory.SigninViewModelFactory
 import com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivity
 
 
@@ -35,14 +38,15 @@ class SigninActivity : AppCompatActivity() {
         loading = binding.loadingProgressBar
         signup = binding.signupTextView
 
-        val signinViewModel = SigninViewModel()
+        val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance( getSharedPreferences("user", MODE_PRIVATE)))
+        val signinViewModel = ViewModelProvider(this,viewModelFactory)[SigninViewModel::class.java]
 
         signinViewModel.authState.observe(this){
             loading.visibility = View.INVISIBLE
             when(it){
                 AuthState.SUCCESS ->{
-                    getSharedPreferences("user", MODE_PRIVATE).edit().putBoolean("loggedIn",true).apply()
-                    val name = getSharedPreferences("user", MODE_PRIVATE).getString("name","no name")
+                    signinViewModel.setLoggedInState(true)
+                    val name = signinViewModel.getUser().displayName
                     Toast.makeText(this, "welcome $name...", Toast.LENGTH_SHORT).show()
                 }
                 AuthState.EMAIL_NOT_VERIFIED ->{
@@ -69,8 +73,6 @@ class SigninActivity : AppCompatActivity() {
         signup.setOnClickListener{
             startActivity(Intent(this , SignUpActivity::class.java))
         }
-
-
 
     }
 
