@@ -18,7 +18,6 @@ class ShopifyRepo private  constructor(private var remoteSource :RemoteSource):I
     }
 
     override suspend fun getProducts(): ArrayList<Products> {
-
         return remoteSource.getAllProducts()
     }
 
