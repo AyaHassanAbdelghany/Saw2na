@@ -20,10 +20,10 @@
             android:layout_height="150dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/colored_border_button_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/user" />
+            android:src="@drawable/user"
+             />
 
         <Button
             android:id="@+id/edit_profile_button"
@@ -192,6 +192,7 @@
             android:layout_width="199dp"
             android:layout_height="55dp"
             android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -200,6 +201,7 @@
             android:id="@+id/user_email_textView"
             android:layout_width="199dp"
             android:layout_height="25dp"
+            android:gravity="center_vertical"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/display_name_textView" />
@@ -224,15 +226,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/colored_border_button_background"
-            tools:src="@drawable/user"
-            android:contentDescription="TODO" />
+            android:src="@drawable/user" />
 
         <Button
             android:id="@+id/profile_signin_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="174dp"
+            android:layout_height="56dp"
             android:layout_marginTop="40dp"
+            android:background="@drawable/colored_border_button_background"
             android:text="@string/Signin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
