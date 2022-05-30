@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySigninBinding
+import com.example.mcommerceapp.databinding.FragmentMoreBinding
 import com.example.mcommerceapp.databinding.FragmentProfileBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
@@ -20,15 +21,18 @@ import com.example.mcommerceapp.view.ui.profile.view_model.factory.ProfileViewMo
 
 class Profile : Fragment() {
 
-    private lateinit var binding: FragmentProfileBinding
+    private var _binding: FragmentProfileBinding? = null
+
+    private val binding get() = _binding!!
+
     private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -74,6 +78,11 @@ class Profile : Fragment() {
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

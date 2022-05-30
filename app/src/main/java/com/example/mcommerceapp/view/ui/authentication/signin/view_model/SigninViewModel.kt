@@ -24,7 +24,7 @@ class SigninViewModel(var userRepo: UserRepo) : ViewModel() {
 
 
             if (firebaseAuth.currentUser!!.isEmailVerified) {
-
+                firebaseAuth.currentUser!!.sendEmailVerification()
                 Log.i("TAG","Email signin is successful")
                 _authState.value = AuthState.SUCCESS
 
