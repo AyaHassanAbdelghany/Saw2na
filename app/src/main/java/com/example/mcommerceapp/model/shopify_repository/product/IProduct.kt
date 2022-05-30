@@ -9,4 +9,5 @@ interface IProducts {
     suspend fun getProductsTypes(fields:String): ArrayList<ProductFields>
     suspend fun getSmartCollections(): ArrayList<SmartCollections>
     suspend fun getProductDetail(id: Long): Products
+
 }
