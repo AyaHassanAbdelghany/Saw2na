@@ -12,7 +12,6 @@ import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.shopify_repository.smartcollections.SmartCollectionsRepo
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 import com.example.mcommerceapp.view.ui.home.adapter.CategoryAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
@@ -47,8 +46,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun init(){
-        homeVMFactory = HomeViewModelFactory(SmartCollectionsRepo.getInstance(RemoteSource())
-            ,ProductRepo.getInstance(RemoteSource()))
+        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         categoryAdapter = CategoryAdapter()
         vendorAdapter = VendorAdapter(requireContext())

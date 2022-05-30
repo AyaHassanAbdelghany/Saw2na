@@ -3,6 +3,7 @@ package com.example.mcommerceapp.model.shopify_repository.product
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
+import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
 class ProductRepo private  constructor(private var remoteSource : RemoteSource): IProducts{
 
@@ -20,6 +21,10 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
 
     override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
         return remoteSource.getProductsTypes(fields)
+    }
+
+    override suspend fun getSmartCollections(): ArrayList<SmartCollections> {
+        return remoteSource.getSmartCollections()
     }
 
 }

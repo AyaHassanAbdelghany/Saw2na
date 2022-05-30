@@ -8,6 +8,5 @@ class Keys {
 
         val PRODUCT_TYPE ="product_type"
         val BASE_URL: String ="https://madalex20220.myshopify.com/admin/api/2022-01/"
-
     }
 }

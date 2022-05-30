@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.shopify_repository.product.IProducts
-import com.example.mcommerceapp.model.shopify_repository.smartcollections.ISmartCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class HomeViewModel(iSmartCollections: ISmartCollections,iProducts :IProducts): ViewModel() {
-
-    private val _iSmartCollections :ISmartCollections = iSmartCollections
+class HomeViewModel(iProducts :IProducts): ViewModel() {
     private val _iProducts :IProducts = iProducts
 
 
@@ -31,7 +28,7 @@ class HomeViewModel(iSmartCollections: ISmartCollections,iProducts :IProducts): 
 
     fun getProduct(fields:String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val vendors = _iSmartCollections.getSmartCollections()
+            val vendors = _iProducts.getSmartCollections()
             val category = _iProducts.getProductsTypes(fields)
             Log.d("aya",category.toString())
 
