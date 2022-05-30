@@ -47,6 +47,11 @@ class Profile : Fragment() {
             startActivity(Intent(requireContext(),SigninActivity::class.java))
         }
 
+        val user = viewModel.getUser()
+
+        binding.displayNameTextView.text = user.displayName
+        binding.userEmailTextView.text = user.email
+
 
     }
 
@@ -54,7 +59,8 @@ class Profile : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        val loggedIn = viewModel.getLoggedInState()
+        var loggedIn = viewModel.getLoggedInState()
+        //loggedIn = true
 
         Log.i("TAG", "onViewCreated: logged = $loggedIn ")
         when {
