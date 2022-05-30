@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.view.ui.product_detail
+package com.example.mcommerceapp.view.ui.product_detail.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color

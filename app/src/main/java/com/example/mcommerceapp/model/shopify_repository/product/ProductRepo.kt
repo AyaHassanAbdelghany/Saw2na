@@ -27,4 +27,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         return remoteSource.getSmartCollections()
     }
 
+    override suspend fun getProductDetail(id: Long): Products{
+        return remoteSource.getProductDetail(id)
+    }
 }

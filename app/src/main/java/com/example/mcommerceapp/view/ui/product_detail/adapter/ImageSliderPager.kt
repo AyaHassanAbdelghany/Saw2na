@@ -9,8 +9,9 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
+import com.example.mcommerceapp.pojo.products.Images
 
-class ImageSlideAdapter(private val context: Context, private var imageList: List<String>) : PagerAdapter() {
+class ImageSlideAdapter(private val context: Context, private var imageList: List<Images>) : PagerAdapter() {
     override fun getCount(): Int {
         return imageList.size
     }
@@ -26,7 +27,7 @@ class ImageSlideAdapter(private val context: Context, private var imageList: Lis
 
         imageList[position].let {
             Glide.with(context)
-                .load(it)
+                .load(it.src)
                 .into(ivImages);
         }
         val vp = container as ViewPager

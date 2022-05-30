@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.ui.product_detail.ProductDetail"
+    tools:context=".view.ui.product_detail.view.ProductDetail"
     tools:showIn="@layout/activity_product_detail">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
+            android:id="@+id/ProductRating"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +87,7 @@
             android:layout_height="wrap_content"
             app:readMoreColor="@color/black"
             app:readMoreMaxLine="2"
-            app:readMoreText="See more"
+            app:readMoreText="                     See more"
             app:layout_constraintStart_toStartOf="@id/text2"
             app:layout_constraintTop_toBottomOf="@id/text2"/>
 

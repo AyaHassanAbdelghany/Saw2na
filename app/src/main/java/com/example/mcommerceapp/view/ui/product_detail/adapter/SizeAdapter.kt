@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.view.ui.product_detail
+package com.example.mcommerceapp.view.ui.product_detail.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
-import java.util.*
 
 class SizeAdapter(private var listSize: List<String>, var context: Context): RecyclerView.Adapter<SizeAdapter.ViewHolder>() {
 

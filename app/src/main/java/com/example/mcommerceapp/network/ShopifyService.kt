@@ -1,7 +1,5 @@
 package com.example.mcommerceapp.network
 
-import com.example.mcommerceapp.pojo.products.ProductResponse
-import com.example.mcommerceapp.pojo.products.ProductsFieldsResponse
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.*
@@ -13,8 +11,9 @@ interface ShopifyService {
     )
     @GET("{resource}")
     suspend fun get(
-        @Path("resource") resources: String
+        @Path("resource", encoded = true) resources: String
     ): Response<JsonObject>
+
 
     @Headers(
         "X-Shopify-Access-Token: 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",
