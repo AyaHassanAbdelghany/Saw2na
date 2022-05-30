@@ -24,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        <activity android:name="com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity"
-            android:exported="false">
         </activity>
         <activity android:name=".view.ui.authentication.signup.view.SignUpActivity" />
         <activity

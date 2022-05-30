@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnItemSelectedListener{ item ->
             when(item.itemId) {
                 R.id.navigation_home->setCurrentFragment(HomeFragment())
-                R.id.profile->setCurrentFragment(Profile())
+                R.id.navigation_profile->setCurrentFragment(Profile())
 //                R.id.settings->setCurrentFragment(thirdFragment)
             }
             true

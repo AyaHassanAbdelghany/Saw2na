@@ -30,4 +30,5 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="login_first">Login First</string>
     <string name="sign_in_first">Sign in first</string>
+    <string name="profile">Profile</string>
 </resources>
