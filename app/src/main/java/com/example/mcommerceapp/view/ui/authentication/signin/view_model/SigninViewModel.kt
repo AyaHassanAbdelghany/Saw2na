@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.google.firebase.auth.FirebaseAuth
 
-class SigninViewModel : ViewModel() {
+class SigninViewModel(var userRepo: UserRepo) : ViewModel() {
 
     private val _authState by lazy { MutableLiveData<String>() }
     val authState: LiveData<String> = _authState
@@ -38,6 +40,15 @@ class SigninViewModel : ViewModel() {
         }
 
     }
+
+    fun getUser():User{
+        return userRepo.getUser()
+    }
+
+    fun setLoggedInState(state:Boolean){
+        userRepo.setLoggedInState(state)
+    }
+
 
 }
 

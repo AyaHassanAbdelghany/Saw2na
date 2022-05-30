@@ -6,10 +6,16 @@ import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySignUpBinding
+import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
+import com.example.mcommerceapp.view.ui.authentication.signin.view_model.SigninViewModel
+import com.example.mcommerceapp.view.ui.authentication.signin.view_model.factory.SigninViewModelFactory
 import com.example.mcommerceapp.view.ui.authentication.signup.view_model.SignupViewModel
+import com.example.mcommerceapp.view.ui.authentication.signup.view_model.factory.SignupViewModelFactory
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -28,15 +34,20 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel = SignupViewModel()
+        initViews()
+
+        val viewModelFactory = SignupViewModelFactory(UserRepo.getInstance( getSharedPreferences("user", MODE_PRIVATE)))
+        val viewModel = ViewModelProvider(this,viewModelFactory)[SignupViewModel::class.java]
+
         viewModel.authState.observe(this) {
             loading.visibility = View.INVISIBLE
             when (it) {
                 AuthState.SUCCESS -> {
                     Toast.makeText(this, "please check your mail ..", Toast.LENGTH_SHORT).show()
-                    val data = getSharedPreferences("user", MODE_PRIVATE)
-                    data.edit().putString("name", displayNameEditText.text.toString())
-                        .putString("email", emailEditText.text.toString()).apply()
+
+                    val user = User( displayNameEditText.text.toString(), emailEditText.text.toString())
+                    viewModel.setUser(user)
+
                     finish()
                 }
                 AuthState.LOADING -> loading.visibility = View.VISIBLE
@@ -47,14 +58,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        displayNameEditText = binding.displayNameEditText
-        emailEditText = binding.usernameEditText
-        passwordEditText = binding.passwordEditText
-        confirmPasswordEditText = binding.retypePasswordEditText
 
-        signupButton = binding.signupButton
-        loading = binding.loadingProgressBar
-        signinTextView = binding.signinTextView
 
         signupButton.setOnClickListener {
 
@@ -67,6 +71,17 @@ class SignUpActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun initViews(){
+        displayNameEditText = binding.displayNameEditText
+        emailEditText = binding.usernameEditText
+        passwordEditText = binding.passwordEditText
+        confirmPasswordEditText = binding.retypePasswordEditText
+
+        signupButton = binding.signupButton
+        loading = binding.loadingProgressBar
+        signinTextView = binding.signinTextView
     }
 
     private fun isEmailValid(): Boolean {
