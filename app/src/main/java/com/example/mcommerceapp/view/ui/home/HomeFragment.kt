@@ -1,45 +1,72 @@
 package com.example.mcommerceapp.view.ui.home
 
+
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentHomeBinding
+import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.smartcollections.SmartCollectionsRepo
+import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
+import com.example.mcommerceapp.view.ui.home.adapter.CategoryAdapter
+import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
+import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
+import com.example.mcommerceapp.view.ui.home.viewmodelfactory.HomeViewModelFactory
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeVM: HomeViewModel
+    private lateinit var homeVMFactory: HomeViewModelFactory
+    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var vendorAdapter: VendorAdapter
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-
-        homeViewModel.getProduct()
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it.toString()
-        }
-        return root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        init()
+        return binding.root
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onResume() {
+        super.onResume()
+        homeVM.getProduct(Keys.PRODUCT_TYPE)
+        observerVendors()
+        observerCategories()
+    }
+
+    private fun init(){
+        homeVMFactory = HomeViewModelFactory(SmartCollectionsRepo.getInstance(RemoteSource())
+            ,ProductRepo.getInstance(RemoteSource()))
+        homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
+        categoryAdapter = CategoryAdapter()
+        vendorAdapter = VendorAdapter(requireContext())
+        binding.recyclerListVendor.adapter = vendorAdapter
+        binding.recyclerListCatogery.adapter = categoryAdapter
+    }
+
+    private fun observerVendors(){
+        homeVM.vendors.observe(viewLifecycleOwner){
+            vendorAdapter.setData(it)
+            binding.recyclerListVendor.adapter = vendorAdapter
+        }
+    }
+
+    private fun observerCategories(){
+        homeVM.catogeries.observe(viewLifecycleOwner){
+            categoryAdapter.setData(it)
+            binding.recyclerListCatogery.adapter = categoryAdapter
+        }
     }
 }

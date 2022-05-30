@@ -1,22 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <include layout="@layout/action_bar"
+        android:id="@+id/search"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        app:layout_constraintTop_toBottomOf="@id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:id="@+id/advertise"
+                app:layout_constraintTop_toTopOf="@id/constraint"
+                app:layout_constraintStart_toStartOf="@id/constraint"
+                android:text="Advertisement"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_list_advertise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/advertise"
+                app:layout_constraintTop_toBottomOf="@id/advertise"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:listitem="@layout/item_list_advertise" />
+
+            <TextView
+                android:id="@+id/catogery"
+                app:layout_constraintTop_toBottomOf="@id/recycler_list_advertise"
+                app:layout_constraintStart_toStartOf="@id/constraint"
+                android:text="Catogery"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_constraintTop_toBottomOf="@id/recycler_list_advertise"
+                app:layout_constraintStart_toStartOf="@id/catogery"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/recycler_list_catogery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_list_catogery" />
+
+            <ImageView
+                android:id="@id/advertise_image"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/catogery"
+                app:layout_constraintTop_toBottomOf="@id/recycler_list_catogery"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.3"
+                android:src="@drawable/promo"
+                >
+            </ImageView>
+
+            <TextView
+                android:id="@+id/brand"
+                app:layout_constraintTop_toBottomOf="@id/advertise_image"
+                app:layout_constraintStart_toStartOf="@id/constraint"
+                android:text="Brands"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_constraintTop_toBottomOf="@id/brand"
+                app:layout_constraintStart_toStartOf="@id/brand"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/recycler_list_vendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_list_vendor" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
