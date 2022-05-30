@@ -16,49 +16,148 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="152dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/colored_border_button_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/display_name_textView"
-            android:layout_width="199dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="152dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/user_email_textView"
-            android:layout_width="199dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="15dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/display_name_textView" />
+            tools:src="@drawable/user" />
 
         <Button
             android:id="@+id/edit_profile_button"
             android:layout_width="134dp"
             android:layout_height="48dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/colored_border_button_background"
             android:text="@string/edit_profile"
+            android:textColor="#00838F"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/user_email_textView" />
 
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="312dp"
             android:layout_height="59dp"
-            android:layout_marginTop="46dp"
-            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
             android:background="@drawable/colored_border_button_background"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.404"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_shopping_cart_24"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:layout_width="234dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/pending_shipments"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/navigate_arrow"
+                android:contentDescription="TODO" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="312dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/colored_border_button_background"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.414"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_shopping_cart_24"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:layout_width="234dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/pending_payments"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/navigate_arrow" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="312dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/colored_border_button_background"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.414"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_shopping_cart_24" />
+
+            <TextView
+                android:layout_width="234dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/finished_orders"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/navigate_arrow" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="312dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/colored_border_button_background"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.414"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_button">
 
@@ -75,9 +174,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:text="@string/all_my_orders"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/all_my_orders" />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView14"
@@ -88,112 +187,22 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="312dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="128dp"
-            android:orientation="horizontal"
-            android:background="@drawable/colored_border_button_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_button">
+        <TextView
+            android:id="@+id/display_name_textView"
+            android:layout_width="199dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_shopping_cart_24" />
-
-            <TextView
-                android:layout_width="234dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/pending_shipments" />
-
-            <ImageView
-                android:layout_width="37dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/navigate_arrow" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="312dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="212dp"
-            android:orientation="horizontal"
-            android:background="@drawable/colored_border_button_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_button">
-
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_shopping_cart_24" />
-
-            <TextView
-                android:layout_width="234dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/pending_payments" />
-
-            <ImageView
-                android:layout_width="37dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/navigate_arrow" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="312dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="288dp"
-            android:orientation="horizontal"
-            android:background="@drawable/colored_border_button_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_button">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_shopping_cart_24" />
-
-            <TextView
-                android:layout_width="234dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/finished_orders" />
-
-            <ImageView
-                android:layout_width="37dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/navigate_arrow" />
-
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/user_email_textView"
+            android:layout_width="199dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/display_name_textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -203,6 +212,7 @@
         android:layout_height="match_parent"
         android:id="@+id/not_loggedIn_container"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -210,13 +220,16 @@
             android:id="@+id/imageView15"
             android:layout_width="200dp"
             android:layout_height="202dp"
-            android:layout_marginTop="212dp"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            android:background="@drawable/colored_border_button_background"
+            tools:src="@drawable/user"
+            android:contentDescription="TODO" />
 
         <Button
+            android:id="@+id/profile_signin_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -230,6 +243,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="31dp"
+            android:textStyle="bold"
+            android:textSize="25sp"
             android:text="@string/sign_in_first"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

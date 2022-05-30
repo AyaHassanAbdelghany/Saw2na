@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mcommerceapp.databinding.ActivityMainBinding
 import com.example.mcommerceapp.view.ui.home.HomeFragment
+import com.example.mcommerceapp.view.ui.profile.view.Profile
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,20 +26,11 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnItemSelectedListener{ item ->
             when(item.itemId) {
                 R.id.navigation_home->setCurrentFragment(HomeFragment())
-//                R.id.person->setCurrentFragment(secondFragment)
+                R.id.profile->setCurrentFragment(Profile())
 //                R.id.settings->setCurrentFragment(thirdFragment)
-
             }
             true
         }
-//        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-//            )
-//        )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        //navView.setupWithNavController(navController)
     }
 
     private fun setCurrentFragment(fragment:Fragment)=
