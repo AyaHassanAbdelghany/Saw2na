@@ -9,7 +9,7 @@ import com.example.mcommerceapp.databinding.ItemListCatogeryBinding
 
 class CategoryAdapter  : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
 
-    private  var category : List<String> = listOf()
+    private  var category : MutableSet<String> = mutableSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemListCatogeryBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -19,7 +19,7 @@ class CategoryAdapter  : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val currentItem = category[position]
+        val currentItem = category.elementAt(position)
 
         holder.binding.apply {
             catogeryNameText.text = currentItem
@@ -30,7 +30,7 @@ class CategoryAdapter  : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
         return category.count()
     }
 
-    fun setData(category: List<String>){
+    fun setData(category: MutableSet<String>){
         this.category = category
         notifyDataSetChanged()
     }
