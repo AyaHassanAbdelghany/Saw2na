@@ -9,13 +9,28 @@
         android:id="@+id/navigation_home"
         android:name="com.example.mcommerceapp.view.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"
+        >
+        <action
+            android:id="@+id/feature_product"
+            app:destination="@id/navigation_feature_Product"
+            >
+        </action>
+        <action
+            android:id="@+id/category"
+            app:destination="@id/navigation_category"
+            >
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_feature_Product"
+        android:name="com.example.mcommerceapp.view.ui.dashboard.DashboardFragment"
+        tools:layout="@layout/categorized_product_screen" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_category"
         android:name="com.example.mcommerceapp.view.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_category" />
 
     <fragment
         android:id="@+id/navigation_profile"

@@ -1,6 +1,5 @@
 package com.example.mcommerceapp.view.ui.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,11 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 class HomeViewModel(iProducts :IProducts): ViewModel() {
+
     private val _iProducts :IProducts = iProducts
-
-
     private val _vendors = MutableLiveData<MutableMap<String,String>>()
     var  vendors : LiveData<MutableMap<String,String>>  = _vendors
     private val _catogeries = MutableLiveData<MutableSet<String>>()
@@ -30,8 +27,6 @@ class HomeViewModel(iProducts :IProducts): ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val vendors = _iProducts.getSmartCollections()
             val category = _iProducts.getProductsTypes(fields)
-            Log.d("aya",category.toString())
-
             getVendors(vendors)
             getCategories(category)
             withContext(Dispatchers.Main){
