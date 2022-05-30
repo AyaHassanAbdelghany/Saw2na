@@ -12,11 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceApp">
         <activity
-            android:name=".view.ui.product_detail.ProductDetail"
+            android:name=".view.ui.product_detail.ScrollingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/Theme.MCommerceApp.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
         <activity android:name=".view.ui.authentication.signin.view.SigninActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.ui.product_detail.ProductDetail"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
