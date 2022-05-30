@@ -77,4 +77,10 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
 
-    }
+    //CircleIndicator
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    //expanded TextView
+    implementation 'com.ms-square:expandableTextView:0.1.4'
+    implementation 'kr.co.prnd:readmore-textview:1.0.0'
+}

@@ -13,41 +13,54 @@ import com.example.mcommerceapp.pojo.products.ProductsFieldsResponse
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 import com.google.gson.Gson
 import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 
 class RemoteSource : IRemoteSource {
     private val gson = Gson()
 
-    private val api : ShopifyService =
+    private val api: ShopifyService =
         ShopifyRetrofitHelper.getInstance().create(ShopifyService::class.java)
 
 
-    override suspend fun  getAllProducts(): ArrayList<Products>{
+    override suspend fun getAllProducts(): ArrayList<Products> {
         val res = api.get(Keys.PRODUCTS)
-    return gson.fromJson(
+        return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
 
-    override suspend fun  getProductsTypes(fields:String): ArrayList<ProductFields>{
-        val res = api.getQuery(Keys.PRODUCTS,fields)
+    override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
+        val res = api.getQuery(Keys.PRODUCTS, fields)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<ArrayList<ProductFields>>() {}.type
         )
     }
+
     override suspend fun getSmartCollections(): ArrayList<SmartCollections> {
         val res = api.get(Keys.SMART_COLLECTIONS)
         return gson.fromJson(
             res.body()!!.get("smart_collections") as JsonArray,
             object : TypeToken<ArrayList<SmartCollections>>() {}.type
-        )    }
+        )
+    }
+
+    override suspend fun getProductDetail(id: Long): Products{
+        val res = api.get("products${"/$id"}.json")
+        Log.d("TAG", "getProductDetail: " + res.code())
+        Log.d("detail", res.body().toString())
+        return gson.fromJson(
+            res.body()!!.get("product") as JsonObject,
+            object : TypeToken<Products>() {}.type
+        )
+    }
 
 
-    private inline fun <reified T>parsingJsonToObject(jsonObject: JsonArray) : T {
+    private inline fun <reified T> parsingJsonToObject(jsonObject: JsonArray): T {
         val gson = Gson()
-        var x = gson.fromJson( jsonObject , T::class.java)
+        var x = gson.fromJson(jsonObject, T::class.java)
         return x
     }
 }
