@@ -7,27 +7,28 @@ class UserRepo private constructor(private val sharedPreferences: SharedPreferen
 
     companion object {
         private val userRepo: UserRepo? = null
-        fun getInstance( sharedPreferences: SharedPreferences): UserRepo {
+        fun getInstance(sharedPreferences: SharedPreferences): UserRepo {
             return userRepo ?: UserRepo(sharedPreferences)
         }
     }
 
-    fun setLoggedInState(state :Boolean){
-      sharedPreferences.edit().putBoolean("loggedIn",state).apply()
+    fun setLoggedInState(state: Boolean) {
+        sharedPreferences.edit().putBoolean("loggedIn", state).apply()
     }
 
-    fun setUser(user: User){
+    fun setUser(user: User) {
         sharedPreferences.edit().putString("name", user.displayName)
-            .putString("email",user.email).apply()
+            .putString("email", user.email).apply()
     }
 
-    fun getLoggedInState() :Boolean{
-        return sharedPreferences.getBoolean("loggedIn",false)
+    fun getLoggedInState(): Boolean {
+        return sharedPreferences.getBoolean("loggedIn", false)
     }
-    fun getUser():User{
-        val name = sharedPreferences.getString("name","no name")
-        val email = sharedPreferences.getString("email","no email")
-        return User(name!!,email!!)
+
+    fun getUser(): User {
+        val name = sharedPreferences.getString("name", "no name")
+        val email = sharedPreferences.getString("email", "no email")
+        return User(name!!, email!!)
     }
 
 }

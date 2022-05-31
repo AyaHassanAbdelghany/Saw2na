@@ -5,7 +5,7 @@ import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
-class ProductRepo private  constructor(private var remoteSource : RemoteSource): IProducts{
+class ProductRepo private constructor(private var remoteSource: RemoteSource) : IProducts {
 
     companion object {
         private val productRepo: ProductRepo? = null
@@ -16,7 +16,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
     }
 
     override suspend fun getProducts(): ArrayList<Products> {
-       return remoteSource.getAllProducts()
+        return remoteSource.getAllProducts()
     }
 
     override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
