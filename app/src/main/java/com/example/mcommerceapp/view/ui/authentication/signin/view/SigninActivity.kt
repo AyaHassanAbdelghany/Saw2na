@@ -12,7 +12,7 @@ import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySigninBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.AuthState
-import com.example.mcommerceapp.view.ui.authentication.signin.view_model.SigninViewModel
+import com.example.mcommerceapp.view.ui.authentication.signin.view_model.SignInViewModel
 import com.example.mcommerceapp.view.ui.authentication.signin.view_model.factory.SigninViewModelFactory
 import com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivity
 
@@ -39,7 +39,7 @@ class SigninActivity : AppCompatActivity() {
         signup = binding.signupTextView
 
         val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance( getSharedPreferences("user", MODE_PRIVATE)))
-        val signinViewModel = ViewModelProvider(this,viewModelFactory)[SigninViewModel::class.java]
+        val signinViewModel = ViewModelProvider(this,viewModelFactory)[SignInViewModel::class.java]
 
         signinViewModel.authState.observe(this){
             loading.visibility = View.INVISIBLE
@@ -65,7 +65,7 @@ class SigninActivity : AppCompatActivity() {
         signinButton.setOnClickListener{
             if (isEmailValid() && isPasswordValid() ){
                 loading.visibility = View.VISIBLE
-                signinViewModel.signin(emailEditText.text.toString(), passwordEditText.text.toString())
+                signinViewModel.signIn(emailEditText.text.toString(), passwordEditText.text.toString())
             }
 
         }

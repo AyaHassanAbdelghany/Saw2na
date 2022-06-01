@@ -30,7 +30,6 @@
                 android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:contentDescription="TODO"
                 android:src="@drawable/ic_baseline_shopping_cart_24" />
 
             <TextView
@@ -46,7 +45,6 @@
                 android:layout_width="37dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:contentDescription="TODO"
                 android:src="@drawable/navigate_arrow" />
 
 
@@ -121,7 +119,8 @@
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:paddingEnd="37dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown" />
@@ -130,7 +129,7 @@
                 <ImageView
                     android:layout_width="37dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:src="@drawable/navigate_arrow" />
@@ -174,10 +173,11 @@
                 <Spinner
                     android:id="@+id/language_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:paddingEnd="37dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:spinnerMode="dropdown" />
@@ -186,7 +186,7 @@
                 <ImageView
                     android:layout_width="37dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:src="@drawable/navigate_arrow" />
@@ -220,4 +220,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

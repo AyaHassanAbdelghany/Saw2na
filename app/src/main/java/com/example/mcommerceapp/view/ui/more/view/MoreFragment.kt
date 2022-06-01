@@ -1,10 +1,13 @@
 package com.example.mcommerceapp.view.ui.more.view
 
 import android.R
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +17,7 @@ import com.example.mcommerceapp.databinding.FragmentMoreBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.more.view_model.MoreViewModel
 import com.example.mcommerceapp.view.ui.more.view_model.factory.MoreViewModelFactory
+import java.util.*
 
 
 class MoreFragment : Fragment() {
@@ -40,12 +44,15 @@ class MoreFragment : Fragment() {
 
 
         binding.signOutButton.setOnClickListener {
-            viewModel.signOut()
+         //   viewModel.signOut()
             Toast.makeText(requireContext(), "Signed Out Successfully", Toast.LENGTH_SHORT).show()
+
         }
 
+
+
         val currencyArray = arrayOf("USD", "EUR", "EGP")
-        val languagesArray = arrayOf("Arabic","English")
+        val languagesArray = arrayOf("ar","en")
         val currencyAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),R.layout.simple_spinner_item, currencyArray)
         currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.currencySpinner.adapter = currencyAdapter
@@ -53,6 +60,24 @@ class MoreFragment : Fragment() {
         val languageAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),R.layout.simple_spinner_item, languagesArray)
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.languageSpinner.adapter = languageAdapter
+
+        binding.languageSpinner.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val lang = languagesArray[position]
+                val locale = Locale(lang)
+                Locale.setDefault(locale)
+                val resources: Resources = resources
+                val config: Configuration = resources.configuration
+                config.setLocale(locale)
+                resources.updateConfiguration(config, resources.displayMetrics)
+
+            }
+
+        }
 
     }
 

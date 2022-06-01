@@ -1,15 +1,12 @@
 package com.example.mcommerceapp.view.ui.more.view_model
 
 import androidx.lifecycle.ViewModel
-import com.example.mcommerceapp.model.user_repository.UserRepo
-import com.google.firebase.auth.FirebaseAuth
+import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.FirebaseAuthRepo
 
-class MoreViewModel(private val userRepo: UserRepo) : ViewModel() {
+class MoreViewModel(private val userRepo: FirebaseAuthRepo) : ViewModel() {
 
     fun signOut(){
-        userRepo.setLoggedInState(false)
-        val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-        firebaseAuth.signOut()
+        userRepo.signOut()
     }
 
 }
