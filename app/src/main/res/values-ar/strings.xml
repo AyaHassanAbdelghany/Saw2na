@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">M Commerce App</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">البريد الالكتروني</string>
+    <string name="prompt_password">الرقم السري</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">تسجيل</string>
+    <string name="welcome">"اهلا"</string>
+    <string name="invalid_username">البريد غير صحيح</string>
+    <string name="invalid_password">الرقم السري يجب ان يحتوي علي اكثر من 5 حروف او ارقام</string>
+    <string name="login_failed">"فشل التسجيل"</string>
+    <string name="Signup">تسجيل</string>
+    <string name="DisplayName">الاسم</string>
+    <string name="EmailAddress">البريد</string>
+    <string name="prompt_retype_password">اعد الرقم السري</string>
+    <string name="AlreadyHaveAccount">لديك حساب بالفعل؟</string>
+    <string name="Signin">Signin</string>
+    <string name="DonNotHaveAccount">ليس لديك حساب؟</string>
+
+    <string name="categorytype">CategoryType</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_my_orders">كل الطلبات</string>
+    <string name="finished_orders">الطلبات المنتهيه</string>
+    <string name="pending_payments">الطلبات الجاريه</string>
+    <string name="pending_shipments">التوصيل الجاري</string>
+    <string name="edit_profile">تعديل الملف</string>
+    <string name="login_first">سجل دخول اولا</string>
+    <string name="sign_in_first">سجل دخول اولا</string>
+    <string name="profile">الحساب الشخصي</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="more">المزيد</string>
+    <string name="shipping_address">عنوان الشحن</string>
+    <string name="payment_method">طرق الدفع</string>
+    <string name="currency">العملة</string>
+    <string name="language">اللغة</string>
+</resources>

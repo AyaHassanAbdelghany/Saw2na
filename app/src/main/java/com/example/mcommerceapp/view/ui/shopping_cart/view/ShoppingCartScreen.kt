@@ -1,7 +1,7 @@
 package com.example.mcommerceapp.view.ui.shopping_cart.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
@@ -17,9 +17,9 @@ class ShoppingCartScreen : AppCompatActivity() {
 
         cartItemsRecyclerView = findViewById(R.id.cart_items_recycler_view)
         cartItemsRecyclerView.setHasFixedSize(true)
-        val timeLinearLayoutManager = LinearLayoutManager(this)
-        timeLinearLayoutManager.orientation = RecyclerView.VERTICAL
-        cartItemsRecyclerView.layoutManager = timeLinearLayoutManager
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
+        cartItemsRecyclerView.layoutManager = linearLayoutManager
 
         cartItemsAdapter = CartItemsAdapter(this)
         cartItemsRecyclerView.adapter = cartItemsAdapter
