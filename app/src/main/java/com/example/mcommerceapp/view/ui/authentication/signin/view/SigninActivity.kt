@@ -38,7 +38,7 @@ class SigninActivity : AppCompatActivity() {
         loading = binding.loadingProgressBar
         signup = binding.signupTextView
 
-        val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance( getSharedPreferences("user", MODE_PRIVATE)))
+        val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance( this))
         val signinViewModel = ViewModelProvider(this,viewModelFactory)[SignInViewModel::class.java]
 
         signinViewModel.authState.observe(this){

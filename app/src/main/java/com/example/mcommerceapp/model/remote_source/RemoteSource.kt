@@ -74,7 +74,7 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         val res = currencyApi.convertCurrency(from, to, amount)
         return gson.fromJson(
             res.body()!!,
-            object : TypeToken<CurrencySymbols>() {}.type
+            object : TypeToken<CurrencyConversion>() {}.type
         )
     }
 }

@@ -34,7 +34,7 @@ class SignUpActivity : AppCompatActivity() {
 
         initViews()
 
-        val viewModelFactory = SignupViewModelFactory(UserRepo.getInstance( getSharedPreferences("user", MODE_PRIVATE)))
+        val viewModelFactory = SignupViewModelFactory(UserRepo.getInstance( this))
         val viewModel = ViewModelProvider(this,viewModelFactory)[SignupViewModel::class.java]
 
         viewModel.authState.observe(this) {
