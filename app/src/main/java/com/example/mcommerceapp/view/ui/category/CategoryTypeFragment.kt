@@ -29,8 +29,7 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
     private var type :String = ""
     private var subCollection :String =""
 
-    private var _binding: FragmentCategoryTypeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentCategoryTypeBinding
     private lateinit var homeVM: HomeViewModel
     private lateinit var homeVMFactory: HomeViewModelFactory
     private lateinit var categoryVM: CategoryViewModel
@@ -48,7 +47,7 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCategoryTypeBinding.inflate(inflater, container, false)
+        binding = FragmentCategoryTypeBinding.inflate(inflater, container, false)
         init()
         return binding.root
     }
@@ -82,6 +81,7 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
             {
                 if (tabTitle == index) {
                     subCollection = index
+                    Log.e("index", index)
                 }
             }
             Log.e("id",subCollection.toString())
@@ -93,8 +93,10 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
     }
     private fun observerCategory(){
         categoryVM.category.observe(viewLifecycleOwner){
-            _binding?.progressBar?.visibility = ProgressBar.INVISIBLE
+           binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it)
+            Log.e("category ",it.toString())
+
             binding.recyclerListCategory.adapter = categoryAdapter
         }
     }
@@ -104,11 +106,6 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
         categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
         categoryAdapter = CategoryAdapter(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onClick(value: String?, type: String) {

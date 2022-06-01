@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +28,7 @@ class HomeViewModel(var iProducts :CollectionsRepo): ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val vendors = iProducts.getSmartCollections()
             val collections = iProducts.getSubCollection(fields)
+            Log.e("TYPE", collections.toString())
             getVendors(vendors)
             getCollections(collections)
             withContext(Dispatchers.Main){
