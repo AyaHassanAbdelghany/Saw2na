@@ -3,23 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable-v24/colored_border_button_background.xml" value="0.1465" />
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable-v24/navigate_arrow.xml" value="0.1465" />
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable/corner_shape.xml" value="0.1465" />
-
-
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_signin.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_advertise.xml" value="0.5542763157894737" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_brand.xml" value="0.1526268115942029" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_catogery.xml" value="0.1526268115942029" />
-
-
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable-v24/colored_border_button_background.xml" value="0.1465" />
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable-v24/navigate_arrow.xml" value="0.1465" />
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable/corner_shape.xml" value="0.1465" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.121" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.121" />
-
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/drawable/myrect.xml" value="0.153" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1435374149659864" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />
@@ -27,21 +21,29 @@
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_sign_up.xml" value="0.19114583333333332" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_signin.xml" value="0.19114583333333332" />
-
-
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_dashboard.xml" value="0.10989583333333333" />
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_home.xml" value="0.10989583333333333" />
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_notifications.xml" value="0.10989583333333333" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_profile.xml" value="0.165625" />
-
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/menu/bottom_nav_menu.xml" value="0.10989583333333333" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable-v24/navigate_arrow.xml" value="0.1425" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable/card_border.xml" value="0.1495" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable/myrect.xml" value="0.1495" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable/shadow.xml" value="0.1425" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/action_bar.xml" value="0.25" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_categorized_product.xml" value="0.1" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_main.xml" value="0.11458333333333333" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_product_detail.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_review.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_sign_up.xml" value="0.11458333333333333" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_signin.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_checkout.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_image.xml" value="0.1082427536231884" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_review.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_size.xml" value="0.1082427536231884" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/content_scrolling.xml" value="0.1082427536231884" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/detail_btn.xml" value="0.5" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/image_slider_item.xml" value="0.11458333333333333" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_advertise.xml" value="0.20416666666666666" />
@@ -49,14 +51,6 @@
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_catogery.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/product_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/size_item.xml" value="0.20416666666666666" />
-
-
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_dashboard.xml" value="0.10989583333333333" />
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_home.xml" value="0.10989583333333333" />
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_notifications.xml" value="0.10989583333333333" />
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_profile.xml" value="0.165625" />
-        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/menu/bottom_nav_menu.xml" value="0.10989583333333333" />
-
       </map>
     </option>
   </component>
