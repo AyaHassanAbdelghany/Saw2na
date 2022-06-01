@@ -4,47 +4,53 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcommerceapp.model.shopify_repository.product.IProducts
+import com.example.mcommerceapp.model.shopify_repository.product.CollectionsRepo
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeViewModel(iProducts :IProducts): ViewModel() {
+class HomeViewModel(var iProducts :CollectionsRepo): ViewModel() {
 
-    private val _iProducts :IProducts = iProducts
-    private val _vendors = MutableLiveData<MutableMap<String,String>>()
-    var  vendors : LiveData<MutableMap<String,String>>  = _vendors
-    private val _catogeries = MutableLiveData<MutableSet<String>>()
-    var  catogeries : LiveData<MutableSet<String>>  = _catogeries
+    private val _vendors = MutableLiveData<MutableMap<String,SmartCollections>>()
+    var  vendors : LiveData<MutableMap<String,SmartCollections>>  = _vendors
 
-    private val productsVendors :MutableMap<String,String> = mutableMapOf()
-    private val productsCategories :MutableSet<String> = mutableSetOf()
+    private val _collections = MutableLiveData<MutableList<String>>()
+    var  collections : LiveData<MutableList<String>>  = _collections
+
+    private val productsVendors :MutableMap<String,SmartCollections> = mutableMapOf()
+    private val productsCollections :MutableList<String> = mutableListOf()
 
 
-    fun getProduct(fields:String) {
+    fun getProduct(fields: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val vendors = _iProducts.getSmartCollections()
-            val category = _iProducts.getProductsTypes(fields)
+            val vendors = iProducts.getSmartCollections()
+            val collections = iProducts.getSubCollection(fields)
             getVendors(vendors)
-            getCategories(category)
+            getCollections(collections)
             withContext(Dispatchers.Main){
                 _vendors.postValue(productsVendors)
-                _catogeries.postValue(productsCategories)
+                _collections.postValue(productsCollections)
             }
         }
     }
 
-    fun getVendors(vendors: ArrayList<SmartCollections>){
+    private fun getVendors(vendors: ArrayList<SmartCollections>){
         for(vendor in vendors){
-            vendor.let { productsVendors.put(vendor.title!!, vendor.image?.src!!) }
+            vendor.let { productsVendors.put(
+                vendor.id!!,
+                SmartCollections(title = vendor.title,image = vendor.image))
+             }
+
         }
     }
 
-    fun getCategories(categories: ArrayList<ProductFields>){
-        for(category in categories){
-            category.productType.let { productsCategories.add(it!!) }
+    private fun getCollections(collections: HashSet<ProductFields>){
+        productsCollections.clear()
+        for(collection in collections){
+            collection.let { productsCollections.add(collection.productType) }
+
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.view.ui.feature_product
+package com.example.mcommerceapp.view.ui.feature_product.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

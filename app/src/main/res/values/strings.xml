@@ -18,6 +18,8 @@
     <string name="prompt_retype_password">Retype password</string>
     <string name="AlreadyHaveAccount">Already have an account?</string>
     <string name="Signin">Signin</string>
+    <string name="fav">Favourite</string>
+    <string name="card">Card</string>
     <string name="DonNotHaveAccount">You do not hava an account?</string>
 
     <string name="categorytype">CategoryType</string>
@@ -37,5 +39,6 @@
     <string name="login_first">Login First</string>
     <string name="sign_in_first">Sign in first</string>
     <string name="profile">Profile</string>
+    <string name="title_activity_main2">MainActivity2</string>
 
 </resources>

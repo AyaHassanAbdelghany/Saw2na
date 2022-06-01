@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.view.ui.category.adapter
+package com.example.mcommerceapp.view.ui.home.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -8,13 +8,10 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.databinding.ItemListCollectionBinding
 import com.example.mcommerceapp.model.Keys
-import com.example.mcommerceapp.pojo.products.ProductFields
-import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
-import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
-class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CollectionAdpater  (private var listner : OnClickListner): RecyclerView.Adapter<CollectionAdpater.ViewHolder>(){
 
-    private  var category : HashSet<ProductFields> = hashSetOf()
+    private  var collection : MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemListCollectionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -24,21 +21,21 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val currentItem = category.elementAt(position)
+        val currentItem = collection[position]
         holder.binding.apply {
-            collectionNameText.text = currentItem.productType
+           collectionNameText.text = currentItem
         }
         holder.binding.constraintCollection.setOnClickListener(
             View.OnClickListener
-            { listner!!.onClick(currentItem.productType,Keys.CATEGORY) })
+        { listner!!.onClick(currentItem,Keys.COLLECTION) })
     }
 
     override fun getItemCount(): Int {
-        return category.count()
+        return collection.count()
     }
 
-    fun setData(category: HashSet<ProductFields>){
-        this.category = category
+    fun setData(collection: MutableList<String>){
+        this.collection = collection
         notifyDataSetChanged()
     }
 

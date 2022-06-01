@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
-import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
-import com.example.mcommerceapp.view.ui.home.viewmodelfactory.HomeViewModelFactory
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
