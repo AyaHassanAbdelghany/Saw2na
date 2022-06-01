@@ -20,7 +20,7 @@ class ShopifyRetrofitHelper {
                 retrofit = Retrofit.Builder()
                     .baseUrl(Keys.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    //.client(client)
+                    .client(client)
                     .build()
             }
             return retrofit!!
