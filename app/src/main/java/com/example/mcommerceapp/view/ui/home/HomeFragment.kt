@@ -2,7 +2,6 @@ package com.example.mcommerceapp.view.ui.home
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ class HomeFragment() : OnClickListner,Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeViewModel
     private lateinit var homeVMFactory: HomeViewModelFactory
-    private lateinit var collectionAdpater: CollectionAdpater
+    private lateinit var collectionAdapter: CollectionAdpater
     private lateinit var vendorAdapter: VendorAdapter
 
 
@@ -56,10 +55,10 @@ class HomeFragment() : OnClickListner,Fragment() {
     private fun init(){
         homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
-        collectionAdpater = CollectionAdpater(this)
+        collectionAdapter = CollectionAdpater(this)
         vendorAdapter = VendorAdapter(requireContext(),this)
         binding.recyclerListVendor.adapter = vendorAdapter
-        binding.recyclerListCollection.adapter = collectionAdpater
+        binding.recyclerListCollection.adapter = collectionAdapter
     }
 
     private fun observerVendors(){
@@ -71,15 +70,15 @@ class HomeFragment() : OnClickListner,Fragment() {
 
     private fun observerCollections(){
         homeVM.collections.observe(viewLifecycleOwner){
-            collectionAdpater.setData(it)
-            binding.recyclerListCollection.adapter = collectionAdpater
+            collectionAdapter.setData(it)
+            binding.recyclerListCollection.adapter = collectionAdapter
 
         }
     }
 
     override fun onClick(value: String?,type:String) {
         val bundle = Bundle()
-         bundle.putString("VALUE", value)
+        bundle.putString("VALUE", value)
         bundle.putString("TYPE", type)
         findNavController(this)?.navigate(R.id.actCategory,bundle);
 

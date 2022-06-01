@@ -6,7 +6,7 @@ import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
 interface IRemoteSource {
-    suspend fun getAllProducts() : ArrayList<Products>
+    suspend fun getAllProducts(fields: String) : ArrayList<Products>
     suspend fun getSmartCollections() : ArrayList<SmartCollections>
 
     suspend fun getCustomCollections() : ArrayList<CustomCollections>

@@ -22,8 +22,6 @@ import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 //}
 
 interface CollectionsRepo {
-    suspend fun getProducts(): ArrayList<Products>
-
     suspend fun getSmartCollections(): ArrayList<SmartCollections>
 
     suspend fun getSubCollection(fields: String): HashSet<ProductFields>
@@ -51,4 +49,9 @@ interface CategoryRepo {
 
 interface CustomCollectionsRepo {
     suspend fun getCustomCollections(): ArrayList<CustomCollections>
+}
+
+interface ProductTypeRepo{
+    suspend fun getProducts(fields: String): ArrayList<Products>
+
 }

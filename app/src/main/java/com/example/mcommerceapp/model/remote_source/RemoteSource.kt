@@ -27,24 +27,17 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
     private val currencyApi: ICurrencyService =
         CurrencyService.getInstance().create(ICurrencyService::class.java)
 
-    override suspend fun getAllProducts(): ArrayList<Products> {
-        val res = api.get(Keys.PRODUCTS)
+    override suspend fun getAllProducts(fields: String): ArrayList<Products> {
+        val res = api.getQuery(Keys.PRODUCTS, fields)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
 
-    override suspend fun getCategoryForCollection(fields: String,collectionId:String): HashSet<ProductFields> {
-        val res = api.getCategoryForCollection(Keys.PRODUCTS, fields,collectionId)
-
-    override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
-        val res = api.getQuery(Keys.PRODUCTS, fields)
-
 
     override suspend fun getCategoryForCollection(fields: String,collectionId:String): HashSet<ProductFields> {
         val res = api.getCategoryForCollection(Keys.PRODUCTS, fields,collectionId)
-
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<HashSet<ProductFields>>() {}.type

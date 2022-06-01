@@ -22,7 +22,7 @@
             android:scaleType="fitXY"
             android:layout_height="120dp" />
         <TextView
-            android:id="@+id/ProductPriceTxt"
+            android:id="@+id/productPriceTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"

@@ -1,60 +1,52 @@
 package com.example.mcommerceapp.view.ui.feature_product.adapter
 
 import android.content.Context
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mcommerceapp.R
+import com.example.mcommerceapp.databinding.ProductCardBinding
 import com.example.mcommerceapp.pojo.products.Products
 
-class CategorizedProductAdapter(private val context: Context,
-                                private val productList: List<String>,
-) :
-BaseAdapter() {
-    private var layoutInflater: LayoutInflater? = null
-    private lateinit var productImage: ImageView
-    private lateinit var productPrice: TextView
-    private lateinit var productName: TextView
+class CategorizedProductAdapter (var context :Context , var listner : OnClickListner) : RecyclerView.Adapter<CategorizedProductAdapter.ViewHolder>(){
+    var productList: List<Products> = mutableListOf()
 
-    override fun getCount(): Int {
-        return productList.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ViewHolder(binding)
     }
-    override fun getItem(position: Int): Any? {
-        return null
-    }
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup
-    ): View? {
-        var convertView = convertView
-        if (layoutInflater == null) {
-            layoutInflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val currentItem = productList[position]
+        holder.binding.apply {
+            productNameTxt.text = currentItem?.title
+
+            Glide.with(context)
+                .load(currentItem?.image?.src)
+                .into(productImage)
+            productPriceTxt.text = currentItem?.variants?.get(0)?.price.toString()
         }
-        if (convertView == null) {
-            convertView = layoutInflater!!.inflate(R.layout.product_card, null)
-        }
-        productImage = convertView!!.findViewById(R.id.productImage)
-        productPrice = convertView.findViewById(R.id.productNameTxt)
-        productPrice = convertView.findViewById(R.id.ProductPriceTxt)
-
-        Glide.with(convertView)
-            .load("https://cdn.shopify.com/s/files/1/0589/7509/2875/products/8072c8b5718306d4be25aac21836ce16.jpg?v=1653403070")
-            .into(productImage)
-
-        //productList[position].image
-        //productList[position].title
-        //productList[position].variants[position].price
-      //  productName.text = "bala7"
-        productPrice.text = "hyjn$"
-        return convertView
+        holder.itemView.setOnClickListener(View.OnClickListener
+        {
+            Log.e("vendorTitle",currentItem.id.toString())
+            listner.onClick(currentItem.id.toString())
+        })
     }
+
+    override fun getItemCount(): Int {
+        return productList.count()
+    }
+
+    fun setData(productList: ArrayList<Products>){
+        this.productList = productList
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(val binding: ProductCardBinding): RecyclerView.ViewHolder(binding.root)
 }

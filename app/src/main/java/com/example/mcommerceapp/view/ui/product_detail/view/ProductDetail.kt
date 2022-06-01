@@ -32,7 +32,9 @@ class ProductDetail : AppCompatActivity() {
         detailVMFactory = ProductDetailVMFactory(ProductRepo.getInstance(RemoteSource()))
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
-        detailVM.getProductDetail(6870134227083)
+        val intent = intent.getStringExtra("PRODUCTS_ID")
+
+        detailVM.getProductDetail(intent!!.toLong())
         detailVM.productDetail.observe(this){
 
             binding.contentDetail.ProductPriceTxt.text = it.variants[0].price
