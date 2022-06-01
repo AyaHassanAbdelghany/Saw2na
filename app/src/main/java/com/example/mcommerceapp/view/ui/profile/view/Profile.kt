@@ -36,13 +36,15 @@ class Profile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireActivity().getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)))
+        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireContext()))
         viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
 
         binding.profileSigninButton.setOnClickListener{
             startActivity(Intent(requireContext(),SigninActivity::class.java))
         }
 
+
+        
         val user = viewModel.getUser()
 
         binding.displayNameTextView.text = user.displayName

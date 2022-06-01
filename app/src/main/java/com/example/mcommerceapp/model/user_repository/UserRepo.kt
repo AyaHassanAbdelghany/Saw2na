@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.model.user_repository
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +11,9 @@ import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.google.firebase.auth.FirebaseAuth
 
-class UserRepo private constructor(private val sharedPreferences: SharedPreferences) : FirebaseAuthRepo , LocalUserInfoRepo {
+class UserRepo private constructor(private val context: Context) : FirebaseAuthRepo , LocalUserInfoRepo {
+
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("user", 0)
 
     private val _signUpAuthState by lazy { MutableLiveData<String>() }
     val signUpAuthState: LiveData<String> =  _signUpAuthState
@@ -22,8 +25,8 @@ class UserRepo private constructor(private val sharedPreferences: SharedPreferen
 
     companion object {
         private val userRepo: UserRepo? = null
-        fun getInstance( sharedPreferences: SharedPreferences): UserRepo {
-            return userRepo ?: UserRepo(sharedPreferences)
+        fun getInstance( context: Context): UserRepo {
+            return userRepo ?: UserRepo(context)
         }
     }
 
