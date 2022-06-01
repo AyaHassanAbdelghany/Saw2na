@@ -1,6 +1,7 @@
 package com.example.mcommerceapp.view.ui.category.adapter
 
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemListCollectionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        Log.e("TAG", "onCreateViewHolder:  ", )
         return ViewHolder(binding)
     }
 
@@ -25,6 +27,8 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentItem = category.elementAt(position)
+        Log.e("TAG", "onBindViewHolder:  ", )
+
         holder.binding.apply {
             collectionNameText.text = currentItem.productType
         }
@@ -39,6 +43,7 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
 
     fun setData(category: HashSet<ProductFields>){
         this.category = category
+        Log.e("TAG", "setData:  ", )
         notifyDataSetChanged()
     }
 

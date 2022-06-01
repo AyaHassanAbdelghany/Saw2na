@@ -2,6 +2,7 @@ package com.example.mcommerceapp.view.ui.category
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class CollectionTabLayoutFragment : Fragment() {
 
-    private  var _binding: FragmentCategoryBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentCategoryBinding
 
     private lateinit var pagerAdapter: PagerAdapter
     private  var value :String =""
@@ -43,7 +43,7 @@ class CollectionTabLayoutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
+        binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
         pagerAdapter = PagerAdapter(this.childFragmentManager, this.lifecycle)
         binding.viewPager.adapter = pagerAdapter
@@ -58,6 +58,8 @@ class CollectionTabLayoutFragment : Fragment() {
 
         pagerAdapter.value = value
         pagerAdapter.type = type
+        Log.e("TYPE", type)
+        Log.e("TYPE", value.toString())
 
         homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
@@ -90,8 +92,5 @@ class CollectionTabLayoutFragment : Fragment() {
 
         })
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }
