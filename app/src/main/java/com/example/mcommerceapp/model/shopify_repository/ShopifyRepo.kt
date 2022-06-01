@@ -2,7 +2,7 @@ package com.example.mcommerceapp.model.shopify_repository
 
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 
-class ShopifyRepo private  constructor(private var remoteSource :RemoteSource)/*: IProducts, ICustomCollections */{
+class ShopifyRepo private constructor(private var remoteSource: RemoteSource)/*: IProducts, ICustomCollections */ {
 
     companion object {
         val PRODUCTS = "PRODUCTS"

@@ -23,5 +23,10 @@ class Keys {
             Review(name = "Ali", rate = 4.5F, date = "16/06/2021", desc = "This is so cool and very comfortable."),
 
         )
+    
+        val PRODUCT_TYPE = "product_type"
+        val BASE_URL: String = "https://madalex20220.myshopify.com/admin/api/2022-01/"
+
+        val CURRENCY_BASE_URL = "https://api.apilayer.com/exchangerates_data/"
     }
 }

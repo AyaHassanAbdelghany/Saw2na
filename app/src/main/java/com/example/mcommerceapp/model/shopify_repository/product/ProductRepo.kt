@@ -17,7 +17,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
     }
 
     override suspend fun getProducts(): ArrayList<Products> {
-       return remoteSource.getAllProducts()
+        return remoteSource.getAllProducts()
     }
 
     override suspend fun getCategoryForCollection(fields: String,collectionId :String): HashSet<ProductFields> {
