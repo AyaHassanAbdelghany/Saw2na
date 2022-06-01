@@ -1,10 +1,11 @@
 package com.example.mcommerceapp.network
 
-import com.example.mcommerceapp.pojo.products.ProductResponse
-import com.example.mcommerceapp.pojo.products.ProductsFieldsResponse
 import com.google.gson.JsonObject
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ShopifyService {
     @Headers(
@@ -23,6 +24,6 @@ interface ShopifyService {
     @GET("{resource}")
     suspend fun getQuery(
         @Path("resource") resources: String, @Query("fields") fields: String
-    ):  Response<JsonObject>
+    ): Response<JsonObject>
 
 }
