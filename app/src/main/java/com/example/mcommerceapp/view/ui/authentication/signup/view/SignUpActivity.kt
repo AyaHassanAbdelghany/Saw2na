@@ -12,8 +12,6 @@ import com.example.mcommerceapp.databinding.ActivitySignUpBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
-import com.example.mcommerceapp.view.ui.authentication.signin.view_model.SigninViewModel
-import com.example.mcommerceapp.view.ui.authentication.signin.view_model.factory.SigninViewModelFactory
 import com.example.mcommerceapp.view.ui.authentication.signup.view_model.SignupViewModel
 import com.example.mcommerceapp.view.ui.authentication.signup.view_model.factory.SignupViewModelFactory
 

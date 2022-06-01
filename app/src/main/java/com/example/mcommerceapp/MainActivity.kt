@@ -1,5 +1,7 @@
 package com.example.mcommerceapp
 
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +12,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mcommerceapp.databinding.ActivityMainBinding
 import com.example.mcommerceapp.view.ui.home.HomeFragment
+import com.example.mcommerceapp.view.ui.more.view.MoreFragment
 import com.example.mcommerceapp.view.ui.profile.view.Profile
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.navigation_home->setCurrentFragment(HomeFragment())
                 R.id.navigation_profile->setCurrentFragment(Profile())
+                R.id.navigation_dashboard -> setCurrentFragment(MoreFragment())
 //                R.id.settings->setCurrentFragment(thirdFragment)
             }
             true
