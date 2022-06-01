@@ -36,20 +36,19 @@ class Profile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireContext()
-//        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireContext()))
-//        viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
-//
-//        binding.profileSigninButton.setOnClickListener{
-//            startActivity(Intent(requireContext(),SigninActivity::class.java))
-//        }
-//
-//
-//
-//        val user = viewModel.getUser()
-//
-//        binding.displayNameTextView.text = user.displayName
-//        binding.userEmailTextView.text = user.email
+        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireContext()))
+        viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
+
+        binding.profileSigninButton.setOnClickListener{
+            startActivity(Intent(requireContext(),SigninActivity::class.java))
+        }
+
+
+
+        val user = viewModel.getUser()
+
+        binding.displayNameTextView.text = user.displayName
+        binding.userEmailTextView.text = user.email
 
     }
 
@@ -57,20 +56,20 @@ class Profile : Fragment() {
     override fun onResume() {
         super.onResume()
 
-//        var loggedIn = viewModel.getLoggedInState()
-//        loggedIn = true
-//
-//        Log.i("TAG", "onViewCreated: logged = $loggedIn ")
-//        when {
-//            loggedIn -> {
-//                binding.notLoggedInContainer.visibility = View.INVISIBLE
-//                binding.loggedInContainer.visibility = View.VISIBLE
-//            }
-//            else -> {
-//                binding.notLoggedInContainer.visibility = View.VISIBLE
-//                binding.loggedInContainer.visibility = View.INVISIBLE
-//            }
-//        }
+        var loggedIn = viewModel.getLoggedInState()
+       // loggedIn = true
+
+        Log.i("TAG", "onViewCreated: logged = $loggedIn ")
+        when {
+            loggedIn -> {
+                binding.notLoggedInContainer.visibility = View.INVISIBLE
+                binding.loggedInContainer.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.notLoggedInContainer.visibility = View.VISIBLE
+                binding.loggedInContainer.visibility = View.INVISIBLE
+            }
+        }
 
     }
 

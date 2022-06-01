@@ -33,7 +33,7 @@ class MoreFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: MoreViewModel
     private var currencyArray :List<String> = ArrayList()
-    private val languagesArray = arrayOf("ar","en")
+    private val languagesArray = arrayOf("en","ar")
 
     private lateinit var currencySpinner: Spinner
     private lateinit var languageSpinner: Spinner
@@ -75,13 +75,13 @@ class MoreFragment : Fragment() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val lang = languagesArray[position]
-//                val locale = Locale(lang)
-//                Locale.setDefault(locale)
-//                val resources: Resources = resources
-//                val config: Configuration = resources.configuration
-//                config.setLocale(locale)
-//                resources.updateConfiguration(config, resources.displayMetrics)
+                val lang = languagesArray[position]
+                val locale = Locale(lang)
+                Locale.setDefault(locale)
+                val resources: Resources = resources
+                val config: Configuration = resources.configuration
+                config.setLocale(locale)
+                resources.updateConfiguration(config, resources.displayMetrics)
 
             }
 
@@ -93,7 +93,7 @@ class MoreFragment : Fragment() {
         currencySpinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val currency = currencyArray[position]
-             //   viewModel.convert(currency)
+                viewModel.convert(currency)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
