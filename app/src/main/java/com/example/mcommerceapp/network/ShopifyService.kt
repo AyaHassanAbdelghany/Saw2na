@@ -28,6 +28,7 @@ interface ShopifyService {
         @Query("fields") fields: String,
         @Query("collection_id") collection_id: String
     ):  Response<JsonObject>
+
     suspend fun getQuery(
         @Path("resource") resources: String, @Query("fields") fields: String
     ): Response<JsonObject>
@@ -37,10 +38,16 @@ interface ShopifyService {
         "Content-Type: application/json"
     )
     @GET("{resource}")
+
     suspend fun getSubCollection(
         @Path("resource") resources: String,
         @Query("fields") fields: String,
     ):  Response<JsonObject>
+
+    suspend fun getQuery(
+        @Path("resource") resources: String, @Query("fields") fields: String
+    ): Response<JsonObject>
+
 
     @Headers(
         "X-Shopify-Access-Token: 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",

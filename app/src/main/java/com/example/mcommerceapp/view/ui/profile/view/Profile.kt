@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.R
-import com.example.mcommerceapp.databinding.ActivitySigninBinding
 import com.example.mcommerceapp.databinding.FragmentProfileBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
@@ -20,38 +18,37 @@ import com.example.mcommerceapp.view.ui.profile.view_model.factory.ProfileViewMo
 
 class Profile : Fragment() {
 
-    private lateinit var binding: FragmentProfileBinding
+    private var _binding: FragmentProfileBinding? = null
+
+    private val binding get() = _binding!!
+
     private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding = FragmentProfileBinding.inflate(layoutInflater)
-//        requireActivity().setContentView(binding.root)
-
-        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireActivity().getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)))
+        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireContext()))
         viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
-
 
         binding.profileSigninButton.setOnClickListener{
             startActivity(Intent(requireContext(),SigninActivity::class.java))
         }
 
+
+        
         val user = viewModel.getUser()
 
         binding.displayNameTextView.text = user.displayName
         binding.userEmailTextView.text = user.email
-
 
     }
 
@@ -60,7 +57,7 @@ class Profile : Fragment() {
         super.onResume()
 
         var loggedIn = viewModel.getLoggedInState()
-        //loggedIn = true
+        loggedIn = true
 
         Log.i("TAG", "onViewCreated: logged = $loggedIn ")
         when {
@@ -74,6 +71,11 @@ class Profile : Fragment() {
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

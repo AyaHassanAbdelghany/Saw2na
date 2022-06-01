@@ -18,4 +18,11 @@
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.example.mcommerceapp.view.ui.more.view.MoreFragment"
+        android:label="@string/more"
+        tools:layout="@layout/fragment_more" />
+
+
 </navigation>

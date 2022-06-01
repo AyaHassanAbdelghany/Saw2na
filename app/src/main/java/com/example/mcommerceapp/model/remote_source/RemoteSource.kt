@@ -9,6 +9,7 @@ import com.example.mcommerceapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceapp.network.ShopifyService
 import com.example.mcommerceapp.pojo.currency.CurrencyConversion
 import com.example.mcommerceapp.pojo.currency.CurrencySymbols
+import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
@@ -39,6 +40,11 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
 
     override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
         val res = api.getQuery(Keys.PRODUCTS, fields)
+
+
+    override suspend fun getCategoryForCollection(fields: String,collectionId:String): HashSet<ProductFields> {
+        val res = api.getCategoryForCollection(Keys.PRODUCTS, fields,collectionId)
+
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<HashSet<ProductFields>>() {}.type
@@ -50,15 +56,20 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         collectionId: String,
         vendor: String
     ): HashSet<ProductFields> {
-        val res = api.getCategoryForVendor(Keys.PRODUCTS, fields,collectionId,vendor)
+        val res = api.getCategoryForVendor(Keys.PRODUCTS, fields, collectionId, vendor)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<HashSet<ProductFields>>() {}.type
         )
     }
 
-
-
+    override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
+        val res = api.getQuery(Keys.PRODUCTS, fields)
+        return gson.fromJson(
+            res.body()!!.get("products") as JsonArray,
+            object : TypeToken<HashSet<ProductFields>>() {}.type
+        )
+    }
 
     override suspend fun getSmartCollections(): ArrayList<SmartCollections> {
         val res = api.get(Keys.SMART_COLLECTIONS)
@@ -114,7 +125,7 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         val res = currencyApi.convertCurrency(from, to, amount)
         return gson.fromJson(
             res.body()!!,
-            object : TypeToken<CurrencySymbols>() {}.type
+            object : TypeToken<CurrencyConversion>() {}.type
         )
     }
 }

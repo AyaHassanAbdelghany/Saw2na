@@ -1,10 +1,10 @@
 package com.example.mcommerceapp.view.ui.profile.view_model
 
 import androidx.lifecycle.ViewModel
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.LocalUserInfoRepo
 import com.example.mcommerceapp.pojo.user.User
 
-class ProfileViewModel(var userRepo: UserRepo) :ViewModel() {
+class ProfileViewModel(var userRepo: LocalUserInfoRepo) :ViewModel() {
 
 
 
@@ -12,15 +12,8 @@ class ProfileViewModel(var userRepo: UserRepo) :ViewModel() {
         return userRepo.getUser()
     }
 
-    fun setLoggedInState(state:Boolean){
-        userRepo.setLoggedInState(state)
-    }
     fun getLoggedInState():Boolean{
         return userRepo.getLoggedInState()
-    }
-
-    fun setUser(user: User){
-        userRepo.setUser(user)
     }
 
 }
