@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.view.ui.feature_product
+package com.example.mcommerceapp.view.ui.feature_product.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -19,6 +19,7 @@ BaseAdapter() {
     private lateinit var productImage: ImageView
     private lateinit var productPrice: TextView
     private lateinit var productName: TextView
+
     override fun getCount(): Int {
         return productList.size
     }
@@ -44,6 +45,7 @@ BaseAdapter() {
         productImage = convertView!!.findViewById(R.id.productImage)
         productPrice = convertView.findViewById(R.id.productNameTxt)
         productPrice = convertView.findViewById(R.id.ProductPriceTxt)
+
         Glide.with(convertView)
             .load("https://cdn.shopify.com/s/files/1/0589/7509/2875/products/8072c8b5718306d4be25aac21836ce16.jpg?v=1653403070")
             .into(productImage)

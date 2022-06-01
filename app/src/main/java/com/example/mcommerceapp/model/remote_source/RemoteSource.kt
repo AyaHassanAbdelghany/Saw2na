@@ -1,15 +1,12 @@
 package com.example.mcommerceapp.model.remote_source
 
-import android.util.Log
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.interfaces.IRemoteSource
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceapp.network.ShopifyService
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
-import com.example.mcommerceapp.pojo.products.ProductResponse
 import com.example.mcommerceapp.pojo.products.Products
-import com.example.mcommerceapp.pojo.products.ProductsFieldsResponse
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -31,13 +28,27 @@ class RemoteSource : IRemoteSource {
         )
     }
 
-    override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
-        val res = api.getQuery(Keys.PRODUCTS, fields)
+    override suspend fun getCategoryForCollection(fields: String,collectionId:String): HashSet<ProductFields> {
+        val res = api.getCategoryForCollection(Keys.PRODUCTS, fields,collectionId)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
-            object : TypeToken<ArrayList<ProductFields>>() {}.type
+            object : TypeToken<HashSet<ProductFields>>() {}.type
         )
     }
+
+    override suspend fun getCategoryForVendor(
+        fields: String,
+        collectionId: String,
+        vendor: String
+    ): HashSet<ProductFields> {
+        val res = api.getCategoryForVendor(Keys.PRODUCTS, fields,collectionId,vendor)
+        return gson.fromJson(
+            res.body()!!.get("products") as JsonArray,
+            object : TypeToken<HashSet<ProductFields>>() {}.type
+        )
+    }
+
+
 
     override suspend fun getSmartCollections(): ArrayList<SmartCollections> {
         val res = api.get(Keys.SMART_COLLECTIONS)
@@ -47,10 +58,22 @@ class RemoteSource : IRemoteSource {
         )
     }
 
+    override suspend fun getCustomCollections(): ArrayList<CustomCollections> {
+        val res = api.get(Keys.CUSTOM_COLLECTIONS)
+        return gson.fromJson(
+            res.body()!!.get("custom_collections") as JsonArray,
+            object : TypeToken<ArrayList<CustomCollections>>() {}.type
+        )    }
+
+    override suspend fun getSubCollections(fields: String): HashSet<ProductFields> {
+        val res = api.getSubCollection(Keys.PRODUCTS, fields)
+        return gson.fromJson(
+            res.body()!!.get("products") as JsonArray,
+            object : TypeToken<HashSet<ProductFields>>() {}.type
+        )    }
+
     override suspend fun getProductDetail(id: Long): Products{
         val res = api.get("products${"/$id"}.json")
-        Log.d("TAG", "getProductDetail: " + res.code())
-        Log.d("detail", res.body().toString())
         return gson.fromJson(
             res.body()!!.get("product") as JsonObject,
             object : TypeToken<Products>() {}.type

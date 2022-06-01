@@ -1,12 +1,10 @@
-package com.example.mcommerceapp.view.ui.home.viewmodelfactory
+package com.example.mcommerceapp.view.ui.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.shopify_repository.product.IProducts
+import com.example.mcommerceapp.model.shopify_repository.product.CollectionsRepo
 
-import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
-
-class HomeViewModelFactory (private val iProducts: IProducts) : ViewModelProvider.Factory {
+class HomeViewModelFactory (private val iProducts: CollectionsRepo) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ProductsFieldsResponse(
     @SerializedName("products" )
-    var products : ArrayList<ProductFields>
+    var products : HashSet<ProductFields>
     )

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class CustomCollectionResponse(
     @SerializedName("custom_collections" )
-    var customCollections : ArrayList<CustomCollections> = arrayListOf()
+    var customCollections : HashSet<CustomCollections>
 )
