@@ -6,14 +6,14 @@ import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
 interface IRemoteSource {
-    suspend fun getAllProducts(fields: String) : ArrayList<Products>
+    suspend fun getProductCollection(productId: String, collectionId: String): ArrayList<Products>
     suspend fun getSmartCollections() : ArrayList<SmartCollections>
-
+    suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products>
     suspend fun getCustomCollections() : ArrayList<CustomCollections>
     suspend fun getCategoryForCollection(fields:String,collectionId:String): HashSet<ProductFields>
     suspend fun getCategoryForVendor(fields:String,collectionId :String,vendor:String): HashSet<ProductFields>
     suspend fun getSubCollections(fields: String): HashSet<ProductFields>
-    suspend fun getProductDetail(id: Long): Products
+    suspend fun getProductDetail(id: String): Products
 
    
     suspend fun getProductsTypes(fields: String): ArrayList<ProductFields>

@@ -30,7 +30,7 @@ interface CollectionsRepo {
 
 
 interface ProductDetailRepo {
-    suspend fun getProductDetail(id: Long): Products
+    suspend fun getProductDetail(id: String): Products
 }
 
 interface CategoryRepo {
@@ -52,6 +52,6 @@ interface CustomCollectionsRepo {
 }
 
 interface ProductTypeRepo{
-    suspend fun getProducts(fields: String): ArrayList<Products>
-
+    suspend fun getProductCollection(productType: String, collectionId: String): ArrayList<Products>
+    suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products>
 }

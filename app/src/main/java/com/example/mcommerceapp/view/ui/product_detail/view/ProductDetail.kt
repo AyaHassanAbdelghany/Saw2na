@@ -34,7 +34,7 @@ class ProductDetail : AppCompatActivity() {
 
         val intent = intent.getStringExtra("PRODUCTS_ID")
 
-        detailVM.getProductDetail(intent!!.toLong())
+        detailVM.getProductDetail(intent!!)
         detailVM.productDetail.observe(this){
 
             binding.contentDetail.ProductPriceTxt.text = it.variants[0].price

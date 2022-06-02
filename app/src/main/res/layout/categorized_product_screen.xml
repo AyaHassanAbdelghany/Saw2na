@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     >
 
-    <include
-        android:id="@+id/action_bar"
-        layout="@layout/action_bar" />
+<!--    <include-->
+<!--        android:id="@+id/action_bar"-->
+<!--        layout="@layout/action_bar" />-->
 
     <TextView
         android:id="@+id/categoryType_txt"
@@ -21,7 +21,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_bar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/grid"

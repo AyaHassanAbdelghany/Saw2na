@@ -34,6 +34,7 @@ class CategorizedProductAdapter (var context :Context , var listner : OnClickLis
         }
         holder.itemView.setOnClickListener(View.OnClickListener
         {
+            Log.e("productid", currentItem.id.toString())
             Log.e("vendorTitle",currentItem.id.toString())
             listner.onClick(currentItem.id.toString())
         })

@@ -25,11 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-      //  setSupportActionBar(binding.topBar)
 
-        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM;
-        supportActionBar!!.setDisplayShowCustomEnabled(true);
-        supportActionBar!!.setCustomView(R.layout.action_bar);
+        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+        supportActionBar!!.setCustomView(R.layout.action_bar)
 
 
         val navView: BottomNavigationView = binding.navView
@@ -40,9 +39,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_profile, R.id.navigation_setting
             )
         )
-
-//        binding.topBar.setNavigationOnClickListener { Log.d("Test", "Test") }
-
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

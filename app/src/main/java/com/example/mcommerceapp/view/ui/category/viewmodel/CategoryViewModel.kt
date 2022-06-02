@@ -18,6 +18,7 @@ class CategoryViewModel(var iProducts :CategoryRepo) : ViewModel() {
 
     fun getCategoryForVendor(fields :String,collectionId :String,vendor:String){
         viewModelScope.launch(Dispatchers.IO) {
+            Log.e("ID", collectionId)
             val category = iProducts.getCategoryForVendor(fields,collectionId,vendor)
             Log.e("Count", category.count().toString())
             withContext(Dispatchers.Main){

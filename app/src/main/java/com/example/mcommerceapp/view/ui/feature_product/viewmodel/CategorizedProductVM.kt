@@ -19,9 +19,17 @@ class CategorizedProductVM (var iProducts : ProductTypeRepo): ViewModel()
 
 
 
-    fun getProduct(fields: String) {
+    fun getProductCollection(productType: String, collectionId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val product = iProducts.getProducts(fields)
+            val product = iProducts.getProductCollection(productType, collectionId)
+            withContext(Dispatchers.Main){
+                _products.postValue(product)
+            }
+        }
+    }
+    fun getProductVendor(productType: String, vendor: String, collectionId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val product = iProducts.getProductVendor(productType, vendor, collectionId)
             withContext(Dispatchers.Main){
                 _products.postValue(product)
             }

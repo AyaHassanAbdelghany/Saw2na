@@ -8,6 +8,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ShopifyService {
+
     @Headers(
         "X-Shopify-Access-Token: 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",
         "Content-Type: application/json"
@@ -16,7 +17,6 @@ interface ShopifyService {
     suspend fun get(
         @Path("resource", encoded = true) resources: String
     ): Response<JsonObject>
-
 
     @Headers(
         "X-Shopify-Access-Token: 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",
@@ -27,7 +27,7 @@ interface ShopifyService {
         @Path("resource") resources: String,
         @Query("fields") fields: String,
         @Query("collection_id") collection_id: String
-    ):  Response<JsonObject>
+    ): Response<JsonObject>
 
     @Headers(
         "X-Shopify-Access-Token: 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",
@@ -38,12 +38,39 @@ interface ShopifyService {
     suspend fun getSubCollection(
         @Path("resource") resources: String,
         @Query("fields") fields: String,
-    ):  Response<JsonObject>
+    ): Response<JsonObject>
 
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @GET("{resource}")
+    suspend fun getProductCollection(
+        @Path("resource") resources: String,
+        @Query("product_type") product_type: String,
+        @Query("collection_id") collection_id: String
+    ): Response<JsonObject>
+
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @GET("{resource}")
+    suspend fun getProductVendor(
+        @Path("resource") resources: String,
+        @Query("product_type") product_type: String,
+        @Query("vendor") vendor: String,
+        @Query("collection_id") collection_id: String
+    ): Response<JsonObject>
+
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @GET("{resource}")
     suspend fun getQuery(
         @Path("resource") resources: String, @Query("fields") fields: String
     ): Response<JsonObject>
-
 
     @Headers(
         "X-Shopify-Access-Token: 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",
@@ -52,8 +79,8 @@ interface ShopifyService {
     @GET("{resource}")
     suspend fun getCategoryForVendor(
         @Path("resource") resources: String,
-        @Query("fields") fields: String
-        ,@Query("collection_id") collection_id :String
-       ,@Query("vendor") vendor :String
-    ):  Response<JsonObject>
+        @Query("fields") fields: String,
+        @Query("collection_id") collection_id: String,
+        @Query("vendor") vendor: String
+    ): Response<JsonObject>
 }

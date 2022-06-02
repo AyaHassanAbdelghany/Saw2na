@@ -15,17 +15,17 @@ import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
+import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
-import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 
-class CategoryTypeFragment ():OnClickListner,Fragment() {
+class CategoryTypeFragment (): OnClickListener,Fragment() {
 
     private var tabTitle :String = ""
-    private var value :String = ""
+    private var vendor :String = ""
     private var type :String = ""
     private var subCollection :String =""
 
@@ -36,9 +36,9 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
     private lateinit var categoryVMFactory: CategoryViewModelFactory
     private lateinit var categoryAdapter: CategoryAdapter
 
-   constructor(tabTitle:String,value :String,type:String) : this() {
+   constructor(tabTitle:String, vendor :String, type:String) : this() {
        this.tabTitle = tabTitle
-       this.value = value
+       this.vendor = vendor
        this.type = type
    }
 
@@ -66,11 +66,19 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
 
             for (key in it)
             {
-                if (tabTitle == key) {
-                    subCollection = key
+                subCollection = when (tabTitle) {
+                    "MEN" -> {
+                        "273053679755"
+                    }
+                    "WOMEN" -> {
+                        "273053712523"
+                    }
+                    else -> {
+                        "273053745291"
+                    }
                 }
             }
-            categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE,subCollection)
+            categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE, subCollection)
             observerCategory()
         }
     }
@@ -79,15 +87,25 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
 
             for (index in it)
             {
-                if (tabTitle == index) {
-                    subCollection = index
-                    Log.e("index", index)
+                Log.e("tabTitle", index)
+                Log.e("tabTitle", it.toString())
+                subCollection = when (tabTitle) {
+                    "MEN" -> {
+                        "273053679755"
+                    }
+                    "WOMEN" -> {
+                        "273053712523"
+                    }
+                    else -> {
+                        "273053745291"
+                    }
                 }
             }
-            Log.e("id",subCollection.toString())
-            Log.e("vendor",value)
+            Log.e("tabTitle", subCollection)
+            Log.e("id",subCollection)
+            Log.e("vendor",vendor)
 
-            categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,subCollection,value)
+            categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,subCollection,vendor)
             observerCategory()
         }
     }
@@ -108,10 +126,12 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
         categoryAdapter = CategoryAdapter(this)
     }
 
-    override fun onClick(value: String?, type: String) {
+    override fun onClick(value: String) {
         val bundle = Bundle()
-        bundle.putString("VALUE", value)
-        bundle.putString("TYPE", tabTitle)
+        bundle.putString("PRODUCT_TYPE", value)
+        bundle.putString("TYPE", type)
+        bundle.putString("SUB_CATEGORY", subCollection)
+        bundle.putString("VENDOR", vendor)
         val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
         intent.putExtra("PRODUCTS", bundle)
         startActivity(intent)

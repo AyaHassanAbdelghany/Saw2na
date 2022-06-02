@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.navArgs
 import androidx.navigation.navArgument
 import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.feature_product.adapter.CategorizedProductAdapter
@@ -25,6 +26,10 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
     private lateinit var productsVM: CategorizedProductVM
     private lateinit var productsVMFactory: CategorizedProductVMFactory
 
+    private lateinit var productType: String
+    private lateinit var vendor: String
+    private lateinit var subCategory: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,15 +37,19 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         setContentView(binding.root)
 
         productsVMFactory = CategorizedProductVMFactory(ProductRepo.getInstance(RemoteSource()))
-        productsVM = ViewModelProvider(this, productsVMFactory)[productsVM::class.java]
+        productsVM = ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]
 
         val intent = intent.getBundleExtra("PRODUCTS")
-        Log.d("typee", intent?.get("VALUE").toString())
-        Log.d("typee", intent?.get("TYPE").toString())
 
-        productsVM.getProduct(intent?.get("VALUE").toString())
+        productType = intent?.get("PRODUCT_TYPE").toString()
 
-        Log.e("Tag", savedInstanceState?.getInt("VENDOR_ID").toString())
+        subCategory = intent?.get("SUB_CATEGORY").toString()
+        vendor = intent?.get("VENDOR").toString()
+
+        when(intent?.get("TYPE").toString()){
+            Keys.VENDOR -> observeVendor()
+            Keys.COLLECTION -> observeCollection()
+        }
 
         val mainAdapter = CategorizedProductAdapter(this, this)
         productsVM.products.observe(this) {
@@ -49,6 +58,12 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
     }
 
+    private fun observeVendor(){
+        productsVM.getProductVendor(productType, vendor, subCategory)
+    }
+    private fun observeCollection(){
+        productsVM.getProductCollection(productType, subCategory)
+    }
     override fun onClick(id: String) {
         val intent = Intent(this, ProductDetail::class.java)
         intent.putExtra("PRODUCTS_ID", id)

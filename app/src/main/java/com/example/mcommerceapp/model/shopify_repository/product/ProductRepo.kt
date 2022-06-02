@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.model.shopify_repository.product
 
+import android.util.Log
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
@@ -16,8 +17,12 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         }
     }
 
-    override suspend fun getProducts(fields: String): ArrayList<Products> {
-        return remoteSource.getAllProducts(fields)
+    override suspend fun getProductCollection(productType: String, collectionId: String): ArrayList<Products> {
+        return remoteSource.getProductCollection(productType, collectionId)
+    }
+
+    override suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products> {
+        return remoteSource.getProductVendor(productType, vendor, collectionId)
     }
 
     override suspend fun getCategoryForCollection(fields: String,collectionId :String): HashSet<ProductFields> {
@@ -33,6 +38,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         collectionId: String,
         vendor: String
     ): HashSet<ProductFields> {
+        Log.e("repoID", collectionId)
         return remoteSource.getCategoryForVendor(fields,collectionId,vendor)
     }
 
@@ -46,7 +52,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         return remoteSource.getSmartCollections()
     }
 
-    override suspend fun getProductDetail(id: Long): Products{
+    override suspend fun getProductDetail(id: String): Products{
         return remoteSource.getProductDetail(id)
     }
 }

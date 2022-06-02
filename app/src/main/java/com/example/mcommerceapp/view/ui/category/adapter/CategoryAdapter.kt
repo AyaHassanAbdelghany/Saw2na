@@ -13,7 +13,7 @@ import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
-class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CategoryAdapter  (private var listner : OnClickListener): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
 
     private  var category : HashSet<ProductFields> = hashSetOf()
 
@@ -34,7 +34,7 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
         }
         holder.binding.constraintCollection.setOnClickListener(
             View.OnClickListener
-            { listner!!.onClick(currentItem.productType,Keys.CATEGORY) })
+            { listner!!.onClick(currentItem.productType) })
     }
 
     override fun getItemCount(): Int {

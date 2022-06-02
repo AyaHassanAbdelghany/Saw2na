@@ -18,7 +18,7 @@ class ProductDetailVM(private val iProducts: ProductDetailRepo) : ViewModel() {
     private val _productDetail = MutableLiveData<Products>()
     var productDetail: LiveData<Products> = _productDetail
 
-    fun getProductDetail(id: Long) {
+    fun getProductDetail(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val detail = iProducts.getProductDetail(id)
             Log.d("Detail", detail.toString())
