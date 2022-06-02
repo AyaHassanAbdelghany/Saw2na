@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="20sp"
-    android:layout_margin="50sp"
+    android:layout_margin="10dp"
     android:outlineSpotShadowColor="@color/black"
     android:outlineAmbientShadowColor="@color/black"
     app:cardBackgroundColor="@color/white">
@@ -22,7 +22,7 @@
             android:scaleType="fitXY"
             android:layout_height="120dp" />
         <TextView
-            android:id="@+id/ProductPriceTxt"
+            android:id="@+id/productPriceTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"

@@ -38,4 +38,10 @@
     <string name="payment_method">طرق الدفع</string>
     <string name="currency">العملة</string>
     <string name="language">اللغة</string>
+    <string name="fav">المفضلة</string>
+    <string name="card">عربة التسوق</string>
+    <string name="add_to_card">أضف إلى العربة</string>
+    <string name="desc">المواصفات</string>
+    <string name="color">الألوان</string>
+    <string name="size">المقاسات</string>
 </resources>
