@@ -83,4 +83,7 @@ dependencies {
     //expanded TextView
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'kr.co.prnd:readmore-textview:1.0.0'
+
+    //adding circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

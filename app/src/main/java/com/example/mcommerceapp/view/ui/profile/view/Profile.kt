@@ -44,7 +44,7 @@ class Profile : Fragment() {
         }
 
 
-        
+
         val user = viewModel.getUser()
 
         binding.displayNameTextView.text = user.displayName
@@ -57,7 +57,7 @@ class Profile : Fragment() {
         super.onResume()
 
         var loggedIn = viewModel.getLoggedInState()
-        loggedIn = true
+       // loggedIn = true
 
         Log.i("TAG", "onViewCreated: logged = $loggedIn ")
         when {

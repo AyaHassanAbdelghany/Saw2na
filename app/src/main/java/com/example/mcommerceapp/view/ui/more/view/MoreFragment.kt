@@ -1,9 +1,11 @@
 package com.example.mcommerceapp.view.ui.more.view
 
 import android.R
+import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +33,7 @@ class MoreFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: MoreViewModel
     private var currencyArray :List<String> = ArrayList()
-    private val languagesArray = arrayOf("ar","en")
+    private val languagesArray = arrayOf("en","ar")
 
     private lateinit var currencySpinner: Spinner
     private lateinit var languageSpinner: Spinner
@@ -59,6 +61,7 @@ class MoreFragment : Fragment() {
 
 
 
+        Log.e("TAG", "onViewCreated: ", )
         var currencyAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),R.layout.simple_spinner_item, currencyArray)
         currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
@@ -82,7 +85,10 @@ class MoreFragment : Fragment() {
 
             }
 
+
         }
+
+
 
         currencySpinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -96,10 +102,12 @@ class MoreFragment : Fragment() {
         }
         viewModel.getCurrencySymbols()
 
-        viewModel.symbols.observe(this.requireActivity()){
+        viewModel.symbols.observe(viewLifecycleOwner){
+
+            Log.e("TAG", "observe : ")
 
             this.currencyArray =  it.symbols.keys.toList()
-            currencyAdapter = ArrayAdapter<String>(requireContext(),R.layout.simple_spinner_item,this.currencyArray)
+            currencyAdapter = ArrayAdapter<String>( this@MoreFragment.requireContext(),R.layout.simple_spinner_item,this.currencyArray)
             currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             currencySpinner.adapter = currencyAdapter
 
@@ -109,6 +117,15 @@ class MoreFragment : Fragment() {
 
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        Log.e("TAG", "onDetach: ")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e("TAG", "onAttach: ")
+    }
 
     private fun init(){
         languageSpinner = binding.languageSpinner
@@ -128,6 +145,7 @@ class MoreFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.symbols.removeObservers(viewLifecycleOwner)
         _binding = null
     }
 }
