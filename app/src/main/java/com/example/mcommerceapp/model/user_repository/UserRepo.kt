@@ -31,7 +31,6 @@ class UserRepo private constructor(private val context: Context) : FirebaseAuthR
     }
 
 
-
     override fun signIn(email : String, password:String){
 
         Log.i("TAG","Email signin")
@@ -39,18 +38,15 @@ class UserRepo private constructor(private val context: Context) : FirebaseAuthR
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
 
-
             if (firebaseAuth.currentUser!!.isEmailVerified) {
-                firebaseAuth.currentUser!!.sendEmailVerification()
                 Log.i("TAG","Email signin is successful")
                 _signInAuthState.value = AuthState.SUCCESS
 
             } else {
-
+                firebaseAuth.currentUser!!.sendEmailVerification()
                 Log.i("TAG","Email signin is successful but not EmailVerified ")
                 _signInAuthState.value = AuthState.EMAIL_NOT_VERIFIED
                 firebaseAuth.signOut()
-
             }
         }.addOnFailureListener { e ->
             Log.i("TAG","Email signin is not successful ${e.message}")

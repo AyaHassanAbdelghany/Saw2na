@@ -57,9 +57,7 @@ class Profile : Fragment() {
         super.onResume()
 
         var loggedIn = viewModel.getLoggedInState()
-       // loggedIn = true
 
-        Log.i("TAG", "onViewCreated: logged = $loggedIn ")
         when {
             loggedIn -> {
                 binding.notLoggedInContainer.visibility = View.INVISIBLE

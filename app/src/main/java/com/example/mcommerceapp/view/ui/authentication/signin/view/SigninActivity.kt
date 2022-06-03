@@ -48,6 +48,7 @@ class SigninActivity : AppCompatActivity() {
                     signinViewModel.setLoggedInState(true)
                     val name = signinViewModel.getUser().displayName
                     Toast.makeText(this, "welcome $name...", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
                 AuthState.EMAIL_NOT_VERIFIED ->{
                     Toast.makeText(this, "please verify your email...", Toast.LENGTH_SHORT).show()
