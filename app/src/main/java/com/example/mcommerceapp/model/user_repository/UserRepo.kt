@@ -12,15 +12,12 @@ import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.JsonObject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-class UserRepo private constructor(private val context: Context) : FirebaseAuthRepo,
+class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
     LocalUserInfoRepo {
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("user", 0)
