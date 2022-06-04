@@ -98,12 +98,6 @@ class HomeFragment() : OnClickListner,Fragment() {
                 }
             })
 
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-
     }
 
     private fun init(){
@@ -135,8 +129,6 @@ class HomeFragment() : OnClickListner,Fragment() {
         val bundle = Bundle()
         bundle.putString("VALUE", value)
         bundle.putString("TYPE", type)
-        Log.e("TYPE", type)
-        Log.e("TYPE", value.toString())
         findNavController(this)?.navigate(R.id.actCategory,bundle);
 
     }

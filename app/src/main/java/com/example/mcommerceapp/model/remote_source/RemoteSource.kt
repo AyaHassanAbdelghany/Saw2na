@@ -72,11 +72,11 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         )
     }
 
-    override suspend fun getSmartCollections(): ArrayList<SmartCollections> {
+    override suspend fun getSmartCollections(): HashSet<SmartCollections> {
         val res = api.get(Keys.SMART_COLLECTIONS)
         return gson.fromJson(
             res.body()!!.get("smart_collections") as JsonArray,
-            object : TypeToken<ArrayList<SmartCollections>>() {}.type
+            object : TypeToken<HashSet<SmartCollections>>() {}.type
         )
     }
 
@@ -86,6 +86,14 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
             res.body()!!.get("custom_collections") as JsonArray,
             object : TypeToken<ArrayList<CustomCollections>>() {}.type
         )    }
+
+    override suspend fun getCollectionId(title: String): ArrayList<CustomCollections> {
+        val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS,title)
+        return gson.fromJson(
+            res.body()!!.get("custom_collections") as JsonArray,
+            object : TypeToken<ArrayList<CustomCollections>>() {}.type
+        )
+    }
 
     override suspend fun getSubCollections(fields: String): HashSet<ProductFields> {
         val res = api.getSubCollection(Keys.PRODUCTS, fields)
