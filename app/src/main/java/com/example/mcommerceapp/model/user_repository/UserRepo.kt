@@ -10,6 +10,7 @@ import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.Local
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepo private constructor(private val context: Context) : FirebaseAuthRepo , LocalUserInfoRepo {
 
@@ -21,7 +22,12 @@ class UserRepo private constructor(private val context: Context) : FirebaseAuthR
     private val _signInAuthState by lazy { MutableLiveData<String>() }
     val signInAuthState: LiveData<String> = _signInAuthState
 
+    private val _user by lazy { MutableLiveData<User>() }
+    val user: LiveData<User> = _user
+
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val fireStore = FirebaseFirestore.getInstance()
+
 
     companion object {
         private val userRepo: UserRepo? = null
@@ -41,6 +47,7 @@ class UserRepo private constructor(private val context: Context) : FirebaseAuthR
             if (firebaseAuth.currentUser!!.isEmailVerified) {
                 Log.i("TAG","Email signin is successful")
                 _signInAuthState.value = AuthState.SUCCESS
+                sharedPreferences.edit().putString("email",email).apply()
 
             } else {
                 firebaseAuth.currentUser!!.sendEmailVerification()
@@ -92,6 +99,8 @@ class UserRepo private constructor(private val context: Context) : FirebaseAuthR
     override fun setUser(user: User){
         sharedPreferences.edit().putString("name", user.displayName)
             .putString("email",user.email).apply()
+
+        addToFireStore(user)
     }
 
     override fun getLoggedInState() :Boolean{
@@ -102,6 +111,22 @@ class UserRepo private constructor(private val context: Context) : FirebaseAuthR
         val name = sharedPreferences.getString("name","no name")
         val email = sharedPreferences.getString("email","no email")
         return User(name!!,email!!)
+    }
+
+
+    private fun addToFireStore(user: User){
+        fireStore.collection("users").document(user.email).set(user)
+    }
+
+    override fun retrieveUserFromFireStore() : LiveData<User> {
+        fireStore.collection("users").document(getUser().email).get().addOnSuccessListener { d ->
+            val u = d.toObject(User::class.java)
+            _user.value = u
+            if (u != null) {
+                setUser(u)
+            }
+        }
+        return user
     }
 
 }

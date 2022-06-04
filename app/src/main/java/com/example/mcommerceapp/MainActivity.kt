@@ -1,6 +1,7 @@
 package com.example.mcommerceapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.ActionBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mcommerceapp.databinding.ActivityMainBinding
+import com.example.mcommerceapp.pojo.user.User
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-      //  setSupportActionBar(binding.topBar)
 
         this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM;
         supportActionBar!!.setDisplayShowCustomEnabled(true);
