@@ -44,4 +44,5 @@
     <string name="desc">المواصفات</string>
     <string name="color">الألوان</string>
     <string name="size">المقاسات</string>
+    <string name="save_settings">Save Settings</string>
 </resources>

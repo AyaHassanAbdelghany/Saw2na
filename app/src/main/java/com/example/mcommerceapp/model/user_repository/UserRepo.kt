@@ -160,4 +160,7 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         return requestBody
     }
 
+    override fun setLanguage(lan:String){
+        sharedPreferences.edit().putString("lan", lan).apply()
+    }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.currency_repository.interfaces.ICurrencyRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.FirebaseAuthRepo
 import com.example.mcommerceapp.pojo.currency.CurrencySymbols
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MoreViewModel(private val userRepo: FirebaseAuthRepo , private val currencyRepo: ICurrencyRepo) : ViewModel() {
+class MoreViewModel(private val userRepo: UserRepo , private val currencyRepo: ICurrencyRepo) : ViewModel() {
 
     private var _symbols = MutableLiveData<CurrencySymbols>()
     val symbols :LiveData<CurrencySymbols> = _symbols
@@ -21,16 +22,14 @@ class MoreViewModel(private val userRepo: FirebaseAuthRepo , private val currenc
     fun signOut(){
         userRepo.signOut()
     }
+
     fun convert(currency:String){
         viewModelScope.launch(Dispatchers.IO) {
            currencyRepo.convertCurrency(currency)
-
-
         }
     }
 
     fun getCurrencySymbols(){
-
         viewModelScope.launch(Dispatchers.IO) {
             val symbols = currencyRepo.getCurrencySymbols()
 
@@ -38,9 +37,10 @@ class MoreViewModel(private val userRepo: FirebaseAuthRepo , private val currenc
               _symbols.postValue(symbols)
             }
         }
-
-
     }
 
+    fun setLanguage(lan :String){
+        userRepo.setLanguage(lan)
+    }
 
 }

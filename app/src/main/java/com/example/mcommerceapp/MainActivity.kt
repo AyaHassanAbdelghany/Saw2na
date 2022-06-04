@@ -1,7 +1,9 @@
 package com.example.mcommerceapp
 
+import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.ActionBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,8 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mcommerceapp.databinding.ActivityMainBinding
-import com.example.mcommerceapp.pojo.user.User
-import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM;
-        supportActionBar!!.setDisplayShowCustomEnabled(true);
-        supportActionBar!!.setCustomView(R.layout.action_bar);
+        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+        supportActionBar!!.setCustomView(R.layout.action_bar)
 
 
         val navView: BottomNavigationView = binding.navView
@@ -48,5 +49,20 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
+        val lang = sharedPreferences.getString("lan", "en")
+        val locale = lang?.let { Locale(it) }
+        if (locale != null) {
+            Locale.setDefault(locale)
+        }
+        val resources: Resources = resources
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
