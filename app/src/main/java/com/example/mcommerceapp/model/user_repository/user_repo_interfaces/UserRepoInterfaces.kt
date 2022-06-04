@@ -21,7 +21,7 @@ interface LocalUserInfoRepo{
 
     fun setLoggedInState(state :Boolean)
 
-    fun setUser(user: User)
+    suspend fun setUser(user: User)
 
     fun getLoggedInState() :Boolean
 
