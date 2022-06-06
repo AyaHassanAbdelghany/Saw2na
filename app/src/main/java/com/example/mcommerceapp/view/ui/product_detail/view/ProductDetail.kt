@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
@@ -28,10 +29,14 @@ class ProductDetail : AppCompatActivity() {
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         detailVMFactory = ProductDetailVMFactory(ProductRepo.getInstance(RemoteSource()))
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
-        detailVM.getProductDetail(6870134227083)
+        val intent = intent.getStringExtra("PRODUCTS_ID")
+
+        detailVM.getProductDetail(intent!!)
         detailVM.productDetail.observe(this){
 
             binding.contentDetail.ProductPriceTxt.text = it.variants[0].price
@@ -51,6 +56,16 @@ class ProductDetail : AppCompatActivity() {
             binding.contentDetail.colorRecycleView.adapter = colorAdapter
 
             binding.contentDetail.readMore.text = it.bodyHtml
+
+            binding.contentDetail.card1.reviewerNameTxt.text = Keys.REVIEWS[0].name
+            binding.contentDetail.card1.reviewerDateTxt.text = Keys.REVIEWS[0].date
+            binding.contentDetail.card1.reviewerRaring.rating = Keys.REVIEWS[0].rate
+            binding.contentDetail.card1.reviewerDescTxt.text = Keys.REVIEWS[0].desc
+
+            binding.contentDetail.card2.reviewerNameTxt.text = Keys.REVIEWS[1].name
+            binding.contentDetail.card2.reviewerDateTxt.text = Keys.REVIEWS[1].date
+            binding.contentDetail.card2.reviewerRaring.rating = Keys.REVIEWS[1].rate
+            binding.contentDetail.card2.reviewerDescTxt.text = Keys.REVIEWS[1].desc
         }
     }
 }

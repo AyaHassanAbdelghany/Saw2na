@@ -91,6 +91,39 @@
             app:layout_constraintStart_toStartOf="@id/text2"
             app:layout_constraintTop_toBottomOf="@id/text2"/>
 
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/layout1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintStart_toStartOf="@id/readMore"
+           app:layout_constraintTop_toBottomOf="@id/readMore">
+
+           <include layout="@layout/card_review"
+               android:id="@+id/card1"/>
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@id/layout1"
+            app:layout_constraintTop_toBottomOf="@id/layout1">
+
+            <include layout="@layout/card_review"
+                android:id="@+id/card2"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/reviewSeeMoreTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see"
+            android:textColor="@color/teal_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout2"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

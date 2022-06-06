@@ -11,8 +11,14 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
 
+
         <action
             android:id="@+id/actCategory"
+            app:destination="@id/navigation_category"
+            >
+        </action>
+        <action
+            android:id="@+id/actCategoryMore"
             app:destination="@id/navigation_category"
             >
         </action>

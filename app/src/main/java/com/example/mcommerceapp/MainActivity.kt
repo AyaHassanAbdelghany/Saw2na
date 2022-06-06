@@ -1,18 +1,27 @@
 package com.example.mcommerceapp
 
-import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.content.res.Resources
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mcommerceapp.databinding.ActivityMainBinding
+import com.example.mcommerceapp.view.FragmentContainer
+import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
+import com.example.mcommerceapp.view.ui.home.HomeFragment
+import com.example.mcommerceapp.view.ui.more.view.MoreFragment
+import com.example.mcommerceapp.view.ui.profile.view.Profile
+import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.bottom_nav_menu, menu)
+        Log.e("create","Hello")
         return super.onCreateOptionsMenu(menu)
 
     }
@@ -29,14 +40,18 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+      //  setSupportActionBar(binding.topBar)
 
         this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setDisplayShowCustomEnabled(true)
         supportActionBar!!.setCustomView(R.layout.action_bar)
 
+        val view: View = supportActionBar!!.customView
+        val searchImage = view.findViewById<ImageView>(R.id.searchImage)
 
-        val navView: BottomNavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_activity_main2)
+        searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
+
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -44,7 +59,14 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-//        binding.topBar.setNavigationOnClickListener { Log.d("Test", "Test") }
+        binding.navView.setOnItemSelectedListener () {
+            Log.e("selected","hello")
+            when(it.itemId){
+                R.id.navigation_home -> {setCurrentFragment(Profile())
+                    setCurrentFragment(FragmentContainer())
+                }
+                R.id.navigation_profile -> setCurrentFragment(Profile())
+                R.id.navigation_setting -> setCurrentFragment(MoreFragment())
 
 
         setupActionBarWithNavController(navController, appBarConfiguration)

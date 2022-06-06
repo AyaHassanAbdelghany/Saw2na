@@ -13,13 +13,12 @@ import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
-class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CategoryAdapter  (private var listner : OnClickListener): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
 
     private  var category : HashSet<ProductFields> = hashSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemListCollectionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        Log.e("TAG", "onCreateViewHolder:  ", )
         return ViewHolder(binding)
     }
 
@@ -27,14 +26,12 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentItem = category.elementAt(position)
-        Log.e("TAG", "onBindViewHolder:  ", )
-
         holder.binding.apply {
             collectionNameText.text = currentItem.productType
         }
         holder.binding.constraintCollection.setOnClickListener(
             View.OnClickListener
-            { listner!!.onClick(currentItem.productType,Keys.CATEGORY) })
+            { listner!!.onClick(currentItem.productType) })
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +40,6 @@ class CategoryAdapter  (private var listner : OnClickListner): RecyclerView.Adap
 
     fun setData(category: HashSet<ProductFields>){
         this.category = category
-        Log.e("TAG", "setData:  ", )
         notifyDataSetChanged()
     }
 

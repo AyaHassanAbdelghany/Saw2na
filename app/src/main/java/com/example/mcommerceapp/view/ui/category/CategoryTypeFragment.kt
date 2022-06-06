@@ -15,30 +15,28 @@ import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
+import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
-import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 
-class CategoryTypeFragment ():OnClickListner,Fragment() {
+class CategoryTypeFragment (): OnClickListener,Fragment() {
 
     private var tabTitle :String = ""
-    private var value :String = ""
+    private var vendor :String = ""
     private var type :String = ""
-    private var subCollection :String =""
+    private var subCollection :String = ""
 
     private lateinit var binding: FragmentCategoryTypeBinding
-    private lateinit var homeVM: HomeViewModel
-    private lateinit var homeVMFactory: HomeViewModelFactory
     private lateinit var categoryVM: CategoryViewModel
     private lateinit var categoryVMFactory: CategoryViewModelFactory
     private lateinit var categoryAdapter: CategoryAdapter
 
-   constructor(tabTitle:String,value :String,type:String) : this() {
+   constructor(tabTitle:String, vendor :String, type:String) : this() {
        this.tabTitle = tabTitle
-       this.value = value
+       this.vendor = vendor
        this.type = type
    }
 
@@ -54,7 +52,7 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
 
     override fun onResume() {
         super.onResume()
-        homeVM.getProduct(Keys.PRODUCT_TYPE)
+        categoryVM.getCollectionId(tabTitle)
         when(type){
             Keys.VENDOR -> observeVendor()
             Keys.COLLECTION -> observeCollection()
@@ -62,56 +60,40 @@ class CategoryTypeFragment ():OnClickListner,Fragment() {
     }
 
     private fun observeCollection(){
-        homeVM.collections.observe(viewLifecycleOwner){
-
-            for (key in it)
-            {
-                if (tabTitle == key) {
-                    subCollection = key
-                }
-            }
-            categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE,subCollection)
-            observerCategory()
-        }
+       categoryVM.customCollection.observe(viewLifecycleOwner){
+           subCollection = it[0].id.toString()
+           categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE, it[0].id.toString())
+           observerCategory()
+       }
     }
     private fun observeVendor(){
-        homeVM.collections.observe(viewLifecycleOwner){
+        categoryVM.customCollection.observe(viewLifecycleOwner){
 
-            for (index in it)
-            {
-                if (tabTitle == index) {
-                    subCollection = index
-                    Log.e("index", index)
-                }
-            }
-            Log.e("id",subCollection.toString())
-            Log.e("vendor",value)
-
-            categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,subCollection,value)
+            subCollection = it[0].id.toString()
+            categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,it[0].id.toString(),vendor)
             observerCategory()
         }
+
     }
     private fun observerCategory(){
         categoryVM.category.observe(viewLifecycleOwner){
            binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it)
-            Log.e("category ",it.toString())
-
             binding.recyclerListCategory.adapter = categoryAdapter
         }
     }
     private fun init(){
-        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
-        homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
         categoryAdapter = CategoryAdapter(this)
     }
 
-    override fun onClick(value: String?, type: String) {
+    override fun onClick(value: String) {
         val bundle = Bundle()
-        bundle.putString("VALUE", value)
-        bundle.putString("TYPE", tabTitle)
+        bundle.putString("PRODUCT_TYPE", value)
+        bundle.putString("TYPE", type)
+        bundle.putString("SUB_CATEGORY", subCollection)
+        bundle.putString("VENDOR", vendor)
         val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
         intent.putExtra("PRODUCTS", bundle)
         startActivity(intent)
