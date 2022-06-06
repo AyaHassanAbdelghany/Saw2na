@@ -5,14 +5,15 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
-
+/// marawan key  we2oc5jxArbNIo4NCN1Q4m3rGw6yRHcM
+// karam key i0sSwInnqkf7vn7j58PZ6hmFxamSHCKB
 interface ICurrencyService {
-    @Headers("apikey: we2oc5jxArbNIo4NCN1Q4m3rGw6yRHcM")
+    @Headers("apikey: i0sSwInnqkf7vn7j58PZ6hmFxamSHCKB")
     @GET("symbols")
     suspend fun getAllCurrencySymbols(): Response<JsonObject>
 
 
-    @Headers("apikey: we2oc5jxArbNIo4NCN1Q4m3rGw6yRHcM")
+    @Headers("apikey: i0sSwInnqkf7vn7j58PZ6hmFxamSHCKB")
     @GET("convert")
     suspend fun convertCurrency(
         @Query("from") from: String,

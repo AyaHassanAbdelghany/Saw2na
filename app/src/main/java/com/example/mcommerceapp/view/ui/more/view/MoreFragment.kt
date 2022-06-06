@@ -9,11 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentMoreBinding
@@ -69,37 +67,26 @@ class MoreFragment : Fragment() {
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
 
-        languageSpinner.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
 
-            }
+        binding.saveSettingsButton.setOnClickListener {
+            val currency = currencyArray[currencySpinner.selectedItemPosition]
+            viewModel.convert(currency)
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val lang = languagesArray[position]
-                val locale = Locale(lang)
-                Locale.setDefault(locale)
-                val resources: Resources = resources
-                val config: Configuration = resources.configuration
-                config.setLocale(locale)
-                resources.updateConfiguration(config, resources.displayMetrics)
+            val lang = languagesArray[languageSpinner.selectedItemPosition]
+            viewModel.setLanguage(lang)
 
-            }
+            val locale = Locale(lang)
+            Locale.setDefault(locale)
+            val resources: Resources = resources
+            val config: Configuration = resources.configuration
+            config.setLocale(locale)
+            resources.updateConfiguration(config, resources.displayMetrics)
 
-
-        }
-
-
-
-        currencySpinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val currency = currencyArray[position]
-                viewModel.convert(currency)
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
+            requireActivity().finish()
+            requireActivity().startActivity(requireActivity().intent)
 
         }
+
         viewModel.getCurrencySymbols()
 
         viewModel.symbols.observe(viewLifecycleOwner){

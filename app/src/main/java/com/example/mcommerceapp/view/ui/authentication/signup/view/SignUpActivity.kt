@@ -43,11 +43,11 @@ class SignUpActivity : AppCompatActivity() {
                 AuthState.SUCCESS -> {
                     Toast.makeText(this, "please check your mail ..", Toast.LENGTH_SHORT).show()
 
-                    val user = User( displayNameEditText.text.toString(), emailEditText.text.toString())
+                    val user = User( displayNameEditText.text.toString(), emailEditText.text.toString(),false)
                     viewModel.setUser(user)
-
                     finish()
                 }
+
                 AuthState.LOADING -> loading.visibility = View.VISIBLE
                 else -> {
                     Log.i("TAG", "onCreate: AuthState.error :${it} ")

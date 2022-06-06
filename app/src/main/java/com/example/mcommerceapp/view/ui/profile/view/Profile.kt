@@ -36,30 +36,29 @@ class Profile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance( requireContext()))
-        viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
+        val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance(requireContext()))
+        viewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
 
-        binding.profileSigninButton.setOnClickListener{
-            startActivity(Intent(requireContext(),SigninActivity::class.java))
+        binding.profileSigninButton.setOnClickListener {
+            startActivity(Intent(requireContext(), SigninActivity::class.java))
         }
 
-
-
-        val user = viewModel.getUser()
-
-        binding.displayNameTextView.text = user.displayName
-        binding.userEmailTextView.text = user.email
 
     }
 
 
     override fun onResume() {
         super.onResume()
+        viewModel.retrieveUserFromFireStore().observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.displayNameTextView.text = it.displayName
+                binding.userEmailTextView.text = it.email
+                Log.i("user", "onViewCreated: $it")
+            }
+        }
 
-        var loggedIn = viewModel.getLoggedInState()
-       // loggedIn = true
+        val loggedIn = viewModel.getLoggedInState()
 
-        Log.i("TAG", "onViewCreated: logged = $loggedIn ")
         when {
             loggedIn -> {
                 binding.notLoggedInContainer.visibility = View.INVISIBLE

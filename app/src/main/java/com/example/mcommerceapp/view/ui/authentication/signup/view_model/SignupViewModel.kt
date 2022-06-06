@@ -2,8 +2,12 @@ package com.example.mcommerceapp.view.ui.authentication.signup.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.user.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class SignupViewModel(val userRepo: UserRepo) : ViewModel() {
 
@@ -14,7 +18,9 @@ class SignupViewModel(val userRepo: UserRepo) : ViewModel() {
     }
 
     fun setUser(user: User){
-        userRepo.setUser(user)
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepo.setUser(user)
+        }
     }
 
 }
