@@ -51,4 +51,5 @@
     <string name="cancel">Cancel</string>
     <string name="brands">Brands</string>
     <string name="no_found">No Found</string>
+    <string name="save_settings">Save Settings</string>
 </resources>

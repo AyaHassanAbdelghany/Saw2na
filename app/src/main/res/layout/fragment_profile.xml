@@ -40,7 +40,6 @@
                 android:layout_marginTop="40dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_vertical"
-                android:text="Marwan Adel"
                 android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold"
@@ -53,7 +52,6 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:gravity="start"
-                android:text="marwanadelabdelrehim@gmail.com"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/display_name_textView" />
 
@@ -311,6 +309,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/not_loggedIn_container"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -1,6 +1,9 @@
 package com.example.mcommerceapp
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -15,6 +18,8 @@ import com.example.mcommerceapp.databinding.ActivityMainBinding
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.search.SearchActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,5 +58,18 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onStart() {
+        super.onStart()
 
+        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
+        val lang = sharedPreferences.getString("lan", "en")
+        val locale = lang?.let { Locale(it) }
+        if (locale != null) {
+            Locale.setDefault(locale)
+        }
+        val resources: Resources = resources
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
 }

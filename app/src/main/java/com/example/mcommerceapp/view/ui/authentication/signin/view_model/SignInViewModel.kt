@@ -22,7 +22,9 @@ class SignInViewModel(var userRepo: UserRepo) : ViewModel() {
         userRepo.setLoggedInState(state)
     }
 
-
+    fun retrieveUserFromFireStore() : LiveData<User>{
+        return userRepo.retrieveUserFromFireStore()
+    }
 }
 
 
