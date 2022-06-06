@@ -9,12 +9,12 @@ import com.example.mcommerceapp.view.ui.category.CategoryTypeFragment
 
 class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(manager, lifecycle) {
 
-    var value :String= ""
+    var vendor :String= ""
     var type :String= ""
     var tabTitle :String="MEN"
 
     override fun createFragment(position: Int): Fragment {
-        return CategoryTypeFragment(tabTitle,value,type)
+        return CategoryTypeFragment(tabTitle,vendor,type)
     }
 
     override fun getItemCount(): Int {

@@ -15,6 +15,4 @@
         android:icon="@drawable/ic_baseline_more_horiz_24"
         android:title="@string/more" />
 
-
-
 </menu>

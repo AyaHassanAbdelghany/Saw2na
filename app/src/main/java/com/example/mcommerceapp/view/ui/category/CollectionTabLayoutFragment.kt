@@ -7,14 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.databinding.FragmentCategoryBinding
-import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.category.adapter.PagerAdapter
-import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
-import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -22,13 +17,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 class CollectionTabLayoutFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
-
     private lateinit var pagerAdapter: PagerAdapter
     private  var value :String =""
     private  var type :String = ""
-
-    private lateinit var homeVM: HomeViewModel
-    private lateinit var homeVMFactory: HomeViewModelFactory
 
         private val pagerCallback by lazy {
         object : ViewPager2.OnPageChangeCallback() {
@@ -56,17 +47,11 @@ class CollectionTabLayoutFragment : Fragment() {
             type = bun.getString("TYPE")!!
         }
 
-        pagerAdapter.value = value
+        pagerAdapter.vendor = value
         pagerAdapter.type = type
-        Log.e("TYPE", type)
-        Log.e("TYPE", value.toString())
-
-        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
-        homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
-
-            tab.text = listOf<String>("MEN", "WOMEN", "KIDS")[position]
+            tab.text = listOf<String>("MEN", "WOMEN", "KID")[position]
          }.attach()
 
 
@@ -78,8 +63,9 @@ class CollectionTabLayoutFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             @SuppressLint("ResourceType")
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.viewPager.adapter = pagerAdapter
                 pagerAdapter.tabTitle = tab?.text as String
-                binding.viewPager.currentItem = tab.position
+                binding.viewPager.currentItem = tab?.position ?: 0
 
             }
 
