@@ -28,22 +28,9 @@
                app:layout_constraintTop_toTopOf="parent"
                android:layout_margin="20sp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_list_advertise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/advViewPager"
-                app:layout_constraintTop_toBottomOf="@id/advViewPager"
-                tools:ignore="SpeakableTextPresentCheck"
-                tools:listitem="@layout/item_list_advertise" />
-
             <TextView
                 android:id="@+id/catogery"
-                app:layout_constraintTop_toBottomOf="@id/recycler_list_advertise"
+                app:layout_constraintTop_toBottomOf="@id/advViewPager"
                 app:layout_constraintStart_toStartOf="@id/constraint"
                 android:text="Catogery"
                 android:textStyle="bold"
@@ -64,7 +51,7 @@
                 tools:listitem="@layout/item_list_collection" />
 
             <ImageView
-                android:id="@id/advertise_image"
+                android:id="@+id/coupon_image"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/catogery"
@@ -78,9 +65,9 @@
 
             <TextView
                 android:id="@+id/brand"
-                app:layout_constraintTop_toBottomOf="@id/advertise_image"
+                app:layout_constraintTop_toBottomOf="@id/coupon_image"
                 app:layout_constraintStart_toStartOf="@id/constraint"
-                android:text="Brands"
+                android:text="@string/brands"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

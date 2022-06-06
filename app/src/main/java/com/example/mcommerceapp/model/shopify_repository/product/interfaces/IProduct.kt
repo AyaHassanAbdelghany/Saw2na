@@ -1,25 +1,24 @@
 package com.example.mcommerceapp.model.shopify_repository.product
 
-import androidx.lifecycle.MutableLiveData
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
-import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
 interface CollectionsRepo {
-
     suspend fun getSmartCollections()
     suspend fun getSubCollection(fields: String)
 
 }
 
+interface ProductsRepo {
+    suspend fun getAllProducts(): ArrayList<Products>
+}
 
 interface ProductDetailRepo {
     suspend fun getProductDetail(id: String): Products
 }
 
 interface CategoryRepo {
-
     suspend fun getCollectionId(title :String)
     suspend fun getCategoryForVendor(
         fields: String,

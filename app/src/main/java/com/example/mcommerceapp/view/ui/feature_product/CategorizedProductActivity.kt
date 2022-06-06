@@ -28,7 +28,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
     private lateinit var productType: String
     private lateinit var vendor: String
-    private lateinit var subCategory: String
+    private var subCategory: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +36,18 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         binding = CategorizedProductScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         productsVMFactory = CategorizedProductVMFactory(ProductRepo.getInstance(RemoteSource()))
         productsVM = ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]
 
         val intent = intent.getBundleExtra("PRODUCTS")
 
-        productType = intent?.get("PRODUCT_TYPE").toString()
+        productType = intent!!.getString("PRODUCT_TYPE", " ")
+        subCategory = intent.getString("SUB_CATEGORY", " ")
+        vendor = intent.getString("VENDOR", " ")
 
-        subCategory = intent?.get("SUB_CATEGORY").toString()
-        vendor = intent?.get("VENDOR").toString()
-
-        when(intent?.get("TYPE").toString()){
+        when (intent.get("TYPE").toString()) {
             Keys.VENDOR -> observeVendor()
             Keys.COLLECTION -> observeCollection()
         }
@@ -58,14 +59,17 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
     }
 
-    private fun observeVendor(){
+    private fun observeVendor() {
         productsVM.getProductVendor(productType, vendor, subCategory)
     }
-    private fun observeCollection(){
+
+    private fun observeCollection() {
         productsVM.getProductCollection(productType, subCategory)
     }
+
     override fun onClick(id: String) {
         val intent = Intent(this, ProductDetail::class.java)
         intent.putExtra("PRODUCTS_ID", id)
-        startActivity(intent)    }
+        startActivity(intent)
+    }
 }

@@ -35,6 +35,14 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         )
     }
 
+    override suspend fun getAllProducts(): ArrayList<Products> {
+        val res = api.get(Keys.PRODUCTS)
+        return gson.fromJson(
+            res.body()!!.get("products") as JsonArray,
+            object : TypeToken<ArrayList<Products>>() {}.type
+        )
+    }
+
     override suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products> {
         val res = api.getProductVendor(Keys.PRODUCTS, productType, vendor, collectionId)
         return gson.fromJson(
