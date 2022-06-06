@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.bottom_nav_menu, menu)
-        Log.e("create","Hello")
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -47,31 +46,17 @@ class MainActivity : AppCompatActivity() {
         val searchImage = view.findViewById<ImageView>(R.id.searchImage)
 
         searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
+        setCurrentFragment(FragmentContainer())
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_profile, R.id.navigation_setting
-            )
-        )
-
-        binding.navView.setOnItemSelectedListener () {
-            Log.e("selected","hello")
+        binding.navView.setOnItemSelectedListener  {
+            onOptionsItemSelected(it)
             when(it.itemId){
-                R.id.navigation_home -> {setCurrentFragment(Profile())
-                    setCurrentFragment(FragmentContainer())
-                }
+                R.id.navigation_home -> setCurrentFragment(FragmentContainer())
                 R.id.navigation_profile -> setCurrentFragment(Profile())
                 R.id.navigation_setting -> setCurrentFragment(MoreFragment())
-
             }
             true
         }
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.navView.setupWithNavController(navController)
-
-
     }
 
     private fun setCurrentFragment(fragment:Fragment)=

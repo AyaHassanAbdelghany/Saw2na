@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/action_bar.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_main.xml" value="0.11458333333333333" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_search.xml" value="0.18802083333333333" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_signin.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.18" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_category.xml" value="0.11458333333333333" />

@@ -66,8 +66,6 @@ class HomeFragment() : OnClickListner,Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("home","hello")
-
         homeVM.getProduct(Keys.PRODUCT_TYPE)
         observerVendors()
         observerCollections()
