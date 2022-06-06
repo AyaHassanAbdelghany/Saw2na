@@ -21,6 +21,13 @@
     <string name="Signin">Signin</string>
     <string name="DonNotHaveAccount">ليس لديك حساب؟</string>
 
+
+    <string name="see">See More</string>
+    <string name="cancel">Cancel</string>
+    <string name="brands">Brands</string>
+    <string name="catogeries">Catogeries</string>
+    <string name="no_found">No Found</string>
+
     <string name="categorytype">CategoryType</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -22,7 +22,6 @@ import com.example.mcommerceapp.view.ui.more.view.MoreFragment
 import com.example.mcommerceapp.view.ui.profile.view.Profile
 import com.example.mcommerceapp.view.ui.search.SearchActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,9 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.bottom_nav_menu, menu)
-        Log.e("create","Hello")
         return super.onCreateOptionsMenu(menu)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-      //  setSupportActionBar(binding.topBar)
 
         this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setDisplayShowCustomEnabled(true)
@@ -50,41 +46,23 @@ class MainActivity : AppCompatActivity() {
         val searchImage = view.findViewById<ImageView>(R.id.searchImage)
 
         searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
+        setCurrentFragment(FragmentContainer())
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_profile, R.id.navigation_setting
-            )
-        )
-
-        binding.navView.setOnItemSelectedListener () {
-            Log.e("selected","hello")
+        binding.navView.setOnItemSelectedListener  {
+            onOptionsItemSelected(it)
             when(it.itemId){
-                R.id.navigation_home -> {setCurrentFragment(Profile())
-                    setCurrentFragment(FragmentContainer())
-                }
+                R.id.navigation_home -> setCurrentFragment(FragmentContainer())
                 R.id.navigation_profile -> setCurrentFragment(Profile())
                 R.id.navigation_setting -> setCurrentFragment(MoreFragment())
-
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
-        val lang = sharedPreferences.getString("lan", "en")
-        val locale = lang?.let { Locale(it) }
-        if (locale != null) {
-            Locale.setDefault(locale)
+            }
+            true
         }
-        val resources: Resources = resources
-        val config: Configuration = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
     }
+
+    private fun setCurrentFragment(fragment:Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+           replace(R.id.nav_host_fragment_activity_main,fragment)
+            commit()
+        }
 }
+

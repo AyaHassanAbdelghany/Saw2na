@@ -10,6 +10,7 @@
         android:name="com.example.mcommerceapp.view.FragmentContainer"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_contianer">
+
     </fragment>
 
     <fragment

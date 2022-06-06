@@ -50,6 +50,6 @@
     <string name="see">See More</string>
     <string name="cancel">Cancel</string>
     <string name="brands">Brands</string>
-    <string name="no_found">No Found</string>
     <string name="catogeries">Catogeries</string>
+    <string name="no_found">No Found</string>
 </resources>
