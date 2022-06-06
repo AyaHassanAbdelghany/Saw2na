@@ -25,6 +25,7 @@
             android:name=".view.ui.product_detail.view.ProductDetail"
             android:exported="false" />
         <activity android:name=".view.ui.authentication.signin.view.SigninActivity" />
+        <activity android:name=".view.ui.favorite_product.view.FavoriteScreen"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

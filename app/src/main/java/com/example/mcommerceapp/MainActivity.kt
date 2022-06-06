@@ -20,11 +20,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.mcommerceapp.databinding.ActivityMainBinding
 
 import com.example.mcommerceapp.view.FragmentContainer
+import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.home.HomeFragment
 import com.example.mcommerceapp.view.ui.more.view.MoreFragment
 import com.example.mcommerceapp.view.ui.profile.view.Profile
 import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
@@ -49,6 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         val view: View = supportActionBar!!.customView
         val searchImage = view.findViewById<ImageView>(R.id.searchImage)
+        val favImage = view.findViewById<ImageView>(R.id.favouriteImage)
+        val cartImage = view.findViewById<ImageView>(R.id.cardImage)
+
+        favImage.setOnClickListener { startActivity(Intent(this, FavoriteScreen::class.java)) }
+
+        cartImage.setOnClickListener { startActivity(Intent(this, ShoppingCartScreen::class.java)) }
 
         searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
         setCurrentFragment(FragmentContainer())
@@ -63,6 +71,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
+    private fun setCurrentFragment(fragment:Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.nav_host_fragment_activity_main,fragment)
+            commit()
+        }
+
     override fun onStart() {
         super.onStart()
 
@@ -79,5 +94,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-}
 
