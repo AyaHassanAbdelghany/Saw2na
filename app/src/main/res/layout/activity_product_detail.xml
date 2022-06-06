@@ -57,7 +57,8 @@
         android:id="@+id/content_detail"
         layout="@layout/content_scrolling"/>
 
-    <include layout="@layout/detail_btn" />
+    <include layout="@layout/detail_btn"
+        android:id="@+id/detail_btn"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

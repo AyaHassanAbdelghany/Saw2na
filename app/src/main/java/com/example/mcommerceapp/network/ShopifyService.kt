@@ -92,11 +92,6 @@ interface ShopifyService {
         @Query("vendor") vendor: String
     ): Response<JsonObject>
 
-        @Query("fields") fields: String
-        ,@Query("collection_id") collection_id :String
-       ,@Query("vendor") vendor :String
-    ):  Response<JsonObject>
-
     @Headers(
         "X-Shopify-Access-Token: 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",
         "Content-Type: application/json"
