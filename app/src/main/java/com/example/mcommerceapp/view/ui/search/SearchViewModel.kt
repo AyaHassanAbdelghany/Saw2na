@@ -24,15 +24,15 @@ class SearchViewModel(var iProducts : ProductsRepo) : ViewModel(){
     private val _smartCollection : MutableLiveData<HashSet<SmartCollections>> = ProductRepo.vendors
     var  smartCollection: LiveData<HashSet<SmartCollections>> = _smartCollection
 
-    private val _products = MutableLiveData<ArrayList<Products>>()
-    var  products: LiveData<ArrayList<Products>> = _products
+    private val _allProducts : MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
+    var  allProducts: LiveData<ArrayList<Products>> = _allProducts
 
     fun getAllProducts(){
         viewModelScope.launch(Dispatchers.IO) {
             val products = iProducts.getAllProducts()
-            withContext(Dispatchers.Main){
-                _products.postValue(products)
-            }
+//            withContext(Dispatchers.Main){
+//                _allProducts.postValue(products)
+//            }
         }
     }
 }

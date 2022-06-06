@@ -54,5 +54,6 @@
     <string name="catogeries">Catogeries</string>
     <string name="no_found">No Found</string>
     <string name="save_settings">Save Settings</string>
+    <string name="recommendation">Recommendation</string>
 
 </resources>

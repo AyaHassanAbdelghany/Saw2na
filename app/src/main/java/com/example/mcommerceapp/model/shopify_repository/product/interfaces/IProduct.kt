@@ -11,7 +11,7 @@ interface CollectionsRepo {
 }
 
 interface ProductsRepo {
-    suspend fun getAllProducts(): ArrayList<Products>
+    suspend fun getAllProducts()
 }
 
 interface ProductDetailRepo {

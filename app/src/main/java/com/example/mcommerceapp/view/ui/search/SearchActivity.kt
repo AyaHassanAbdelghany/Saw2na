@@ -53,7 +53,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchVM.getAllProducts()
-        searchVM.products.observe(this) {
+        searchVM.allProducts.observe(this) {
             productList = it
             for (product in it) {
                 Log.d("product0000000000000000", it.toString())

@@ -14,6 +14,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         val vendors = MutableLiveData<HashSet<SmartCollections>>()
         val subCollections = MutableLiveData<HashSet<ProductFields>>()
         val customCollection = MutableLiveData<ArrayList<CustomCollections>>()
+        val allProducts = MutableLiveData<ArrayList<Products>>()
 
         fun getInstance(remoteSource: RemoteSource): ProductRepo {
             return productRepo ?: ProductRepo(remoteSource)
@@ -26,8 +27,8 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         return remoteSource.getProductCollection(productType, collectionId)
     }
 
-    override suspend fun getAllProducts(): ArrayList<Products> {
-        return remoteSource.getAllProducts()
+    override suspend fun getAllProducts() {
+        allProducts.postValue(remoteSource.getAllProducts())
     }
 
     override suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products> {
