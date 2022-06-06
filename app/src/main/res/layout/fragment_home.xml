@@ -38,6 +38,18 @@
                 android:layout_height="wrap_content">
 
             </TextView>
+            <TextView
+                android:id="@+id/catogery_view_moreTextView"
+                app:layout_constraintTop_toTopOf="@id/catogery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/recycler_list_collection"
+                android:layout_marginEnd="10dp"
+                android:text="View more"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <androidx.recyclerview.widget.RecyclerView
                 app:layout_constraintTop_toBottomOf="@id/catogery"
                 app:layout_constraintStart_toStartOf="@id/catogery"
@@ -58,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@id/recycler_list_collection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintHeight_percent="0.2"
                 android:src="@drawable/promo"
                 >
             </ImageView>
@@ -78,9 +90,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/recycler_list_vendor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:listitem="@layout/item_list_vendor" />

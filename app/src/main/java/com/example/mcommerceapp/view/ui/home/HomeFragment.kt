@@ -1,6 +1,7 @@
 package com.example.mcommerceapp.view.ui.home
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -20,6 +22,7 @@ import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.home.adapter.AdvAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
@@ -49,12 +52,22 @@ class HomeFragment() : OnClickListner,Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
+         binding.catogeryViewMoreTextView.setOnClickListener(){
+
+             val bundle = Bundle()
+             bundle.putString("VALUE","")
+             bundle.putString("TYPE", Keys.COLLECTION)
+            findNavController(requireView())?.navigate(R.id.actCategoryMore,bundle);
+         }
+
         return binding.root
     }
 
 
     override fun onResume() {
         super.onResume()
+        Log.e("home","hello")
+
         homeVM.getProduct(Keys.PRODUCT_TYPE)
         observerVendors()
         observerCollections()
@@ -127,13 +140,22 @@ class HomeFragment() : OnClickListner,Fragment() {
 
     override fun onClick(value: String?,type:String) {
         val bundle = Bundle()
-        bundle.putString("VALUE", value)
-        bundle.putString("TYPE", type)
-        findNavController(this)?.navigate(R.id.actCategory,bundle);
+
+        when(type){
+            Keys.VENDOR ->  {
+                bundle.putString("VALUE", value)
+                bundle.putString("TYPE", type)
+                findNavController(requireView())?.navigate(R.id.actCategory,bundle)
+            }
+            Keys.COLLECTION ->  {
+                bundle.putString("PRODUCT_TYPE", value)
+                bundle.putString("TYPE", type)
+                val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
+                intent.putExtra("PRODUCTS", bundle)
+                startActivity(intent)
+            }
+        }
 
     }
-    private fun findNavController(fragment: Fragment): NavController? {
-        val view = fragment.view
-        return findNavController(view!!)
-    }
+
 }
