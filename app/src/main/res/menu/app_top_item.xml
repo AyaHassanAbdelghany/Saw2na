@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/favourite_bar"
-        android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="@string/fav"
-        android:contentDescription="@string/fav"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/favourite_bar"-->
+<!--        android:icon="@drawable/ic_baseline_favorite_24"-->
+<!--        android:title="@string/fav"-->
+<!--        android:contentDescription="@string/fav"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
-    <item
-        android:id="@+id/card_bar"
-        android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="@string/card"
-        android:contentDescription="@string/card"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:id="@+id/card_bar"-->
+<!--        android:icon="@drawable/ic_baseline_shopping_cart_24"-->
+<!--        android:title="@string/card"-->
+<!--        android:contentDescription="@string/card"-->
+<!--        app:showAsAction="ifRoom"/>-->
 </menu>

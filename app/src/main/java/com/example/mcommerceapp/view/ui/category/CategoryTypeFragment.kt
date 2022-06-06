@@ -27,11 +27,9 @@ class CategoryTypeFragment (): OnClickListener,Fragment() {
     private var tabTitle :String = ""
     private var vendor :String = ""
     private var type :String = ""
-    private var subCollection :String =""
+    private var subCollection :String = ""
 
     private lateinit var binding: FragmentCategoryTypeBinding
-    private lateinit var homeVM: HomeViewModel
-    private lateinit var homeVMFactory: HomeViewModelFactory
     private lateinit var categoryVM: CategoryViewModel
     private lateinit var categoryVMFactory: CategoryViewModelFactory
     private lateinit var categoryAdapter: CategoryAdapter
@@ -54,7 +52,7 @@ class CategoryTypeFragment (): OnClickListener,Fragment() {
 
     override fun onResume() {
         super.onResume()
-        homeVM.getProduct(Keys.PRODUCT_TYPE)
+        categoryVM.getCollectionId(tabTitle)
         when(type){
             Keys.VENDOR -> observeVendor()
             Keys.COLLECTION -> observeCollection()
@@ -62,65 +60,29 @@ class CategoryTypeFragment (): OnClickListener,Fragment() {
     }
 
     private fun observeCollection(){
-        homeVM.collections.observe(viewLifecycleOwner){
-
-            for (key in it)
-            {
-                subCollection = when (tabTitle) {
-                    "MEN" -> {
-                        "273053679755"
-                    }
-                    "WOMEN" -> {
-                        "273053712523"
-                    }
-                    else -> {
-                        "273053745291"
-                    }
-                }
-            }
-            categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE, subCollection)
-            observerCategory()
-        }
+       categoryVM.customCollection.observe(viewLifecycleOwner){
+           subCollection = it[0].id.toString()
+           categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE, it[0].id.toString())
+           observerCategory()
+       }
     }
     private fun observeVendor(){
-        homeVM.collections.observe(viewLifecycleOwner){
+        categoryVM.customCollection.observe(viewLifecycleOwner){
 
-            for (index in it)
-            {
-                Log.e("tabTitle", index)
-                Log.e("tabTitle", it.toString())
-                subCollection = when (tabTitle) {
-                    "MEN" -> {
-                        "273053679755"
-                    }
-                    "WOMEN" -> {
-                        "273053712523"
-                    }
-                    else -> {
-                        "273053745291"
-                    }
-                }
-            }
-            Log.e("tabTitle", subCollection)
-            Log.e("id",subCollection)
-            Log.e("vendor",vendor)
-
-            categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,subCollection,vendor)
+            subCollection = it[0].id.toString()
+            categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,it[0].id.toString(),vendor)
             observerCategory()
         }
+
     }
     private fun observerCategory(){
         categoryVM.category.observe(viewLifecycleOwner){
            binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it)
-            Log.e("category ",it.toString())
-
             binding.recyclerListCategory.adapter = categoryAdapter
         }
     }
     private fun init(){
-        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
-        homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
         categoryAdapter = CategoryAdapter(this)

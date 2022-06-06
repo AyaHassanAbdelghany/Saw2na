@@ -19,7 +19,6 @@ class CategoryAdapter  (private var listner : OnClickListener): RecyclerView.Ada
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemListCollectionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        Log.e("TAG", "onCreateViewHolder:  ", )
         return ViewHolder(binding)
     }
 
@@ -27,8 +26,6 @@ class CategoryAdapter  (private var listner : OnClickListener): RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentItem = category.elementAt(position)
-        Log.e("TAG", "onBindViewHolder:  ", )
-
         holder.binding.apply {
             collectionNameText.text = currentItem.productType
         }
@@ -43,7 +40,6 @@ class CategoryAdapter  (private var listner : OnClickListener): RecyclerView.Ada
 
     fun setData(category: HashSet<ProductFields>){
         this.category = category
-        Log.e("TAG", "setData:  ", )
         notifyDataSetChanged()
     }
 

@@ -15,7 +15,7 @@ import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
 class VendorAdapter (var context :Context , var listner : OnClickListner) : RecyclerView.Adapter<VendorAdapter.ViewHolder>(){
 
-    private  var vendor : MutableMap<String,SmartCollections> = mutableMapOf()
+    private  var vendor : HashSet<SmartCollections> = hashSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemListVendorBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -25,18 +25,17 @@ class VendorAdapter (var context :Context , var listner : OnClickListner) : Recy
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val currentItem = vendor.keys
+        val currentItem = vendor.elementAt(position)
         holder.binding.apply {
-            brandNameText.text = vendor.get(currentItem.elementAt(position))?.title
+            brandNameText.text = currentItem.title
 
             Glide.with(context)
-                .load(vendor.getValue(currentItem.elementAt(position))?.image?.src)
+                .load(currentItem.image?.src)
                 .into(brandImage)
         }
         holder.binding.brandImage.setOnClickListener(View.OnClickListener
         {
-            Log.e("vendorTitle",vendor.get(currentItem.elementAt(position))?.title.toString())
-            listner!!.onClick(vendor.get(currentItem.elementAt(position))?.title,Keys.VENDOR)
+            listner!!.onClick(currentItem.title,Keys.VENDOR)
         })
     }
 
@@ -44,7 +43,7 @@ class VendorAdapter (var context :Context , var listner : OnClickListner) : Recy
         return vendor.count()
     }
 
-    fun setData(vendor: MutableMap<String,SmartCollections>){
+    fun setData(vendor: HashSet<SmartCollections>){
         this.vendor = vendor
         notifyDataSetChanged()
     }

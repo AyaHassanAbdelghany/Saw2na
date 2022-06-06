@@ -10,6 +10,7 @@ class Keys {
         val CUSTOM_COLLECTIONS ="custom_collections.json"
 
         val COLLECTION ="collection"
+        val PRODUCT ="product"
         val VENDOR ="vendor"
         val CATEGORY ="category"
 

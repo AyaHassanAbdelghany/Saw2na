@@ -29,6 +29,8 @@ class ProductDetail : AppCompatActivity() {
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         detailVMFactory = ProductDetailVMFactory(ProductRepo.getInstance(RemoteSource()))
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 

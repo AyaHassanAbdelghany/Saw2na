@@ -20,34 +20,31 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             >
-            <TextView
-                android:id="@+id/advertise"
-                app:layout_constraintTop_toTopOf="@id/constraint"
-                app:layout_constraintStart_toStartOf="@id/constraint"
-                android:text="Advertisement"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_list_advertise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/advertise"
-                app:layout_constraintTop_toBottomOf="@id/advertise"
-                tools:ignore="SpeakableTextPresentCheck"
-                tools:listitem="@layout/item_list_advertise" />
+           <androidx.viewpager2.widget.ViewPager2
+               android:id="@+id/advViewPager"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               android:layout_margin="20sp"/>
 
             <TextView
                 android:id="@+id/catogery"
-                app:layout_constraintTop_toBottomOf="@id/recycler_list_advertise"
+                app:layout_constraintTop_toBottomOf="@id/advViewPager"
                 app:layout_constraintStart_toStartOf="@id/constraint"
                 android:text="Catogery"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <TextView
+                android:id="@+id/catogery_view_moreTextView"
+                app:layout_constraintTop_toTopOf="@id/catogery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/recycler_list_collection"
+                android:layout_marginEnd="10dp"
+                android:text="View more"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -66,23 +63,23 @@
                 tools:listitem="@layout/item_list_collection" />
 
             <ImageView
-                android:id="@id/advertise_image"
+                android:id="@+id/coupon_image"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/catogery"
                 app:layout_constraintTop_toBottomOf="@id/recycler_list_collection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintHeight_percent="0.2"
                 android:src="@drawable/promo"
                 >
             </ImageView>
 
             <TextView
                 android:id="@+id/brand"
-                app:layout_constraintTop_toBottomOf="@id/advertise_image"
+                app:layout_constraintTop_toBottomOf="@id/coupon_image"
                 app:layout_constraintStart_toStartOf="@id/constraint"
-                android:text="Brands"
+                android:text="@string/brands"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -93,9 +90,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/recycler_list_vendor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:listitem="@layout/item_list_vendor" />
