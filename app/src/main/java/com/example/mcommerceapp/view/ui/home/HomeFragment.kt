@@ -21,14 +21,17 @@ import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.product.CollectionsRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
+import com.example.mcommerceapp.view.ui.feature_product.adapter.AllProductsAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.AdvAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
+import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
 import java.lang.Math.abs
 
 
@@ -39,6 +42,7 @@ class HomeFragment() : OnClickListner,Fragment() {
     private lateinit var homeVMFactory: HomeViewModelFactory
     private lateinit var collectionAdapter: CollectionAdpater
     private lateinit var vendorAdapter: VendorAdapter
+    private lateinit var allProductsAdapter: AllProductsAdapter
     private lateinit var sliderItemList: ArrayList<Int>
     private lateinit var advAdapter: AdvAdapter
     private lateinit var sliderHandler: Handler
@@ -69,16 +73,16 @@ class HomeFragment() : OnClickListner,Fragment() {
         homeVM.getProduct(Keys.PRODUCT_TYPE)
         observerVendors()
         observerCollections()
+        observerAllProducts()
         sliderItems()
         itemSliderView()
     }
 
     private fun itemSliderView() {
-        sliderItemList.add(R.drawable.promo)
-        sliderItemList.add(R.drawable.user)
-        sliderItemList.add(R.drawable.promo)
-        sliderItemList.add(R.drawable.user)
-        sliderItemList.add(R.drawable.promo)
+        sliderItemList.add(R.drawable.adv_bags)
+        sliderItemList.add(R.drawable.adv_bag_2)
+        sliderItemList.add(R.drawable.adv_bag_3)
+        sliderItemList.add(R.drawable.adv_dress)
     }
 
     private fun sliderItems() {
@@ -112,12 +116,14 @@ class HomeFragment() : OnClickListner,Fragment() {
     }
 
     private fun init(){
-        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()))
+        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()), ProductRepo.getInstance(RemoteSource()))
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
-        collectionAdapter = CollectionAdpater(this)
+        collectionAdapter = CollectionAdpater(this, requireContext())
         vendorAdapter = VendorAdapter(requireContext(),this)
+        allProductsAdapter = AllProductsAdapter(requireContext(),this)
         binding.recyclerListVendor.adapter = vendorAdapter
         binding.recyclerListCollection.adapter = collectionAdapter
+        binding.recycleViewProduct.adapter = allProductsAdapter
 
     }
 
@@ -136,6 +142,14 @@ class HomeFragment() : OnClickListner,Fragment() {
         }
     }
 
+    private fun observerAllProducts(){
+        homeVM.allProducts.observe(viewLifecycleOwner){
+            allProductsAdapter.setData(it)
+            binding.recycleViewProduct.adapter = allProductsAdapter
+
+        }
+    }
+
     override fun onClick(value: String?,type:String) {
         val bundle = Bundle()
 
@@ -150,6 +164,12 @@ class HomeFragment() : OnClickListner,Fragment() {
                 bundle.putString("TYPE", type)
                 val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
                 intent.putExtra("PRODUCTS", bundle)
+                startActivity(intent)
+            }
+            else ->{
+//                bundle.putString("PRODUCTS_ID", value)
+                val intent = Intent(requireContext(), ProductDetail::class.java)
+                intent.putExtra("PRODUCTS_ID", value)
                 startActivity(intent)
             }
         }

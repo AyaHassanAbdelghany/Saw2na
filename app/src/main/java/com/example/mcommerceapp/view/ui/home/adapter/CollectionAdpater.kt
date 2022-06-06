@@ -1,16 +1,19 @@
 package com.example.mcommerceapp.view.ui.home.adapter
 
+import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ItemListCollectionBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.pojo.products.ProductFields
 
-class CollectionAdpater  (private var listner : OnClickListner): RecyclerView.Adapter<CollectionAdpater.ViewHolder>(){
+class CollectionAdpater  (private var listner : OnClickListner, var context : Context): RecyclerView.Adapter<CollectionAdpater.ViewHolder>(){
 
     private  var collection : HashSet<ProductFields> = hashSetOf()
 
@@ -25,6 +28,28 @@ class CollectionAdpater  (private var listner : OnClickListner): RecyclerView.Ad
         val currentItem = collection.elementAt(position)
         holder.binding.apply {
            collectionNameText.text = currentItem.productType
+        }
+        if(currentItem.productType == "T-SHIRTS"){
+            holder.binding.collectionImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context, // Context
+                    R.drawable.t_shirt // Drawable
+                )
+            )
+        }else if(currentItem.productType == "SHOES"){
+            holder.binding.collectionImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context, // Context
+                    R.drawable.shoes // Drawable
+                )
+            )
+        }else{
+            holder.binding.collectionImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context, // Context
+                    R.drawable.assesores // Drawable
+                )
+            )
         }
         holder.binding.constraintCollection.setOnClickListener(
             View.OnClickListener

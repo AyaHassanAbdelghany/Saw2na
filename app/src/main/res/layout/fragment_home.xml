@@ -1,100 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.ui.home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
-            >
-           <androidx.viewpager2.widget.ViewPager2
-               android:id="@+id/advViewPager"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent"
-               android:layout_margin="20sp"/>
+            android:layout_marginEnd="10dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/advViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/catogery"
-                app:layout_constraintTop_toBottomOf="@id/advViewPager"
-                app:layout_constraintStart_toStartOf="@id/constraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Catogery"
                 android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                app:layout_constraintStart_toStartOf="@id/constraint"
+                app:layout_constraintTop_toBottomOf="@id/advViewPager">
 
             </TextView>
+
             <TextView
                 android:id="@+id/catogery_view_moreTextView"
-                app:layout_constraintTop_toTopOf="@id/catogery"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/recycler_list_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="View more"
                 android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                app:layout_constraintBottom_toTopOf="@id/recycler_list_collection"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/catogery">
 
             </TextView>
+
             <androidx.recyclerview.widget.RecyclerView
-                app:layout_constraintTop_toBottomOf="@id/catogery"
-                app:layout_constraintStart_toStartOf="@id/catogery"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/recycler_list_collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/catogery"
+                app:layout_constraintTop_toBottomOf="@id/catogery"
                 tools:listitem="@layout/item_list_collection" />
 
             <ImageView
                 android:id="@+id/coupon_image"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/catogery"
-                app:layout_constraintTop_toBottomOf="@id/recycler_list_collection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.2"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/promo"
-                >
-            </ImageView>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintStart_toStartOf="@id/catogery"
+                app:layout_constraintTop_toBottomOf="@id/recycler_list_collection"></ImageView>
 
             <TextView
                 android:id="@+id/brand"
-                app:layout_constraintTop_toBottomOf="@id/coupon_image"
-                app:layout_constraintStart_toStartOf="@id/constraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/brands"
                 android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
+                app:layout_constraintStart_toStartOf="@id/constraint"
+                app:layout_constraintTop_toBottomOf="@id/coupon_image"></TextView>
+
             <androidx.recyclerview.widget.RecyclerView
-                app:layout_constraintTop_toBottomOf="@id/brand"
-                app:layout_constraintStart_toStartOf="@id/brand"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/recycler_list_vendor"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/brand"
+                app:layout_constraintTop_toBottomOf="@id/brand"
                 tools:listitem="@layout/item_list_vendor" />
+
+            <TextView
+                android:id="@+id/productTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recommendation"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/recycler_list_vendor"
+                app:layout_constraintTop_toBottomOf="@id/recycler_list_vendor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/productTxt"
+                app:layout_constraintTop_toBottomOf="@id/productTxt"
+                app:spanCount="2"
+                tools:listitem="@layout/product_card" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
