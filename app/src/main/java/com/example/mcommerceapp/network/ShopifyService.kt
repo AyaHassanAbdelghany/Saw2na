@@ -78,6 +78,14 @@ interface ShopifyService {
         "Content-Type: application/json"
     )
     @GET("{resource}")
+    suspend fun getCollectionId(
+        @Path("resource") resources: String, @Query("title") fields: String
+    ): Response<JsonObject>
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @GET("{resource}")
     suspend fun getCategoryForVendor(
         @Path("resource") resources: String,
         @Query("fields") fields: String

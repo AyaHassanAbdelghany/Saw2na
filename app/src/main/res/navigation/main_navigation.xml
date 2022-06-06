@@ -17,7 +17,7 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.mcommerceapp.view.ui.profile.view.Profile"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" />z
 
     <fragment
         android:id="@+id/navigation_setting"

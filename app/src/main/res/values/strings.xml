@@ -47,6 +47,7 @@
     <string name="payment_method">Payment method</string>
     <string name="currency">Currency</string>
     <string name="language">Language</string>
+    <string name="save_settings">Save Settings</string>
     <string name="see">See More</string>
     <string name="cancel">Cancel</string>
     <string name="brands">Brands</string>
