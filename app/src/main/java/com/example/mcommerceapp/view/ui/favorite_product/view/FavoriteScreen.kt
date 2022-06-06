@@ -28,6 +28,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_screen)
+        supportActionBar?.hide()
 
         itemCountsTx = findViewById(R.id.number_of_items_tx)
         itemCountsTx.text = "You have no item in your favorite"

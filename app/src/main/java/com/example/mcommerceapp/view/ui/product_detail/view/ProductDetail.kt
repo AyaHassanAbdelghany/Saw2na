@@ -1,13 +1,19 @@
 package com.example.mcommerceapp.view.ui.product_detail.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.local_source.LocalSource
 import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.room_repository.RoomRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
@@ -31,16 +37,73 @@ class ProductDetail : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        detailVMFactory = ProductDetailVMFactory(ProductRepo.getInstance(RemoteSource()))
+        detailVMFactory = ProductDetailVMFactory(
+            ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
+                LocalSource(this), this
+            )
+        )
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
         val intent = intent.getStringExtra("PRODUCTS_ID")
 
-        detailVM.getProductDetail(intent!!)
-        detailVM.productDetail.observe(this){
+        Log.e("Product Details : ", intent.toString())
+        detailVM.checkForFavouriteProductById(intent!!)
+        detailVM.isFav.observe(this){
+            if (it == 1) {
+                binding.detailBtn.favImage.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext, // Context
+                        R.drawable.ic_baseline_favorite_24 // Drawable
+                    )
+                )
+            } else {
+                binding.detailBtn.favImage.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext, // Context
+                        R.drawable.ic_baseline_favorite_border_24 // Drawable
+                    )
+                )
+            }
+        }
 
+        detailVM.getProductDetail(intent!!)
+        detailVM.productDetail.observe(this) {
+            binding.detailBtn.favImage.setOnClickListener { view ->
+                if (detailVM.isFav.value == 1) {
+                    binding.detailBtn.favImage.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext, // Context
+                            R.drawable.ic_baseline_favorite_border_24 // Drawable
+                        )
+                    )
+                    detailVM.deleteFavoriteProduct(
+                        FavProducts(
+                            productPrice = it.variants[0].price?.toDouble()!!,
+                            productId = it.id!!,
+                            productImage = "",
+                            productName = it.title!!
+                        )
+                    )
+                } else {
+                    binding.detailBtn.favImage.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext, // Context
+                            R.drawable.ic_baseline_favorite_24 // Drawable
+                        )
+                    )
+                    detailVM.insertFavoriteProduct(
+                        FavProducts(
+                            productPrice = it.variants[0].price?.toDouble()!!,
+                            productId = it.id!!,
+                            productImage = "",
+                            productName = it.title!!
+                        )
+                    )
+                }
+            }
             binding.contentDetail.ProductPriceTxt.text = it.variants[0].price
-            binding.contentDetail.ProductRating.rating = (it.variants[0].inventoryQuantity)!!.toFloat()
+            binding.contentDetail.ProductRating.rating =
+                (it.variants[0].inventoryQuantity)!!.toFloat()
             imageSliderPager = ImageSlideAdapter(this, it.images)
             binding.viewPagerMain.adapter = imageSliderPager
             binding.indicator.setViewPager(binding.viewPagerMain)

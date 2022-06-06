@@ -88,16 +88,15 @@ interface ShopifyService {
     @GET("{resource}")
     suspend fun getCategoryForVendor(
         @Path("resource") resources: String,
-        @Query("fields") fields: String
-        ,@Query("collection_id") collection_id :String
-        ,@Query("vendor") vendor :String
-    ):  Response<JsonObject>
-
+        @Query("fields") fields: String,
+        @Query("collection_id") collection_id: String,
+        @Query("vendor") vendor: String
+    ): Response<JsonObject>
+	
     @Headers(
         "X-Shopify-Access-Token: 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",
         "Content-Type: application/json"
     )
-
     @POST("/admin/api/2021-10/customers.json")
     suspend fun createCustomer(@Body requestBody: RequestBody): Response<JsonObject>
 

@@ -13,7 +13,7 @@ class ShoppingCartScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart_screen)
-
+        supportActionBar?.hide()
 
         cartItemsRecyclerView = findViewById(R.id.cart_items_recycler_view)
         cartItemsRecyclerView.setHasFixedSize(true)
