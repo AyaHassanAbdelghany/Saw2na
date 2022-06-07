@@ -5,17 +5,21 @@ import com.example.mcommerceapp.pojo.products.Review
 class Keys {
     companion object {
 
-        val PRODUCTS ="products.json"
-        val SMART_COLLECTIONS ="smart_collections.json"
-        val CUSTOM_COLLECTIONS ="custom_collections.json"
+        const val PRODUCTS ="products.json"
+        const val SMART_COLLECTIONS ="smart_collections.json"
+        const val CUSTOM_COLLECTIONS ="custom_collections.json"
 
-        val COLLECTION ="collection"
+        const val COLLECTION ="collection"
         val PRODUCT ="product"
-        val VENDOR ="vendor"
+        const val VENDOR ="vendor"
         val CATEGORY ="category"
 
-        val PRODUCT_TYPE ="product_type"
-        val BASE_URL: String ="https://madalex20220.myshopify.com/admin/api/2022-01/"
+        const val ORDERS ="orders"
+        const val JSON_Extension = ".json"
+
+
+        const val PRODUCT_TYPE ="product_type"
+        const val BASE_URL: String ="https://madalex20220.myshopify.com/admin/api/2022-01/"
 
         val REVIEWS = listOf(
             Review(name = "Mariam", rate = 5.0F, date = "05/04/2021", desc = "This is so cool and very comfortable."),
@@ -25,6 +29,6 @@ class Keys {
 
         )
 
-        val CURRENCY_BASE_URL = "https://api.apilayer.com/exchangerates_data/"
+        const val CURRENCY_BASE_URL = "https://api.apilayer.com/exchangerates_data/"
     }
 }
