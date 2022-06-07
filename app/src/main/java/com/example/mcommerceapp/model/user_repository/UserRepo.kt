@@ -105,11 +105,12 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
     }
 
     override suspend fun setUser(user: User) {
-        sharedPreferences.edit().putString("name", user.displayName)
-            .putString("email", user.email).apply()
-
         val req = getRequest(user)
         user.userID = customerRemoteSource.createCustomer(req)
+
+        sharedPreferences.edit().putString("name", user.displayName)
+            .putString("email", user.email).putString("userId",user.userID).apply()
+
         addToFireStore(user)
     }
 
@@ -120,7 +121,8 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
     override fun getUser(): User {
         val name = sharedPreferences.getString("name", "no name")
         val email = sharedPreferences.getString("email", "no email")
-        return User(name!!, email!!)
+        val userId = sharedPreferences.getString("userId", "none")
+        return User(name!!, email!!,true,userID = userId!!)
     }
 
 
