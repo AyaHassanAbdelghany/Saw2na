@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".view.ui.payment.view.Payment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.75"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintWidth_percent="0.9">
+
+
+        <TextView
+            android:id="@+id/purchase_detail_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purchase Details"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Date"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/purchase_detail_label"
+            app:layout_constraintTop_toBottomOf="@id/purchase_detail_label" />
+
+        <TextView
+            android:id="@+id/date_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7 June,2022"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/date_label"
+            app:layout_constraintTop_toBottomOf="@id/date_label" />
+
+        <TextView
+            android:id="@+id/time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/purchase_detail_label"
+            app:layout_constraintTop_toTopOf="@id/date_label" />
+
+        <TextView
+            android:id="@+id/time_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:00 AM"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/time_label"
+            app:layout_constraintTop_toBottomOf="@id/time_label" />
+
+
+        <TextView
+            android:id="@+id/purchase_description_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Purchase Description"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/date_tx"
+            app:layout_constraintTop_toBottomOf="@id/date_tx" />
+
+
+        <TextView
+            android:id="@+id/purchase_description_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="Some Products Data....... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/purchase_description_label"
+            app:layout_constraintTop_toBottomOf="@id/purchase_description_label" />
+
+
+        <TextView
+            android:id="@+id/amount_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Amount"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/purchase_description_tx"
+            app:layout_constraintTop_toBottomOf="@id/purchase_description_tx" />
+
+
+        <TextView
+            android:id="@+id/amount_currency_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USD"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/amount_label"
+            app:layout_constraintTop_toBottomOf="@id/amount_label" />
+
+
+        <TextView
+            android:id="@+id/amount_value_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="1000"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/amount_currency_tx"
+            app:layout_constraintTop_toTopOf="@id/amount_currency_tx" />
+
+
+        <ImageView
+            android:id="@+id/status_img"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/unpaid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/amount_value_tx" />
+
+        <include
+            android:id="@+id/googlePayButton"
+            layout="@layout/buy_with_googlepay_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pay_button_height"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/status_img" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/seperator_line_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/googlePayButton">
+
+            <TextView
+                android:id="@+id/or_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1.5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/or_label"
+                app:layout_constraintEnd_toStartOf="@id/or_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/or_label" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1.5dp"
+                android:layout_marginStart="5dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/or_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/or_label"
+                app:layout_constraintTop_toTopOf="@id/or_label" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Cancel"
+            android:textColor="@android:color/holo_red_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seperator_line_constraint" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

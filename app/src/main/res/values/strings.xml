@@ -51,7 +51,12 @@
     <string name="brands">Brands</string>
     <string name="catogeries">Catogeries</string>
     <string name="no_found">No Found</string>
-    <string name="save_settings">Save Settings</string>
-    <string name="recommendation">Recommendation</string>
+    <string name="recommendation" translatable="false">Recommendation</string>
+
+
+    <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
+    <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
+    <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
+    <string name="add_google_wallet_success" translatable="false">The pass was added successfully!</string>
 
 </resources>
