@@ -30,13 +30,13 @@
                     android:id="@+id/viewPagerMain"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.9" />
+                    android:layout_weight="0.95" />
 
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
+                    android:layout_weight="0.05"
                     android:background="@color/grey"
                     android:elevation="4dp" />
             </LinearLayout>

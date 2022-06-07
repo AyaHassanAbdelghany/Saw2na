@@ -40,6 +40,23 @@
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/fragment_profile.xml" value="0.165625" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/item_list_collection.xml" value="0.1109375" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/menu/bottom_nav_menu.xml" value="0.10989583333333333" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/drawable/myrect.xml" value="0.148" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/acitivity_order_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/action_bar.xml" value="0.11322463768115942" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_main.xml" value="0.11322463768115942" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_orders.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_product_detail.xml" value="0.21" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/activity_shopping_cart_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_review.xml" value="0.11322463768115942" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/card_size.xml" value="0.11322463768115942" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/content_scrolling.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_favorite.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_collection.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_list_vendor.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_order_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_orders.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_shopping_cart.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/product_card.xml" value="0.11322463768115942" />
       </map>
     </option>
   </component>
