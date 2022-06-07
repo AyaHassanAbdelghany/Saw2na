@@ -1,10 +1,9 @@
 package com.example.mcommerceapp.view.ui.feature_product.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -26,24 +25,22 @@ class AllProductsAdapter (var context :Context , var listner : OnClickListner) :
 
         val currentItem = productList[position]
         holder.binding.apply {
-            productNameTxt.text = currentItem?.title
+            productNameTxt.text = currentItem.title
 
             Glide.with(context)
-                .load(currentItem?.image?.src)
+                .load(currentItem.image?.src)
                 .into(productImage)
-            productPriceTxt.text = currentItem?.variants?.get(0)?.price.toString()
+            productPriceTxt.text = currentItem.variants.get(0).price.toString()
         }
-        holder.itemView.setOnClickListener(View.OnClickListener
-        {
-            Log.e("productid", currentItem.id.toString())
-            Log.e("vendorTitle",currentItem.id.toString())
+        holder.itemView.setOnClickListener {
             listner.onClick(currentItem.id.toString(), "")
-        })
+        }
     }
 
     override fun getItemCount(): Int = productList.count()
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(productList: ArrayList<Products>){
         this.productList = productList
         notifyDataSetChanged()

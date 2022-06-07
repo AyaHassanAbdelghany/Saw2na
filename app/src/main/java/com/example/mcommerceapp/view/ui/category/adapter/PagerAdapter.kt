@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.adapter.FragmentViewHolder
 import com.example.mcommerceapp.view.ui.category.CategoryTypeFragment
 
 class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(manager, lifecycle) {
@@ -18,7 +19,11 @@ class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle): FragmentStat
     }
 
     override fun getItemCount(): Int {
-        return  3
+        return  4
     }
 
+    override fun onViewDetachedFromWindow(holder: FragmentViewHolder) {
+        Log.e("pager","hello")
+        super.onViewDetachedFromWindow(holder)
+    }
 }

@@ -29,27 +29,31 @@ class CollectionAdpater  (private var listner : OnClickListner, var context : Co
         holder.binding.apply {
            collectionNameText.text = currentItem.productType
         }
-        if(currentItem.productType == "T-SHIRTS"){
-            holder.binding.collectionImage.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context, // Context
-                    R.drawable.t_shirt // Drawable
+        when(currentItem.productType ){
+            "T-SHIRTS"->{
+                holder.binding.collectionImage.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context, // Context
+                        R.drawable.t_shirt // Drawable
+                    )
                 )
-            )
-        }else if(currentItem.productType == "SHOES"){
-            holder.binding.collectionImage.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context, // Context
-                    R.drawable.shoes // Drawable
-                )
-            )
-        }else{
-            holder.binding.collectionImage.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context, // Context
-                    R.drawable.assesores // Drawable
-                )
-            )
+            }
+          "SHOES"  ->{
+              holder.binding.collectionImage.setImageDrawable(
+                  ContextCompat.getDrawable(
+                      context, // Context
+                      R.drawable.shoes // Drawable
+                  )
+              )
+          }
+          else ->{
+              holder.binding.collectionImage.setImageDrawable(
+                  ContextCompat.getDrawable(
+                      context, // Context
+                      R.drawable.assesores // Drawable
+                  )
+              )
+          }
         }
         holder.binding.constraintCollection.setOnClickListener(
             View.OnClickListener

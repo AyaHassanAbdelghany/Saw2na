@@ -2,7 +2,6 @@ package com.example.mcommerceapp.view.ui.category
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,7 @@ import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
-import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
-import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
+import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
 
 class CategoryTypeFragment (): OnClickListener,Fragment() {
 
@@ -52,51 +50,69 @@ class CategoryTypeFragment (): OnClickListener,Fragment() {
 
     override fun onResume() {
         super.onResume()
-        categoryVM.getCollectionId(tabTitle)
-        when(type){
-            Keys.VENDOR -> observeVendor()
-            Keys.COLLECTION -> observeCollection()
+        when(tabTitle){
+            "ALL" ->observerAllProducts()
+            else ->{
+                categoryVM.getCollectionId(tabTitle)
+                observerCollectionId()
+            }
+        }
+
+    }
+
+    private fun observerCollectionId(){
+       categoryVM.customCollection.observe(viewLifecycleOwner){
+           subCollection = it[0].id.toString()
+           categoryVM.getCollectionProducts( it[0].id.toString())
+           observerCollectionProducts()
+       }
+    }
+    private fun observerCollectionProducts(){
+        categoryVM.collectionProducts.observe(viewLifecycleOwner){
+            binding.progressBar.visibility = ProgressBar.INVISIBLE
+            categoryAdapter.setData(it)
+            binding.recyclerListCategory.adapter = categoryAdapter
+        }
+    }
+    private fun observerAllProducts(){
+        categoryVM.allProducts.observe(viewLifecycleOwner){
+            binding.progressBar.visibility = ProgressBar.INVISIBLE
+            categoryAdapter.setData(it)
+            binding.recyclerListCategory.adapter = categoryAdapter
         }
     }
 
-    private fun observeCollection(){
-       categoryVM.customCollection.observe(viewLifecycleOwner){
-           subCollection = it[0].id.toString()
-           categoryVM.getCategoryForCollection(Keys.PRODUCT_TYPE, it[0].id.toString())
-           observerCategory()
-       }
-    }
+
     private fun observeVendor(){
         categoryVM.customCollection.observe(viewLifecycleOwner){
 
             subCollection = it[0].id.toString()
             categoryVM.getCategoryForVendor(Keys.PRODUCT_TYPE,it[0].id.toString(),vendor)
-            observerCategory()
+            observerCollectionProducts()
         }
 
     }
-    private fun observerCategory(){
-        categoryVM.category.observe(viewLifecycleOwner){
-           binding.progressBar.visibility = ProgressBar.INVISIBLE
-            categoryAdapter.setData(it)
-            binding.recyclerListCategory.adapter = categoryAdapter
-        }
-    }
+
     private fun init(){
         categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()))
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
-        categoryAdapter = CategoryAdapter(this)
+        categoryAdapter = CategoryAdapter(requireContext(),this)
     }
 
     override fun onClick(value: String) {
-        val bundle = Bundle()
-        bundle.putString("PRODUCT_TYPE", value)
-        bundle.putString("TYPE", type)
-        bundle.putString("SUB_CATEGORY", subCollection)
-        bundle.putString("VENDOR", vendor)
-        val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
-        intent.putExtra("PRODUCTS", bundle)
+
+        val intent = Intent(requireContext(), ProductDetail::class.java)
+        intent.putExtra("PRODUCTS_ID", value)
         startActivity(intent)
+
+//        val bundle = Bundle()
+//        bundle.putString("PRODUCT_TYPE", value)
+//        bundle.putString("TYPE", type)
+//        bundle.putString("SUB_CATEGORY", subCollection)
+//        bundle.putString("VENDOR", vendor)
+//        val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
+//        intent.putExtra("PRODUCTS", bundle)
+//        startActivity(intent)
     }
 
 }

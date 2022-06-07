@@ -19,6 +19,8 @@ interface ProductDetailRepo {
 }
 
 interface CategoryRepo {
+
+    suspend fun getCollectionProducts(collectionId:String) : ArrayList<Products>
     suspend fun getCollectionId(title :String)
     suspend fun getCategoryForVendor(
         fields: String,

@@ -32,7 +32,6 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:onClick="clickEvent"
         android:src="@drawable/ic_baseline_search_24"/>
 
     <TextView
@@ -57,7 +56,6 @@
         app:layout_constraintStart_toEndOf="@id/appTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:onClick="clickEvent"
         app:layout_constraintTop_toTopOf="@id/appTxt" />
 
     <ImageView
@@ -67,7 +65,6 @@
         android:src="@drawable/ic_baseline_shopping_cart_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
-        android:onClick="clickEvent"
         app:layout_constraintStart_toEndOf="@id/favouriteImage"
         app:layout_constraintTop_toTopOf="@id/favouriteImage" />
 

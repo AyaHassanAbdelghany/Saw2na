@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.model.shopify_repository.product.CategoryRepo
 
-class CategoryViewModelFactory(private val iProducts: CategoryRepo) : ViewModelProvider.Factory {
+class CategoryViewModelFactory(private val iCategory: CategoryRepo) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
-            CategoryViewModel(iProducts) as T
+            CategoryViewModel(iCategory) as T
         } else {
             throw IllegalArgumentException("Error")
         }    }

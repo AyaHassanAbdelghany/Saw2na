@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/navigation_category"
-        android:name="com.example.mcommerceapp.view.ui.category.CollectionTabLayoutFragment"
+        android:name="com.example.mcommerceapp.view.ui.category.CategoryTabLayoutFragment"
         tools:layout="@layout/fragment_category" >
     </fragment>
 
