@@ -69,5 +69,7 @@
     <string name="total">Total</string>
     <string name="notify_me">Notify Me</string>
     <string name="category">Category</string>
+    <string name="favourite">Favourite</string>
+    <string name="shopping_cart">Shopping Cart</string>
 
 </resources>
