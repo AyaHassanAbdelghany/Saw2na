@@ -34,7 +34,6 @@ class CheckoutViewModel(application: Application) : AndroidViewModel(application
      * @see [](https://developers.google.com/android/reference/com/google/android/gms/wallet/PaymentsClient.html.isReadyToPay)
     ) */
     private fun fetchCanUseGooglePay() {
-
         val isReadyToPayJson = PaymentsUtil.isReadyToPayRequest()
         if (isReadyToPayJson == null) _canUseGooglePay.value = false
 

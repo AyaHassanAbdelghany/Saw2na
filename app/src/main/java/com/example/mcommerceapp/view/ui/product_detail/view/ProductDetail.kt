@@ -48,7 +48,7 @@ class ProductDetail : AppCompatActivity() {
 
         Log.e("Product Details : ", intent.toString())
         detailVM.checkForFavouriteProductById(intent!!)
-        detailVM.isFav.observe(this){
+        detailVM.isFav.observe(this) {
             if (it == 1) {
                 binding.detailBtn.favImage.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -91,11 +91,12 @@ class ProductDetail : AppCompatActivity() {
                             R.drawable.ic_baseline_favorite_24 // Drawable
                         )
                     )
+
                     detailVM.insertFavoriteProduct(
                         FavProducts(
                             productPrice = it.variants[0].price?.toDouble()!!,
                             productId = it.id!!,
-                            productImage = "",
+                            productImage = it.image?.src!!,
                             productName = it.title!!
                         )
                     )
