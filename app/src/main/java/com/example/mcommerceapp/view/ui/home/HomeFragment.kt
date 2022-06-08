@@ -56,13 +56,13 @@ class HomeFragment() : OnClickListner,Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
-         binding.catogeryViewMoreTextView.setOnClickListener(){
-
-             val bundle = Bundle()
-             bundle.putString("VALUE","")
-             bundle.putString("TYPE", Keys.COLLECTION)
-            findNavController(requireView())?.navigate(R.id.actCategoryMore,bundle);
-         }
+//         binding.catogeryViewMoreTextView.setOnClickListener(){
+//
+//             val bundle = Bundle()
+//             bundle.putString("VALUE","")
+//             bundle.putString("TYPE", Keys.COLLECTION)
+//            findNavController(requireView())?.navigate(R.id.actCategoryMore,bundle);
+//         }
 
         return binding.root
     }
@@ -122,7 +122,7 @@ class HomeFragment() : OnClickListner,Fragment() {
         vendorAdapter = VendorAdapter(requireContext(),this)
         allProductsAdapter = AllProductsAdapter(requireContext(),this)
         binding.recyclerListVendor.adapter = vendorAdapter
-        binding.recyclerListCollection.adapter = collectionAdapter
+        //binding.recyclerListCollection.adapter = collectionAdapter
         binding.recycleViewProduct.adapter = allProductsAdapter
 
     }

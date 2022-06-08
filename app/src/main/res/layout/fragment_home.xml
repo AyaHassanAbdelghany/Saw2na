@@ -6,115 +6,99 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.home.HomeFragment">
 
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_bar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_height="match_parent"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp">
+
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/advViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_height="150dp"
+                android:layout_margin="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/catogery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Catogery"
-                android:textStyle="bold"
-                android:paddingStart="10dp"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/constraint"
-                app:layout_constraintTop_toBottomOf="@id/advViewPager">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/catogery_view_moreTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="View more"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/recycler_list_collection"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/catogery">
-
-            </TextView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_list_collection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/catogery"
-                app:layout_constraintTop_toBottomOf="@id/catogery"
-                tools:listitem="@layout/item_list_collection" />
-
-            <ImageView
-                android:id="@+id/coupon_image"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/promo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintStart_toStartOf="@id/catogery"
-                app:layout_constraintTop_toBottomOf="@id/recycler_list_collection"></ImageView>
 
             <TextView
                 android:id="@+id/brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/brands"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/constraint"
-                app:layout_constraintTop_toBottomOf="@id/coupon_image"></TextView>
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/advViewPager" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_list_vendor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/brand"
                 app:layout_constraintTop_toBottomOf="@id/brand"
                 tools:listitem="@layout/item_list_vendor" />
 
+
+            <ImageView
+                android:id="@+id/coupon_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/promo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintStart_toStartOf="@id/recycler_list_vendor"
+                app:layout_constraintTop_toBottomOf="@id/recycler_list_vendor" />
+
             <TextView
                 android:id="@+id/productTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/recommendation"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/recycler_list_vendor"
-                app:layout_constraintTop_toBottomOf="@id/recycler_list_vendor" />
+                app:layout_constraintStart_toStartOf="@id/brand"
+                app:layout_constraintTop_toBottomOf="@id/coupon_image" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycle_view_product"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="vertical"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/productTxt"
                 app:layout_constraintTop_toBottomOf="@id/productTxt"
@@ -122,8 +106,25 @@
                 tools:listitem="@layout/product_card" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/view_more_tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_more"
+                android:textColor="@color/blue"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/recycle_view_product"
+                app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
 
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

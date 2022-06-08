@@ -116,7 +116,8 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<HashSet<ProductFields>>() {}.type
-        )    }
+        )
+    }
 
     override suspend fun getProductDetail(id: String): Products{
         val res = api.get("products${"/$id"}.json")
