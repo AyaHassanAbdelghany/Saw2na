@@ -6,7 +6,7 @@ import draft_orders.SmsMarketingConsent
 
 data class Customer (
 
-  @SerializedName("id"                           ) var id                        : Int?              = null,
+  @SerializedName("id"                           ) var id                        : Long?              = null,
   @SerializedName("email"                        ) var email                     : String?           = null,
   @SerializedName("accepts_marketing"            ) var acceptsMarketing          : Boolean?          = null,
   @SerializedName("created_at"                   ) var createdAt                 : String?           = null,

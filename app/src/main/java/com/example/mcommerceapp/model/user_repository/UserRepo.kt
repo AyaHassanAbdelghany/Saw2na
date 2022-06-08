@@ -54,7 +54,8 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         _signInAuthState.value = AuthState.LOADING
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-
+            sharedPreferences.edit().putString("email",email).apply()
+            retrieveUserFromFireStore()
             if (firebaseAuth.currentUser!!.isEmailVerified) {
                 Log.i("TAG", "Email signin is successful")
                 _signInAuthState.value = AuthState.SUCCESS
@@ -143,8 +144,10 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
 
     override fun retrieveUserFromFireStore(): LiveData<User> {
         fireStore.collection("users").document(getUser().email).get().addOnSuccessListener { d ->
-            val u = d.toObject(User::class.java)
-            _user.value = u
+            val user = d.toObject(User::class.java)
+            sharedPreferences.edit().putString("name", user?.displayName)
+                .putString("email", user?.email).putString("userId",user?.userID).apply()
+            _user.value = user
         }
         return user
     }
