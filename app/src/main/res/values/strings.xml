@@ -72,5 +72,7 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="items">Items</string>
+    <string name="favourite">Favourite</string>
+    <string name="shopping_cart">Shopping Cart</string>
 
 </resources>
