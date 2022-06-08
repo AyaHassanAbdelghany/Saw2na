@@ -58,8 +58,12 @@
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
     <string name="add_google_wallet_success" translatable="false">The pass was added successfully!</string>
-    <string name="category">Category</string>
-    <string name="price">Price</string>
-    <string name="sub_category">Sub Category</string>
+    <string name="category" translatable="false">Category</string>
+
+    <string name="price" translatable="false">Price</string>
+    <string name="sub_category" translatable="false">Sub Category</string>
+
+    <string name="view_more" translatable="false">view more</string>
+
 
 </resources>

@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -31,7 +30,7 @@ import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
 
 
-class HomeFragment : OnClickListner,Fragment() {
+class HomeFragment : OnClickListner, Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeViewModel
@@ -44,21 +43,13 @@ class HomeFragment : OnClickListner,Fragment() {
     private lateinit var sliderHandler: Handler
     private lateinit var sliderRun: Runnable
 
-     override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
-
-         binding.catogeryViewMoreTextView.setOnClickListener{
-
-             val bundle = Bundle()
-             bundle.putString("VALUE","")
-             bundle.putString("TYPE", Keys.COLLECTION)
-             findNavController(requireView()).navigate(R.id.actCategoryMore,bundle)
-         }
 
         return binding.root
     }
@@ -102,7 +93,7 @@ class HomeFragment : OnClickListner,Fragment() {
             binding.advViewPager.currentItem = binding.advViewPager.currentItem + 1
         }
         binding.advViewPager.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback(){
+            object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     sliderHandler.removeCallbacks(sliderRun)
                     sliderHandler.postDelayed(sliderRun, 3000)
@@ -111,45 +102,49 @@ class HomeFragment : OnClickListner,Fragment() {
 
     }
 
-    private fun init(){
-        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()), ProductRepo.getInstance(RemoteSource()))
+    private fun init() {
+        homeVMFactory = HomeViewModelFactory(
+            ProductRepo.getInstance(RemoteSource()),
+            ProductRepo.getInstance(RemoteSource())
+        )
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         collectionAdapter = CollectionAdpater(this, requireContext())
-        vendorAdapter = VendorAdapter(requireContext(),this)
-        allProductsAdapter = AllProductsAdapter(requireContext(),this)
+        vendorAdapter = VendorAdapter(requireContext(), this)
+        allProductsAdapter = AllProductsAdapter(requireContext(), this)
         binding.recyclerListVendor.adapter = vendorAdapter
-        binding.recyclerListCollection.adapter = collectionAdapter
+        //binding.recyclerListCollection.adapter = collectionAdapter
         binding.recycleViewProduct.adapter = allProductsAdapter
 
     }
 
-    private fun observerVendors(){
-        homeVM.vendors.observe(viewLifecycleOwner){
+    private fun observerVendors() {
+        homeVM.vendors.observe(viewLifecycleOwner) {
             vendorAdapter.setData(it)
             binding.recyclerListVendor.adapter = vendorAdapter
         }
     }
-    private fun observerAllProducts(){
-        homeVM.allProducts.observe(viewLifecycleOwner){
+
+    private fun observerAllProducts() {
+        homeVM.allProducts.observe(viewLifecycleOwner) {
             allProductsAdapter.setData(it)
             binding.recycleViewProduct.adapter = allProductsAdapter
 
         }
     }
 
-    override fun onClick(value: String?,type:String) {
+    override fun onClick(value: String?, type: String) {
         val bundle = Bundle()
-        Log.e("type",type)
-        when(type){
+        Log.e("type", type)
+        when (type) {
 
-            Keys.VENDOR ->  {
+            Keys.VENDOR -> {
                 bundle.putString("VALUE", value)
                 bundle.putString("TYPE", type)
                 val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
                 intent.putExtra("PRODUCTS", bundle)
                 startActivity(intent)
             }
-            else ->{
+            else -> {
                 val intent = Intent(requireContext(), ProductDetail::class.java)
                 intent.putExtra("PRODUCTS_ID", value)
                 startActivity(intent)

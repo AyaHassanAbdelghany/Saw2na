@@ -64,6 +64,7 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
             object : TypeToken<HashSet<ProductFields>>() {}.type
         )
     }
+
     override suspend fun getCollectionId(id: String): ArrayList<CustomCollections> {
         val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS,id)
         return gson.fromJson(
@@ -71,8 +72,6 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
             object : TypeToken<ArrayList<CustomCollections>>() {}.type
         )
     }
-
-
 
     override suspend fun getProductDetail(id: String): Products{
         val res = api.getAllProducts("products${"/$id"}.json")
