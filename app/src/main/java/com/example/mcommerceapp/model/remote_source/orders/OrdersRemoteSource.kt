@@ -40,15 +40,19 @@ class OrdersRemoteSource {
         val res = api.getAllOrders()
         Log.i("OrdersRemoteSource", "\n\n\n\n\ngetAllOrders: ${res.body()}")
 
-        val resOrders :Orders = gson.fromJson(
+        val resOrders :ArrayList<Order> = gson.fromJson(
             res.body()!!.get("orders") as JsonArray,
-            object : TypeToken<Orders>() {}.type
+            object : TypeToken<ArrayList<Order>>() {}.type
         )
 
         val myOrders : ArrayList<Order> = arrayListOf()
-        for (order in resOrders.orders){
-            if (order.customer?.id.toString() == userID)
+        for (order in resOrders){
+            Log.d("iddddddddddd", order.id.toString()+"      "+ userID )
+
+            if (order.customer?.id.toString() == userID) {
+                Log.d("iddddddddddd", order.toString())
                 myOrders.add(order)
+            }
         }
 
         return myOrders

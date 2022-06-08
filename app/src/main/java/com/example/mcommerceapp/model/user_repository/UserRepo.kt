@@ -122,6 +122,9 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         val name = sharedPreferences.getString("name", "no name")
         val email = sharedPreferences.getString("email", "no email")
         val userId = sharedPreferences.getString("userId", "none")
+
+        Log.d("iiiiiiiiiiid", userId.toString())
+
         return User(name!!, email!!,true,userID = userId!!)
     }
 

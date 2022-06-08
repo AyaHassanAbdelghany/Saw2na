@@ -1,6 +1,7 @@
 package orders
 
 import com.google.gson.annotations.SerializedName
+import draft_orders.SmsMarketingConsent
 
 
 data class Customer (
@@ -27,7 +28,7 @@ data class Customer (
   @SerializedName("accepts_marketing_updated_at" ) var acceptsMarketingUpdatedAt : String?           = null,
   @SerializedName("marketing_opt_in_level"       ) var marketingOptInLevel       : String?           = null,
   @SerializedName("tax_exemptions"               ) var taxExemptions             : ArrayList<String> = arrayListOf(),
-  @SerializedName("sms_marketing_consent"        ) var smsMarketingConsent       : String?           = null,
+  @SerializedName("sms_marketing_consent"        ) var smsMarketingConsent       : SmsMarketingConsent? = SmsMarketingConsent(),
   @SerializedName("admin_graphql_api_id"         ) var adminGraphqlApiId         : String?           = null
 
 )
