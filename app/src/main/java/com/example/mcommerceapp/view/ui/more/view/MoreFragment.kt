@@ -67,7 +67,6 @@ class MoreFragment : Fragment() {
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
 
-
         binding.saveSettingsButton.setOnClickListener {
             val currency = currencyArray[currencySpinner.selectedItemPosition]
             viewModel.convert(currency)
@@ -99,8 +98,6 @@ class MoreFragment : Fragment() {
             currencySpinner.adapter = currencyAdapter
 
         }
-
-
 
     }
 
