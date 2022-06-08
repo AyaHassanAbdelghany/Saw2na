@@ -22,13 +22,16 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
     }
 
 
-
     override suspend fun getProductCollection(productType: String, collectionId: String): ArrayList<Products> {
         return remoteSource.getProductCollection(productType, collectionId)
     }
 
     override suspend fun getAllProducts() {
         allProducts.postValue(remoteSource.getAllProducts())
+    }
+
+    override suspend fun getCollectionProducts(collectionId: String): ArrayList<Products> {
+        return remoteSource.getCollectionProducts(collectionId)
     }
 
     override suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products> {

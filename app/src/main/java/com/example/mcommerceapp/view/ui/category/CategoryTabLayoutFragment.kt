@@ -14,12 +14,11 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class CollectionTabLayoutFragment : Fragment() {
+class CategoryTabLayoutFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var pagerAdapter: PagerAdapter
     private  var value :String =""
-    private  var type :String = ""
 
         private val pagerCallback by lazy {
         object : ViewPager2.OnPageChangeCallback() {
@@ -38,22 +37,22 @@ class CollectionTabLayoutFragment : Fragment() {
 
         pagerAdapter = PagerAdapter(this.childFragmentManager, this.lifecycle)
         binding.viewPager.adapter = pagerAdapter
+       binding.viewPager.isUserInputEnabled = false
         binding.viewPager.registerOnPageChangeCallback(pagerCallback)
-
-        var bun = this.arguments
-
-        if (bun != null) {
-            value = bun.getString("VALUE")!!
-            type = bun.getString("TYPE")!!
-        }
-
-        pagerAdapter.vendor = value
-        pagerAdapter.type = type
+//
+//        var bun = this.arguments
+//
+//        if (bun != null) {
+//            value = bun.getString("VALUE")!!
+//            type = bun.getString("TYPE")!!
+//        }
+//
+//        pagerAdapter.vendor = value
+//        pagerAdapter.type = type
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
-            tab.text = listOf<String>("MEN", "WOMEN", "KID")[position]
+            tab.text = listOf<String>("MEN", "WOMEN", "KID","ALL")[position]
          }.attach()
-
 
         return binding.root
     }
@@ -61,12 +60,12 @@ class CollectionTabLayoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
             @SuppressLint("ResourceType")
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 binding.viewPager.adapter = pagerAdapter
                 pagerAdapter.tabTitle = tab?.text as String
                 binding.viewPager.currentItem = tab?.position ?: 0
-
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -77,6 +76,7 @@ class CollectionTabLayoutFragment : Fragment() {
             }
 
         })
+
     }
 
 }

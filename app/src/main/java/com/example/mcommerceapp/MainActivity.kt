@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.example.mcommerceapp.databinding.ActivityMainBinding
 
 import com.example.mcommerceapp.view.FragmentContainer
+import com.example.mcommerceapp.view.ui.category.CategoryTabLayoutFragment
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.more.view.MoreFragment
 import com.example.mcommerceapp.view.ui.profile.view.Profile
@@ -58,6 +59,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home -> setCurrentFragment(FragmentContainer())
                 R.id.navigation_profile -> setCurrentFragment(Profile())
                 R.id.navigation_setting -> setCurrentFragment(MoreFragment())
+                R.id.navigation_category -> setCurrentFragment(CategoryTabLayoutFragment())
+
             }
             true
         }

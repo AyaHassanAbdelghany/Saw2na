@@ -11,6 +11,10 @@
         android:icon="@drawable/ic_baseline_self_improvement_24"
         android:title="@string/profile" />
     <item
+        android:id="@+id/navigation_category"
+        android:icon="@drawable/ic_baseline_more_horiz_24"
+        android:title="@string/more" />
+    <item
         android:id="@+id/navigation_setting"
         android:icon="@drawable/ic_baseline_more_horiz_24"
         android:title="@string/more" />

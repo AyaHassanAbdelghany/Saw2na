@@ -11,6 +11,7 @@ interface IRemoteSource {
     suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products>
     suspend fun getCustomCollections() : ArrayList<CustomCollections>
     suspend fun getAllProducts() : ArrayList<Products>
+    suspend fun getCollectionProducts(collectionId :String) :ArrayList<Products>
 
     suspend fun getCollectionId(title:String) :ArrayList<CustomCollections>
     suspend fun getCategoryForCollection(fields:String,collectionId:String): HashSet<ProductFields>

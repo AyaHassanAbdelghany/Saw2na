@@ -72,7 +72,7 @@ class HomeFragment() : OnClickListner,Fragment() {
         super.onResume()
         homeVM.getProduct(Keys.PRODUCT_TYPE)
         observerVendors()
-        observerCollections()
+        //observerCollections()
         observerAllProducts()
         sliderItems()
         itemSliderView()
@@ -134,13 +134,13 @@ class HomeFragment() : OnClickListner,Fragment() {
         }
     }
 
-    private fun observerCollections(){
-        homeVM.collections.observe(viewLifecycleOwner){
-            collectionAdapter.setData(it)
-            binding.recyclerListCollection.adapter = collectionAdapter
-
-        }
-    }
+//    private fun observerCollections(){
+//        homeVM.collections.observe(viewLifecycleOwner){
+//            collectionAdapter.setData(it)
+//            binding.recyclerListCollection.adapter = collectionAdapter
+//
+//        }
+//    }
 
     private fun observerAllProducts(){
         homeVM.allProducts.observe(viewLifecycleOwner){
@@ -167,7 +167,6 @@ class HomeFragment() : OnClickListner,Fragment() {
                 startActivity(intent)
             }
             else ->{
-//                bundle.putString("PRODUCTS_ID", value)
                 val intent = Intent(requireContext(), ProductDetail::class.java)
                 intent.putExtra("PRODUCTS_ID", value)
                 startActivity(intent)

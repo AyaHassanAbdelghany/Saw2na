@@ -68,5 +68,6 @@
     <string name="payment_details">Payment Details</string>
     <string name="total">Total</string>
     <string name="notify_me">Notify Me</string>
+    <string name="category">Category</string>
 
 </resources>

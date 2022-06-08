@@ -14,6 +14,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_category"
+        android:name="com.example.mcommerceapp.view.ui.category.CategoryTabLayoutFragment"
+        android:label="@string/category"
+        tools:layout="@layout/fragment_category">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.mcommerceapp.view.ui.profile.view.Profile"
         android:label="@string/profile"
