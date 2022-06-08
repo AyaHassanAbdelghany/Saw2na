@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">M Commerce App</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="app_name">"تسوق معنا "</string>
+    <string name="title_home">الريئسيه</string>
+    <string name="title_activity_login">تسجيل</string>
     <string name="prompt_email">البريد الالكتروني</string>
     <string name="prompt_password">الرقم السري</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">تسجيل دخول او تسجيل</string>
     <string name="action_sign_in_short">تسجيل</string>
     <string name="welcome">"اهلا"</string>
     <string name="invalid_username">البريد غير صحيح</string>
@@ -18,12 +16,12 @@
     <string name="EmailAddress">البريد</string>
     <string name="prompt_retype_password">اعد الرقم السري</string>
     <string name="AlreadyHaveAccount">لديك حساب بالفعل؟</string>
-    <string name="Signin">Signin</string>
+    <string name="Signin">تسجيل</string>
     <string name="DonNotHaveAccount">ليس لديك حساب؟</string>
 
-    <string name="categorytype">CategoryType</string>
+    <string name="categorytype">انواع الاصناف</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">اهلا</string>
     <string name="all_my_orders">كل الطلبات</string>
     <string name="finished_orders">الطلبات المنتهيه</string>
     <string name="pending_payments">الطلبات الجاريه</string>
@@ -44,10 +42,27 @@
     <string name="desc">المواصفات</string>
     <string name="color">الألوان</string>
     <string name="size">المقاسات</string>
-    <string name="save_settings">Save Settings</string>
-    <string name="see">See More</string>
-    <string name="cancel">Cancel</string>
-    <string name="brands">Brands</string>
-    <string name="no_found">No Found</string>
-    <string name="catogeries">Catogeries</string>
+    <string name="save_settings">حفظ الاعدادات</string>
+    <string name="see">المزيد</string>
+    <string name="cancel">اغلاق</string>
+    <string name="brands">علامات تجاريه</string>
+    <string name="no_found">غير موجود</string>
+    <string name="catogeries">اصناف</string>
+
+    <string name="orders">الطلبات</string>
+    <string name="order_again">طلب مجددا</string>
+    <string name="price">السعر</string>
+    <string name="product">البضاعه</string>
+    <string name="shipping_details">تفاصيل الشحن</string>
+    <string name="date_shopping">تاريخ الشحن</string>
+    <string name="payment_details">تفاصيل الدفع</string>
+    <string name="total">المجموع</string>
+    <string name="category">اصناف</string>
+    <string name="shipping">الشحن</string>
+    <string name="phone">التليفون</string>
+    <string name="address">العنوان</string>
+    <string name="items">العناصر</string>
+    <string name="add_google_wallet_success" translatable="false">الرقم السري صحيح</string>
+    <string name="recommendation" translatable="false">اقتراحات</string>
+    <string name="buy_with_googlepay_button_content_description" translatable="false">الدفع عن طريق google pay</string>
 </resources>

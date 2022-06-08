@@ -28,7 +28,7 @@ class ImageSlideAdapter(private val context: Context, private var imageList: Lis
         imageList[position].let {
             Glide.with(context)
                 .load(it.src)
-                .into(ivImages);
+                .into(ivImages)
         }
         val vp = container as ViewPager
         vp.addView(view, 0)

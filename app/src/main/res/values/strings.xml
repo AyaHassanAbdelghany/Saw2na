@@ -51,16 +51,15 @@
     <string name="brands">Brands</string>
     <string name="catogeries">Catogeries</string>
     <string name="no_found">No Found</string>
-    <string name="recommendation" translatable="false">Recommendation</string>
+    <string name="recommendation">Recommendation</string>
 
 
     <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
-    <string name="add_google_wallet_success" translatable="false">The pass was added successfully!</string>
+    <string name="add_google_wallet_success">The pass was added successfully!</string>
     <string name="orders">Orders</string>
     <string name="order_again">Order Again</string>
-    <string name="items">Items</string>
     <string name="price">Price</string>
     <string name="product">Product</string>
     <string name="shipping_details">Shipping Details</string>
@@ -69,5 +68,9 @@
     <string name="total">Total</string>
     <string name="notify_me">Notify Me</string>
     <string name="category">Category</string>
+    <string name="shipping">Shipping</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="items">Items</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.product_detail.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ class ProductDetail : AppCompatActivity() {
     private lateinit var detailVM: ProductDetailVM
     private lateinit var detailVMFactory: ProductDetailVMFactory
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
@@ -48,7 +50,7 @@ class ProductDetail : AppCompatActivity() {
 
         Log.e("Product Details : ", intent.toString())
         detailVM.checkForFavouriteProductById(intent!!)
-        detailVM.isFav.observe(this){
+        detailVM.isFav.observe(this) {
             if (it == 1) {
                 binding.detailBtn.favImage.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -101,7 +103,10 @@ class ProductDetail : AppCompatActivity() {
                     )
                 }
             }
-            binding.contentDetail.ProductPriceTxt.text = it.variants[0].price
+
+            binding.contentDetail.ProductPriceTxt.text = "${
+                it.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
+            } ${detailVM.currencySymbol}"
             binding.contentDetail.ProductRating.rating =
                 (it.variants[0].inventoryQuantity)!!.toFloat()
             imageSliderPager = ImageSlideAdapter(this, it.images)
