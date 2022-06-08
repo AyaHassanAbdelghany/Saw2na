@@ -45,7 +45,7 @@ class SignUpActivity : AppCompatActivity() {
 
                     val user = User( displayNameEditText.text.toString(), emailEditText.text.toString(),false)
                     viewModel.setUser(user)
-                    finish()
+                    loading.visibility = View.VISIBLE
                 }
 
                 AuthState.LOADING -> loading.visibility = View.VISIBLE
@@ -56,6 +56,10 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.finish.observe(this){
+            loading.visibility = View.INVISIBLE
+            finish()
+        }
 
 
         signupButton.setOnClickListener {
