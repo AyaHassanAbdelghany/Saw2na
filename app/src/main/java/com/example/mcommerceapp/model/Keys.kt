@@ -10,9 +10,8 @@ class Keys {
         val CUSTOM_COLLECTIONS ="custom_collections.json"
 
         val COLLECTION ="collection"
-        val PRODUCT ="product"
+        val ALL_PRODUCT ="allProduct"
         val VENDOR ="vendor"
-        val CATEGORY ="category"
 
         val PRODUCT_TYPE ="product_type"
         val BASE_URL: String ="https://madalex20220.myshopify.com/admin/api/2022-01/"

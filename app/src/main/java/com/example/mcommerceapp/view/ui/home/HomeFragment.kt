@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -21,7 +19,6 @@ import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.shopify_repository.product.CollectionsRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.feature_product.adapter.AllProductsAdapter
@@ -32,10 +29,9 @@ import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
-import java.lang.Math.abs
 
 
-class HomeFragment() : OnClickListner,Fragment() {
+class HomeFragment : OnClickListner,Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeViewModel
@@ -56,12 +52,12 @@ class HomeFragment() : OnClickListner,Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
-         binding.catogeryViewMoreTextView.setOnClickListener(){
+         binding.catogeryViewMoreTextView.setOnClickListener{
 
              val bundle = Bundle()
              bundle.putString("VALUE","")
              bundle.putString("TYPE", Keys.COLLECTION)
-            findNavController(requireView())?.navigate(R.id.actCategoryMore,bundle);
+             findNavController(requireView()).navigate(R.id.actCategoryMore,bundle)
          }
 
         return binding.root
@@ -70,7 +66,7 @@ class HomeFragment() : OnClickListner,Fragment() {
 
     override fun onResume() {
         super.onResume()
-        homeVM.getProduct(Keys.PRODUCT_TYPE)
+        homeVM.getProduct()
         observerVendors()
         //observerCollections()
         observerAllProducts()
@@ -97,7 +93,7 @@ class HomeFragment() : OnClickListner,Fragment() {
         val comPosPageTarn = CompositePageTransformer()
         comPosPageTarn.addTransformer(MarginPageTransformer(40))
         comPosPageTarn.addTransformer { page, position ->
-            val r = 1 - abs(position)
+            val r = 1 - kotlin.math.abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
         binding.advViewPager.setPageTransformer(comPosPageTarn)
@@ -133,15 +129,6 @@ class HomeFragment() : OnClickListner,Fragment() {
             binding.recyclerListVendor.adapter = vendorAdapter
         }
     }
-
-//    private fun observerCollections(){
-//        homeVM.collections.observe(viewLifecycleOwner){
-//            collectionAdapter.setData(it)
-//            binding.recyclerListCollection.adapter = collectionAdapter
-//
-//        }
-//    }
-
     private fun observerAllProducts(){
         homeVM.allProducts.observe(viewLifecycleOwner){
             allProductsAdapter.setData(it)
@@ -152,15 +139,11 @@ class HomeFragment() : OnClickListner,Fragment() {
 
     override fun onClick(value: String?,type:String) {
         val bundle = Bundle()
-
+        Log.e("type",type)
         when(type){
+
             Keys.VENDOR ->  {
                 bundle.putString("VALUE", value)
-                bundle.putString("TYPE", type)
-                findNavController(requireView())?.navigate(R.id.actCategory,bundle)
-            }
-            Keys.COLLECTION ->  {
-                bundle.putString("PRODUCT_TYPE", value)
                 bundle.putString("TYPE", type)
                 val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
                 intent.putExtra("PRODUCTS", bundle)

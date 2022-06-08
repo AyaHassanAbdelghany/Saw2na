@@ -7,14 +7,14 @@ import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
-class ProductRepo private  constructor(private var remoteSource : RemoteSource): CollectionsRepo,ProductsRepo, CustomCollectionsRepo, ProductDetailRepo, CategoryRepo, ProductTypeRepo{
+class ProductRepo private  constructor(private var remoteSource : RemoteSource): CollectionsRepo,ProductsRepo, ProductDetailRepo, CategoryRepo{
 
     companion object {
         private val productRepo: ProductRepo? = null
         val vendors = MutableLiveData<HashSet<SmartCollections>>()
-        val subCollections = MutableLiveData<HashSet<ProductFields>>()
-        val customCollection = MutableLiveData<ArrayList<CustomCollections>>()
         val allProducts = MutableLiveData<ArrayList<Products>>()
+        val subCollections = MutableLiveData<HashSet<ProductFields>>()
+
 
         fun getInstance(remoteSource: RemoteSource): ProductRepo {
             return productRepo ?: ProductRepo(remoteSource)
@@ -22,49 +22,29 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
     }
 
 
-    override suspend fun getProductCollection(productType: String, collectionId: String): ArrayList<Products> {
-        return remoteSource.getProductCollection(productType, collectionId)
-    }
-
     override suspend fun getAllProducts() {
         allProducts.postValue(remoteSource.getAllProducts())
     }
 
-    override suspend fun getCollectionProducts(collectionId: String): ArrayList<Products> {
-        return remoteSource.getCollectionProducts(collectionId)
-    }
-
-    override suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products> {
-        return remoteSource.getProductVendor(productType, vendor, collectionId)
-    }
-
-    override suspend fun getCategoryForCollection(fields: String,collectionId :String): HashSet<ProductFields> {
-        return remoteSource.getCategoryForCollection(fields,collectionId)
-    }
-
-    override suspend fun getSubCollection(fields: String) {
-      subCollections.postValue(remoteSource.getSubCollections(fields))
-    }
-
-    override suspend fun getCollectionId(title: String) {
-       customCollection.postValue(remoteSource.getCollectionId(title))
-    }
-
-    override suspend fun getCategoryForVendor(
-        fields: String,
-        collectionId: String,
-        vendor: String
-    ): HashSet<ProductFields> {
-        return remoteSource.getCategoryForVendor(fields,collectionId,vendor)
+    override suspend fun getCollectionId(id: String): ArrayList<CustomCollections> {
+        return remoteSource.getCollectionId(id)
     }
 
 
-    override suspend fun getCustomCollections(): ArrayList<CustomCollections> {
-        return remoteSource.getCustomCollections()
+    override suspend fun getProductsCollection(collectionId: String): ArrayList<Products> {
+       return remoteSource.getProductsCollection(collectionId)
+    }
+
+    override suspend fun getProductsVendor(vendor: String): ArrayList<Products> {
+        return remoteSource.getProductsVendor(vendor)
     }
 
     override suspend fun getSmartCollections() {
         vendors.postValue(remoteSource.getSmartCollections())
+    }
+
+    override suspend fun getSubCollection(fields: String) {
+        subCollections.postValue(remoteSource.getSubCollections(fields))
     }
 
     override suspend fun getProductDetail(id: String): Products{

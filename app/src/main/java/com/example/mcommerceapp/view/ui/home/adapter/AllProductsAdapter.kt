@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mcommerceapp.databinding.ProductCardBinding
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
@@ -33,7 +34,7 @@ class AllProductsAdapter (var context :Context , var listner : OnClickListner) :
             productPriceTxt.text = currentItem.variants.get(0).price.toString()
         }
         holder.itemView.setOnClickListener {
-            listner.onClick(currentItem.id.toString(), "")
+            listner.onClick(currentItem.id.toString(), Keys.ALL_PRODUCT)
         }
     }
 
