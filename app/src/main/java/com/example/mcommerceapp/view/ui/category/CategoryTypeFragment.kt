@@ -21,7 +21,10 @@ import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
 import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
+import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
+import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 
@@ -65,6 +68,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.filterImageView.setOnClickListener {
             showSupportBottomSheet()
         }

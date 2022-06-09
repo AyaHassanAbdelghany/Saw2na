@@ -58,7 +58,6 @@ class HomeFragment : OnClickListner, Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
-
         return binding.root
     }
 
@@ -135,7 +134,6 @@ class HomeFragment : OnClickListner, Fragment() {
         vendorAdapter = VendorAdapter(requireContext(), this)
         allProductsAdapter = AllProductsAdapter(requireContext(), this)
         binding.recyclerListVendor.adapter = vendorAdapter
-        //binding.recyclerListCollection.adapter = collectionAdapter
         binding.recycleViewProduct.adapter = allProductsAdapter
 
     }
