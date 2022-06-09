@@ -39,7 +39,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
         when (intent?.get("TYPE").toString()) {
             Keys.VENDOR -> observeVendor()
-           // Keys.ALL_PRODUCT -> observeCollection()
+            Keys.ALL_PRODUCT -> observeAllProducts()
         }
 
         productsVM.products.observe(this) {
@@ -52,6 +52,12 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         productsVM.getProductsVendor(value)
     }
 
+    private fun observeAllProducts() {
+        productsVM.allProducts.observe(this) {
+            categoryProductAdapter.setData(it)
+            binding.grid.adapter = categoryProductAdapter
+        }
+    }
     private fun init(){
         productsVMFactory = CategorizedProductVMFactory(ProductRepo.getInstance(RemoteSource()))
         productsVM = ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]

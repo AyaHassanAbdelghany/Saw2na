@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,8 @@ import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.pojo.products.Products
+import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.feature_product.adapter.AllProductsAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.AdvAdapter
@@ -28,6 +31,8 @@ import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
+import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 
 
 class HomeFragment : OnClickListner, Fragment() {
@@ -42,6 +47,8 @@ class HomeFragment : OnClickListner, Fragment() {
     private lateinit var advAdapter: AdvAdapter
     private lateinit var sliderHandler: Handler
     private lateinit var sliderRun: Runnable
+    val bundle = Bundle()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,15 +58,31 @@ class HomeFragment : OnClickListner, Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
+
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.actionBar.favouriteImage.setOnClickListener { startActivity(Intent(requireContext(), FavoriteScreen::class.java)) }
+
+        binding.actionBar.cardImage.setOnClickListener { startActivity(Intent(requireContext(), ShoppingCartScreen::class.java)) }
+
+        binding.actionBar.searchImage.setOnClickListener { startActivity(Intent(requireContext(), SearchActivity::class.java)) }
+
+        binding.viewMoreTx.setOnClickListener{
+            bundle.putString("VALUE", "")
+            bundle.putString("TYPE", Keys.ALL_PRODUCT)
+            val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
+            intent.putExtra("PRODUCTS", bundle)
+            startActivity(intent)
+        }
+    }
 
     override fun onResume() {
         super.onResume()
         homeVM.getProduct()
         observerVendors()
-        //observerCollections()
         observerAllProducts()
         sliderItems()
         itemSliderView()
@@ -126,15 +149,15 @@ class HomeFragment : OnClickListner, Fragment() {
 
     private fun observerAllProducts() {
         homeVM.allProducts.observe(viewLifecycleOwner) {
-            allProductsAdapter.setData(it)
+            allProductsAdapter.setData(it.take(4) as ArrayList<Products>)
+            binding.viewMoreTx.visibility = TextView.VISIBLE
+            binding.view.visibility = TextView.VISIBLE
             binding.recycleViewProduct.adapter = allProductsAdapter
 
         }
     }
 
     override fun onClick(value: String?, type: String) {
-        val bundle = Bundle()
-        Log.e("type", type)
         when (type) {
 
             Keys.VENDOR -> {
@@ -150,7 +173,6 @@ class HomeFragment : OnClickListner, Fragment() {
                 startActivity(intent)
             }
         }
-
     }
 
 }

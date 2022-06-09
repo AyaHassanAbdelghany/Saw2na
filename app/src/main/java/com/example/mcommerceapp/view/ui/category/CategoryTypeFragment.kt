@@ -179,7 +179,6 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
 
     private fun filterProducts() {
         var filterProducts: ArrayList<Products> = arrayListOf()
-        Log.e("array", checkboxText.size.toString())
 
         if (checkboxText.size == 0) {
             checkboxText.add(checkboxT_Shirt.text.toString())
@@ -197,10 +196,8 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             }
         }
         if (filterProducts.size > 0) {
-            Log.e("filter", "hello")
             categoryAdapter.setData(filterProducts)
         } else {
-            Log.e("no filter", "hello")
             categoryAdapter.setData(this.products)
         }
     }

@@ -64,6 +64,7 @@
     <string name="sub_category" translatable="false">Sub Category</string>
 
     <string name="view_more" translatable="false">view more</string>
+    <string name="products">Products</string>
 
 
 </resources>

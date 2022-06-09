@@ -42,16 +42,6 @@ class MainActivity : AppCompatActivity() {
 //        supportActionBar!!.setCustomView(R.layout.action_bar)
 //        supportActionBar!!.hide()
 
-//        val view: View = supportActionBar!!.customView
-//        val searchImage = view.findViewById<ImageView>(R.id.searchImage)
-//        val favImage = view.findViewById<ImageView>(R.id.favouriteImage)
-//        val cartImage = view.findViewById<ImageView>(R.id.cardImage)
-//
-//        favImage.setOnClickListener { startActivity(Intent(this, FavoriteScreen::class.java)) }
-//
-//        cartImage.setOnClickListener { startActivity(Intent(this, ShoppingCartScreen::class.java)) }
-//
-//        searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
         setCurrentFragment(FragmentContainer())
 
         binding.navView.setOnItemSelectedListener  {

@@ -14,7 +14,7 @@ import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
 class AllProductsAdapter (var context :Context , var listner : OnClickListner) : RecyclerView.Adapter<AllProductsAdapter.ViewHolder>(){
-    var productList: List<Products> = mutableListOf()
+    var productList: ArrayList<Products> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
