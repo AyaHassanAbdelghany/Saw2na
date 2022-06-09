@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.local_source.LocalSource
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.room_repository.RoomRepo
@@ -42,7 +43,7 @@ class ProductDetail : AppCompatActivity() {
         detailVMFactory = ProductDetailVMFactory(
             ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
                 LocalSource(this), this
-            )
+            ), CurrencyRepo.getInstance(RemoteSource(), this)
         )
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
@@ -81,7 +82,7 @@ class ProductDetail : AppCompatActivity() {
                     detailVM.deleteFavoriteProduct(
                         FavProducts(
                             productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id!!,
+                            productId = it.id.toString()!!,
                             productImage = "",
                             productName = it.title!!
                         )
@@ -96,7 +97,7 @@ class ProductDetail : AppCompatActivity() {
                     detailVM.insertFavoriteProduct(
                         FavProducts(
                             productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id!!,
+                            productId = it.id.toString()!!,
                             productImage = "",
                             productName = it.title!!
                         )

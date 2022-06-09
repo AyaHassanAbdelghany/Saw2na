@@ -55,8 +55,8 @@ class OrderDetailActivity: AppCompatActivity(), OnClickListener {
     }
 
     override fun onClick(id: String) {
-        val intent = Intent(this, ProductDetail::class.java)
-        intent.putExtra("PRODUCTS_ID", id)
-        startActivity(intent)
+//        val intent = Intent(this, ProductDetail::class.java)
+//        intent.putExtra("PRODUCTS_ID", id)
+//        startActivity(intent)
     }
 }
