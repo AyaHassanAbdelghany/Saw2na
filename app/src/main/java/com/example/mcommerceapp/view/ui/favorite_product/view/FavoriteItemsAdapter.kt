@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 
@@ -38,12 +39,15 @@ class FavoriteItemsAdapter(
         holder.productDeleteBt.setOnClickListener {
             communicator.performDeleteProduct(myList.get(position))
         }
+
+        Glide.with(myContext)
+            .load(myList.get(position).productImage)
+            .into(holder.productImage)
     }
 
     override fun getItemCount(): Int {
         return myList.count()
     }
-
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var productImage: ImageView = itemView.findViewById(R.id.product_image)

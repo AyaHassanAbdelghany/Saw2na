@@ -33,7 +33,7 @@ class VendorAdapter (var context :Context , var listner : OnClickListner) : Recy
                 .load(currentItem.image?.src)
                 .into(brandImage)
         }
-        holder.binding.brandImage.setOnClickListener(View.OnClickListener
+        holder.binding.constraintVendor.setOnClickListener(View.OnClickListener
         {
             listner!!.onClick(currentItem.title,Keys.VENDOR)
         })

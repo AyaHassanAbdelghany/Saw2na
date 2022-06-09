@@ -27,87 +27,33 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
     private val currencyApi: ICurrencyService =
         CurrencyService.getInstance().create(ICurrencyService::class.java)
 
-    override suspend fun getProductCollection(productType: String, collectionId: String): ArrayList<Products> {
-        val res = api.getProductCollection(Keys.PRODUCTS, productType, collectionId)
-        return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
-            object : TypeToken<ArrayList<Products>>() {}.type
-        )
-    }
 
     override suspend fun getAllProducts(): ArrayList<Products> {
-        val res = api.get(Keys.PRODUCTS)
+        val res = api.getAllProducts(Keys.PRODUCTS)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
-
-    override suspend fun getCollectionProducts(collectionId: String): ArrayList<Products> {
-        val res = api.getCollectionProducts(Keys.PRODUCTS,collectionId)
+    override suspend fun getProductsCollection(collectionId: String): ArrayList<Products> {
+        val res = api.getProductsCollection(Keys.PRODUCTS,collectionId)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
-
-    override suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products> {
-        val res = api.getProductVendor(Keys.PRODUCTS, productType, vendor, collectionId)
+    override suspend fun getProductsVendor(vendor: String): ArrayList<Products> {
+        val res = api.getProductsVendor(Keys.PRODUCTS,vendor)
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
-
-
-    override suspend fun getCategoryForCollection(fields: String,collectionId:String): HashSet<ProductFields> {
-        val res = api.getCategoryForCollection(Keys.PRODUCTS, fields,collectionId)
-        return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
-            object : TypeToken<HashSet<ProductFields>>() {}.type
-        )
-    }
-
-    override suspend fun getCategoryForVendor(
-        fields: String,
-        collectionId: String,
-        vendor: String
-    ): HashSet<ProductFields> {
-        val res = api.getCategoryForVendor(Keys.PRODUCTS, fields, collectionId, vendor)
-        return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
-            object : TypeToken<HashSet<ProductFields>>() {}.type
-        )
-    }
-
-    override suspend fun getProductsTypes(fields: String): ArrayList<ProductFields> {
-        val res = api.getQuery(Keys.PRODUCTS, fields)
-        return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
-            object : TypeToken<HashSet<ProductFields>>() {}.type
-        )
-    }
-
     override suspend fun getSmartCollections(): HashSet<SmartCollections> {
-        val res = api.get(Keys.SMART_COLLECTIONS)
+        val res = api.getAllProducts(Keys.SMART_COLLECTIONS)
         return gson.fromJson(
             res.body()!!.get("smart_collections") as JsonArray,
             object : TypeToken<HashSet<SmartCollections>>() {}.type
-        )
-    }
-
-    override suspend fun getCustomCollections(): ArrayList<CustomCollections> {
-        val res = api.get(Keys.CUSTOM_COLLECTIONS)
-        return gson.fromJson(
-            res.body()!!.get("custom_collections") as JsonArray,
-            object : TypeToken<ArrayList<CustomCollections>>() {}.type
-        )    }
-
-    override suspend fun getCollectionId(title: String): ArrayList<CustomCollections> {
-        val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS,title)
-        return gson.fromJson(
-            res.body()!!.get("custom_collections") as JsonArray,
-            object : TypeToken<ArrayList<CustomCollections>>() {}.type
         )
     }
 
@@ -116,15 +62,26 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
         return gson.fromJson(
             res.body()!!.get("products") as JsonArray,
             object : TypeToken<HashSet<ProductFields>>() {}.type
-        )    }
+        )
+    }
+
+    override suspend fun getCollectionId(id: String): ArrayList<CustomCollections> {
+        val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS,id)
+        return gson.fromJson(
+            res.body()!!.get("custom_collections") as JsonArray,
+            object : TypeToken<ArrayList<CustomCollections>>() {}.type
+        )
+    }
 
     override suspend fun getProductDetail(id: String): Products{
-        val res = api.get("products${"/$id"}.json")
+        val res = api.getAllProducts("products${"/$id"}.json")
         return gson.fromJson(
             res.body()!!.get("product") as JsonObject,
             object : TypeToken<Products>() {}.type
         )
     }
+
+
 
 
     private inline fun <reified T> parsingJsonToObject(jsonObject: JsonArray): T {

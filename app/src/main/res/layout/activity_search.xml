@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/search_edit_txt"
         app:layout_constraintStart_toEndOf="@id/search_edit_txt"
-        android:src="@drawable/ic_baseline_search_24"
+        android:src="@drawable/search"
         />
 
     <TextView
