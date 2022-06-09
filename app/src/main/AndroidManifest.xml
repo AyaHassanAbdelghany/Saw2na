@@ -12,9 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceApp">
         <activity
+            android:name=".view.ui.splash_screen.SplashScreen"
+            android:exported="true"
+            android:theme="@style/Theme.MCommerceApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.ui.payment.view.Payment"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".view.ui.search.SearchActivity"
             android:exported="false" />
@@ -33,19 +42,12 @@
         <activity android:name=".view.ui.favorite_product.view.FavoriteScreen" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity android:name=".view.ui.authentication.signup.view.SignUpActivity" />
-
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
-
     </application>
+
 </manifest>

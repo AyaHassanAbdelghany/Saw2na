@@ -167,6 +167,4 @@ class Payment : AppCompatActivity() {
     private fun handleError(statusCode: Int, message: String?) {
         Log.e("Google Pay API error", "Error code: $statusCode, Message: $message")
     }
-
-
 }

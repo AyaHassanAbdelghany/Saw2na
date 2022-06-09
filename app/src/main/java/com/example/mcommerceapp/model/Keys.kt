@@ -9,10 +9,15 @@ class Keys {
         const val SMART_COLLECTIONS ="smart_collections.json"
         const val CUSTOM_COLLECTIONS ="custom_collections.json"
 
-        const val COLLECTION ="collection"
+
+        val COLLECTION ="collection"
+        val ALL_PRODUCT ="allProduct"
+        val VENDOR ="vendor"
+
+
         val PRODUCT ="product"
-        const val VENDOR ="vendor"
         val CATEGORY ="category"
+
 
         const val ORDERS ="orders"
         const val JSON_Extension = ".json"

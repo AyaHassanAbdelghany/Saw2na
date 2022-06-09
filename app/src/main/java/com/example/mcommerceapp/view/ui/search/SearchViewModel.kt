@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SearchViewModel(var iProducts : ProductsRepo) : ViewModel(){
+class SearchViewModel() : ViewModel(){
 
 
     private val _category: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
@@ -27,12 +27,4 @@ class SearchViewModel(var iProducts : ProductsRepo) : ViewModel(){
     private val _allProducts : MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
     var  allProducts: LiveData<ArrayList<Products>> = _allProducts
 
-    fun getAllProducts(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val products = iProducts.getAllProducts()
-//            withContext(Dispatchers.Main){
-//                _allProducts.postValue(products)
-//            }
-        }
-    }
 }

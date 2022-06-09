@@ -94,11 +94,14 @@ class ProductDetail : AppCompatActivity() {
                             R.drawable.ic_baseline_favorite_24 // Drawable
                         )
                     )
+
                     detailVM.insertFavoriteProduct(
                         FavProducts(
                             productPrice = it.variants[0].price?.toDouble()!!,
                             productId = it.id.toString()!!,
                             productImage = "",
+                            productId = it.id!!,
+                            productImage = it.image?.src!!,
                             productName = it.title!!
                         )
                     )

@@ -11,4 +11,10 @@
     <color name="yellow">#DABB61</color>
 
     <color name="blue">#1A61DA</color>
+
+
+    <color name="blue_darker">#33495f</color>
+    <color name="blue_dark"> #A9124A73</color>
+
+
 </resources>

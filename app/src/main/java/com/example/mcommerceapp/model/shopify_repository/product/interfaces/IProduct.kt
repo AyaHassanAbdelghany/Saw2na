@@ -6,8 +6,7 @@ import com.example.mcommerceapp.pojo.products.Products
 
 interface CollectionsRepo {
     suspend fun getSmartCollections()
-    suspend fun getSubCollection(fields: String)
-
+    suspend fun getSubCollection(fields:String)
 }
 
 interface ProductsRepo {
@@ -16,30 +15,14 @@ interface ProductsRepo {
 
 interface ProductDetailRepo {
     suspend fun getProductDetail(id: String): Products
+
 }
 
 interface CategoryRepo {
 
-    suspend fun getCollectionProducts(collectionId:String) : ArrayList<Products>
-    suspend fun getCollectionId(title :String)
-    suspend fun getCategoryForVendor(
-        fields: String,
-        collectionId: String,
-        vendor: String
-    ): HashSet<ProductFields>
-
-    suspend fun getCategoryForCollection(
-        fields: String,
-        collectionId: String
-    ): HashSet<ProductFields>
+    suspend fun getCollectionId(id :String): ArrayList<CustomCollections>
+    suspend fun getProductsCollection(collectionId :String) :ArrayList<Products>
+    suspend fun  getProductsVendor(vendor:String) :ArrayList<Products>
 
 }
 
-interface CustomCollectionsRepo {
-    suspend fun getCustomCollections(): ArrayList<CustomCollections>
-}
-
-interface ProductTypeRepo{
-    suspend fun getProductCollection(productType: String, collectionId: String): ArrayList<Products>
-    suspend fun getProductVendor(productType: String, vendor: String, collectionId: String): ArrayList<Products>
-}
