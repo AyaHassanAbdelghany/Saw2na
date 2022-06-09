@@ -6,39 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.shopping_cart.view.ShoppingCartScreen">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/title_constraint"
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar_customized"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/border_bottom_corner"
-        android:paddingHorizontal="16dp"
+        android:layout_height="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/back_bt_img"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:src="@drawable/icon_back_bt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="Favorite"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/back_bt_img" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/number_of_items_constraint"
@@ -47,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.135"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_constraint">
+        app:layout_constraintTop_toBottomOf="@id/action_bar">
 
 
         <TextView
@@ -91,14 +66,13 @@
         app:layout_constraintTop_toBottomOf="@id/number_of_items_constraint">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:overScrollMode="never"
             android:id="@+id/fav_items_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             android:padding="12dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
