@@ -27,7 +27,6 @@ class CurrencyRepo private constructor(private var remoteSource: RemoteSource,pr
         val res = remoteSource.convertCurrency("USD", to, 1.0)
         sharedPreferences.edit().putString("value","${res.result}").putString("symbol", to).apply()
         Log.i("convertCurrency", "convertCurrency: ${sharedPreferences.getString("value","1.0")}  ${sharedPreferences.getString("symbol","USD")}")
-
     }
 
     override fun getCurrencySymbol(): String {

@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.product_detail.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.local_source.LocalSource
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.room_repository.RoomRepo
@@ -30,6 +32,7 @@ class ProductDetail : AppCompatActivity() {
     private lateinit var detailVM: ProductDetailVM
     private lateinit var detailVMFactory: ProductDetailVMFactory
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
@@ -40,7 +43,7 @@ class ProductDetail : AppCompatActivity() {
         detailVMFactory = ProductDetailVMFactory(
             ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
                 LocalSource(this), this
-            )
+            ), CurrencyRepo.getInstance(RemoteSource(), this)
         )
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
@@ -79,7 +82,7 @@ class ProductDetail : AppCompatActivity() {
                     detailVM.deleteFavoriteProduct(
                         FavProducts(
                             productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id!!,
+                            productId = it.id.toString()!!,
                             productImage = "",
                             productName = it.title!!
                         )
@@ -102,7 +105,10 @@ class ProductDetail : AppCompatActivity() {
                     )
                 }
             }
-            binding.contentDetail.ProductPriceTxt.text = it.variants[0].price
+
+            binding.contentDetail.ProductPriceTxt.text = "${
+                it.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
+            } ${detailVM.currencySymbol}"
             binding.contentDetail.ProductRating.rating =
                 (it.variants[0].inventoryQuantity)!!.toFloat()
             imageSliderPager = ImageSlideAdapter(this, it.images)

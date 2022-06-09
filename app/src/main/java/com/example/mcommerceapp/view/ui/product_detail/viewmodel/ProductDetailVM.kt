@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.room_repository.IFavProductRoomRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductDetailRepo
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 
 class ProductDetailVM(
     private val iProducts: ProductDetailRepo,
-    private val iFavRepo: IFavProductRoomRepo
+    private val iFavRepo: IFavProductRoomRepo,
+    private val iCurrency: StoredCurrency
 ) : ViewModel() {
 
 
@@ -24,6 +26,9 @@ class ProductDetailVM(
 
     private val _isFav = MutableLiveData<Int>()
     var isFav: LiveData<Int> = _isFav
+
+    val currencySymbol = iCurrency.getCurrencySymbol()
+    val currencyValue = iCurrency.getCurrencyValue()
 
     fun getProductDetail(id: String) {
         viewModelScope.launch(Dispatchers.IO) {

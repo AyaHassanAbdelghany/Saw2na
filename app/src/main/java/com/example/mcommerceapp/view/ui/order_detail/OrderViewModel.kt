@@ -1,10 +1,11 @@
-package com.example.mcommerceapp.view.ui.order
+package com.example.mcommerceapp.view.ui.order_detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mcommerceapp.model.currency_repository.interfaces.ICurrencyRepo
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.orders_repository.OrdersRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
@@ -14,25 +15,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import orders.Order
 
-class OrderViewModel(
-    private val iOrders: OrdersRepo,
-    private val iUser: UserRepo,
-    private val iCurrency: StoredCurrency
+class OrderDetailViewModel(
+    private val iOrders: OrdersRepo, iCurrency: StoredCurrency
 ) : ViewModel() {
 
-    private val _orders = MutableLiveData<ArrayList<Order>>()
-    var orders: LiveData<ArrayList<Order>> = _orders
-
-    private val _user = MutableLiveData<ArrayList<Order>>()
-    var user: LiveData<ArrayList<Order>> = _user
+    private val _orders = MutableLiveData<Order>()
+    var orders: LiveData<Order> = _orders
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
 
-    fun getAllOrders(){
+    fun getOrder(id: String){
         viewModelScope.launch(Dispatchers.IO) {
-            val user = iUser.getUser()
-            val orders = iOrders.getAllOrders(user.userID)
+            val orders = iOrders.getOrderByID(id)
             withContext(Dispatchers.Main) {
                 _orders.postValue(orders)
             }
