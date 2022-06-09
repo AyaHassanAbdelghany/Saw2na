@@ -2,6 +2,7 @@ package com.example.mcommerceapp.view.ui.more.view
 
 import android.R
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.mcommerceapp.databinding.FragmentMoreBinding
 import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.view.ui.addresses.view.AddressesActivity
 import com.example.mcommerceapp.view.ui.more.view_model.MoreViewModel
 import com.example.mcommerceapp.view.ui.more.view_model.factory.MoreViewModelFactory
 import java.util.*
@@ -30,8 +32,8 @@ class MoreFragment : Fragment() {
 
     private val binding get() = _binding!!
     private lateinit var viewModel: MoreViewModel
-    private var currencyArray :List<String> = ArrayList()
-    private val languagesArray = arrayOf("en","ar")
+    private var currencyArray: List<String> = ArrayList()
+    private val languagesArray = arrayOf("en", "ar")
 
     private lateinit var currencySpinner: Spinner
     private lateinit var languageSpinner: Spinner
@@ -48,8 +50,7 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       init()
-
+        init()
 
         binding.signOutButton.setOnClickListener {
             viewModel.signOut()
@@ -57,16 +58,14 @@ class MoreFragment : Fragment() {
 
         }
 
-
-
-        Log.e("TAG", "onViewCreated: ", )
-        var currencyAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),R.layout.simple_spinner_item, currencyArray)
+        var currencyAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, currencyArray)
         currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
-        val languageAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),R.layout.simple_spinner_item, languagesArray)
+        val languageAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, languagesArray)
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
-
 
         binding.saveSettingsButton.setOnClickListener {
             val currency = currencyArray[currencySpinner.selectedItemPosition]
@@ -89,32 +88,28 @@ class MoreFragment : Fragment() {
 
         viewModel.getCurrencySymbols()
 
-        viewModel.symbols.observe(viewLifecycleOwner){
+        viewModel.symbols.observe(viewLifecycleOwner) {
 
             Log.e("TAG", "observe : ")
 
-            this.currencyArray =  it.symbols.keys.toList()
-            currencyAdapter = ArrayAdapter<String>( this@MoreFragment.requireContext(),R.layout.simple_spinner_item,this.currencyArray)
+            this.currencyArray = it.symbols.keys.toList()
+            currencyAdapter = ArrayAdapter<String>(
+                this@MoreFragment.requireContext(),
+                R.layout.simple_spinner_item,
+                this.currencyArray
+            )
             currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             currencySpinner.adapter = currencyAdapter
 
         }
 
-
+        binding.shippingAddressesLayout.setOnClickListener {
+            startActivity(Intent(requireContext(),AddressesActivity::class.java))
+        }
 
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        Log.e("TAG", "onDetach: ")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.e("TAG", "onAttach: ")
-    }
-
-    private fun init(){
+    private fun init() {
         languageSpinner = binding.languageSpinner
         currencySpinner = binding.currencySpinner
 
@@ -122,10 +117,10 @@ class MoreFragment : Fragment() {
             UserRepo.getInstance(
                 requireContext()
             ), CurrencyRepo.getInstance(
-                RemoteSource(),requireContext()
+                RemoteSource(), requireContext()
             )
         )
-        viewModel = ViewModelProvider(this,viewModelFactory)[MoreViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[MoreViewModel::class.java]
 
     }
 

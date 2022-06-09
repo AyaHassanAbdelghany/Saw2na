@@ -71,5 +71,8 @@
     <string name="category">Category</string>
     <string name="favourite">Favourite</string>
     <string name="shopping_cart">Shopping Cart</string>
+    <string name="country">Country</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="addresses">Addresses</string>
 
 </resources>

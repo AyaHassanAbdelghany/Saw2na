@@ -1,4 +1,4 @@
-package com.example.example
+package com.example.mcommerceapp.pojo.customers
 
 import com.google.gson.annotations.SerializedName
 
