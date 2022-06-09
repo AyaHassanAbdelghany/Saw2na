@@ -1,16 +1,14 @@
 package com.example.mcommerceapp.view.ui.feature_product
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.MainActivity
 import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
 import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
@@ -59,7 +57,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         binding.actionBarLayout.searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
 
         productsVM.products.observe(this) {
-            categoryProductAdapter.setData(it)
+            categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
             binding.grid.adapter = categoryProductAdapter
         }
     }
@@ -70,12 +68,12 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
     }
     private fun observeAllProducts() {
         productsVM.allProducts.observe(this) {
-            categoryProductAdapter.setData(it)
+            categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
             binding.grid.adapter = categoryProductAdapter
         }
     }
     private fun init(){
-        productsVMFactory = CategorizedProductVMFactory(ProductRepo.getInstance(RemoteSource()))
+        productsVMFactory = CategorizedProductVMFactory(ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(RemoteSource(), this))
         productsVM = ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]
         categoryProductAdapter = CategorizedProductAdapter(this, this)
     }

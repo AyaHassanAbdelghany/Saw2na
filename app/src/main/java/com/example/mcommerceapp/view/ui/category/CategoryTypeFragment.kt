@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentCategoryTypeBinding
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.pojo.products.Products
@@ -98,7 +99,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
         categoryVM.collectionProducts.observe(viewLifecycleOwner) {
             products = it
             binding.progressBar.visibility = ProgressBar.INVISIBLE
-            categoryAdapter.setData(it)
+            categoryAdapter.setData(it, categoryVM.currencySymbol, categoryVM.currencyValue)
             binding.recyclerListCategory.adapter = categoryAdapter
         }
     }
@@ -107,14 +108,16 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
         categoryVM.allProducts.observe(viewLifecycleOwner) {
             products = it
             binding.progressBar.visibility = ProgressBar.INVISIBLE
-            categoryAdapter.setData(it)
+            categoryAdapter.setData(it, categoryVM.currencySymbol, categoryVM.currencyValue)
             binding.recyclerListCategory.adapter = categoryAdapter
         }
     }
 
 
     private fun init() {
-        categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()))
+        categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
+            RemoteSource(), requireContext
+        ()))
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
         categoryAdapter = CategoryAdapter(requireContext(), this)
     }
@@ -200,9 +203,9 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             }
         }
         if (filterProducts.size > 0) {
-            categoryAdapter.setData(filterProducts)
+            categoryAdapter.setData(filterProducts, categoryVM.currencySymbol, categoryVM.currencyValue)
         } else {
-            categoryAdapter.setData(this.products)
+            categoryAdapter.setData(this.products, categoryVM.currencySymbol, categoryVM.currencyValue)
         }
     }
 }

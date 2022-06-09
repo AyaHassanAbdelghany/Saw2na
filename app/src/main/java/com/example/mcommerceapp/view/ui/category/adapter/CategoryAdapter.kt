@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.category.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.util.Log
@@ -24,11 +25,15 @@ class CategoryAdapter  (private var context :Context ,private var listner : OnCl
     private  var category : HashSet<ProductFields> = hashSetOf()
     private  var collectionProducts : ArrayList<Products> = arrayListOf()
 
+    private lateinit var symbol: String
+    private var value: Double = 0.0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -39,7 +44,9 @@ class CategoryAdapter  (private var context :Context ,private var listner : OnCl
             Glide.with(context)
                 .load(currentItem.image?.src)
                 .into(productImage)
-            productPriceTxt.text = currentItem.variants.get(0).price.toString()
+
+            productPriceTxt.text = "${currentItem.variants[0].price?.toDouble()?.times(value)} ${symbol}"
+
         }
 //        when(currentItem.productType ){
 //            "T-SHIRTS"->{
@@ -79,8 +86,10 @@ class CategoryAdapter  (private var context :Context ,private var listner : OnCl
         return collectionProducts.count()
     }
 
-    fun setData(collectionProducts: ArrayList<Products>){
+    fun setData(collectionProducts: ArrayList<Products>, symbol: String, value: Double){
         this.collectionProducts = collectionProducts
+        this.symbol = symbol
+        this.value = value
         notifyDataSetChanged()
     }
 
