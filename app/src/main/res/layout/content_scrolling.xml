@@ -10,7 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
         <TextView
             android:id="@+id/ProductPriceTxt"
@@ -20,6 +22,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:text="20.0"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,20 +32,21 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toEndOf="@id/ProductPriceTxt"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@id/ProductPriceTxt"
+            app:layout_constraintTop_toBottomOf="@+id/ProductPriceTxt" />
+
+
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/size"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@id/ProductPriceTxt"
-            app:layout_constraintTop_toBottomOf="@id/ProductPriceTxt" />
+            app:layout_constraintStart_toStartOf="@id/ProductRating"
+            app:layout_constraintTop_toBottomOf="@id/ProductRating" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -59,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/color"
+            android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/sizeRecycleView"
             app:layout_constraintTop_toBottomOf="@id/sizeRecycleView" />
@@ -78,6 +83,7 @@
             android:layout_height="wrap_content"
             android:text="@string/desc"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/colorRecycleView"
             app:layout_constraintTop_toBottomOf="@id/colorRecycleView" />
 
@@ -86,6 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:readMoreColor="@color/black"
+            android:textSize="17sp"
+            android:textColor="@color/black"
             app:readMoreMaxLine="2"
             app:readMoreText="                     See more"
             app:layout_constraintStart_toStartOf="@id/text2"
@@ -120,6 +128,7 @@
             android:layout_height="wrap_content"
             android:text="@string/see"
             android:textColor="@color/teal_700"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout2"/>
