@@ -52,8 +52,6 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
             }
         }
 
-        ////for test
-        favoriteViewModel.insertFavoriteProduct(FavProducts("12", "Hh", 200.0, "Karam"))
 
         favItemsRecyclerView = findViewById(R.id.fav_items_recycler_view)
         favItemsRecyclerView.setHasFixedSize(true)
