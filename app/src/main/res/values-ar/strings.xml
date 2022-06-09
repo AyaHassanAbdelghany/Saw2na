@@ -50,4 +50,6 @@
     <string name="brands">Brands</string>
     <string name="no_found">No Found</string>
     <string name="catogeries">Catogeries</string>
+    <string name="favourite">Favourite</string>
+    <string name="shopping_cart">Shopping Cart</string>
 </resources>

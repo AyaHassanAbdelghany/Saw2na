@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/loggedIn_container"
-        android:visibility="invisible"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,12 +78,12 @@
             android:background="@drawable/border_top_corners"
             android:padding="20dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_all_corners"
                 android:orientation="vertical"
+                android:layout_marginTop="30dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +169,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="3dp"
                         android:gravity="center_vertical"
-                        android:text="@string/pending_shipments"
+                        android:text="@string/favourite"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -224,7 +223,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="3dp"
                         android:gravity="center_vertical"
-                        android:text="@string/pending_payments"
+                        android:text="@string/shopping_cart"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -246,65 +245,11 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginBottom="3dp"
-                    android:background="@color/black" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:id="@+id/imageView17"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="3dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/icon_finished_order"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.1" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="3dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/finished_orders"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/imageView17"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.8" />
-
-                    <ImageView
-                        android:id="@+id/imageView14"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/navigate_arrow"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/textView4"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.1" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </LinearLayout>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -348,7 +293,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView12" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

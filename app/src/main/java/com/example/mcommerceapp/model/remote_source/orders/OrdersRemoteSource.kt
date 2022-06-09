@@ -9,7 +9,7 @@ import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import okhttp3.RequestBody
 import orders.Order
-import orders.Orders
+
 
 class OrdersRemoteSource {
     private val api: OrdersService =
@@ -28,7 +28,7 @@ class OrdersRemoteSource {
 
     suspend fun updateOrder(orderID: String,req: RequestBody):Order {
         val res = api.updateOrder(orderID,req)
-        Log.i("OrdersRemoteSource", "\n\n\n\n\n updateOrder: ${res.body()}")
+        Log.i("OrdersRemoteSource", "\n\n\n\n\n updateOrder: $res")
 
         return gson.fromJson(
             res.body()!!.get("order") as JsonObject,
@@ -38,7 +38,7 @@ class OrdersRemoteSource {
 
     suspend fun getAllOrders(userID:String):ArrayList<Order> {
         val res = api.getAllOrders()
-        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetAllOrders: ${res.body()}")
+        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetAllOrders: $res")
 
         val resOrders :ArrayList<Order> = gson.fromJson(
             res.body()!!.get("orders") as JsonArray,
@@ -47,10 +47,7 @@ class OrdersRemoteSource {
 
         val myOrders : ArrayList<Order> = arrayListOf()
         for (order in resOrders){
-            Log.d("iddddddddddd", order.id.toString()+"      "+ userID )
-
             if (order.customer?.id.toString() == userID) {
-                Log.d("iddddddddddd", order.toString())
                 myOrders.add(order)
             }
         }
@@ -60,8 +57,7 @@ class OrdersRemoteSource {
 
     suspend fun getOrderByID(orderID:String):Order {
         val res = api.getOrderByID(orderID = orderID)
-        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetOrderByID: ${res.body()}")
-
+        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetOrderByID: $res")
         return gson.fromJson(
             res.body()!!.get("order") as JsonObject,
             object : TypeToken<Order>() {}.type
