@@ -3,23 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable-anydpi/search.xml" value="0.12" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable-v24/colored_border_button_background.xml" value="0.12" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/card_border.xml" value="0.1045" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.12" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.12" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/ic_baseline_self_improvement_24.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.12" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/icon_back_bt.xml" value="0.116" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/tab_selected.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/tab_selector.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/drawable/tab_unselected.xml" value="0.1" />
-        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/action_bar.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/action_bar.xml" value="0.18" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_favorite_screen.xml" value="0.18854166666666666" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_search.xml" value="0.18" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/bottom_sheet_filter.xml" value="0.25" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/card_review.xml" value="0.23055162659123055" />
-        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.1" />
-        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_category.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/categorized_product_screen.xml" value="0.18" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_category.xml" value="0.15" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_category_type.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/fragment_home.xml" value="0.12" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_collection.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/item_list_vendor.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/layout/product_card.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/menu/app_top_item.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceApp/app/src/main/res/menu/menu_scrolling.xml" value="0.1" />

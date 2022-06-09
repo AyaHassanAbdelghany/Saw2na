@@ -18,7 +18,10 @@ class CategoryViewModel(var iCategory :CategoryRepo) : ViewModel() {
     private val _category = MutableLiveData<HashSet<ProductFields>>()
     var  category: LiveData<HashSet<ProductFields>>  = _category
 
-    private val _customCollection : MutableLiveData<ArrayList<CustomCollections>> = ProductRepo.customCollection
+    private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
+    var  subCategory: LiveData<HashSet<ProductFields>> = _subCategory
+
+    private val _customCollection = MutableLiveData<ArrayList<CustomCollections>> ()
     var  customCollection: LiveData<ArrayList<CustomCollections>>  = _customCollection
 
     private val _collectionProducts = MutableLiveData<ArrayList<Products>>()
@@ -27,37 +30,22 @@ class CategoryViewModel(var iCategory :CategoryRepo) : ViewModel() {
     private val _allProducts : MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
     var  allProducts: LiveData<ArrayList<Products>>  = _allProducts
 
-    fun getCollectionId(title :String){
+    fun getCollectionId(id :String){
         viewModelScope.launch(Dispatchers.IO) {
-            iCategory.getCollectionId(title)
-
+            val customCollection = iCategory.getCollectionId(id)
+            withContext(Dispatchers.Main){
+                _customCollection.postValue(customCollection)
+            }
         }
     }
 
-    fun getCollectionProducts(collectionId :String){
+    fun getCollectionProducts(id :String){
         viewModelScope.launch(Dispatchers.IO) {
-            val collectionProducts = iCategory.getCollectionProducts(collectionId)
+            val collectionProducts = iCategory.getProductsCollection(id)
             withContext(Dispatchers.Main){
                 _collectionProducts.postValue(collectionProducts)
             }
-        }
-    }
-    fun getCategoryForVendor(fields :String,collectionId :String,vendor:String){
-        viewModelScope.launch(Dispatchers.IO) {
-            val category = iCategory.getCategoryForVendor(fields,collectionId,vendor)
-            withContext(Dispatchers.Main){
-                _category.postValue(category)
-            }
-        }
-    }
 
-
-    fun getCategoryForCollection(fields :String,collectionId :String){
-        viewModelScope.launch(Dispatchers.IO) {
-            val categoryForVendor = iCategory.getCategoryForCollection(fields,collectionId)
-            withContext(Dispatchers.Main){
-                _category.postValue(categoryForVendor)
-            }
         }
     }
 }

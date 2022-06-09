@@ -37,7 +37,6 @@ class SearchActivity : AppCompatActivity() {
 
         init()
         searchVM.category.observe(this) {
-            Log.d("count", it.toString())
             for (cat in it) {
                 searchList.add(cat.productType.lowercase())
                 categoryList.add(cat.productType.lowercase())
@@ -45,41 +44,31 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchVM.smartCollection.observe(this) {
-            Log.d("count", it.toString())
             for (vendor in it) {
                 vendor.title?.lowercase().let { it1 -> searchList.add(it1!!) }
                 vendor.title?.lowercase().let { it1 -> vendorList.add(it1!!) }
             }
         }
 
-        searchVM.getAllProducts()
         searchVM.allProducts.observe(this) {
             productList = it
             for (product in it) {
-                Log.d("product0000000000000000", it.toString())
                 searchList.add(product.title?.lowercase()!!)
-//                product.title?.lowercase().let { it1 -> searchList.add(it1!!) }
-//                product.title?.let { it1 -> productList.add(it1) }
             }
         }
-
-        Log.d("list", searchList.toString())
 
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(this, R.layout.select_dialog_item, searchList)
         binding.searchEditTxt.threshold = 1
         binding.searchEditTxt.setAdapter(adapter)
-        Log.d("text", binding.searchEditTxt.text.toString())
         binding.searchIcon.setOnClickListener {
             val bundle = Bundle()
-            var i: Int = 0
             binding.foundTxt.visibility = View.INVISIBLE
             val chooseWord = binding.searchEditTxt.text.toString()
-            Log.d("wwwww", chooseWord)
             when {
                 categoryList.contains(chooseWord) -> {
                     bundle.putString("TYPE", Keys.COLLECTION)
-                    bundle.putString("SUB_CATEGORY", chooseWord.toString())
+                    bundle.putString("SUB_CATEGORY", chooseWord)
                     val intent = Intent(this, CategorizedProductActivity::class.java)
                     intent.putExtra("PRODUCTS", bundle)
                     startActivity(intent)
@@ -103,10 +92,6 @@ class SearchActivity : AppCompatActivity() {
                     }
                 }
             }
-            binding.searchEditTxt.setOnItemClickListener { adapterView, view, position, id ->
-                Log.d("tag000", position.toString())
-
-            }
         }
 
 
@@ -114,7 +99,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        searchVMFactory = SearchViewModelFactory(ProductRepo.getInstance(RemoteSource()))
+        searchVMFactory = SearchViewModelFactory()
         searchVM = ViewModelProvider(this, searchVMFactory)[SearchViewModel::class.java]
     }
 }

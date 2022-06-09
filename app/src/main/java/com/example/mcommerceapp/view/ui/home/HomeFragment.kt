@@ -8,11 +8,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -21,8 +19,9 @@ import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.shopify_repository.product.CollectionsRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.pojo.products.Products
+import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.feature_product.adapter.AllProductsAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.AdvAdapter
@@ -32,10 +31,11 @@ import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
-import java.lang.Math.abs
+import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 
 
-class HomeFragment() : OnClickListner,Fragment() {
+class HomeFragment : OnClickListner, Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeViewModel
@@ -47,8 +47,10 @@ class HomeFragment() : OnClickListner,Fragment() {
     private lateinit var advAdapter: AdvAdapter
     private lateinit var sliderHandler: Handler
     private lateinit var sliderRun: Runnable
+    val bundle = Bundle()
 
-     override fun onCreateView(
+
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,23 +58,31 @@ class HomeFragment() : OnClickListner,Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
-//         binding.catogeryViewMoreTextView.setOnClickListener(){
-//
-//             val bundle = Bundle()
-//             bundle.putString("VALUE","")
-//             bundle.putString("TYPE", Keys.COLLECTION)
-//            findNavController(requireView())?.navigate(R.id.actCategoryMore,bundle);
-//         }
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.actionBar.favouriteImage.setOnClickListener { startActivity(Intent(requireContext(), FavoriteScreen::class.java)) }
+
+        binding.actionBar.cardImage.setOnClickListener { startActivity(Intent(requireContext(), ShoppingCartScreen::class.java)) }
+
+        binding.actionBar.searchImage.setOnClickListener { startActivity(Intent(requireContext(), SearchActivity::class.java)) }
+
+        binding.viewMoreTx.setOnClickListener{
+            bundle.putString("VALUE", "")
+            bundle.putString("TYPE", Keys.ALL_PRODUCT)
+            val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
+            intent.putExtra("PRODUCTS", bundle)
+            startActivity(intent)
+        }
+    }
 
     override fun onResume() {
         super.onResume()
-        homeVM.getProduct(Keys.PRODUCT_TYPE)
+        homeVM.getProduct()
         observerVendors()
-        //observerCollections()
         observerAllProducts()
         sliderItems()
         itemSliderView()
@@ -97,7 +107,7 @@ class HomeFragment() : OnClickListner,Fragment() {
         val comPosPageTarn = CompositePageTransformer()
         comPosPageTarn.addTransformer(MarginPageTransformer(40))
         comPosPageTarn.addTransformer { page, position ->
-            val r = 1 - abs(position)
+            val r = 1 - kotlin.math.abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
         binding.advViewPager.setPageTransformer(comPosPageTarn)
@@ -106,7 +116,7 @@ class HomeFragment() : OnClickListner,Fragment() {
             binding.advViewPager.currentItem = binding.advViewPager.currentItem + 1
         }
         binding.advViewPager.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback(){
+            object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     sliderHandler.removeCallbacks(sliderRun)
                     sliderHandler.postDelayed(sliderRun, 3000)
@@ -115,64 +125,54 @@ class HomeFragment() : OnClickListner,Fragment() {
 
     }
 
-    private fun init(){
-        homeVMFactory = HomeViewModelFactory(ProductRepo.getInstance(RemoteSource()), ProductRepo.getInstance(RemoteSource()))
+    private fun init() {
+        homeVMFactory = HomeViewModelFactory(
+            ProductRepo.getInstance(RemoteSource()),
+            ProductRepo.getInstance(RemoteSource())
+        )
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         collectionAdapter = CollectionAdpater(this, requireContext())
-        vendorAdapter = VendorAdapter(requireContext(),this)
-        allProductsAdapter = AllProductsAdapter(requireContext(),this)
+        vendorAdapter = VendorAdapter(requireContext(), this)
+        allProductsAdapter = AllProductsAdapter(requireContext(), this)
         binding.recyclerListVendor.adapter = vendorAdapter
         //binding.recyclerListCollection.adapter = collectionAdapter
         binding.recycleViewProduct.adapter = allProductsAdapter
 
     }
 
-    private fun observerVendors(){
-        homeVM.vendors.observe(viewLifecycleOwner){
+    private fun observerVendors() {
+        homeVM.vendors.observe(viewLifecycleOwner) {
             vendorAdapter.setData(it)
             binding.recyclerListVendor.adapter = vendorAdapter
         }
     }
 
-//    private fun observerCollections(){
-//        homeVM.collections.observe(viewLifecycleOwner){
-//            collectionAdapter.setData(it)
-//            binding.recyclerListCollection.adapter = collectionAdapter
-//
-//        }
-//    }
-
-    private fun observerAllProducts(){
-        homeVM.allProducts.observe(viewLifecycleOwner){
-            allProductsAdapter.setData(it)
+    private fun observerAllProducts() {
+        homeVM.allProducts.observe(viewLifecycleOwner) {
+            allProductsAdapter.setData(it.take(4) as ArrayList<Products>)
+            binding.viewMoreTx.visibility = TextView.VISIBLE
+            binding.view.visibility = TextView.VISIBLE
             binding.recycleViewProduct.adapter = allProductsAdapter
 
         }
     }
 
-    override fun onClick(value: String?,type:String) {
-        val bundle = Bundle()
+    override fun onClick(value: String?, type: String) {
+        when (type) {
 
-        when(type){
-            Keys.VENDOR ->  {
+            Keys.VENDOR -> {
                 bundle.putString("VALUE", value)
-                bundle.putString("TYPE", type)
-                findNavController(requireView())?.navigate(R.id.actCategory,bundle)
-            }
-            Keys.COLLECTION ->  {
-                bundle.putString("PRODUCT_TYPE", value)
                 bundle.putString("TYPE", type)
                 val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
                 intent.putExtra("PRODUCTS", bundle)
                 startActivity(intent)
             }
-            else ->{
+            else -> {
                 val intent = Intent(requireContext(), ProductDetail::class.java)
                 intent.putExtra("PRODUCTS_ID", value)
                 startActivity(intent)
             }
         }
-
     }
 
 }
