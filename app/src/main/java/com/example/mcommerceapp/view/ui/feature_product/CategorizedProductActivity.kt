@@ -1,18 +1,26 @@
 package com.example.mcommerceapp.view.ui.feature_product
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.mcommerceapp.MainActivity
 import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.adapter.CategorizedProductAdapter
 import com.example.mcommerceapp.view.ui.feature_product.adapter.OnClickListner
 import com.example.mcommerceapp.view.ui.feature_product.viewmodel.CategorizedProductVM
 import com.example.mcommerceapp.view.ui.feature_product.viewmodel.CategorizedProductVMFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
+import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 
 class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
@@ -29,8 +37,6 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
         binding = CategorizedProductScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        supportActionBar?.hide()
         init()
 
         val intent = intent.getBundleExtra("PRODUCTS")
@@ -42,16 +48,26 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             Keys.ALL_PRODUCT -> observeAllProducts()
         }
 
+        binding.actionBarLayout.backImg.visibility = ImageView.VISIBLE
+
+        binding.actionBarLayout.backImg.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+
+        binding.actionBarLayout.favouriteImage.setOnClickListener { startActivity(Intent(this, FavoriteScreen::class.java)) }
+
+        binding.actionBarLayout.cardImage.setOnClickListener { startActivity(Intent(this, ShoppingCartScreen::class.java)) }
+
+        binding.actionBarLayout.searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
+
         productsVM.products.observe(this) {
             categoryProductAdapter.setData(it)
             binding.grid.adapter = categoryProductAdapter
         }
     }
 
+
     private fun observeVendor() {
         productsVM.getProductsVendor(value)
     }
-
     private fun observeAllProducts() {
         productsVM.allProducts.observe(this) {
             categoryProductAdapter.setData(it)
