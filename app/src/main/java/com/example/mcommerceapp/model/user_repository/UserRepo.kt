@@ -135,7 +135,6 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         return User(name!!, email!!,true,userID = userId!!)
     }
 
-
     private fun addToFireStore(user: User) {
         fireStore.collection("users").document(user.email).set(user).addOnSuccessListener {
             _finish.value = true
@@ -179,4 +178,5 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
     override fun setLanguage(lan:String){
         sharedPreferences.edit().putString("lan", lan).apply()
     }
+
 }

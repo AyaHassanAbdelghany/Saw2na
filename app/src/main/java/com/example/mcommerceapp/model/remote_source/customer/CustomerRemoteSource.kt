@@ -40,4 +40,13 @@ class CustomerRemoteSource {
         )
 
     }
+
+    suspend fun updateCustomer(userID:String ,req:RequestBody):Customers {
+        val res = api.updateCustomerByID(userID,req)
+        Log.i("updateCustomer", "updateCustomer: $res")
+        return gson.fromJson(
+            res.body()!!.get("customer") as JsonObject,
+            object : TypeToken<Customers>() {}.type
+        )
+    }
 }
