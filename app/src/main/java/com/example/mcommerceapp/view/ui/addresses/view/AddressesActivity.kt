@@ -4,29 +4,31 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.ActivityAddressesBinding
 import com.example.mcommerceapp.model.addresses_repository.AddressesRepo
 import com.example.mcommerceapp.model.remote_source.addresses.AddressesRemoteSource
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.customers.Addresses
-import com.example.mcommerceapp.view.ui.addresses.add_address.AddAddressActivity
+import com.example.mcommerceapp.view.ui.addresses.view.add_address.AddAddressActivity
 import com.example.mcommerceapp.view.ui.addresses.view.adapter.AddressesAdapter
 import com.example.mcommerceapp.view.ui.addresses.view.adapter.AddressesCommunicator
 import com.example.mcommerceapp.view.ui.addresses.view_model.AddressesViewModel
 import com.example.mcommerceapp.view.ui.addresses.view_model.factory.AddressesViewModelFactory
 
 class AddressesActivity : AppCompatActivity() , AddressesCommunicator{
-    lateinit var binding: ActivityAddressesBinding
-    lateinit var viewModel: AddressesViewModel
-    lateinit var vmFactory: AddressesViewModelFactory
-    var customerID:String = "5759375868043"
+    private lateinit var binding: ActivityAddressesBinding
+    private lateinit var viewModel: AddressesViewModel
+    private lateinit var vmFactory: AddressesViewModelFactory
+    private lateinit var customerID:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddressesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        vmFactory = AddressesViewModelFactory(AddressesRepo(AddressesRemoteSource()))
+        vmFactory = AddressesViewModelFactory(AddressesRepo.getInstance(AddressesRemoteSource()), UserRepo.getInstance(this))
         viewModel = ViewModelProvider(this, vmFactory)[AddressesViewModel::class.java]
 
         val orderAdapter = AddressesAdapter(this,this)
@@ -38,10 +40,16 @@ class AddressesActivity : AppCompatActivity() , AddressesCommunicator{
             startActivityForResult(Intent(this,AddAddressActivity::class.java),2)
         }
 
-        viewModel.getAddressByCustomerID("5759375868043")
         viewModel.addresses.observe(this){
             orderAdapter.setData(it)
         }
+
+        viewModel.retrieveUserFromFireStore().observe(this){
+            customerID = it.userID
+            binding.loadingProgressBar.visibility = View.INVISIBLE
+            viewModel.getAddressByCustomerID(customerID)
+        }
+
 
     }
 

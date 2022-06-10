@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.addresses.add_address.AddAddressActivity">
+    tools:context=".view.ui.addresses.view.add_address.AddAddressActivity">
 
 
     <androidx.cardview.widget.CardView

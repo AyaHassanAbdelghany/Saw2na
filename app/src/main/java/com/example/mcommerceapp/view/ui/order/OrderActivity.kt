@@ -23,7 +23,7 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
         setContentView(binding.root)
 
         orderVMFactory = OrderViewModelFactory(
-            OrdersRepo(OrdersRemoteSource()), UserRepo.getInstance(this)
+            OrdersRepo.getInstance(OrdersRemoteSource()), UserRepo.getInstance(this)
             )
         orderVM = ViewModelProvider(this, orderVMFactory)[OrderViewModel::class.java]
 

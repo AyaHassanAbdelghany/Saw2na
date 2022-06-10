@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/action_bar_customized.xml" value="0.10989583333333333" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_add_address.xml" value="0.19270833333333334" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_addresses.xml" value="0.234375" />
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_sign_up.xml" value="0.10989583333333333" />
+        <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/activity_signin.xml" value="0.10989583333333333" />
         <entry key="..\:/ITI/Final Project/M Commerce App/app/src/main/res/layout/item_address.xml" value="0.19270833333333334" />
       </map>
     </option>

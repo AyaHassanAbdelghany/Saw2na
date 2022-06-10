@@ -1,9 +1,8 @@
-package com.example.mcommerceapp.view.ui.addresses.add_address
+package com.example.mcommerceapp.view.ui.addresses.view.add_address
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.mcommerceapp.databinding.ActivityAddAddressBinding
 
 class AddAddressActivity : AppCompatActivity() {

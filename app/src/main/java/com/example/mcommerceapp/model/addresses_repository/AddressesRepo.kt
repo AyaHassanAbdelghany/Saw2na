@@ -7,8 +7,14 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-class AddressesRepo(private val remoteSource: AddressesRemoteSource) {
+class AddressesRepo private constructor(private val remoteSource: AddressesRemoteSource) {
 
+    companion object {
+        private val addressesRepo: AddressesRepo? = null
+        fun getInstance(remoteSource: AddressesRemoteSource): AddressesRepo {
+            return addressesRepo ?: AddressesRepo(remoteSource)
+        }
+    }
 
     suspend fun addNewAddress(id : String,req: Addresses): Addresses {
        return remoteSource.addNewAddress(id,getRequest(req))

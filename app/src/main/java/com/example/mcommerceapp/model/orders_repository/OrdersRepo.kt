@@ -9,7 +9,7 @@ import orders.Order
 import org.json.JSONArray
 import org.json.JSONObject
 
-class OrdersRepo(private val source: OrdersRemoteSource) {
+class OrdersRepo private constructor(private val source: OrdersRemoteSource) {
 
     companion object {
 

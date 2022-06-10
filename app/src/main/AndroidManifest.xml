@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceApp">
         <activity
-            android:name=".view.ui.addresses.add_address.AddAddressActivity"
+            android:name="com.example.mcommerceapp.view.ui.addresses.view.add_address.AddAddressActivity"
             android:exported="false" />
         <activity
             android:name=".view.ui.addresses.view.AddressesActivity"

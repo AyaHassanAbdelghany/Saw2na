@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.addresses_repository.AddressesRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.customers.Addresses
+import com.example.mcommerceapp.pojo.user.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AddressesViewModel(private val addressesRepo: AddressesRepo) :ViewModel() {
+class AddressesViewModel(private val addressesRepo: AddressesRepo,private val userRepo: UserRepo) :ViewModel() {
     private val _addresses = MutableLiveData<ArrayList<Addresses>>()
     val addresses:LiveData<ArrayList<Addresses>> = _addresses
 
@@ -52,4 +54,7 @@ class AddressesViewModel(private val addressesRepo: AddressesRepo) :ViewModel() 
         }
     }
 
+    fun retrieveUserFromFireStore(): LiveData<User>{
+        return userRepo.retrieveUserFromFireStore()
+    }
 }

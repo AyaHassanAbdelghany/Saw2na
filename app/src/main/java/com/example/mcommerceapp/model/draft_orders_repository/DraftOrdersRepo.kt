@@ -9,7 +9,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DraftOrdersRepo(private val source: DraftOrdersRemoteSource) {
+class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteSource) {
 
     companion object {
 
