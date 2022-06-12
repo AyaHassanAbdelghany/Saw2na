@@ -42,6 +42,8 @@ class AddressesActivity : AppCompatActivity() , AddressesCommunicator{
 
         viewModel.addresses.observe(this){
             orderAdapter.setData(it)
+            binding.recycleViewAddress.adapter = orderAdapter
+
         }
 
         viewModel.retrieveUserFromFireStore().observe(this){
