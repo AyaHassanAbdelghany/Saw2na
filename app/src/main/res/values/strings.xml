@@ -79,5 +79,13 @@
     <string name="favourite">Favourite</string>
     <string name="shopping_cart">Shopping Cart</string>
 
+    <string name="country">Country</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="addresses">Addresses</string>
+    <string name="order_again">Order Again</string>
+    <string name="items">Items</string>
+    <string name="city">City</string>
+
+
 
 </resources>

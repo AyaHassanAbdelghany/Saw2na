@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.model.draft_orders
+package com.example.mcommerceapp.model.draft_orders_repository
 
 import android.util.Log
 import com.example.mcommerceapp.model.draft_orders.interfaces.ShoppingCartRepoInterface
@@ -10,8 +10,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DraftOrdersRepo(private val source: DraftOrdersRemoteSource) : ShoppingCartRepoInterface {
 
+class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteSource) {
     companion object {
 
         private val draftOrdersRepo: DraftOrdersRepo? = null
