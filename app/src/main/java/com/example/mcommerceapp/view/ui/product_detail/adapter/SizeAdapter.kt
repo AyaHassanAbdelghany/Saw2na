@@ -29,6 +29,7 @@ class SizeAdapter(var context: Context, var listener: OnClickListener): Recycler
         holder.sizeTxt.text = size
         holder.itemView.setOnClickListener {
             listener.onClickSize(size!!)
+            holder.itemView.setBackgroundResource(R.drawable.colored_border_button_background)
         }
     }
 

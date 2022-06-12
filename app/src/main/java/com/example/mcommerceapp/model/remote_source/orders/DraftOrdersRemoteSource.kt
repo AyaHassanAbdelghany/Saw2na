@@ -48,13 +48,13 @@ class DraftOrdersRemoteSource private constructor() {
         val res = api.getAllDraftOrders()
         Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ngetAllOrders: $res")
 
-        val resOrders: DraftOrders = gson.fromJson(
-            res.body()!!.get("draft_order") as JsonArray,
-            object : TypeToken<DraftOrder>() {}.type
+        val resOrders: ArrayList<DraftOrder> = gson.fromJson(
+            res.body()!!.get("draft_orders") as JsonArray,
+            object : TypeToken<ArrayList<DraftOrder>>() {}.type
         )
 
         val myOrders: ArrayList<DraftOrder> = arrayListOf()
-        for (order in resOrders.draftOrders) {
+        for (order in resOrders) {
             if (order.customer?.id.toString() == userID)
                 myOrders.add(order)
         }

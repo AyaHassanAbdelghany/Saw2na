@@ -37,6 +37,7 @@ class ProductDetailVM(
     var order : LiveData<DraftOrder> = _order
 
     val user = iUser.getUser()
+    val isLogged = iUser.getLoggedInState()
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()

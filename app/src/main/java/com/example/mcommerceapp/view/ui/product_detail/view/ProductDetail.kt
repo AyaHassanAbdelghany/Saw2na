@@ -1,6 +1,7 @@
 package com.example.mcommerceapp.view.ui.product_detail.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +21,15 @@ import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import com.example.mcommerceapp.pojo.products.Variants
+import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
 import com.example.mcommerceapp.view.ui.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceapp.view.ui.product_detail.viewmodelfactory.ProductDetailVMFactory
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
+import com.google.android.material.snackbar.Snackbar
 import draft_orders.DraftOrder
 import draft_orders.LineItems
 
@@ -41,8 +45,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
     private lateinit var color: String
     private lateinit var size: String
-    private var id: Long = 0
-    private var variant = arrayListOf<Variants>()
+    private var id: Long = -1
+    private lateinit var variant: ArrayList<Variants>
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +87,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             }
         }
 
-        detailVM.getProductDetail(intent!!)
+        detailVM.getProductDetail(intent)
         detailVM.productDetail.observe(this) {
             binding.detailBtn.favImage.setOnClickListener { view ->
                 if (detailVM.isFav.value == 1) {
@@ -121,14 +125,17 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             }
 
             binding.detailBtn.checkoutBtn.setOnClickListener {
-                id = getVariant(variant, color, size)
-                Log.d("Color", color)
-                Log.d("Color", size)
-                Log.d("Color", id.toString())
 
-                detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email,
-                    lineItems = arrayListOf<LineItems>(LineItems(variantId = id, quantity = 1))))
+               if(!detailVM.isLogged){
+                   startActivity(Intent(this, SigninActivity::class.java))
+               }else{
+                   id = getVariant(variant, color, size)
+                   detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email,
+                       lineItems = arrayListOf<LineItems>(LineItems(variantId = id, quantity = 1))))
+                   Snackbar.make(binding.layout ,"Added to cart...",Snackbar.LENGTH_LONG).show()
+               }
             }
+            binding.toolbar.title = it.title
 
             binding.contentDetail.ProductPriceTxt.text = "${
                 it.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
@@ -141,6 +148,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
 
             variant = it.variants
+            color = variant[0].option2!!
+            size = variant[0].option1!!
             sizeAdapter = SizeAdapter(this, this)
             binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
             sizeAdapter.setSizeList(it.variants)
@@ -183,6 +192,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                 return it.id!!
             }
         }
-        return 0
+        return variant[0].id!!
     }
 }

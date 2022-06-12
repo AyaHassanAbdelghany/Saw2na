@@ -33,6 +33,7 @@ class ColorAdapter( var context: Context, var listener: OnClickListener): Recycl
 
         holder.itemView.setOnClickListener {
             listener.onClickColor(color)
+            holder.itemView.setBackgroundResource(R.drawable.colored_border_button_background)
         }
     }
 
