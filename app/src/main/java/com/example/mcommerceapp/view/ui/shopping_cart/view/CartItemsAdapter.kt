@@ -9,9 +9,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
+import draft_orders.DraftOrder
 
-class CartItemsAdapter(private var myContext: Context) :
+class CartItemsAdapter(
+    private var cartList: ArrayList<DraftOrder>,
+    private var myContext: Context
+) :
     RecyclerView.Adapter<CartItemsAdapter.ViewHolder>() {
+
+    fun setOrders(cartList: ArrayList<DraftOrder>) {
+        this.cartList = cartList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -54,7 +63,7 @@ class CartItemsAdapter(private var myContext: Context) :
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return cartList.size
     }
 
 
