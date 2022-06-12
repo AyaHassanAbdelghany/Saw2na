@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Variants(
     @SerializedName("id")
-    var id: Double? = null,
+    var id: Long? = null,
     @SerializedName("product_id")
     var productId: Double? = null,
     @SerializedName("title")
