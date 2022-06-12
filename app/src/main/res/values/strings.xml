@@ -55,6 +55,29 @@
     <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
+
+
+    <string name="sub_category" translatable="false">Sub Category</string>
+    <string name="submit" translatable="false">Submit</string>
+    <string name="products" translatable="false">Products</string>
+    <string name="view_more" translatable="false">view more</string>
+
+    <string name="add_google_wallet_success">The pass was added successfully!</string>
+    <string name="orders">Orders</string>
+    <string name="order_again">Order Again</string>
+    <string name="price">Price</string>
+    <string name="product">Product</string>
+    <string name="shipping_details">Shipping Details</string>
+    <string name="date_shopping">Date Shopping</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="total">Total</string>
+    <string name="category">Category</string>
+    <string name="shipping">Shipping</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="items">Items</string>
+
+
     <string name="shipping">Shipping</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
@@ -74,14 +97,17 @@
     <string name="total" translatable="false">Total</string>
     <string name="notify_me" translatable="false">Notify Me</string>
     <string name="category" translatable="false">Category</string>
+
     <string name="favourite">Favourite</string>
     <string name="shopping_cart">Shopping Cart</string>
+
     <string name="country">Country</string>
     <string name="zip_code">Zip Code</string>
     <string name="addresses">Addresses</string>
     <string name="order_again">Order Again</string>
     <string name="items">Items</string>
     <string name="city">City</string>
+
 
 
 </resources>

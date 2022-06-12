@@ -26,4 +26,5 @@ data class LineItems (
   @SerializedName("price"                ) var price              : String?             = null,
   @SerializedName("admin_graphql_api_id" ) var adminGraphqlApiId  : String?             = null
 
+
 )

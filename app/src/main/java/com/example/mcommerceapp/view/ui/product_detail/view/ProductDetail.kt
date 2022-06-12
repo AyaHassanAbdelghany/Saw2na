@@ -114,8 +114,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                     detailVM.insertFavoriteProduct(
                         FavProducts(
                             productPrice = it.variants[0].price?.toDouble()!!,
-//                            productId = it.id.toString()!!,
-//                            productImage = "",
                             productId = it.id!!,
                             productImage = it.image?.src!!,
                             productName = it.title!!
