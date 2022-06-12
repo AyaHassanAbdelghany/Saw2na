@@ -15,6 +15,7 @@ import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
+import draft_orders.DraftOrder
 
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private lateinit var cartItemsRecyclerView: RecyclerView
@@ -29,7 +30,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private lateinit var cartViewModel: ShoppingCartViewmodel
     private lateinit var cartViewModelFactory: ShoppingCartViewmodelFactory
 
-//    private var favProductsList: List<FavProducts> = mutableListOf()
+    private var cartList: ArrayList<DraftOrder> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +43,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         cartItemsRecyclerView.layoutManager = linearLayoutManager
 
-        cartItemsAdapter = CartItemsAdapter(this)
+        cartItemsAdapter = CartItemsAdapter(cartList, this)
         cartItemsRecyclerView.adapter = cartItemsAdapter
 
         checkoutBt = findViewById(R.id.checkout_bt)
@@ -70,11 +71,12 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
 
         cartViewModel.draftOrderLiveData.observe(this) {
-            it?.forEach {
-                println(it.id)
-            }
+            cartItemsAdapter.setOrders(it)
+//            it?.forEach {
+//                println(it.id)
+//
+//            }
         }
-
     }
 
     override fun calculateNewSubTotal(value: Double) {
