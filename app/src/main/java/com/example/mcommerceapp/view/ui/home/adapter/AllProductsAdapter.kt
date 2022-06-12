@@ -15,12 +15,15 @@ import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
 class AllProductsAdapter (var context :Context , var listner : OnClickListner) : RecyclerView.Adapter<AllProductsAdapter.ViewHolder>(){
     var productList: ArrayList<Products> = arrayListOf()
+    private lateinit var symbol: String
+    private var value: Double = 0.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -31,7 +34,8 @@ class AllProductsAdapter (var context :Context , var listner : OnClickListner) :
             Glide.with(context)
                 .load(currentItem.image?.src)
                 .into(productImage)
-            productPriceTxt.text = currentItem.variants.get(0).price.toString()
+            productPriceTxt.text = "${currentItem.variants[0].price?.toDouble()?.times(value)} ${symbol}"
+
         }
         holder.itemView.setOnClickListener {
             listner.onClick(currentItem.id.toString(), Keys.ALL_PRODUCT)
@@ -42,8 +46,10 @@ class AllProductsAdapter (var context :Context , var listner : OnClickListner) :
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(productList: ArrayList<Products>){
+    fun setData(productList: ArrayList<Products>, symbol: String, value: Double){
         this.productList = productList
+        this.symbol = symbol
+        this.value = value
         notifyDataSetChanged()
     }
 

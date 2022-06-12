@@ -55,7 +55,10 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
         }
 
         val jsonReq = JSONObject()
-        jsonReq.put("line_items", jsonArray)
+
+        jsonReq.put("line_items",jsonArray)
+        jsonReq.put("note",order.note)
+
 
         jsonReq.put("email", order.email)
 

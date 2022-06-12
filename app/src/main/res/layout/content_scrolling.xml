@@ -53,6 +53,8 @@
             android:id="@+id/sizeRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@id/text"
             app:layout_constraintTop_toBottomOf="@id/text"
             tools:listitem="@layout/card_size" />
@@ -73,6 +75,8 @@
             android:id="@+id/colorRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@id/text1"
             app:layout_constraintTop_toBottomOf="@id/text1"
             tools:listitem="@layout/card_size" />

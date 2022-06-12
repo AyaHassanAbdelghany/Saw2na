@@ -32,7 +32,7 @@ class OrderDetailActivity: AppCompatActivity(), OnClickListener {
         val id = intent.getStringExtra("ORDER_ID")
         Log.d("ooooooooo", id.toString())
 
-        orderDetailVMFactory = OrderDetailViewModelFactory(OrdersRepo(OrdersRemoteSource()), CurrencyRepo.getInstance(
+        orderDetailVMFactory = OrderDetailViewModelFactory(OrdersRepo.getInstance(OrdersRemoteSource()), CurrencyRepo.getInstance(
             RemoteSource(), this
         ))
         orderDetailVM = ViewModelProvider(this, orderDetailVMFactory)[OrderDetailViewModel::class.java]

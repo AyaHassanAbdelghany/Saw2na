@@ -11,19 +11,26 @@ import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
+import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.local_source.LocalSource
 import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.room_repository.RoomRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
+import com.example.mcommerceapp.pojo.products.Variants
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
+import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
 import com.example.mcommerceapp.view.ui.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceapp.view.ui.product_detail.viewmodelfactory.ProductDetailVMFactory
+import draft_orders.DraftOrder
+import draft_orders.LineItems
 
 
-class ProductDetail : AppCompatActivity() {
+class ProductDetail : AppCompatActivity(), OnClickListener {
 
     lateinit var binding: ActivityProductDetailBinding
     private lateinit var imageSliderPager: ImageSlideAdapter
@@ -31,6 +38,11 @@ class ProductDetail : AppCompatActivity() {
     lateinit var colorAdapter: ColorAdapter
     private lateinit var detailVM: ProductDetailVM
     private lateinit var detailVMFactory: ProductDetailVMFactory
+
+    private lateinit var color: String
+    private lateinit var size: String
+    private var id: Long = 0
+    private var variant = arrayListOf<Variants>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +55,9 @@ class ProductDetail : AppCompatActivity() {
         detailVMFactory = ProductDetailVMFactory(
             ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
                 LocalSource(this), this
-            ), CurrencyRepo.getInstance(RemoteSource(), this)
+            ), CurrencyRepo.getInstance(RemoteSource(), this),
+            DraftOrdersRepo.getInstance(DraftOrdersRemoteSource()),
+            UserRepo.getInstance(this)
         )
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
@@ -106,6 +120,16 @@ class ProductDetail : AppCompatActivity() {
                 }
             }
 
+            binding.detailBtn.checkoutBtn.setOnClickListener {
+                id = getVariant(variant, color, size)
+                Log.d("Color", color)
+                Log.d("Color", size)
+                Log.d("Color", id.toString())
+
+                detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email,
+                    lineItems = arrayListOf<LineItems>(LineItems(variantId = id, quantity = 1))))
+            }
+
             binding.contentDetail.ProductPriceTxt.text = "${
                 it.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
             } ${detailVM.currencySymbol}"
@@ -115,15 +139,21 @@ class ProductDetail : AppCompatActivity() {
             binding.viewPagerMain.adapter = imageSliderPager
             binding.indicator.setViewPager(binding.viewPagerMain)
 
-            binding.contentDetail.sizeRecycleView.layoutManager =
-                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            sizeAdapter = SizeAdapter(it.options[0].values, this)
+
+            variant = it.variants
+            sizeAdapter = SizeAdapter(this, this)
+            binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
+            sizeAdapter.setSizeList(it.variants)
             binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
 
-            binding.contentDetail.colorRecycleView.layoutManager =
-                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            colorAdapter = ColorAdapter(it.options[1].values, this)
+            colorAdapter = ColorAdapter(this, this)
             binding.contentDetail.colorRecycleView.adapter = colorAdapter
+
+            val set = hashSetOf<String>()
+            it.variants.forEach { color ->
+                set.add(color.option2!!)
+            }
+            colorAdapter.setColorList(set)
 
             binding.contentDetail.readMore.text = it.bodyHtml
 
@@ -137,5 +167,22 @@ class ProductDetail : AppCompatActivity() {
             binding.contentDetail.card2.reviewerRaring.rating = Keys.REVIEWS[1].rate
             binding.contentDetail.card2.reviewerDescTxt.text = Keys.REVIEWS[1].desc
         }
+    }
+
+    override fun onClickColor(color: String) {
+       this.color = color
+    }
+
+    override fun onClickSize(size: String) {
+        this.size = size
+    }
+
+    private fun getVariant(variant: ArrayList<Variants>, color: String, size: String): Long{
+        variant.forEach {
+            if(it.option1 == size && it.option2 == color){
+                return it.id!!
+            }
+        }
+        return 0
     }
 }

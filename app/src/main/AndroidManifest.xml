@@ -26,6 +26,7 @@
         <activity
             android:name=".view.ui.feature_product.CategorizedProductActivity"
             android:exported="false" />
+
         <activity android:name=".view.ui.order.OrderActivity" />
 
         <activity android:name=".view.ui.order_detail.OrderDetailActivity" />

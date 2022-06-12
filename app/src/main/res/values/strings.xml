@@ -56,6 +56,7 @@
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
 
+
     <string name="sub_category" translatable="false">Sub Category</string>
     <string name="submit" translatable="false">Submit</string>
     <string name="products" translatable="false">Products</string>
@@ -75,6 +76,27 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="items">Items</string>
+
+
+    <string name="shipping">Shipping</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+
+    <string name="add_google_wallet_success" translatable="false">The pass was added successfully!</string>
+    <string name="sub_category" translatable="false">Sub Category</string>
+    <string name="submit" translatable="false">Submit</string>
+    <string name="orders" translatable="false">Orders</string>
+    <string name="products" translatable="false">Products</string>
+    <string name="view_more" translatable="false">view more</string>
+
+    <string name="price" translatable="false">Price</string>
+    <string name="product" translatable="false">Product</string>
+    <string name="shipping_details" translatable="false">Shipping Details</string>
+    <string name="date_shopping" translatable="false">Date Shopping</string>
+    <string name="payment_details" translatable="false">Payment Details</string>
+    <string name="total" translatable="false">Total</string>
+    <string name="notify_me" translatable="false">Notify Me</string>
+    <string name="category" translatable="false">Category</string>
 
     <string name="favourite">Favourite</string>
     <string name="shopping_cart">Shopping Cart</string>
