@@ -11,7 +11,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteSource) {
+class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteSource) : ShoppingCartRepoInterface {
     companion object {
 
         private val draftOrdersRepo: DraftOrdersRepo? = null
