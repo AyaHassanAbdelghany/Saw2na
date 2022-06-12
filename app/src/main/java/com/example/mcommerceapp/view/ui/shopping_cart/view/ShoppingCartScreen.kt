@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
+import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
+import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
@@ -48,23 +50,23 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
 
 
-//
-//        cartViewModelFactory = ShoppingCartViewmodelFactory(
-//            DraftOrdersRepo.getInstance(DraftOrdersRemoteSource())
-//        )
-//
-//        favoriteViewModel =
-//            ViewModelProvider(this, favoriteViewModelFactory)[FavoriteViewModel::class.java]
-//
-//        favoriteViewModel.getAllFavoriteProducts()
-//        favoriteViewModel.favProductsLiveData.observe(this) {
-//            if (it != null) {
-//                favoriteItemsAdapter.setFavoriteProducts(it)
-//                favoriteItemsAdapter.notifyDataSetChanged()
-//                itemCountsTx.text = "You have ${it.count()} items in your favorite"
-//            }
-//        }
-//
+
+        cartViewModelFactory = ShoppingCartViewmodelFactory(
+            DraftOrdersRepo.getInstance(DraftOrdersRemoteSource())
+        )
+
+        favoriteViewModel =
+            ViewModelProvider(this, favoriteViewModelFactory)[FavoriteViewModel::class.java]
+
+        favoriteViewModel.getAllFavoriteProducts()
+        favoriteViewModel.favProductsLiveData.observe(this) {
+            if (it != null) {
+                favoriteItemsAdapter.setFavoriteProducts(it)
+                favoriteItemsAdapter.notifyDataSetChanged()
+                itemCountsTx.text = "You have ${it.count()} items in your favorite"
+            }
+        }
+
 
     }
 

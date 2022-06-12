@@ -11,7 +11,14 @@ import draft_orders.DraftOrder
 import draft_orders.DraftOrders
 import okhttp3.RequestBody
 
-class DraftOrdersRemoteSource {
+class DraftOrdersRemoteSource private constructor() {
+    companion object {
+        private var draftOrdersRemoteSource: DraftOrdersRemoteSource? = null
+
+        fun getInstance(): DraftOrdersRemoteSource {
+            return draftOrdersRemoteSource ?: DraftOrdersRemoteSource()
+        }
+    }
 
     private val api: DraftOrdersService =
         ShopifyRetrofitHelper.getInstance().create(DraftOrdersService::class.java)
