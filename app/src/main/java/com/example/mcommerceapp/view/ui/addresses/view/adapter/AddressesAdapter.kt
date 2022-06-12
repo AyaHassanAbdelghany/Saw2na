@@ -54,6 +54,8 @@ class AddressesAdapter(var context: Context, private var listener: AddressesComm
     }
 
     fun setData(orderList: ArrayList<Addresses>) {
+        this.orderList = ArrayList<Addresses>()
+        notifyDataSetChanged()
         this.orderList = orderList
         notifyDataSetChanged()
     }

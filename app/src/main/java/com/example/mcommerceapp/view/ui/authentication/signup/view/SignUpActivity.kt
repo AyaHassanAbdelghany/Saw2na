@@ -43,7 +43,7 @@ class SignUpActivity : AppCompatActivity() {
                 AuthState.SUCCESS -> {
                     Toast.makeText(this, "please check your mail ..", Toast.LENGTH_SHORT).show()
 
-                    val user = User( displayNameEditText.text.toString(), emailEditText.text.toString(),false)
+                    val user = User( displayNameEditText.text.toString(), emailEditText.text.toString(),true)
                     viewModel.setUser(user)
                     loading.visibility = View.VISIBLE
                 }
