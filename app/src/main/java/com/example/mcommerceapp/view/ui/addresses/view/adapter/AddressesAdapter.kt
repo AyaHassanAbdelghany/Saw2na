@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ItemAddressBinding
 import com.example.mcommerceapp.pojo.customers.Addresses
 
@@ -29,11 +30,7 @@ class AddressesAdapter(var context: Context, private var listener: AddressesComm
             countryTextView.text = currentItem.country
         }
         if (currentItem.default == true) {
-            Log.i(
-                "TAG",
-                "onBindViewHolder:    ${currentItem.city}  ${currentItem.default.toString()}"
-            )
-            holder.itemView.setBackgroundColor(Color.CYAN)
+            holder.itemView.setBackgroundResource(R.drawable.card_border_colored)
         }
         holder.binding.deleteAddress.setOnClickListener {
             if (currentItem.default == true)
@@ -54,8 +51,6 @@ class AddressesAdapter(var context: Context, private var listener: AddressesComm
     }
 
     fun setData(orderList: ArrayList<Addresses>) {
-        this.orderList = ArrayList<Addresses>()
-        notifyDataSetChanged()
         this.orderList = orderList
         notifyDataSetChanged()
     }
