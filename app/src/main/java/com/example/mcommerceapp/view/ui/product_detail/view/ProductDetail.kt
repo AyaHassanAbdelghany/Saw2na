@@ -28,6 +28,8 @@ import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
 import com.example.mcommerceapp.view.ui.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceapp.view.ui.product_detail.viewmodelfactory.ProductDetailVMFactory
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
+import com.google.android.material.snackbar.Snackbar
 import draft_orders.DraftOrder
 import draft_orders.LineItems
 
@@ -130,6 +132,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                    id = getVariant(variant, color, size)
                    detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email,
                        lineItems = arrayListOf<LineItems>(LineItems(variantId = id, quantity = 1))))
+                   Snackbar.make(binding.layout ,"Added to cart...",Snackbar.LENGTH_LONG).show()
                }
             }
             binding.toolbar.title = it.title
@@ -145,6 +148,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
 
             variant = it.variants
+            color = variant[0].option2!!
+            size = variant[0].option1!!
             sizeAdapter = SizeAdapter(this, this)
             binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
             sizeAdapter.setSizeList(it.variants)
