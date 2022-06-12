@@ -85,4 +85,11 @@ interface ShopifyService {
     @GET("/admin/api/2021-10/customers/{resource}.json")
     suspend fun getCustomerByID( @Path("resource") id: String): Response<JsonObject>
 
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @PUT("/admin/api/2021-10/customers/{resource}.json")
+    suspend fun updateCustomerByID( @Path("resource") id: String,@Body requestBody: RequestBody): Response<JsonObject>
+
 }

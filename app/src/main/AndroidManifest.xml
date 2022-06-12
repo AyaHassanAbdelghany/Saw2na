@@ -12,15 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceApp">
         <activity
-            android:name=".view.ui.splash_screen.SplashScreen"
-            android:exported="true"
-            android:theme="@style/Theme.MCommerceApp">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name="com.example.mcommerceapp.view.ui.addresses.view.add_address.AddAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ui.addresses.view.AddressesActivity"
+            android:exported="false" />
         <activity
             android:name=".view.ui.payment.view.Payment"
             android:exported="false" />
@@ -30,8 +26,12 @@
         <activity
             android:name=".view.ui.feature_product.CategorizedProductActivity"
             android:exported="false" />
+
         <activity android:name=".view.ui.order.OrderActivity"/>
         <activity android:name=".view.ui.order_detail.OrderDetailActivity"/>
+
+        <activity android:name=".view.ui.order.OrderActivity" />
+
         <activity
             android:name=".view.ui.shopping_cart.view.ShoppingCartScreen"
             android:exported="false" />
@@ -42,8 +42,13 @@
         <activity android:name=".view.ui.favorite_product.view.FavoriteScreen" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity android:name=".view.ui.authentication.signup.view.SignUpActivity" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"

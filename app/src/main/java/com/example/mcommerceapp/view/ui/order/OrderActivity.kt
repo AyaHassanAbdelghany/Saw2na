@@ -29,6 +29,9 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
         orderVMFactory = OrderViewModelFactory(
             OrdersRepo(OrdersRemoteSource()), UserRepo.getInstance(this), CurrencyRepo.getInstance(
                 RemoteSource(),this))
+
+            OrdersRepo.getInstance(OrdersRemoteSource()), UserRepo.getInstance(this)
+            )
         orderVM = ViewModelProvider(this, orderVMFactory)[OrderViewModel::class.java]
 
         orderVM.getAllOrders()
