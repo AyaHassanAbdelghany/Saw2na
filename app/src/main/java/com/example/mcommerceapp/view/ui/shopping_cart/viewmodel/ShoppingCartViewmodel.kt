@@ -24,9 +24,9 @@ class ShoppingCartViewmodel(
     fun getAllDraftOrders(userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val orders = iCartRepo.getAllOrders(userId)
-//            withContext(Dispatchers.Main) {
-//                favProductsMutableLiveData.postValue(products)
-//            }
+            withContext(Dispatchers.Main) {
+                draftOrderMutableLiveData.postValue(orders)
+            }
         }
     }
 

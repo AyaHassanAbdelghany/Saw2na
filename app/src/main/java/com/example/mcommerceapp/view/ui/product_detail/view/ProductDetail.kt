@@ -56,7 +56,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
                 LocalSource(this), this
             ), CurrencyRepo.getInstance(RemoteSource(), this),
-            DraftOrdersRepo.getInstance(DraftOrdersRemoteSource()),
+            DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
             UserRepo.getInstance(this)
         )
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
