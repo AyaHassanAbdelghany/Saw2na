@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mcommerceapp.model.remote_source.customer.CustomerRemoteSource
 import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.FirebaseAuthRepo
+import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.GetUserCartRepo
 import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.LocalUserInfoRepo
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
@@ -18,7 +19,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
-    LocalUserInfoRepo {
+    LocalUserInfoRepo, GetUserCartRepo {
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("user", 0)
 
@@ -31,8 +32,8 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
     private val _user by lazy { MutableLiveData<User>() }
     val user: LiveData<User> = _user
 
-    private val _finish :MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-    val finish :LiveData<Boolean> = _finish
+    private val _finish: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val finish: LiveData<Boolean> = _finish
 
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -54,12 +55,12 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         _signInAuthState.value = AuthState.LOADING
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-            sharedPreferences.edit().putString("email",email).apply()
+            sharedPreferences.edit().putString("email", email).apply()
             retrieveUserFromFireStore()
             if (firebaseAuth.currentUser!!.isEmailVerified) {
                 Log.i("TAG", "Email signin is successful")
                 _signInAuthState.value = AuthState.SUCCESS
-              //  sharedPreferences.edit().putString("email", email).apply()
+                //  sharedPreferences.edit().putString("email", email).apply()
 
             } else {
                 firebaseAuth.currentUser!!.sendEmailVerification()
@@ -100,8 +101,8 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
 
                     }
             }.addOnFailureListener { e ->
-            _signUpAuthState.value = e.localizedMessage
-        }
+                _signUpAuthState.value = e.localizedMessage
+            }
 
     }
 
@@ -113,10 +114,10 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         val req = getRequest(user)
         user.userID = customerRemoteSource.createCustomer(req)
 
-        Log.d("iiiiiiiiiiid", "  customerRemoteSource     "+user.userID)
+        Log.d("iiiiiiiiiiid", "  customerRemoteSource     " + user.userID)
 
         sharedPreferences.edit().putString("name", user.displayName)
-            .putString("email", user.email).putString("userId",user.userID).apply()
+            .putString("email", user.email).putString("userId", user.userID).apply()
 
         addToFireStore(user)
     }
@@ -132,7 +133,7 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
 
         Log.d("iiiiiiiiiiid", userId.toString())
 
-        return User(name!!, email!!,true,userID = userId!!)
+        return User(name!!, email!!, true, userID = userId!!)
     }
 
 
@@ -146,7 +147,7 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         fireStore.collection("users").document(getUser().email).get().addOnSuccessListener { d ->
             val user = d.toObject(User::class.java)
             sharedPreferences.edit().putString("name", user?.displayName)
-                .putString("email", user?.email).putString("userId",user?.userID).apply()
+                .putString("email", user?.email).putString("userId", user?.userID).apply()
             _user.value = user
         }
         return user
@@ -176,7 +177,7 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         return requestBody
     }
 
-    override fun setLanguage(lan:String){
+    override fun setLanguage(lan: String) {
         sharedPreferences.edit().putString("lan", lan).apply()
     }
 }

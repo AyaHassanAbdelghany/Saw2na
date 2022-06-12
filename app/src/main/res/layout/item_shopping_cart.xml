@@ -24,14 +24,16 @@
         android:text="Shoes"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintEnd_toStartOf="@id/item_value_tx"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/minus_bt"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         android:src="@drawable/icon_minus_circle"
         app:layout_constraintEnd_toStartOf="@id/item_count_tx"
@@ -43,17 +45,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="5"
+        android:text="1"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@id/item_value_tx"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/minus_bt"
+        app:layout_constraintEnd_toEndOf="@id/item_name_tx"
+        app:layout_constraintStart_toStartOf="@id/item_name_tx"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintTop_toBottomOf="@id/item_name_tx" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:id="@+id/plus_bt"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
         android:background="@android:color/transparent"
         android:src="@drawable/icon_plus_circle"
         app:layout_constraintStart_toEndOf="@id/item_count_tx"
@@ -64,7 +69,7 @@
         android:id="@+id/item_value_tx"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:gravity="end"
         android:text="15"
@@ -75,11 +80,21 @@
         android:id="@+id/item_currency_tx"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
         android:text="$"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/item_name_tx" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/icon_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
