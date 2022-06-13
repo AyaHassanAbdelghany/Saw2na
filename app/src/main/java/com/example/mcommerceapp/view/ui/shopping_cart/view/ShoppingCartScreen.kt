@@ -3,7 +3,10 @@ package com.example.mcommerceapp.view.ui.shopping_cart.view
 import android.content.Intent
 import android.os.Binder
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +24,7 @@ import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
+import draft_orders.DraftOrder
 
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private lateinit var cartItemsRecyclerView: RecyclerView
@@ -33,10 +37,12 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private lateinit var shippingTx: TextView
     private lateinit var totalTx: TextView
 
+    private lateinit var progressIndicator: ProgressBar
+
     private lateinit var cartViewModel: ShoppingCartViewmodel
     private lateinit var cartViewModelFactory: ShoppingCartViewmodelFactory
 
-//    private var favProductsList: List<FavProducts> = mutableListOf()
+    private var cartList: ArrayList<DraftOrder> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,16 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         setContentView(binding.root)
 
         binding.cartItemsRecyclerView.setHasFixedSize(true)
+
+        setContentView(R.layout.activity_shopping_cart_screen)
+
+        supportActionBar?.hide()
+
+        progressIndicator = findViewById(R.id.progress_indicator)
+        progressIndicator.visibility = View.VISIBLE
+
+        cartItemsRecyclerView = findViewById(R.id.cart_items_recycler_view)
+        cartItemsRecyclerView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         binding.cartItemsRecyclerView.layoutManager = linearLayoutManager
@@ -51,11 +67,12 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartItemsAdapter = CartItemsAdapter(this)
         binding.cartItemsRecyclerView.adapter = cartItemsAdapter
 
+        cartItemsAdapter = CartItemsAdapter(cartList, this, this)
+        cartItemsRecyclerView.adapter = cartItemsAdapter
+
         binding.checkoutBt.setOnClickListener {
             startActivity(Intent(this, Payment::class.java))
         }
-
-
 
         cartViewModelFactory = ShoppingCartViewmodelFactory(
             DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
@@ -75,16 +92,24 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
 
         cartViewModel.draftOrderLiveData.observe(this) {
-            it?.forEach {
-                println(it.id)
-            }
+            progressIndicator.visibility = View.INVISIBLE
+            cartItemsAdapter.setOrders(it)
+            Log.e("TAG", "onCreate: ${it.size}", )
+//            it?.forEach { /// lma ttzbt
+//                println(it.id)
+//
+//            }
         }
-
     }
 
     override fun calculateNewSubTotal(value: Double) {
 
         binding.actionBar.backImg.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
 
     }
 }
