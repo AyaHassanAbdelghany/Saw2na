@@ -4,7 +4,6 @@ package com.example.mcommerceapp.view.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,6 @@ import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.feature_product.adapter.AllProductsAdapter
 import com.example.mcommerceapp.view.ui.home.adapter.AdvAdapter
-import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
 import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
@@ -41,7 +39,6 @@ class HomeFragment : OnClickListner, Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeViewModel
     private lateinit var homeVMFactory: HomeViewModelFactory
-    private lateinit var collectionAdapter: CollectionAdpater
     private lateinit var vendorAdapter: VendorAdapter
     private lateinit var allProductsAdapter: AllProductsAdapter
     private lateinit var sliderItemList: ArrayList<Int>
@@ -132,7 +129,6 @@ class HomeFragment : OnClickListner, Fragment() {
             CurrencyRepo.getInstance(RemoteSource(), requireContext())
         )
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
-        collectionAdapter = CollectionAdpater(this, requireContext())
         vendorAdapter = VendorAdapter(requireContext(), this)
         allProductsAdapter = AllProductsAdapter(requireContext(), this)
         binding.recyclerListVendor.adapter = vendorAdapter
@@ -159,7 +155,6 @@ class HomeFragment : OnClickListner, Fragment() {
 
     override fun onClick(value: String?, type: String) {
         when (type) {
-
             Keys.VENDOR -> {
                 bundle.putString("VALUE", value)
                 bundle.putString("TYPE", type)

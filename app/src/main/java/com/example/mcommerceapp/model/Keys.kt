@@ -17,10 +17,6 @@ class Keys {
         const val CART = "cart"
         const val FAV = "fav"
 
-        val PRODUCT ="product"
-        val CATEGORY ="category"
-
-
         const val ORDERS ="orders"
         const val JSON_Extension = ".json"
 

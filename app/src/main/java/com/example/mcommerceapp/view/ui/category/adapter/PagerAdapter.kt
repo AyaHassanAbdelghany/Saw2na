@@ -1,6 +1,5 @@
 package com.example.mcommerceapp.view.ui.category.adapter
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -10,20 +9,18 @@ import com.example.mcommerceapp.view.ui.category.CategoryTypeFragment
 
 class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(manager, lifecycle) {
 
-    var vendor :String= ""
-    var type :String= ""
-    var tabTitle :String="MEN"
+
+    var tabTitle :String="ALL"
 
     override fun createFragment(position: Int): Fragment {
-        return CategoryTypeFragment(tabTitle,vendor,type)
+        return CategoryTypeFragment(tabTitle)
     }
 
     override fun getItemCount(): Int {
-        return  4
+        return  5
     }
 
     override fun onViewDetachedFromWindow(holder: FragmentViewHolder) {
-        Log.e("pager","hello")
         super.onViewDetachedFromWindow(holder)
     }
 }

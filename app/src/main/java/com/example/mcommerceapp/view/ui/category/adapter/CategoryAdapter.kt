@@ -3,22 +3,14 @@ package com.example.mcommerceapp.view.ui.category.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mcommerceapp.R
-import com.example.mcommerceapp.databinding.ItemListCollectionBinding
 import com.example.mcommerceapp.databinding.ProductCardBinding
-import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
-import com.example.mcommerceapp.view.ui.home.adapter.CollectionAdpater
-import com.example.mcommerceapp.view.ui.home.adapter.OnClickListner
 
 class CategoryAdapter  (private var context :Context ,private var listner : OnClickListener): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
 

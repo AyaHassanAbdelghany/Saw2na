@@ -99,4 +99,5 @@ dependencies {
 
     //range
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
+
 }

@@ -35,7 +35,7 @@ interface ShopifyService {
     )
     @GET("{resource}")
     suspend fun getProductsVendor(
-        @Path("resource") resources: String,
+        @Path("resource", encoded = true) resources: String,
         @Query("vendor") vendor: String,
     ): Response<JsonObject>
     //////////////////
