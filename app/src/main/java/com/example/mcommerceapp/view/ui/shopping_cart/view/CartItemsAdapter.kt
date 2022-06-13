@@ -9,9 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
+import draft_orders.DraftOrder
 
-class CartItemsAdapter(private var myContext: Context) :
+class CartItemsAdapter(
+    private var cartList: ArrayList<DraftOrder>,
+    private var communicator: CartCommunicator,
+    private var myContext: Context
+) :
     RecyclerView.Adapter<CartItemsAdapter.ViewHolder>() {
+
+    fun setOrders(cartList: ArrayList<DraftOrder>) {
+        this.cartList = cartList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -22,39 +32,51 @@ class CartItemsAdapter(private var myContext: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.name.text = cartList.get(position).lineItems.get(0).name.toString()
         holder.image.clipToOutline = true
+//        Glide.with(myContext)
+//            .load(cartList.get(position).noteAttributes.get(0).name)
+//            .into(holder.image)
 
-        var countValue = holder.countTx.text.toString().toInt()
-        if (countValue == 1) {
+        var quantity = cartList.get(position).lineItems.get(0).quantity!!
+        var price = cartList.get(position).lineItems.get(0).price.toString().toDouble()
+
+        holder.countTx.text = quantity.toString()
+        holder.value.text = String.format("%.2f", price * quantity)
+
+        if (quantity == 1) {
             holder.minusBt.visibility = View.INVISIBLE
         }
 
         holder.minusBt.setOnClickListener {
-            countValue--
-            if (countValue <= 1) {
-                holder.countTx.text = (countValue).toString()
-                holder.value.text = (15 * countValue).toString()
+            quantity--
+            if (quantity <= 1) {
+                holder.countTx.text = (quantity).toString()
+                holder.value.text = String.format("%.2f", price * quantity)
                 holder.minusBt.visibility = View.INVISIBLE
             } else {
-                holder.countTx.text = (countValue).toString()
-                holder.value.text = (15 * countValue).toString()
+                holder.countTx.text = (quantity).toString()
+                holder.value.text = String.format("%.2f", price * quantity)
             }
         }
-        holder.plusBt.setOnClickListener {
-            /*if (countValue  1) {
 
-            } else {*/
+        holder.plusBt.setOnClickListener {
             holder.minusBt.visibility = View.VISIBLE
-            countValue++
-            holder.countTx.text = (countValue).toString()
-            holder.value.text = (15 * countValue).toString()
-            //}
+            quantity++
+            holder.countTx.text = (quantity).toString()
+            holder.value.text = String.format("%.2f", price * quantity)
+
+            //communicator
+        }
+
+        holder.deleteBt.setOnClickListener {
+
         }
 
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return cartList.size
     }
 
 
@@ -65,6 +87,7 @@ class CartItemsAdapter(private var myContext: Context) :
         var countTx: TextView = itemView.findViewById(R.id.item_count_tx)
         var name: TextView = itemView.findViewById(R.id.item_name_tx)
         var value: TextView = itemView.findViewById(R.id.item_value_tx)
+        var deleteBt: ImageButton = itemView.findViewById(R.id.item_delete_bt)
     }
 
 }
