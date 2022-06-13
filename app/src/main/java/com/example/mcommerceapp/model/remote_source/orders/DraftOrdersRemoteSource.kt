@@ -53,11 +53,10 @@ class DraftOrdersRemoteSource private constructor() {
         )
 
         val myOrders: ArrayList<DraftOrder> = arrayListOf()
-        for (order in resOrders) {
-            //   Log.e(DraftOrdersRemoteSource::class.java.name, "Customer Id: ${order.customer?.id.toString()} ----- User Id: ${userID}")
-//            if(order.id.toString() != "872651260043")
-//                deleteOrderByID(orderID = order.id.toString())
+//        deleteOrderByID(orderID = "872889057419")
 
+        for (order in resOrders) {
+//            if(order.id.toString() != "872651260043") {
             if (order.customer?.id.toString() == userID) {
                 myOrders.add(order)
             }

@@ -78,22 +78,57 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
 
         cartViewModel.draftOrderLiveData.observe(this) {
-            progressIndicator.visibility = View.INVISIBLE
-            cartItemsAdapter.setOrders(it)
-            Log.e("TAG", "onCreate: ${it.size}", )
+            if (it != null) {
+                cartList = it
+                progressIndicator.visibility = View.INVISIBLE
+                cartItemsAdapter.setOrders(cartList)
+                Log.e("TAG", "onCreate: ${cartList.size}")
+            }
 //            it?.forEach { /// lma ttzbt
 //                println(it.id)
 //
 //            }
         }
+
+        cartViewModel.updateLiveData.observe(this) {
+            if (it != null) {
+                finish()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        cartViewModel.updateDarftOrder(cartList)
     }
 
     override fun calculateNewSubTotal(value: Double) {
 
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun deleteProductFromCart(index: Int) {
+        val obj = cartList[index]
+        cartViewModel.deleteProductFromDraftOrder(obj.id.toString())
+        deleteDraftOrderFromList(obj)
+    }
 
+    override fun increaseUpdateInList(index: Int) {
+        var newQuantity = cartList[index].lineItems[0].quantity!!
+        newQuantity++
+        Log.e("TAG", "increaseUpdateInList: ${newQuantity}")
+        cartList[index].lineItems[0].quantity = (newQuantity)
+        Log.e("TAG2", "increaseUpdateInList: ${cartList[index].lineItems[0].quantity}")
+    }
+
+    override fun decreaseUpdateInList(index: Int) {
+        var newQuantity = cartList[index].lineItems[0].quantity!!
+        newQuantity--
+        Log.e("TAG", "decreaseUpdateInList: ${newQuantity}")
+        cartList[index].lineItems[0].quantity = (newQuantity)
+        Log.e("TAG2", "increaseUpdateInList: ${cartList[index].lineItems[0].quantity}")
+    }
+
+    fun deleteDraftOrderFromList(draftOrder: DraftOrder) {
+        cartList.remove(draftOrder)
+        cartItemsAdapter.setOrders(cartList)
     }
 }

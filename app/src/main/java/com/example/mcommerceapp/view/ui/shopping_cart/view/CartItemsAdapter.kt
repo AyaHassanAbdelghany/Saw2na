@@ -50,8 +50,11 @@ class CartItemsAdapter(
         }
 
         holder.minusBt.setOnClickListener {
-            quantity--
-            if (quantity <= 1) {
+            if (quantity >= 2) {
+                quantity--
+                communicator.decreaseUpdateInList(position)
+            }
+            if (quantity == 1) {
                 holder.countTx.text = (quantity).toString()
                 holder.value.text = String.format("%.2f", price * quantity)
                 holder.minusBt.visibility = View.INVISIBLE
@@ -66,12 +69,11 @@ class CartItemsAdapter(
             quantity++
             holder.countTx.text = (quantity).toString()
             holder.value.text = String.format("%.2f", price * quantity)
-
-            //communicator
+            communicator.increaseUpdateInList(position)
         }
 
         holder.deleteBt.setOnClickListener {
-
+            communicator.deleteProductFromCart(position)
         }
 
     }
