@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:background="@drawable/border_cart_item_image_border"
         android:clipToOutline="true"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/dummy_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

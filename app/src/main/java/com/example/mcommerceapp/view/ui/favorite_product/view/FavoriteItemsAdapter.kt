@@ -11,16 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
+import draft_orders.DraftOrder
 
 class FavoriteItemsAdapter(
     private var myContext: Context,
-    private var myList: List<FavProducts>,
+    private var myList: ArrayList<DraftOrder>,
     private var communicator: FavoriteScreenCommunicator
 ) :
     RecyclerView.Adapter<FavoriteItemsAdapter.ViewHolder>() {
 
-    fun setFavoriteProducts(myList: List<FavProducts>) {
+    fun setFavoriteProducts(myList: ArrayList<DraftOrder>) {
         this.myList = myList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,15 +35,15 @@ class FavoriteItemsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.productImage.clipToOutline = true
-        holder.productName.text = myList.get(position).productName
-        holder.productValue.text = myList.get(position).productPrice.toString()
+        holder.productName.text = myList[position].lineItems[0].variantTitle
+        holder.productValue.text = myList[position].lineItems[0].price
         holder.productsCurrency.text = "$"
         holder.productDeleteBt.setOnClickListener {
-            communicator.performDeleteProduct(myList.get(position))
+            communicator.performDeleteProduct(myList[position])
         }
 
         Glide.with(myContext)
-            .load(myList.get(position).productImage)
+            .load(myList[position].noteAttributes[0].value)
             .into(holder.productImage)
     }
 
