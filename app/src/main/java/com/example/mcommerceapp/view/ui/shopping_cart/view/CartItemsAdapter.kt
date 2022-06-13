@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
 import draft_orders.DraftOrder
 
@@ -34,9 +35,9 @@ class CartItemsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = cartList.get(position).lineItems.get(0).name.toString()
         holder.image.clipToOutline = true
-//        Glide.with(myContext)
-//            .load(cartList.get(position).noteAttributes.get(0).name)
-//            .into(holder.image)
+        Glide.with(myContext)
+            .load(cartList.get(position).noteAttributes.get(0).value)
+            .into(holder.image)
 
         var quantity = cartList.get(position).lineItems.get(0).quantity!!
         var price = cartList.get(position).lineItems.get(0).price.toString().toDouble()

@@ -21,11 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:maxLines="1"
         android:text="Shoes"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,8 +51,8 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/minus_bt"
         app:layout_constraintEnd_toEndOf="@id/item_name_tx"
-        app:layout_constraintStart_toStartOf="@id/item_name_tx"
         app:layout_constraintStart_toEndOf="@id/item_image"
+        app:layout_constraintStart_toStartOf="@id/item_name_tx"
         app:layout_constraintTop_toBottomOf="@id/item_name_tx" />
 
     <ImageButton

@@ -8,7 +8,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import draft_orders.DraftOrder
-import draft_orders.DraftOrders
 import okhttp3.RequestBody
 
 class DraftOrdersRemoteSource private constructor() {
@@ -55,12 +54,13 @@ class DraftOrdersRemoteSource private constructor() {
 
         val myOrders: ArrayList<DraftOrder> = arrayListOf()
         for (order in resOrders) {
-         //   Log.e(DraftOrdersRemoteSource::class.java.name, "Customer Id: ${order.customer?.id.toString()} ----- User Id: ${userID}")
+            //   Log.e(DraftOrdersRemoteSource::class.java.name, "Customer Id: ${order.customer?.id.toString()} ----- User Id: ${userID}")
 //            if(order.id.toString() != "872651260043")
 //                deleteOrderByID(orderID = order.id.toString())
 
-            if (order.customer?.id.toString() == userID)
+            if (order.customer?.id.toString() == userID) {
                 myOrders.add(order)
+            }
         }
 
         return myOrders
