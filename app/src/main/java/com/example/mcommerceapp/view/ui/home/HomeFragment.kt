@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.pojo.products.Products
@@ -124,7 +125,8 @@ class HomeFragment : OnClickListner, Fragment() {
     private fun init() {
         homeVMFactory = HomeViewModelFactory(
             ProductRepo.getInstance(RemoteSource()),
-            ProductRepo.getInstance(RemoteSource())
+            ProductRepo.getInstance(RemoteSource()),
+            CurrencyRepo.getInstance(RemoteSource(), requireContext())
         )
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         vendorAdapter = VendorAdapter(requireContext(), this)
@@ -143,7 +145,7 @@ class HomeFragment : OnClickListner, Fragment() {
 
     private fun observerAllProducts() {
         homeVM.allProducts.observe(viewLifecycleOwner) {
-            allProductsAdapter.setData(it.take(4) as ArrayList<Products>)
+            allProductsAdapter.setData(it.take(4) as ArrayList<Products>, homeVM.currencySymbol, homeVM.currencyValue)
             binding.viewMoreTx.visibility = TextView.VISIBLE
             binding.view.visibility = TextView.VISIBLE
             binding.recycleViewProduct.adapter = allProductsAdapter

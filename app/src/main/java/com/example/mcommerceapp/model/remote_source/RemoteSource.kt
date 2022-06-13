@@ -4,8 +4,8 @@ import android.util.Log
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.interfaces.ICurrencyRemoteSource
 import com.example.mcommerceapp.model.remote_source.interfaces.IRemoteSource
-import com.example.mcommerceapp.network.CurrencyService
-import com.example.mcommerceapp.network.ICurrencyService
+import com.example.mcommerceapp.network.currency.CurrencyService
+import com.example.mcommerceapp.network.currency.ICurrencyService
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceapp.network.ShopifyService
 import com.example.mcommerceapp.pojo.currency.CurrencyConversion

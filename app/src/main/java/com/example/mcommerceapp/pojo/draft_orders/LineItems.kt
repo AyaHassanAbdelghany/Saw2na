@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class LineItems (
 
   @SerializedName("id"                   ) var id                 : Int?                = null,
-  @SerializedName("variant_id"           ) var variantId          : Int?                = null,
+  @SerializedName("variant_id"           ) var variantId          : Long?                = null,
   @SerializedName("product_id"           ) var productId          : Int?                = null,
   @SerializedName("title"                ) var title              : String?             = null,
   @SerializedName("variant_title"        ) var variantTitle       : String?             = null,
@@ -25,5 +25,6 @@ data class LineItems (
   @SerializedName("custom"               ) var custom             : Boolean?            = null,
   @SerializedName("price"                ) var price              : String?             = null,
   @SerializedName("admin_graphql_api_id" ) var adminGraphqlApiId  : String?             = null
+
 
 )

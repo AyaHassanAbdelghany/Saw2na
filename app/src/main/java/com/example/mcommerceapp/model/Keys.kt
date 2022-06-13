@@ -14,6 +14,8 @@ class Keys {
         val ALL_PRODUCT ="allProduct"
         val VENDOR ="vendor"
 
+        const val CART = "cart"
+        const val FAV = "fav"
 
         const val ORDERS ="orders"
         const val JSON_Extension = ".json"

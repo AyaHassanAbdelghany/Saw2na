@@ -104,7 +104,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@drawable/colored_button_background"
             android:text="Validate"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/coupon_edit_text"
@@ -116,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
-        app:layout_constraintHeight_percent="0.338"
+        app:layout_constraintHeight_percent="0.35"
         app:layout_constraintTop_toBottomOf="@id/coupon_constraint">
 
         <LinearLayout
@@ -306,8 +308,10 @@
                     android:id="@+id/checkout_bt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/colored_button_background"
                     android:drawableEnd="@drawable/icon_back_bt"
                     android:text="Checkout"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

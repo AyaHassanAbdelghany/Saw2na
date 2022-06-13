@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.orders_repository.OrdersRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.products.Products
@@ -15,7 +16,8 @@ import orders.Order
 
 class OrderViewModel(
     private val iOrders: OrdersRepo,
-    private val iUser: UserRepo
+    private val iUser: UserRepo,
+    private val iCurrency: StoredCurrency
 ) : ViewModel() {
 
     private val _orders = MutableLiveData<ArrayList<Order>>()
@@ -24,10 +26,12 @@ class OrderViewModel(
     private val _user = MutableLiveData<ArrayList<Order>>()
     var user: LiveData<ArrayList<Order>> = _user
 
+    val currencySymbol = iCurrency.getCurrencySymbol()
+    val currencyValue = iCurrency.getCurrencyValue()
+
     fun getAllOrders(){
         viewModelScope.launch(Dispatchers.IO) {
             val user = iUser.getUser()
-            Log.d("iiiiiiiiiiid", user.toString())
             val orders = iOrders.getAllOrders(user.userID)
             withContext(Dispatchers.Main) {
                 _orders.postValue(orders)

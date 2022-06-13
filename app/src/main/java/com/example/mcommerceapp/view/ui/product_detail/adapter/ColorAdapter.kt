@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
+import com.example.mcommerceapp.pojo.products.Variants
 
-class ColorAdapter(private var listColor: List<String>, var context: Context): RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
+class ColorAdapter( var context: Context, var listener: OnClickListener): RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
+
+    private lateinit var listColor: HashSet<String>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -17,15 +20,21 @@ class ColorAdapter(private var listColor: List<String>, var context: Context): R
         return ViewHolder(view)
     }
 
-    fun setColorList(listSize: List<String>) {
+    fun setColorList(listSize:  HashSet<String>) {
         this.listColor = listSize
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        val intColor = Color.parseColor(listColor[position])
+        val color = listColor.elementAt(position)
+        val intColor = Color.parseColor(color)
         val hexColor = Integer.toHexString(intColor).substring(2)
         holder.colorCard.setCardBackgroundColor((Color.parseColor("#${hexColor}")))
+
+        holder.itemView.setOnClickListener {
+            listener.onClickColor(color)
+            holder.itemView.setBackgroundResource(R.drawable.colored_border_button_background)
+        }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -36,8 +36,9 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/shipping_addresses_layout"
             android:layout_width="match_parent"
+            android:clickable="true"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:padding="10dp">

@@ -1,12 +1,12 @@
-package com.example.example
+package com.example.mcommerceapp.pojo.customers
 
 import com.google.gson.annotations.SerializedName
 
 
 data class Addresses (
 
-  @SerializedName("id"            ) var id           : Int?     = null,
-  @SerializedName("customer_id"   ) var customerId   : Int?     = null,
+  @SerializedName("id"            ) var id           : Long?     = null,
+  @SerializedName("customer_id"   ) var customerId   : Long?     = null,
   @SerializedName("first_name"    ) var firstName    : String?  = null,
   @SerializedName("last_name"     ) var lastName     : String?  = null,
   @SerializedName("company"       ) var company      : String?  = null,

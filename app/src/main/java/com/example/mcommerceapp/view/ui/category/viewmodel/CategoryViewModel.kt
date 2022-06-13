@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.shopify_repository.product.CategoryRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
@@ -13,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryViewModel(var iCategory :CategoryRepo) : ViewModel() {
+class CategoryViewModel(var iCategory :CategoryRepo, var iCurrency: StoredCurrency) : ViewModel() {
 
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
@@ -27,6 +28,9 @@ class CategoryViewModel(var iCategory :CategoryRepo) : ViewModel() {
 
     private val _allProducts : MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
     var  allProducts: LiveData<ArrayList<Products>>  = _allProducts
+
+    val currencySymbol = iCurrency.getCurrencySymbol()
+    val currencyValue = iCurrency.getCurrencyValue()
 
     fun getCollectionId(id :String){
         viewModelScope.launch(Dispatchers.IO) {

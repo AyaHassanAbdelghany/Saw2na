@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.order.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
@@ -14,12 +15,15 @@ import orders.Orders
 
 class OrderAdapter (var context :Context , var listner : OnClickListener) : RecyclerView.Adapter<OrderAdapter.ViewHolder>(){
     private var orderList: ArrayList<Order> = arrayListOf()
+    private lateinit var symbol: String
+    private var value: Double = 0.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemOrdersBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -28,7 +32,7 @@ class OrderAdapter (var context :Context , var listner : OnClickListener) : Recy
             orderNameTxt.text = currentItem.name
             orderDateTxt.text = currentItem.createdAt
             countItemsTxt.text = "${currentItem.lineItems.size} items"
-            totalItemsTxt.text = currentItem.currentTotalPrice
+            totalItemsTxt.text = "${currentItem.currentTotalPrice?.toDouble()?.times(value)} ${symbol}"
         }
         holder.itemView.setOnClickListener {
             listner.onClick(currentItem.id.toString())
@@ -39,8 +43,10 @@ class OrderAdapter (var context :Context , var listner : OnClickListener) : Recy
         return orderList.count()
     }
 
-    fun setData(orderList: ArrayList<Order>){
+    fun setData(orderList: ArrayList<Order>, symbol: String, value: Double){
         this.orderList = orderList
+        this.symbol = symbol
+        this.value = value
         notifyDataSetChanged()
     }
 
