@@ -1,8 +1,5 @@
 package com.example.mcommerceapp.view.ui.feature_product
 
-import android.content.Intent
-import android.os.Bundle
-
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle

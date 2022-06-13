@@ -35,7 +35,7 @@ class ProductDetailVM(
     var isFav: LiveData<Int> = _isFav
 
     private val _order = MutableLiveData<DraftOrder>()
-    var order : LiveData<DraftOrder> = _order
+    var order: LiveData<DraftOrder> = _order
 
     val user = iUser.getUser()
     val isLogged = iUser.getLoggedInState()
@@ -45,9 +45,11 @@ class ProductDetailVM(
 
     private var listFav = arrayListOf<Long>()
     private var _favList = MutableLiveData<ArrayList<Long>>()
-    var favList : LiveData<ArrayList<Long>> = _favList
+    var favList: LiveData<ArrayList<Long>> = _favList
 
-    var cartList = arrayListOf<String>()
+    private var listCart = arrayListOf<Long>()
+    private var _cartList = MutableLiveData<ArrayList<Long>>()
+    var cartList: LiveData<ArrayList<Long>> = _cartList
 
     fun getProductDetail(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,28 +61,43 @@ class ProductDetailVM(
         }
     }
 
-    fun addOrder(order: DraftOrder){
+    fun addOrder(order: DraftOrder) {
+        Log.d("draftttttttt", order.lineItems.get(0).productId.toString())
         viewModelScope.launch {
             iOrder.createOrder(order)
         }
     }
 
-    fun deleteOrder(id: String){
+    fun deleteOrder(id: Long) {
         viewModelScope.launch {
-            iOrder.deleteOrderByID(id)
+            val order = iOrder.getAllOrders(user.userID)
+            Log.d("idddddddddd", id.toString())
+            order.forEach {
+                Log.d("idddddddddd", it.lineItems[0].productId.toString())
+                if (it.lineItems[0].productId == id) {
+                    Log.d("TEst", it.orderId.toString())
+                    iOrder.deleteOrderByID(it.id!!)
+                }
+            }
+
         }
     }
 
-    fun getDraftOrder(){
+    fun getDraftOrder() {
         viewModelScope.launch {
             val order = iOrder.getAllOrders(user.userID)
-            order.forEach {
-                if(it.note == Keys.FAV){
-                    listFav.add(it.lineItems[0].variantId!!)
+            withContext(Dispatchers.Main) {
+                order.forEach {
+                    if (it.note == Keys.FAV) {
+                        if (it.lineItems[0].productId != null)
+                            listFav.add(it.lineItems[0].productId!!)
+                    }else if(it.note == Keys.CART){
+                        Log.d("draft order", it.lineItems[0].variantId.toString())
+                        listCart.add(it.lineItems[0].variantId!!)
+                    }
                 }
-            }
-            withContext(Dispatchers.Main){
                 _favList.postValue(listFav)
+                _cartList.postValue(listCart)
             }
         }
     }

@@ -7,7 +7,7 @@ data class LineItems (
 
   @SerializedName("id"                   ) var id                 : Int?                = null,
   @SerializedName("variant_id"           ) var variantId          : Long?                = null,
-  @SerializedName("product_id"           ) var productId          : Int?                = null,
+  @SerializedName("product_id"           ) var productId          : Long?                = null,
   @SerializedName("title"                ) var title              : String?             = null,
   @SerializedName("variant_title"        ) var variantTitle       : String?             = null,
   @SerializedName("sku"                  ) var sku                : String?             = null,

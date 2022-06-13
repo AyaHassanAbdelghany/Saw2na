@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceapp.MainActivity
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
@@ -25,6 +26,8 @@ import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartView
 import draft_orders.DraftOrder
 
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
+
+    private lateinit var binding: ActivityShoppingCartScreenBinding
     private lateinit var cartItemsRecyclerView: RecyclerView
 
     private lateinit var cartItemsAdapter: CartItemsAdapter
@@ -62,7 +65,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         cartItemsRecyclerView.layoutManager = linearLayoutManager
 
-        cartItemsAdapter = CartItemsAdapter(this)
+        cartItemsAdapter = CartItemsAdapter(arrayListOf(), this, this)
         binding.cartItemsRecyclerView.adapter = cartItemsAdapter
         cartItemsAdapter = CartItemsAdapter(cartList, this, this)
         cartItemsRecyclerView.adapter = cartItemsAdapter
