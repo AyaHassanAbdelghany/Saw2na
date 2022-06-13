@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
-
-import android.content.Intent
-import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -46,7 +43,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
     private lateinit var productsVM: CategorizedProductVM
     private lateinit var productsVMFactory: CategorizedProductVMFactory
     private lateinit var value: String
-    private lateinit var categoryProductAdapter :CategorizedProductAdapter
+    private lateinit var categoryProductAdapter: CategorizedProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,131 +62,176 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
         binding.actionBarLayout.backImg.visibility = ImageView.VISIBLE
 
-        binding.actionBarLayout.backImg.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        binding.actionBarLayout.backImg.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                )
+            )
+        }
 
-        binding.actionBarLayout.favouriteImage.setOnClickListener { startActivity(Intent(this, FavoriteScreen::class.java)) }
+        binding.actionBarLayout.favouriteImage.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    FavoriteScreen::class.java
+                )
+            )
+        }
 
-        binding.actionBarLayout.cardImage.setOnClickListener { startActivity(Intent(this, ShoppingCartScreen::class.java)) }
+        binding.actionBarLayout.cardImage.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    ShoppingCartScreen::class.java
+                )
+            )
+        }
 
-        binding.actionBarLayout.searchImage.setOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
+        binding.actionBarLayout.searchImage.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    SearchActivity::class.java
+                )
+            )
+        }
 
 
-        binding.filterImageView.setOnClickListener{
+        binding.filterImageView.setOnClickListener {
             showSupportBottomSheet()
 
-        productsVM.products.observe(this) {
-            categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
-            binding.grid.adapter = categoryProductAdapter
+            productsVM.products.observe(this) {
+                categoryProductAdapter.setData(
+                    it,
+                    productsVM.currencySymbol,
+                    productsVM.currencyValue
+                )
+                binding.grid.adapter = categoryProductAdapter
+
+            }
 
         }
-
     }
 
-
-    private fun observeVendor() {
-        productsVM.getProductsVendor(value)
-        observeProducts()
-    }
-    private fun observeProducts(){
-        productsVM.products.observe(this) {
-            products = it
-            categoryProductAdapter.setData(it)
-            binding.grid.adapter = categoryProductAdapter
-        }
-    }
-    private fun observeAllProducts() {
-        productsVM.allProducts.observe(this) {
-
-            products = it
-            categoryProductAdapter.setData(it)
-
-            categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
-
-            binding.grid.adapter = categoryProductAdapter
-        }
-    }
-    private fun init(){
-        productsVMFactory = CategorizedProductVMFactory(ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(RemoteSource(), this))
-        productsVM = ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]
-        categoryProductAdapter = CategorizedProductAdapter(this, this)
-    }
-    override fun onClick(id: String) {
-        val intent = Intent(this, ProductDetail::class.java)
-        intent.putExtra("PRODUCTS_ID", id)
-        startActivity(intent)
-    }
-    private fun filterProducts() {
-        val filterProducts: ArrayList<Products> = arrayListOf()
-
-        if (checkboxText.size == 0) {
-            checkboxText.add(checkboxT_Shirt.text.toString())
-            checkboxText.add(checkboxAccessories.text.toString())
-            checkboxText.add(checkboxShoes.text.toString())
+        private fun observeVendor() {
+            productsVM.getProductsVendor(value)
+            observeProducts()
         }
 
-        for (index in 0 until this.products.size) {
-            if ((products[index].variants[0].price?.toDouble()!! >= this.minValue)
-                && (this.maxValue >= this.products[index].variants[0].price!!.toDouble())
-                && (checkboxText.contains(products[index].productType))
-
-            ) {
-                filterProducts.add(products[index])
+        private fun observeProducts() {
+            productsVM.products.observe(this) {
+                products = it
+                categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
+                binding.grid.adapter = categoryProductAdapter
             }
         }
-        if (filterProducts.size > 0) {
-            Log.e("filter","hello")
-            categoryProductAdapter.setData(filterProducts)
-        } else {
-            Log.e("no filter","hello")
-            categoryProductAdapter.setData(this.products)
-        }
-    }
-    @SuppressLint("InflateParams")
-    fun showSupportBottomSheet() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
 
-        val seekBar = view.findViewById<RangeSeekBar<Float>>(R.id.seekBar)
-        checkboxT_Shirt = view.findViewById(R.id.t_shirt_checkbox)
-        checkboxAccessories = view.findViewById(R.id.accessories_checkbox)
-        checkboxShoes = view.findViewById(R.id.shoes_checkbox)
-        val btnSubmit = view.findViewById<Button>(R.id.submitBtn)
+        private fun observeAllProducts() {
+            productsVM.allProducts.observe(this) {
 
+                products = it
+                categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
 
-        productsVM.subCategory.observe(this) {
-            checkboxT_Shirt.text = it.elementAt(0).productType
-            checkboxAccessories.text = it.elementAt(1).productType
-            checkboxShoes.text = it.elementAt(2).productType
+                categoryProductAdapter.setData(
+                    it,
+                    productsVM.currencySymbol,
+                    productsVM.currencyValue
+                )
+
+                binding.grid.adapter = categoryProductAdapter
+            }
         }
 
-        btnSubmit.setOnClickListener {
-            checkboxText.clear()
-            if (checkboxT_Shirt.isChecked) {
+        private fun init() {
+            productsVMFactory = CategorizedProductVMFactory(
+                ProductRepo.getInstance(RemoteSource()),
+                CurrencyRepo.getInstance(RemoteSource(), this)
+            )
+            productsVM =
+                ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]
+            categoryProductAdapter = CategorizedProductAdapter(this, this)
+        }
+
+        override fun onClick(id: String) {
+            val intent = Intent(this, ProductDetail::class.java)
+            intent.putExtra("PRODUCTS_ID", id)
+            startActivity(intent)
+        }
+
+        private fun filterProducts() {
+            val filterProducts: ArrayList<Products> = arrayListOf()
+
+            if (checkboxText.size == 0) {
                 checkboxText.add(checkboxT_Shirt.text.toString())
-            }
-            if (checkboxAccessories.isChecked) {
                 checkboxText.add(checkboxAccessories.text.toString())
-            }
-            if (checkboxShoes.isChecked) {
                 checkboxText.add(checkboxShoes.text.toString())
             }
 
-            filterProducts()
-            dialog.dismiss()
+            for (index in 0 until this.products.size) {
+                if ((products[index].variants[0].price?.toDouble()!! >= this.minValue)
+                    && (this.maxValue >= this.products[index].variants[0].price!!.toDouble())
+                    && (checkboxText.contains(products[index].productType))
+
+                ) {
+                    filterProducts.add(products[index])
+                }
+            }
+            if (filterProducts.size > 0) {
+                Log.e("filter", "hello")
+                categoryProductAdapter.setData(filterProducts, productsVM.currencySymbol, productsVM.currencyValue)
+            } else {
+                Log.e("no filter", "hello")
+                categoryProductAdapter.setData(this.products, productsVM.currencySymbol, productsVM.currencyValue)
+            }
         }
 
-        seekBar.setRangeValues(1.0F, 2000.0F)
+        @SuppressLint("InflateParams")
+        fun showSupportBottomSheet() {
+            val dialog = BottomSheetDialog(this)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
 
-        seekBar.setOnRangeSeekBarChangeListener { _, minValue, maxValue ->
+            val seekBar = view.findViewById<RangeSeekBar<Float>>(R.id.seekBar)
+            checkboxT_Shirt = view.findViewById(R.id.t_shirt_checkbox)
+            checkboxAccessories = view.findViewById(R.id.accessories_checkbox)
+            checkboxShoes = view.findViewById(R.id.shoes_checkbox)
+            val btnSubmit = view.findViewById<Button>(R.id.submitBtn)
 
-            this.minValue = String.format("%.3f", minValue).toDouble()
-            this.maxValue = String.format("%.3f", maxValue).toDouble()
+
+            productsVM.subCategory.observe(this) {
+                checkboxT_Shirt.text = it.elementAt(0).productType
+                checkboxAccessories.text = it.elementAt(1).productType
+                checkboxShoes.text = it.elementAt(2).productType
+            }
+
+            btnSubmit.setOnClickListener {
+                checkboxText.clear()
+                if (checkboxT_Shirt.isChecked) {
+                    checkboxText.add(checkboxT_Shirt.text.toString())
+                }
+                if (checkboxAccessories.isChecked) {
+                    checkboxText.add(checkboxAccessories.text.toString())
+                }
+                if (checkboxShoes.isChecked) {
+                    checkboxText.add(checkboxShoes.text.toString())
+                }
+
+                filterProducts()
+                dialog.dismiss()
+            }
+
+            seekBar.setRangeValues(1.0F, 2000.0F)
+
+            seekBar.setOnRangeSeekBarChangeListener { _, minValue, maxValue ->
+
+                this.minValue = String.format("%.3f", minValue).toDouble()
+                this.maxValue = String.format("%.3f", maxValue).toDouble()
+            }
+            seekBar.isNotifyWhileDragging = true
+
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
         }
-        seekBar.isNotifyWhileDragging = true
-
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
 }
