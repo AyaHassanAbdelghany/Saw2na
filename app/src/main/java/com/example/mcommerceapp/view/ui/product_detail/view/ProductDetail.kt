@@ -76,7 +76,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                 binding.detailBtn.favImage.setImageDrawable(
                     ContextCompat.getDrawable(
                         applicationContext, // Context
-                        R.drawable.ic_baseline_favorite_24 // Drawable
+                        R.drawable.ic_baseline_favorite_24_black // Drawable
                     )
                 )
             } else {
@@ -99,30 +99,42 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                             R.drawable.ic_baseline_favorite_border_24 // Drawable
                         )
                     )
-                    detailVM.deleteFavoriteProduct(
-                        FavProducts(
-                            productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id.toString()!!,
-                            productImage = "",
-                            productName = it.title!!
-                        )
-                    )
-                } else {
+//                    detailVM.deleteFavoriteProduct(
+//                        FavProducts(
+//                            productPrice = it.variants[0].price?.toDouble()!!,
+//                            productId = it.id.toString()!!,
+//                            productImage = "",
+//                            productName = it.title!!
+//                        )
+//                    )
+                   // detailVM.deleteOrder()
+                }
+                else {
                     binding.detailBtn.favImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             applicationContext, // Context
-                            R.drawable.ic_baseline_favorite_24 // Drawable
+                            R.drawable.ic_baseline_favorite_24_black // Drawable
                         )
                     )
 
-                    detailVM.insertFavoriteProduct(
-                        FavProducts(
-                            productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id!!,
-                            productImage = it.image?.src!!,
-                            productName = it.title!!
-                        )
-                    )
+//                    detailVM.insertFavoriteProduct(
+//                        FavProducts(
+//                            productPrice = it.variants[0].price?.toDouble()!!,
+//                            productId = it.id!!,
+//                            productImage = it.image?.src!!,
+//                            productName = it.title!!
+//                        )
+//                    )
+
+                    detailVM.addOrder(DraftOrder(note = Keys.FAV, email= detailVM.user.email ,
+                        noteAttributes = arrayListOf(NoteAttributes(value = image)),
+                        lineItems = arrayListOf<LineItems>(
+                            LineItems(variantId = id, quantity = 1))))
+
+                    detailVM.getDraftOrder()
+                    detailVM.favList.observe(this){
+                        Log.d("Favvvvvvvvvv", it.toString())
+                    }
                 }
             }
 
