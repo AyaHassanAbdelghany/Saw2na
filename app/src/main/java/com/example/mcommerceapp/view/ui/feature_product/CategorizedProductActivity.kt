@@ -98,6 +98,16 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             )
         }
 
+        productsVM.products.observe(this) {
+            categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
+            binding.grid.adapter = categoryProductAdapter
+            binding.filterImageView.setOnClickListener {
+                showSupportBottomSheet()
+            }
+
+        }
+
+
 
         binding.filterImageView.setOnClickListener {
             showSupportBottomSheet()
@@ -123,6 +133,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         private fun observeProducts() {
             productsVM.products.observe(this) {
                 products = it
+
                 categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
                 binding.grid.adapter = categoryProductAdapter
             }
@@ -130,6 +141,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
         private fun observeAllProducts() {
             productsVM.allProducts.observe(this) {
+
 
                 products = it
                 categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
@@ -180,6 +192,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             }
             if (filterProducts.size > 0) {
                 Log.e("filter", "hello")
+
                 categoryProductAdapter.setData(filterProducts, productsVM.currencySymbol, productsVM.currencyValue)
             } else {
                 Log.e("no filter", "hello")
@@ -234,4 +247,5 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             dialog.setContentView(view)
             dialog.show()
         }
+
 }

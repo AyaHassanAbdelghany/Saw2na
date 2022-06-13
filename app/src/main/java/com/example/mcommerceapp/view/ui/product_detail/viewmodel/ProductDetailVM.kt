@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.room_repository.IFavProductRoomRepo
@@ -17,6 +18,7 @@ import draft_orders.DraftOrders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.reflect.Array
 
 class ProductDetailVM(
     private val iProducts: ProductDetailRepo,
@@ -26,7 +28,6 @@ class ProductDetailVM(
     private val iUser: UserRepo
 ) : ViewModel() {
 
-
     private val _productDetail = MutableLiveData<Products>()
     var productDetail: LiveData<Products> = _productDetail
 
@@ -34,13 +35,21 @@ class ProductDetailVM(
     var isFav: LiveData<Int> = _isFav
 
     private val _order = MutableLiveData<DraftOrder>()
-    var order : LiveData<DraftOrder> = _order
+    var order: LiveData<DraftOrder> = _order
 
     val user = iUser.getUser()
     val isLogged = iUser.getLoggedInState()
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
+
+    private var listFav = arrayListOf<Long>()
+    private var _favList = MutableLiveData<ArrayList<Long>>()
+    var favList: LiveData<ArrayList<Long>> = _favList
+
+    private var listCart = arrayListOf<Long>()
+    private var _cartList = MutableLiveData<ArrayList<Long>>()
+    var cartList: LiveData<ArrayList<Long>> = _cartList
 
     fun getProductDetail(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -52,9 +61,44 @@ class ProductDetailVM(
         }
     }
 
-    fun addOrder(order: DraftOrder){
+    fun addOrder(order: DraftOrder) {
+        Log.d("draftttttttt", order.lineItems.get(0).productId.toString())
         viewModelScope.launch {
             iOrder.createOrder(order)
+        }
+    }
+
+    fun deleteOrder(id: Long) {
+        viewModelScope.launch {
+            val order = iOrder.getAllOrders(user.userID)
+            Log.d("idddddddddd", id.toString())
+            order.forEach {
+                Log.d("idddddddddd", it.lineItems[0].productId.toString())
+                if (it.lineItems[0].productId == id) {
+                    Log.d("TEst", it.orderId.toString())
+                    iOrder.deleteOrderByID(it.id!!)
+                }
+            }
+
+        }
+    }
+
+    fun getDraftOrder() {
+        viewModelScope.launch {
+            val order = iOrder.getAllOrders(user.userID)
+            withContext(Dispatchers.Main) {
+                order.forEach {
+                    if (it.note == Keys.FAV) {
+                        if (it.lineItems[0].productId != null)
+                            listFav.add(it.lineItems[0].productId!!)
+                    }else if(it.note == Keys.CART){
+                        Log.d("draft order", it.lineItems[0].variantId.toString())
+                        listCart.add(it.lineItems[0].variantId!!)
+                    }
+                }
+                _favList.postValue(listFav)
+                _cartList.postValue(listCart)
+            }
         }
     }
 

@@ -48,6 +48,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     private lateinit var size: String
     private lateinit var image: String
     private var id: Long = -1
+    private var isFav = -1
     private lateinit var variant: ArrayList<Variants>
 
     @SuppressLint("SetTextI18n")
@@ -69,108 +70,236 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         val intent = intent.getStringExtra("PRODUCTS_ID")
 
+        detailVM.getDraftOrder()
+
+
         Log.e("Product Details : ", intent.toString())
         detailVM.checkForFavouriteProductById(intent!!)
-        detailVM.isFav.observe(this) {
-            if (it == 1) {
-                binding.detailBtn.favImage.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext, // Context
-                        R.drawable.ic_baseline_favorite_24 // Drawable
-                    )
-                )
-            } else {
-                binding.detailBtn.favImage.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext, // Context
-                        R.drawable.ic_baseline_favorite_border_24 // Drawable
-                    )
-                )
-            }
-        }
+//        detailVM.isFav.observe(this) {
+//            if (it == 1) {
+//                binding.detailBtn.favImage.setImageDrawable(
+//                    ContextCompat.getDrawable(
+//                        applicationContext, // Context
+//                        R.drawable.ic_baseline_favorite_24_black // Drawable
+//                    )
+//                )
+//            } else {
+//                binding.detailBtn.favImage.setImageDrawable(
+//                    ContextCompat.getDrawable(
+//                        applicationContext, // Context
+//                        R.drawable.ic_baseline_favorite_border_24 // Drawable
+//                    )
+//                )
+//            }
+//        }
 
         detailVM.getProductDetail(intent)
-        detailVM.productDetail.observe(this) {
-            binding.detailBtn.favImage.setOnClickListener { view ->
-                if (detailVM.isFav.value == 1) {
+        detailVM.productDetail.observe(this) { products ->
+
+            variant = products.variants
+            color = variant[0].option2!!
+            size = variant[0].option1!!
+            image = products.image?.src!!
+
+            detailVM.favList.observe(this) { favList ->
+                if (favList.count() != 0) {
+                    favList.forEach { id ->
+                        if (products.id == id) {
+                            isFav = 1
+                            Log.d("favvvvvvvvvv", isFav.toString())
+                            binding.detailBtn.favImage.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    applicationContext, // Context
+                                    R.drawable.ic_baseline_favorite_24_black
+                                )
+                            )
+                        } else {
+                            isFav = 0
+                            Log.d("favvvvvvvvvv", isFav.toString())
+                            binding.detailBtn.favImage.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    applicationContext, // Context
+                                    R.drawable.ic_baseline_favorite_border_24
+                                )
+                            )
+                        }
+                    }
+                } else {
+                    isFav = 0
+                    Log.d("favvvvvvvvvv", isFav.toString())
                     binding.detailBtn.favImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             applicationContext, // Context
-                            R.drawable.ic_baseline_favorite_border_24 // Drawable
+                            R.drawable.ic_baseline_favorite_border_24
                         )
                     )
-                    detailVM.deleteFavoriteProduct(
-                        FavProducts(
-                            productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id.toString()!!,
-                            productImage = "",
-                            productName = it.title!!
+
+                }
+            }
+            binding.detailBtn.favImage.setOnClickListener {
+                if (isFav == 0) {
+                    id = getVariant(products.variants, color, size)
+                    detailVM.addOrder(
+                        DraftOrder(
+                            note = Keys.FAV, email = detailVM.user.email,
+                            noteAttributes = arrayListOf(
+                                NoteAttributes(
+                                    name = "image",
+                                    value = image
+                                )
+                            ),
+                            lineItems = arrayListOf<LineItems>(
+                                LineItems(
+                                    variantId = id,
+                                    productId = products.id,
+                                    quantity = 1,
+                                    title = products.title,
+                                    price = products.variants[0].price
+                                )
+                            )
+                        )
+                    )
+                    binding.detailBtn.favImage.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext, // Context
+                            R.drawable.ic_baseline_favorite_24_black
                         )
                     )
                 } else {
+                    detailVM.deleteOrder(products.id!!)
                     binding.detailBtn.favImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             applicationContext, // Context
-                            R.drawable.ic_baseline_favorite_24 // Drawable
-                        )
-                    )
-
-                    detailVM.insertFavoriteProduct(
-                        FavProducts(
-                            productPrice = it.variants[0].price?.toDouble()!!,
-                            productId = it.id!!,
-                            productImage = it.image?.src!!,
-                            productName = it.title!!
+                            R.drawable.ic_baseline_favorite_border_24
                         )
                     )
                 }
+
+
+//                if (detailVM.isFav.value == 1) {
+//                    binding.detailBtn.favImage.setImageDrawable(
+//                        ContextCompat.getDrawable(
+//                            applicationContext, // Context
+//                            R.drawable.ic_baseline_favorite_border_24 // Drawable
+//                        )
+//                    )
+////                    detailVM.deleteFavoriteProduct(
+////                        FavProducts(
+////                            productPrice = products.variants[0].price?.toDouble()!!,
+////                            productId = products.id.toString()!!,
+////                            productImage = "",
+////                            productName = products.title!!
+////                        )
+////                    )
+//                   // detailVM.deleteOrder()
+//                }
+//                else {
+//                    binding.detailBtn.favImage.setImageDrawable(
+//                        ContextCompat.getDrawable(
+//                            applicationContext, // Context
+//                            R.drawable.ic_baseline_favorite_24_black // Drawable
+//                        )
+//                    )
+
+//                    detailVM.insertFavoriteProduct(
+//                        FavProducts(
+//                            productPrice = products.variants[0].price?.toDouble()!!,
+//                            productId = products.id!!,
+//                            productImage = products.image?.src!!,
+//                            productName = products.title!!
+//                        )
+//                    )
+
+
             }
 
             binding.detailBtn.checkoutBtn.setOnClickListener {
 
-               if(!detailVM.isLogged){
-                   startActivity(Intent(this, SigninActivity::class.java))
-               }else{
-                   id = getVariant(variant, color, size)
-                   detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email ,
-                       noteAttributes = arrayListOf(NoteAttributes(value = image)),
-                       lineItems = arrayListOf<LineItems>(
-                           LineItems(variantId = id, quantity = 1))))
-                   Snackbar.make(binding.layout ,"Added to cart...",Snackbar.LENGTH_LONG).show()
-               }
+                if (!detailVM.isLogged) {
+                    startActivity(Intent(this, SigninActivity::class.java))
+                } else {
+                    Log.d("add to cart", "99999999999999")
+                    id = getVariant(products.variants, color, size)
+                    detailVM.cartList.observe(this) { cart ->
+                        Log.d("add to cart", cart.toString())
+                        if (cart.count() == 0) {
+                            detailVM.addOrder(
+                                DraftOrder(
+                                    note = Keys.CART, email = detailVM.user.email,
+                                    noteAttributes = arrayListOf(NoteAttributes(value = image)),
+                                    lineItems = arrayListOf<LineItems>(
+                                        LineItems(variantId = id, quantity = 1)
+                                    )
+                                )
+                            )
+                            Log.d("add to cart", "add")
+                            Snackbar.make(
+                                binding.layout,
+                                "Added to cart...",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        } else {
+                            id = getVariant(variant, color, size)
+                            cart.forEach { cartId ->
+                                if (cartId != id) {
+                                    detailVM.addOrder(
+                                        DraftOrder(
+                                            note = Keys.CART, email = detailVM.user.email,
+                                            noteAttributes = arrayListOf(NoteAttributes(value = image)),
+                                            lineItems = arrayListOf<LineItems>(
+                                                LineItems(variantId = id, quantity = 1)
+                                            )
+                                        )
+                                    )
+                                    Log.d("add to cart", "add")
+                                    Snackbar.make(
+                                        binding.layout,
+                                        "Added to cart...",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+
+                                } else {
+                                    Snackbar.make(
+                                        binding.layout,
+                                        "Already Added.....",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                    Log.d("add to cart", "add")
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            binding.toolbar.title = it.title
+            binding.toolbar.title = products.title
 
             binding.contentDetail.ProductPriceTxt.text = "${
-                it.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
+                products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
             } ${detailVM.currencySymbol}"
             binding.contentDetail.ProductRating.rating =
-                (it.variants[0].inventoryQuantity)!!.toFloat()
-            imageSliderPager = ImageSlideAdapter(this, it.images)
+                (products.variants[0].inventoryQuantity)!!.toFloat()
+            imageSliderPager = ImageSlideAdapter(this, products.images)
             binding.viewPagerMain.adapter = imageSliderPager
             binding.indicator.setViewPager(binding.viewPagerMain)
 
 
-            variant = it.variants
-            color = variant[0].option2!!
-            size = variant[0].option1!!
-            image = it.image?.src!!
+
 
             sizeAdapter = SizeAdapter(this, this)
             binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
-            sizeAdapter.setSizeList(it.variants)
+            sizeAdapter.setSizeList(products.variants)
             binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
 
             colorAdapter = ColorAdapter(this, this)
             binding.contentDetail.colorRecycleView.adapter = colorAdapter
 
             val set = hashSetOf<String>()
-            it.variants.forEach { color ->
+            products.variants.forEach { color ->
                 set.add(color.option2!!)
             }
             colorAdapter.setColorList(set)
 
-            binding.contentDetail.readMore.text = it.bodyHtml
+            binding.contentDetail.readMore.text = products.bodyHtml
 
             binding.contentDetail.card1.reviewerNameTxt.text = Keys.REVIEWS[0].name
             binding.contentDetail.card1.reviewerDateTxt.text = Keys.REVIEWS[0].date
@@ -185,19 +314,21 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     }
 
     override fun onClickColor(color: String) {
-       this.color = color
+        this.color = color
     }
 
     override fun onClickSize(size: String) {
         this.size = size
     }
 
-    private fun getVariant(variant: ArrayList<Variants>, color: String, size: String): Long{
+    private fun getVariant(variant: ArrayList<Variants>, color: String, size: String): Long {
         variant.forEach {
-            if(it.option1 == size && it.option2 == color){
+            if (it.option1 == size && it.option2 == color) {
                 return it.id!!
             }
         }
+        this.color = color
+        this.size = size
         return variant[0].id!!
     }
 }

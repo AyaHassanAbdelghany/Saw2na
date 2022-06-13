@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class LineItems (
 
-  @SerializedName("id"                           ) var id                         : Int?              = null,
+  @SerializedName("id"                           ) var id                         : Long?              = null,
   @SerializedName("admin_graphql_api_id"         ) var adminGraphqlApiId          : String?           = null,
   @SerializedName("fulfillable_quantity"         ) var fulfillableQuantity        : Int?              = null,
   @SerializedName("fulfillment_service"          ) var fulfillmentService         : String?           = null,

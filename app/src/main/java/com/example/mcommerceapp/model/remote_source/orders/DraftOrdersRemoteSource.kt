@@ -25,7 +25,7 @@ class DraftOrdersRemoteSource private constructor() {
 
     suspend fun createOrder(req: RequestBody): DraftOrder {
         val res = api.createDraftOrder(req)
-        Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ncreateOrder: ${res.body()}")
+        Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ncreateOrder: ${res}")
 
         return gson.fromJson(
             res.body()!!.get("draft_order") as JsonObject,
@@ -75,7 +75,7 @@ class DraftOrdersRemoteSource private constructor() {
         )
     }
 
-    suspend fun deleteOrderByID(orderID: String) {
+    suspend fun deleteOrderByID(orderID: Long) {
         val res = api.deleteDraftOrderByID(orderID = orderID)
         Log.i("DraftOrdersRemoteSource", "\n\n\n\ndeleteOrderByID: $res")
     }

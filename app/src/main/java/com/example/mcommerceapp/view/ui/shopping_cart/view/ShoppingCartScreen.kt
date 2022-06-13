@@ -11,17 +11,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceapp.MainActivity
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
+
+import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
+import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
+
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
 import draft_orders.DraftOrder
 
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
+
+    private lateinit var binding: ActivityShoppingCartScreenBinding
     private lateinit var cartItemsRecyclerView: RecyclerView
+
     private lateinit var cartItemsAdapter: CartItemsAdapter
     private lateinit var checkoutBt: Button
 
@@ -39,6 +47,11 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityShoppingCartScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.cartItemsRecyclerView.setHasFixedSize(true)
+
         setContentView(R.layout.activity_shopping_cart_screen)
 
         supportActionBar?.hide()
@@ -52,6 +65,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         cartItemsRecyclerView.layoutManager = linearLayoutManager
 
+        cartItemsAdapter = CartItemsAdapter(arrayListOf(), this, this)
+        binding.cartItemsRecyclerView.adapter = cartItemsAdapter
         cartItemsAdapter = CartItemsAdapter(cartList, this, this)
         cartItemsRecyclerView.adapter = cartItemsAdapter
 
@@ -102,6 +117,9 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     }
 
     override fun calculateNewSubTotal(value: Double) {
+
+        binding.actionBar.backImg.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+
 
     }
 

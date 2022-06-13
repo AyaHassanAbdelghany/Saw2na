@@ -23,6 +23,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
     }
 
     suspend fun createOrder(order: DraftOrder): DraftOrder {
+        Log.d("object", order.toString())
         return source.createOrder(getRequest(order))
     }
 
@@ -38,7 +39,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
         return source.getOrderByID(orderID)
     }
 
-    override suspend fun deleteOrderByID(orderID: String) {
+    suspend fun deleteOrderByID(orderID: Long) {
         source.deleteOrderByID(orderID)
     }
 
@@ -49,8 +50,11 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
 
         for (item in order.lineItems) {
             val json = JSONObject()
+            json.put("product_id", item.productId)
             json.put("variant_id", item.variantId)
             json.put("quantity", item.quantity)
+            json.put("title", item.title)
+            json.put("price", item.price)
 
             jsonArray.put(json)
         }
@@ -82,7 +86,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
 
         val requestBody = req.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
-        Log.i("retrieveUserFromFireStore", " $req ")
+        Log.i("retrieveUsore", " $req ")
 
         return requestBody
     }

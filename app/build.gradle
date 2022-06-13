@@ -5,6 +5,8 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+
+
 android {
     compileSdk 32
 
@@ -35,6 +37,8 @@ android {
         viewBinding true
     }
 }
+
+
 
 dependencies {
 
@@ -99,5 +103,5 @@ dependencies {
 
     //range
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
-
+    //implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
 }

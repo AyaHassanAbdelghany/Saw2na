@@ -45,7 +45,7 @@ interface DraftOrdersService  {
     )
     @DELETE("draft_orders/{resource}.json")
     suspend fun deleteDraftOrderByID(
-        @Path("resource", encoded = true) orderID: String
+        @Path("resource", encoded = true) orderID: Long
     ): Response<JsonObject>
 
 
