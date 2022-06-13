@@ -2,6 +2,7 @@ package com.example.mcommerceapp.view.ui.feature_product
 
 import android.content.Intent
 import android.os.Bundle
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -110,6 +111,23 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
 
 
+
+        binding.filterImageView.setOnClickListener {
+            showSupportBottomSheet()
+
+            productsVM.products.observe(this) {
+                categoryProductAdapter.setData(
+                    it,
+                    productsVM.currencySymbol,
+                    productsVM.currencyValue
+                )
+                binding.grid.adapter = categoryProductAdapter
+
+            }
+
+        }
+    }
+
         private fun observeVendor() {
             productsVM.getProductsVendor(value)
             observeProducts()
@@ -118,21 +136,25 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         private fun observeProducts() {
             productsVM.products.observe(this) {
                 products = it
-                categoryProductAdapter.setData(it)
+
+                categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
                 binding.grid.adapter = categoryProductAdapter
             }
         }
 
         private fun observeAllProducts() {
             productsVM.allProducts.observe(this) {
+
+
+                products = it
+                categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
+
                 categoryProductAdapter.setData(
                     it,
                     productsVM.currencySymbol,
                     productsVM.currencyValue
                 )
 
-                products = it
-                categoryProductAdapter.setData(it)
                 binding.grid.adapter = categoryProductAdapter
             }
         }
@@ -173,10 +195,11 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             }
             if (filterProducts.size > 0) {
                 Log.e("filter", "hello")
-                categoryProductAdapter.setData(filterProducts)
+
+                categoryProductAdapter.setData(filterProducts, productsVM.currencySymbol, productsVM.currencyValue)
             } else {
                 Log.e("no filter", "hello")
-                categoryProductAdapter.setData(this.products)
+                categoryProductAdapter.setData(this.products, productsVM.currencySymbol, productsVM.currencyValue)
             }
         }
 
@@ -227,5 +250,5 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             dialog.setContentView(view)
             dialog.show()
         }
-    }
+
 }
