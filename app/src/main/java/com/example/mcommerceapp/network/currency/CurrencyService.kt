@@ -1,7 +1,6 @@
-package com.example.mcommerceapp.network
+package com.example.mcommerceapp.network.currency
 
 import com.example.mcommerceapp.model.Keys
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

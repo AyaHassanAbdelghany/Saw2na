@@ -54,9 +54,23 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
             jsonArray.put(json)
         }
 
+        val jsonArrayImage = JSONArray()
+
+        for (i in order.noteAttributes) {
+            val j = JSONObject()
+            Log.d("image", i.value!!)
+
+            j.put("name", i.name)
+            j.put("value", i.value)
+
+            jsonArrayImage.put(j)
+        }
+
+
         val jsonReq = JSONObject()
 
         jsonReq.put("line_items",jsonArray)
+        jsonReq.put("note_attributes",jsonArrayImage)
         jsonReq.put("note",order.note)
 
 
@@ -67,7 +81,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
 
         val requestBody = req.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
-        Log.i("order", "retrieveUserFromFireStore:  $req ")
+        Log.i("retrieveUserFromFireStore", " $req ")
 
         return requestBody
     }
