@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.model.remote_source
 
+import android.util.Log
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.interfaces.ICurrencyRemoteSource
 import com.example.mcommerceapp.model.remote_source.interfaces.IRemoteSource
@@ -56,7 +57,6 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
             object : TypeToken<HashSet<SmartCollections>>() {}.type
         )
     }
-
     override suspend fun getSubCollections(fields: String): HashSet<ProductFields> {
         val res = api.getSubCollection(Keys.PRODUCTS, fields)
         return gson.fromJson(
@@ -64,7 +64,6 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
             object : TypeToken<HashSet<ProductFields>>() {}.type
         )
     }
-
     override suspend fun getCollectionId(id: String): ArrayList<CustomCollections> {
         val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS,id)
         return gson.fromJson(
@@ -72,7 +71,6 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
             object : TypeToken<ArrayList<CustomCollections>>() {}.type
         )
     }
-
     override suspend fun getProductDetail(id: String): Products{
         val res = api.getAllProducts("products${"/$id"}.json")
         return gson.fromJson(
@@ -86,7 +84,7 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
 
     private inline fun <reified T> parsingJsonToObject(jsonObject: JsonArray): T {
         val gson = Gson()
-        var x = gson.fromJson(jsonObject, T::class.java)
+        val x = gson.fromJson(jsonObject, T::class.java)
         return x
     }
 

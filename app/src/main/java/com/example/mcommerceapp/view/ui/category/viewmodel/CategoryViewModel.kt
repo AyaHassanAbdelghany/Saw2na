@@ -15,8 +15,6 @@ import kotlinx.coroutines.withContext
 
 class CategoryViewModel(var iCategory :CategoryRepo) : ViewModel() {
 
-    private val _category = MutableLiveData<HashSet<ProductFields>>()
-    var  category: LiveData<HashSet<ProductFields>>  = _category
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
     var  subCategory: LiveData<HashSet<ProductFields>> = _subCategory

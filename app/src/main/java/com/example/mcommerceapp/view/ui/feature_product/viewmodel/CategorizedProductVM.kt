@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.shopify_repository.product.CategoryRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,6 +14,9 @@ import kotlinx.coroutines.withContext
 
 class CategorizedProductVM ( var iCategory : CategoryRepo): ViewModel()
 {
+
+    private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
+    var  subCategory: LiveData<HashSet<ProductFields>> = _subCategory
 
     private val _products = MutableLiveData<ArrayList<Products>>()
     var products: LiveData<ArrayList<Products>> = _products

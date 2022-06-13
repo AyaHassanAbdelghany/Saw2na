@@ -32,9 +32,6 @@ import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 class CategoryTypeFragment() : OnClickListener, Fragment() {
 
     private var tabTitle: String = ""
-    private var vendor: String = ""
-    private var type: String = ""
-    private var subCollection: String = ""
     private var minValue = 1.0
     private var maxValue = 2000.0
     private lateinit var products: ArrayList<Products>
@@ -50,10 +47,8 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     private lateinit var checkboxAccessories: CheckBox
     private lateinit var checkboxShoes: CheckBox
 
-    constructor(tabTitle: String, vendor: String, type: String) : this() {
+    constructor(tabTitle: String) : this() {
         this.tabTitle = tabTitle
-        this.vendor = vendor
-        this.type = type
     }
 
     override fun onCreateView(
@@ -88,7 +83,6 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
 
     private fun observerCollectionId() {
         categoryVM.customCollection.observe(viewLifecycleOwner) {
-            subCollection = it[0].id.toString()
             categoryVM.getCollectionProducts(it[0].id.toString())
             observerCollectionProducts()
         }
@@ -120,7 +114,6 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     }
 
     override fun onClick(value: String) {
-
         val intent = Intent(requireContext(), ProductDetail::class.java)
         intent.putExtra("PRODUCTS_ID", value)
         startActivity(intent)
@@ -156,20 +149,14 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             if (checkboxShoes.isChecked) {
                 checkboxText.add(checkboxShoes.text.toString())
             }
-//            else {
-//                Log.e("a", "hello")
-//                checkboxText.add(checkboxT_Shirt.text.toString())
-//                checkboxText.add(checkboxAccessories.text.toString())
-//                checkboxText.add(checkboxShoes.text.toString())
-//            }
+
             filterProducts()
             dialog.dismiss()
         }
 
         seekBar.setRangeValues(1.0F, 2000.0F)
+
         seekBar.setOnRangeSeekBarChangeListener { bar, minValue, maxValue ->
-            Log.e("min", minValue.toString())
-            Log.e("max", maxValue.toString())
 
             this.minValue = String.format("%.3f", minValue).toDouble()
             this.maxValue = String.format("%.3f", maxValue).toDouble()

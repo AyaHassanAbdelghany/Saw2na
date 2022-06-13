@@ -34,7 +34,12 @@ interface OrdersService {
 
     @Headers(
         "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "Content-T    @Headers(\n" +
+                "        \"X-Shopify-Access-Token: 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\",\n" +
+                "        \"Content-Type: application/json\"\n" +
+                "    )\n" +
+                "    @POST(\"orders.json\")\n" +
+                "    suspend fun createOrder(@Body requestBody: RequestBody): Response<JsonObject>ype: application/json"
     )
     @PUT("orders/{resource}.json")
     suspend fun updateOrder( @Path("resource", encoded = true) orderID: String,@Body requestBody: RequestBody): Response<JsonObject>
