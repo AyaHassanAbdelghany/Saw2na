@@ -2,7 +2,10 @@ package com.example.mcommerceapp.view.ui.shopping_cart.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +30,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private lateinit var shippingTx: TextView
     private lateinit var totalTx: TextView
 
+    private lateinit var progressIndicator: ProgressBar
+
     private lateinit var cartViewModel: ShoppingCartViewmodel
     private lateinit var cartViewModelFactory: ShoppingCartViewmodelFactory
 
@@ -35,7 +40,11 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart_screen)
+
         supportActionBar?.hide()
+
+        progressIndicator = findViewById(R.id.progress_indicator)
+        progressIndicator.visibility = View.VISIBLE
 
         cartItemsRecyclerView = findViewById(R.id.cart_items_recycler_view)
         cartItemsRecyclerView.setHasFixedSize(true)
@@ -43,15 +52,13 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         cartItemsRecyclerView.layoutManager = linearLayoutManager
 
-        cartItemsAdapter = CartItemsAdapter(cartList, this)
+        cartItemsAdapter = CartItemsAdapter(cartList, this, this)
         cartItemsRecyclerView.adapter = cartItemsAdapter
 
         checkoutBt = findViewById(R.id.checkout_bt)
         checkoutBt.setOnClickListener {
             startActivity(Intent(this, Payment::class.java))
         }
-
-
 
         cartViewModelFactory = ShoppingCartViewmodelFactory(
             DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
@@ -71,8 +78,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
 
         cartViewModel.draftOrderLiveData.observe(this) {
+            progressIndicator.visibility = View.INVISIBLE
             cartItemsAdapter.setOrders(it)
-//            it?.forEach {
+            Log.e("TAG", "onCreate: ${it.size}", )
+//            it?.forEach { /// lma ttzbt
 //                println(it.id)
 //
 //            }
@@ -80,6 +89,11 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     }
 
     override fun calculateNewSubTotal(value: Double) {
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
 
     }
 }
