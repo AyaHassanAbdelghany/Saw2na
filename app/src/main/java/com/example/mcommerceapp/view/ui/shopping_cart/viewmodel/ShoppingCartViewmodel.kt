@@ -48,7 +48,7 @@ class ShoppingCartViewmodel(
         }
     }
 
-    fun deleteProductFromDraftOrder(draftOrderId: String) {
+    fun deleteProductFromDraftOrder(draftOrderId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             iCartRepo.deleteOrderByID(draftOrderId)
         }

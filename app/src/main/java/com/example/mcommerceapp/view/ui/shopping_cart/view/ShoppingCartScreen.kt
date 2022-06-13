@@ -13,13 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.MainActivity
 import com.example.mcommerceapp.R
+import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
-
-import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
-import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
-
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
@@ -118,14 +115,21 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     override fun calculateNewSubTotal(value: Double) {
 
-        binding.actionBar.backImg.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        binding.actionBar.backImg.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                )
+            )
+        }
 
 
     }
 
     override fun deleteProductFromCart(index: Int) {
         val obj = cartList[index]
-        cartViewModel.deleteProductFromDraftOrder(obj.id.toString())
+        cartViewModel.deleteProductFromDraftOrder(obj.id!!)
         deleteDraftOrderFromList(obj)
     }
 

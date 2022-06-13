@@ -39,7 +39,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
         return source.getOrderByID(orderID)
     }
 
-    suspend fun deleteOrderByID(orderID: Long) {
+    override suspend fun deleteOrderByID(orderID: Long) {
         source.deleteOrderByID(orderID)
     }
 
