@@ -32,6 +32,7 @@ import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.snackbar.Snackbar
 import draft_orders.DraftOrder
 import draft_orders.LineItems
+import draft_orders.NoteAttributes
 
 
 class ProductDetail : AppCompatActivity(), OnClickListener {
@@ -45,6 +46,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
     private lateinit var color: String
     private lateinit var size: String
+    private lateinit var image: String
     private var id: Long = -1
     private lateinit var variant: ArrayList<Variants>
 
@@ -130,8 +132,10 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                    startActivity(Intent(this, SigninActivity::class.java))
                }else{
                    id = getVariant(variant, color, size)
-                   detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email,
-                       lineItems = arrayListOf<LineItems>(LineItems(variantId = id, quantity = 1))))
+                   detailVM.addOrder(DraftOrder(note = Keys.CART, email= detailVM.user.email ,
+                       noteAttributes = arrayListOf(NoteAttributes(value = image)),
+                       lineItems = arrayListOf<LineItems>(
+                           LineItems(variantId = id, quantity = 1))))
                    Snackbar.make(binding.layout ,"Added to cart...",Snackbar.LENGTH_LONG).show()
                }
             }
@@ -150,6 +154,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             variant = it.variants
             color = variant[0].option2!!
             size = variant[0].option1!!
+            image = it.image?.src!!
+
             sizeAdapter = SizeAdapter(this, this)
             binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
             sizeAdapter.setSizeList(it.variants)

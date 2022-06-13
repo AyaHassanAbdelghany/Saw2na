@@ -1,17 +1,18 @@
-package com.example.mcommerceapp.network
+package com.example.mcommerceapp.network.copouns
 
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
-/// marawan key  we2oc5jxArbNIo4NCN1Q4m3rGw6yRHcM
-// karam key i0sSwInnqkf7vn7j58PZ6hmFxamSHCKB
-// nayra key ZckheMOjLcIIs5QIjoWrVXQL6geNwOPA
-interface ICurrencyService {
-    @Headers("apikey:ZckheMOjLcIIs5QIjoWrVXQL6geNwOPA")
-    @GET("symbols")
-    suspend fun getAllCurrencySymbols(): Response<JsonObject>
+
+interface ICouponsService {
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @GET("orders.json")
+    suspend fun getAllOrders(): Response<JsonObject>
 
 
     @Headers("apikey:ZckheMOjLcIIs5QIjoWrVXQL6geNwOPA")
