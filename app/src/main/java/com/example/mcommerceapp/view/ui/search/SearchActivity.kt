@@ -73,28 +73,26 @@ class SearchActivity : AppCompatActivity() {
                     intent.putExtra("PRODUCTS", bundle)
                     startActivity(intent)
                 }
-                vendorList.contains(chooseWord) -> {
-                    bundle.putString("TYPE", Keys.VENDOR)
-                    bundle.putString("VENDOR", chooseWord.toString())
-                    val intent = Intent(this, CategorizedProductActivity::class.java)
-                    intent.putExtra("PRODUCTS", bundle)
-                    startActivity(intent)
-                }
-                else -> {
-                    for (index in productList) {
-                        if (index.title?.lowercase() == chooseWord) {
-                            val intent = Intent(this, ProductDetail::class.java)
-                            intent.putExtra("PRODUCTS_ID", index.id)
-                            startActivity(intent)
-                        }else{
-                            binding.foundTxt.visibility = View.VISIBLE
-                        }
-                    }
-                }
+//                vendorList.contains(chooseWord) -> {
+//                    bundle.putString("TYPE", Keys.VENDOR)
+//                    bundle.putString("VENDOR", chooseWord.toString())
+//                    val intent = Intent(this, CategorizedProductActivity::class.java)
+//                    intent.putExtra("PRODUCTS", bundle)
+//                    startActivity(intent)
+//                }
+//                else -> {
+//                    for (index in productList) {
+//                        if (index.title?.lowercase() == chooseWord) {
+//                            val intent = Intent(this, ProductDetail::class.java)
+//                            intent.putExtra("PRODUCTS_ID", index.id)
+//                            startActivity(intent)
+//                        }else{
+//                            binding.foundTxt.visibility = View.VISIBLE
+//                        }
+//                    }
+//                }
             }
         }
-
-
         binding.cancelTxt.setOnClickListener { finish() }
     }
 

@@ -20,6 +20,7 @@ import com.example.mcommerceapp.model.room_repository.RoomRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
+import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.products.Variants
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
@@ -47,8 +48,10 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     private lateinit var color: String
     private lateinit var size: String
     private lateinit var image: String
+    private lateinit var productDetail: Products
     private var id: Long = -1
-    private var isFav = -1
+    private var isFav = 0
+    private var isCart = 0
     private lateinit var variant: ArrayList<Variants>
 
     @SuppressLint("SetTextI18n")
@@ -71,94 +74,21 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         val intent = intent.getStringExtra("PRODUCTS_ID")
 
         detailVM.getDraftOrder()
-
-
-        Log.e("Product Details : ", intent.toString())
-        detailVM.checkForFavouriteProductById(intent!!)
-//        detailVM.isFav.observe(this) {
-//            if (it == 1) {
-//                binding.detailBtn.favImage.setImageDrawable(
-//                    ContextCompat.getDrawable(
-//                        applicationContext, // Context
-//                        R.drawable.ic_baseline_favorite_24_black // Drawable
-//                    )
-//                )
-//            } else {
-//                binding.detailBtn.favImage.setImageDrawable(
-//                    ContextCompat.getDrawable(
-//                        applicationContext, // Context
-//                        R.drawable.ic_baseline_favorite_border_24 // Drawable
-//                    )
-//                )
-//            }
-//        }
-
-        detailVM.getProductDetail(intent)
-        detailVM.productDetail.observe(this) { products ->
-
-            variant = products.variants
-            color = variant[0].option2!!
-            size = variant[0].option1!!
-            image = products.image?.src!!
-
-            detailVM.favList.observe(this) { favList ->
-                if (favList.count() != 0) {
-                    favList.forEach { id ->
-                        if (products.id == id) {
-                            isFav = 1
-                            Log.d("favvvvvvvvvv", isFav.toString())
-                            binding.detailBtn.favImage.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    applicationContext, // Context
-                                    R.drawable.ic_baseline_favorite_24_black
-                                )
-                            )
-                        } else {
-                            isFav = 0
-                            Log.d("favvvvvvvvvv", isFav.toString())
-                            binding.detailBtn.favImage.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    applicationContext, // Context
-                                    R.drawable.ic_baseline_favorite_border_24
-                                )
-                            )
-                        }
+        detailVM.cartList.observe(this) { cart ->
+            if (!cart.isEmpty()) {
+                id = getVariant(variant, color, size)
+                cart.forEach { cartId ->
+                    if (cartId == id) {
+                        isCart = 1
                     }
-                } else {
-                    isFav = 0
-                    Log.d("favvvvvvvvvv", isFav.toString())
-                    binding.detailBtn.favImage.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            applicationContext, // Context
-                            R.drawable.ic_baseline_favorite_border_24
-                        )
-                    )
-
                 }
             }
-            binding.detailBtn.favImage.setOnClickListener {
-                if (isFav == 0) {
-                    id = getVariant(products.variants, color, size)
-                    detailVM.addOrder(
-                        DraftOrder(
-                            note = Keys.FAV, email = detailVM.user.email,
-                            noteAttributes = arrayListOf(
-                                NoteAttributes(
-                                    name = "image",
-                                    value = image
-                                )
-                            ),
-                            lineItems = arrayListOf<LineItems>(
-                                LineItems(
-                                    variantId = id,
-                                    productId = products.id,
-                                    quantity = 1,
-                                    title = products.title,
-                                    price = products.variants[0].price
-                                )
-                            )
-                        )
-                    )
+        }
+
+        detailVM.favList.observe(this) { favList ->
+            favList?.forEach { id ->
+                if (productDetail.id == id) {
+                    isFav = 1
                     binding.detailBtn.favImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             applicationContext, // Context
@@ -166,7 +96,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                         )
                     )
                 } else {
-                    detailVM.deleteOrder(products.id!!)
+                    isFav = 0
                     binding.detailBtn.favImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             applicationContext, // Context
@@ -174,143 +104,111 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                         )
                     )
                 }
-
-
-//                if (detailVM.isFav.value == 1) {
-//                    binding.detailBtn.favImage.setImageDrawable(
-//                        ContextCompat.getDrawable(
-//                            applicationContext, // Context
-//                            R.drawable.ic_baseline_favorite_border_24 // Drawable
-//                        )
-//                    )
-////                    detailVM.deleteFavoriteProduct(
-////                        FavProducts(
-////                            productPrice = products.variants[0].price?.toDouble()!!,
-////                            productId = products.id.toString()!!,
-////                            productImage = "",
-////                            productName = products.title!!
-////                        )
-////                    )
-//                   // detailVM.deleteOrder()
-//                }
-//                else {
-//                    binding.detailBtn.favImage.setImageDrawable(
-//                        ContextCompat.getDrawable(
-//                            applicationContext, // Context
-//                            R.drawable.ic_baseline_favorite_24_black // Drawable
-//                        )
-//                    )
-
-//                    detailVM.insertFavoriteProduct(
-//                        FavProducts(
-//                            productPrice = products.variants[0].price?.toDouble()!!,
-//                            productId = products.id!!,
-//                            productImage = products.image?.src!!,
-//                            productName = products.title!!
-//                        )
-//                    )
-
-
             }
+        }
 
-            binding.detailBtn.checkoutBtn.setOnClickListener {
-
-                if (!detailVM.isLogged) {
-                    startActivity(Intent(this, SigninActivity::class.java))
-                } else {
-                    Log.d("add to cart", "99999999999999")
-                    id = getVariant(products.variants, color, size)
-                    detailVM.cartList.observe(this) { cart ->
-                        Log.d("add to cart", cart.toString())
-                        if (cart.count() == 0) {
-                            detailVM.addOrder(
-                                DraftOrder(
-                                    note = Keys.CART, email = detailVM.user.email,
-                                    noteAttributes = arrayListOf(NoteAttributes(value = image)),
-                                    lineItems = arrayListOf<LineItems>(
-                                        LineItems(variantId = id, quantity = 1)
-                                    )
-                                )
+        binding.detailBtn.checkoutBtn.setOnClickListener {
+            if (!detailVM.isLogged) {
+                startActivity(Intent(this, SigninActivity::class.java))
+            } else {
+                if (isCart == 0) {
+                    detailVM.addOrder(
+                        DraftOrder(
+                            note = Keys.CART, email = detailVM.user.email,
+                            noteAttributes = arrayListOf(NoteAttributes(value = image)),
+                            lineItems = arrayListOf<LineItems>(
+                                LineItems(variantId = id, quantity = 1)
                             )
-                            Log.d("add to cart", "add")
-                            Snackbar.make(
-                                binding.layout,
-                                "Added to cart...",
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        } else {
-                            id = getVariant(variant, color, size)
-                            cart.forEach { cartId ->
-                                if (cartId != id) {
-                                    detailVM.addOrder(
-                                        DraftOrder(
-                                            note = Keys.CART, email = detailVM.user.email,
-                                            noteAttributes = arrayListOf(NoteAttributes(value = image)),
-                                            lineItems = arrayListOf<LineItems>(
-                                                LineItems(variantId = id, quantity = 1)
-                                            )
-                                        )
-                                    )
-                                    Log.d("add to cart", "add")
-                                    Snackbar.make(
-                                        binding.layout,
-                                        "Added to cart...",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
-
-                                } else {
-                                    Snackbar.make(
-                                        binding.layout,
-                                        "Already Added.....",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
-                                    Log.d("add to cart", "add")
-                                }
-                            }
-                        }
-                    }
+                        )
+                    )
+                    Snackbar.make(binding.layout, "Added to cart...", Snackbar.LENGTH_LONG).show()
+                } else {
+                    Snackbar.make(binding.layout, "Already added...", Snackbar.LENGTH_LONG).show()
                 }
             }
-            binding.toolbar.title = products.title
-
-            binding.contentDetail.ProductPriceTxt.text = "${
-                products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
-            } ${detailVM.currencySymbol}"
-            binding.contentDetail.ProductRating.rating =
-                (products.variants[0].inventoryQuantity)!!.toFloat()
-            imageSliderPager = ImageSlideAdapter(this, products.images)
-            binding.viewPagerMain.adapter = imageSliderPager
-            binding.indicator.setViewPager(binding.viewPagerMain)
-
-
-
-
-            sizeAdapter = SizeAdapter(this, this)
-            binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
-            sizeAdapter.setSizeList(products.variants)
-            binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
-
-            colorAdapter = ColorAdapter(this, this)
-            binding.contentDetail.colorRecycleView.adapter = colorAdapter
-
-            val set = hashSetOf<String>()
-            products.variants.forEach { color ->
-                set.add(color.option2!!)
-            }
-            colorAdapter.setColorList(set)
-
-            binding.contentDetail.readMore.text = products.bodyHtml
-
-            binding.contentDetail.card1.reviewerNameTxt.text = Keys.REVIEWS[0].name
-            binding.contentDetail.card1.reviewerDateTxt.text = Keys.REVIEWS[0].date
-            binding.contentDetail.card1.reviewerRaring.rating = Keys.REVIEWS[0].rate
-            binding.contentDetail.card1.reviewerDescTxt.text = Keys.REVIEWS[0].desc
-
-            binding.contentDetail.card2.reviewerNameTxt.text = Keys.REVIEWS[1].name
-            binding.contentDetail.card2.reviewerDateTxt.text = Keys.REVIEWS[1].date
-            binding.contentDetail.card2.reviewerRaring.rating = Keys.REVIEWS[1].rate
-            binding.contentDetail.card2.reviewerDescTxt.text = Keys.REVIEWS[1].desc
         }
+
+        binding.detailBtn.favImage.setOnClickListener {
+            if (isFav == 0) {
+                detailVM.addOrder(
+                    DraftOrder(
+                        note = Keys.FAV, email = detailVM.user.email,
+                        noteAttributes = arrayListOf(
+                            NoteAttributes(
+                                name = "image",
+                                value = image
+                            )
+                        ),
+                        lineItems = arrayListOf<LineItems>(
+                            LineItems(
+                                variantId = id,
+                                productId = productDetail.id,
+                                quantity = 1,
+                                title = productDetail.title,
+                                price = productDetail.variants[0].price
+                            )
+                        )
+                    )
+                )
+
+            } else {
+                detailVM.deleteOrder(productDetail.id!!)
+            }
+        }
+
+        detailVM.getProductDetail(intent!!)
+        detailVM.productDetail.observe(this) { products ->
+            if (products != null) {
+                updateUI(products)
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateUI(products: Products) {
+        variant = products.variants
+        color = variant[0].option2!!
+        size = variant[0].option1!!
+        image = products.image?.src!!
+        id = getVariant(variant, color, size)
+        productDetail = products
+
+        binding.toolbar.title = products.title
+
+        binding.contentDetail.ProductPriceTxt.text = "${
+            products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
+        } ${detailVM.currencySymbol}"
+        binding.contentDetail.ProductRating.rating =
+            (products.variants[0].inventoryQuantity)!!.toFloat()
+        imageSliderPager = ImageSlideAdapter(this, products.images)
+        binding.viewPagerMain.adapter = imageSliderPager
+        binding.indicator.setViewPager(binding.viewPagerMain)
+
+        sizeAdapter = SizeAdapter(this, this)
+        binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
+        sizeAdapter.setSizeList(products.variants)
+        binding.contentDetail.sizeRecycleView.adapter = sizeAdapter
+
+        colorAdapter = ColorAdapter(this, this)
+        binding.contentDetail.colorRecycleView.adapter = colorAdapter
+
+        val set = hashSetOf<String>()
+        products.variants.forEach { color ->
+            set.add(color.option2!!)
+        }
+        colorAdapter.setColorList(set)
+
+        binding.contentDetail.readMore.text = products.bodyHtml
+
+        binding.contentDetail.card1.reviewerNameTxt.text = Keys.REVIEWS[0].name
+        binding.contentDetail.card1.reviewerDateTxt.text = Keys.REVIEWS[0].date
+        binding.contentDetail.card1.reviewerRaring.rating = Keys.REVIEWS[0].rate
+        binding.contentDetail.card1.reviewerDescTxt.text = Keys.REVIEWS[0].desc
+
+        binding.contentDetail.card2.reviewerNameTxt.text = Keys.REVIEWS[1].name
+        binding.contentDetail.card2.reviewerDateTxt.text = Keys.REVIEWS[1].date
+        binding.contentDetail.card2.reviewerRaring.rating = Keys.REVIEWS[1].rate
+        binding.contentDetail.card2.reviewerDescTxt.text = Keys.REVIEWS[1].desc
     }
 
     override fun onClickColor(color: String) {
