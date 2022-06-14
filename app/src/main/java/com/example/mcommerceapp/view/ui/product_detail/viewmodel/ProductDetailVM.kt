@@ -47,14 +47,13 @@ class ProductDetailVM(
     private var _favList = MutableLiveData<ArrayList<Long>>()
     var favList: LiveData<ArrayList<Long>> = _favList
 
-    private var listCart = arrayListOf<Long>()
-    private var _cartList = MutableLiveData<ArrayList<Long>>()
-    var cartList: LiveData<ArrayList<Long>> = _cartList
+    private var listCart = hashSetOf<Long>()
+    private var _cartList = MutableLiveData<HashSet<Long>>()
+    var cartList: LiveData<HashSet<Long>> = _cartList
 
     fun getProductDetail(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val detail = iProducts.getProductDetail(id)
-            Log.d("Detail", detail.toString())
             withContext(Dispatchers.Main) {
                 _productDetail.postValue(detail)
             }
@@ -62,18 +61,24 @@ class ProductDetailVM(
     }
 
     fun addOrder(order: DraftOrder) {
-        Log.d("draftttttttt", order.lineItems.get(0).productId.toString())
-        viewModelScope.launch {
-            iOrder.createOrder(order)
+        viewModelScope.launch (Dispatchers.IO){
+            val newOrder = iOrder.createOrder(order)
+            withContext(Dispatchers.Main){
+                if (newOrder.note == Keys.CART) {
+                    listCart.add(newOrder.lineItems[0].variantId!!)
+                    _cartList.postValue(listCart)
+                }else if(newOrder.note == Keys.FAV){
+                    listFav.add(newOrder.lineItems[0].productId!!)
+                    _favList.postValue(listFav)
+                }
+            }
         }
     }
 
     fun deleteOrder(id: Long) {
         viewModelScope.launch {
             val order = iOrder.getAllOrders(user.userID)
-            Log.d("idddddddddd", id.toString())
             order.forEach {
-                Log.d("idddddddddd", it.lineItems[0].productId.toString())
                 if (it.lineItems[0].productId == id) {
                     Log.d("TEst", it.orderId.toString())
                     iOrder.deleteOrderByID(it.id!!)
@@ -91,8 +96,7 @@ class ProductDetailVM(
                     if (it.note == Keys.FAV) {
                         if (it.lineItems[0].productId != null)
                             listFav.add(it.lineItems[0].productId!!)
-                    }else if(it.note == Keys.CART){
-                        Log.d("draft order", it.lineItems[0].variantId.toString())
+                    } else if (it.note == Keys.CART) {
                         listCart.add(it.lineItems[0].variantId!!)
                     }
                 }
