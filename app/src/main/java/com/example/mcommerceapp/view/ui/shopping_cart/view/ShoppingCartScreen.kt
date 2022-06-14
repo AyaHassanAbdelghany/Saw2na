@@ -25,17 +25,8 @@ import draft_orders.DraftOrder
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     private lateinit var binding: ActivityShoppingCartScreenBinding
-    private lateinit var cartItemsRecyclerView: RecyclerView
 
     private lateinit var cartItemsAdapter: CartItemsAdapter
-    private lateinit var checkoutBt: Button
-
-    private lateinit var subTotalTx: TextView
-    private lateinit var discountTx: TextView
-    private lateinit var shippingTx: TextView
-    private lateinit var totalTx: TextView
-
-    private lateinit var progressIndicator: ProgressBar
 
     private lateinit var cartViewModel: ShoppingCartViewmodel
     private lateinit var cartViewModelFactory: ShoppingCartViewmodelFactory
@@ -48,28 +39,26 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         setContentView(binding.root)
 
         binding.cartItemsRecyclerView.setHasFixedSize(true)
-
-        setContentView(R.layout.activity_shopping_cart_screen)
-
         supportActionBar?.hide()
 
-        progressIndicator = findViewById(R.id.progress_indicator)
-        progressIndicator.visibility = View.VISIBLE
+        binding.progressIndicator.visibility = View.VISIBLE
 
-        cartItemsRecyclerView = findViewById(R.id.cart_items_recycler_view)
-        cartItemsRecyclerView.setHasFixedSize(true)
+        binding.cartItemsRecyclerView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
-        cartItemsRecyclerView.layoutManager = linearLayoutManager
+        binding.cartItemsRecyclerView.layoutManager = linearLayoutManager
 
         cartItemsAdapter = CartItemsAdapter(arrayListOf(), this, this)
         binding.cartItemsRecyclerView.adapter = cartItemsAdapter
         cartItemsAdapter = CartItemsAdapter(cartList, this, this)
-        cartItemsRecyclerView.adapter = cartItemsAdapter
+        binding.cartItemsRecyclerView.adapter = cartItemsAdapter
 
-        checkoutBt = findViewById(R.id.checkout_bt)
-        checkoutBt.setOnClickListener {
+        binding.checkoutBt.setOnClickListener {
             startActivity(Intent(this, Payment::class.java))
+        }
+
+        binding.actionBar.backImg.setOnClickListener {
+            finish()
         }
 
         cartViewModelFactory = ShoppingCartViewmodelFactory(
@@ -92,14 +81,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartViewModel.draftOrderLiveData.observe(this) {
             if (it != null) {
                 cartList = it
-                progressIndicator.visibility = View.INVISIBLE
+                binding.progressIndicator.visibility = View.INVISIBLE
                 cartItemsAdapter.setOrders(cartList)
-                Log.e("TAG", "onCreate: ${cartList.size}")
+                calculateSubTotal()
             }
-//            it?.forEach { /// lma ttzbt
-//                println(it.id)
-//
-//            }
         }
 
         cartViewModel.updateLiveData.observe(this) {
@@ -113,18 +98,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartViewModel.updateDarftOrder(cartList)
     }
 
-    override fun calculateNewSubTotal(value: Double) {
-
-        binding.actionBar.backImg.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    MainActivity::class.java
-                )
-            )
-        }
-
-
+    override fun calculateNewSubTotal() {
+        calculateSubTotal()
     }
 
     override fun deleteProductFromCart(index: Int) {
@@ -136,21 +111,25 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     override fun increaseUpdateInList(index: Int) {
         var newQuantity = cartList[index].lineItems[0].quantity!!
         newQuantity++
-        Log.e("TAG", "increaseUpdateInList: ${newQuantity}")
         cartList[index].lineItems[0].quantity = (newQuantity)
-        Log.e("TAG2", "increaseUpdateInList: ${cartList[index].lineItems[0].quantity}")
     }
 
     override fun decreaseUpdateInList(index: Int) {
         var newQuantity = cartList[index].lineItems[0].quantity!!
         newQuantity--
-        Log.e("TAG", "decreaseUpdateInList: ${newQuantity}")
         cartList[index].lineItems[0].quantity = (newQuantity)
-        Log.e("TAG2", "increaseUpdateInList: ${cartList[index].lineItems[0].quantity}")
     }
 
     fun deleteDraftOrderFromList(draftOrder: DraftOrder) {
         cartList.remove(draftOrder)
         cartItemsAdapter.setOrders(cartList)
+    }
+
+    fun calculateSubTotal(){
+        var subTotal = 0
+        cartList.forEach{ cartItem ->
+            subTotal+= (cartItem.lineItems[0].quantity!!.times(cartItem.lineItems[0].price!!.toInt()))
+        }
+        binding.subTotalValueTx.text = subTotal.toString()
     }
 }
