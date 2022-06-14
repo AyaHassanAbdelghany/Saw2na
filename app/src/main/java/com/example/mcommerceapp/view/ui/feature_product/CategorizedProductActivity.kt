@@ -26,6 +26,7 @@ import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
 import com.example.mcommerceapp.view.ui.search.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.slider.RangeSlider
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 
 class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
@@ -205,7 +206,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
             val dialog = BottomSheetDialog(this)
             val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
 
-            val seekBar = view.findViewById<RangeSeekBar<Float>>(R.id.seekBar)
+            val seekBar = view.findViewById<RangeSlider>(R.id.seekBar)
             checkboxT_Shirt = view.findViewById(R.id.t_shirt_checkbox)
             checkboxAccessories = view.findViewById(R.id.accessories_checkbox)
             checkboxShoes = view.findViewById(R.id.shoes_checkbox)
@@ -234,14 +235,21 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
                 dialog.dismiss()
             }
 
-            seekBar.setRangeValues(1.0F, 2000.0F)
+            seekBar.setValues(1.0f, 2000.0f)
+            seekBar.stepSize = 0f
 
-            seekBar.setOnRangeSeekBarChangeListener { _, minValue, maxValue ->
+            seekBar.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
+                @SuppressLint("RestrictedApi")
+                override fun onStartTrackingTouch(slider: RangeSlider) {
+                }
 
-                this.minValue = String.format("%.3f", minValue).toDouble()
-                this.maxValue = String.format("%.3f", maxValue).toDouble()
-            }
-            seekBar.isNotifyWhileDragging = true
+                @SuppressLint("RestrictedApi")
+                override fun onStopTrackingTouch(slider: RangeSlider) {
+                    val values = slider.values
+                    this@CategorizedProductActivity.minValue = String.format("%.2f", values[0]).toDouble()
+                    this@CategorizedProductActivity.maxValue = String.format("%.2f", values[1]).toDouble()
+                }
+            })
 
             dialog.setCancelable(true)
             dialog.setContentView(view)
