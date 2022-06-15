@@ -11,7 +11,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteSource) : ShoppingCartRepoInterface {
+class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteSource) :
+    ShoppingCartRepoInterface {
     companion object {
 
         private val draftOrdersRepo: DraftOrdersRepo? = null
@@ -38,7 +39,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
         return source.getOrderByID(orderID)
     }
 
-    suspend fun deleteOrderByID(orderID: Long) {
+    override suspend fun deleteOrderByID(orderID: Long) {
         source.deleteOrderByID(orderID)
     }
 
@@ -64,7 +65,7 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
             val j = JSONObject()
             Log.d("image", i.value!!)
 
-            j.put("name", i.name)
+            j.put("name", "image")
             j.put("value", i.value)
 
             jsonArrayImage.put(j)
@@ -73,9 +74,9 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
 
         val jsonReq = JSONObject()
 
-        jsonReq.put("line_items",jsonArray)
-        jsonReq.put("note_attributes",jsonArrayImage)
-        jsonReq.put("note",order.note)
+        jsonReq.put("line_items", jsonArray)
+        jsonReq.put("note_attributes", jsonArrayImage)
+        jsonReq.put("note", order.note)
 
 
         jsonReq.put("email", order.email)

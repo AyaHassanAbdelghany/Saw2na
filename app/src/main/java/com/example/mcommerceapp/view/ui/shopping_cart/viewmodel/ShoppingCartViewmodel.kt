@@ -1,6 +1,7 @@
 package com.example.mcommerceapp.view.ui.shopping_cart.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +22,9 @@ class ShoppingCartViewmodel(
     private var draftOrderMutableLiveData = MutableLiveData<ArrayList<DraftOrder>>()
     var draftOrderLiveData: LiveData<ArrayList<DraftOrder>> = draftOrderMutableLiveData
 
+    private var updateMutableLiveData = MutableLiveData<Boolean>()
+    var updateLiveData: LiveData<Boolean> = updateMutableLiveData
+
     fun getAllDraftOrders(userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val orders = iCartRepo.getAllOrders(userId)
@@ -30,9 +34,23 @@ class ShoppingCartViewmodel(
         }
     }
 
-    fun updateDarftOrder(productId: String) {
+    fun updateDarftOrder(draftOrders: ArrayList<DraftOrder>) {
         viewModelScope.launch(Dispatchers.IO) {
-//            val value = iCartRepo.updateOrder("",)
+            Log.e(ShoppingCartViewmodel::class.java.name, draftOrders.size.toString())
+            Log.e("TAG", "updateDarftOrder: ${draftOrders.size}")
+            for (draftOrder in draftOrders) {
+                Log.e("TAG2", "updateDarftOrder: ${draftOrder.lineItems[0].quantity}")
+                iCartRepo.updateOrder(draftOrder.id.toString(), draftOrder)
+            }
+            withContext(Dispatchers.Main) {
+                updateMutableLiveData.postValue(true)
+            }
+        }
+    }
+
+    fun deleteProductFromDraftOrder(draftOrderId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            iCartRepo.deleteOrderByID(draftOrderId)
         }
     }
 

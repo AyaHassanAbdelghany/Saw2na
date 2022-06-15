@@ -13,13 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.MainActivity
 import com.example.mcommerceapp.R
+import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
-
-import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
-import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
-
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
@@ -28,17 +25,8 @@ import draft_orders.DraftOrder
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     private lateinit var binding: ActivityShoppingCartScreenBinding
-    private lateinit var cartItemsRecyclerView: RecyclerView
 
     private lateinit var cartItemsAdapter: CartItemsAdapter
-    private lateinit var checkoutBt: Button
-
-    private lateinit var subTotalTx: TextView
-    private lateinit var discountTx: TextView
-    private lateinit var shippingTx: TextView
-    private lateinit var totalTx: TextView
-
-    private lateinit var progressIndicator: ProgressBar
 
     private lateinit var cartViewModel: ShoppingCartViewmodel
     private lateinit var cartViewModelFactory: ShoppingCartViewmodelFactory
@@ -51,28 +39,26 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         setContentView(binding.root)
 
         binding.cartItemsRecyclerView.setHasFixedSize(true)
-
-        setContentView(R.layout.activity_shopping_cart_screen)
-
         supportActionBar?.hide()
 
-        progressIndicator = findViewById(R.id.progress_indicator)
-        progressIndicator.visibility = View.VISIBLE
+        binding.progressIndicator.visibility = View.VISIBLE
 
-        cartItemsRecyclerView = findViewById(R.id.cart_items_recycler_view)
-        cartItemsRecyclerView.setHasFixedSize(true)
+        binding.cartItemsRecyclerView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
-        cartItemsRecyclerView.layoutManager = linearLayoutManager
+        binding.cartItemsRecyclerView.layoutManager = linearLayoutManager
 
         cartItemsAdapter = CartItemsAdapter(arrayListOf(), this, this)
         binding.cartItemsRecyclerView.adapter = cartItemsAdapter
         cartItemsAdapter = CartItemsAdapter(cartList, this, this)
-        cartItemsRecyclerView.adapter = cartItemsAdapter
+        binding.cartItemsRecyclerView.adapter = cartItemsAdapter
 
-        checkoutBt = findViewById(R.id.checkout_bt)
-        checkoutBt.setOnClickListener {
+        binding.checkoutBt.setOnClickListener {
             startActivity(Intent(this, Payment::class.java))
+        }
+
+        binding.actionBar.backImg.setOnClickListener {
+            finish()
         }
 
         cartViewModelFactory = ShoppingCartViewmodelFactory(
@@ -93,25 +79,57 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
 
         cartViewModel.draftOrderLiveData.observe(this) {
-            progressIndicator.visibility = View.INVISIBLE
-            cartItemsAdapter.setOrders(it)
-            Log.e("TAG", "onCreate: ${it.size}", )
-//            it?.forEach { /// lma ttzbt
-//                println(it.id)
-//
-//            }
+            if (it != null) {
+                cartList = it
+                binding.progressIndicator.visibility = View.INVISIBLE
+                cartItemsAdapter.setOrders(cartList)
+                calculateSubTotal()
+            }
+        }
+
+        cartViewModel.updateLiveData.observe(this) {
+            if (it != null) {
+                finish()
+            }
         }
     }
 
-    override fun calculateNewSubTotal(value: Double) {
-
-        binding.actionBar.backImg.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
-
-
+    override fun onBackPressed() {
+        cartViewModel.updateDarftOrder(cartList)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun calculateNewSubTotal() {
+        calculateSubTotal()
+    }
 
+    override fun deleteProductFromCart(index: Int) {
+        val obj = cartList[index]
+        cartViewModel.deleteProductFromDraftOrder(obj.id!!)
+        deleteDraftOrderFromList(obj)
+    }
+
+    override fun increaseUpdateInList(index: Int) {
+        var newQuantity = cartList[index].lineItems[0].quantity!!
+        newQuantity++
+        cartList[index].lineItems[0].quantity = (newQuantity)
+    }
+
+    override fun decreaseUpdateInList(index: Int) {
+        var newQuantity = cartList[index].lineItems[0].quantity!!
+        newQuantity--
+        cartList[index].lineItems[0].quantity = (newQuantity)
+    }
+
+    fun deleteDraftOrderFromList(draftOrder: DraftOrder) {
+        cartList.remove(draftOrder)
+        cartItemsAdapter.setOrders(cartList)
+    }
+
+    fun calculateSubTotal(){
+        var subTotal = 0
+        cartList.forEach{ cartItem ->
+            subTotal+= (cartItem.lineItems[0].quantity!!.times(cartItem.lineItems[0].price!!.toInt()))
+        }
+        binding.subTotalValueTx.text = subTotal.toString()
     }
 }
