@@ -27,6 +27,7 @@ import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
 import com.example.mcommerceapp.view.ui.search.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.slider.RangeSlider
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 
 
@@ -109,9 +110,12 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
 
 
     private fun init() {
-        categoryVMFactory = CategoryViewModelFactory(ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
-            RemoteSource(), requireContext
-        ()))
+        categoryVMFactory = CategoryViewModelFactory(
+            ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
+                RemoteSource(), requireContext
+                    ()
+            )
+        )
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
         categoryAdapter = CategoryAdapter(requireContext(), this)
     }
@@ -128,7 +132,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
 
-        val seekBar = view.findViewById<RangeSeekBar<Float>>(R.id.seekBar)
+        val seekBar = view.findViewById<RangeSlider>(R.id.seekBar)
         checkboxT_Shirt = view.findViewById<CheckBox>(R.id.t_shirt_checkbox)
         checkboxAccessories = view.findViewById<CheckBox>(R.id.accessories_checkbox)
         checkboxShoes = view.findViewById<CheckBox>(R.id.shoes_checkbox)
@@ -157,14 +161,21 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             dialog.dismiss()
         }
 
-        seekBar.setRangeValues(1.0F, 2000.0F)
+        seekBar.setValues(1.0f, 2000.0f)
+        seekBar.stepSize = 0f
 
-        seekBar.setOnRangeSeekBarChangeListener { bar, minValue, maxValue ->
+        seekBar.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
+            @SuppressLint("RestrictedApi")
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+            }
 
-            this.minValue = String.format("%.3f", minValue).toDouble()
-            this.maxValue = String.format("%.3f", maxValue).toDouble()
-        }
-        seekBar.isNotifyWhileDragging = true
+            @SuppressLint("RestrictedApi")
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                val values = slider.values
+                this@CategoryTypeFragment.minValue = String.format("%.2f", values[0]).toDouble()
+                this@CategoryTypeFragment.maxValue = String.format("%.2f", values[1]).toDouble()
+            }
+        })
 
         dialog.setCancelable(true)
         dialog.setContentView(view)
@@ -190,9 +201,17 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             }
         }
         if (filterProducts.size > 0) {
-            categoryAdapter.setData(filterProducts, categoryVM.currencySymbol, categoryVM.currencyValue)
+            categoryAdapter.setData(
+                filterProducts,
+                categoryVM.currencySymbol,
+                categoryVM.currencyValue
+            )
         } else {
-            categoryAdapter.setData(this.products, categoryVM.currencySymbol, categoryVM.currencyValue)
+            categoryAdapter.setData(
+                this.products,
+                categoryVM.currencySymbol,
+                categoryVM.currencyValue
+            )
         }
     }
 }
