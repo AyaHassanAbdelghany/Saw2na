@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcommerceapp.model.draft_orders.interfaces.ShoppingCartRepoInterface
+import com.example.mcommerceapp.model.draft_orders_repository.interfaces.ShoppingCartRepoInterface
 import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.GetUserCartRepo
 import com.example.mcommerceapp.pojo.user.User
 import draft_orders.DraftOrder

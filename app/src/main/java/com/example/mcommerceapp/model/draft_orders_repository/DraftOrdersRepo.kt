@@ -1,7 +1,7 @@
 package com.example.mcommerceapp.model.draft_orders_repository
 
 import android.util.Log
-import com.example.mcommerceapp.model.draft_orders.interfaces.ShoppingCartRepoInterface
+import com.example.mcommerceapp.model.draft_orders_repository.interfaces.ShoppingCartRepoInterface
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import draft_orders.DraftOrder
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

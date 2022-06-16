@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.model.draft_orders.interfaces
+package com.example.mcommerceapp.model.draft_orders_repository.interfaces
 
 import draft_orders.DraftOrder
 

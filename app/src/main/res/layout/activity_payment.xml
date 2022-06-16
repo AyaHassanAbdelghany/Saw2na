@@ -15,12 +15,9 @@
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.75"
-        app:layout_constraintHorizontal_bias="0.5"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintWidth_percent="0.9">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -48,7 +45,6 @@
             android:id="@+id/date_tx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7 June,2022"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/date_label"
             app:layout_constraintTop_toBottomOf="@id/date_label" />
@@ -66,7 +62,6 @@
             android:id="@+id/time_tx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="09:00 AM"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/time_label"
             app:layout_constraintTop_toBottomOf="@id/time_label" />
@@ -87,8 +82,7 @@
             android:id="@+id/purchase_description_tx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:text="Some Products Data....... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor"
+            android:maxLines="3"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/purchase_description_label"
             app:layout_constraintTop_toBottomOf="@id/purchase_description_label" />
@@ -120,20 +114,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="1000"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/amount_currency_tx"
             app:layout_constraintTop_toTopOf="@id/amount_currency_tx" />
 
 
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Address"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/amount_value_tx" />
+
+        <TextView
+            android:id="@+id/change_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Change"
+            android:textColor="@color/blue"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/address_label"
+            app:layout_constraintStart_toEndOf="@id/address_label"
+            app:layout_constraintTop_toTopOf="@id/address_label" />
+
+        <TextView
+            android:id="@+id/address_value_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/address_label"
+            app:layout_constraintTop_toBottomOf="@id/address_label" />
+
         <ImageView
             android:id="@+id/status_img"
             android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:scaleType="centerCrop"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/unpaid"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/amount_value_tx" />
+            app:layout_constraintTop_toBottomOf="@id/address_value_tx" />
 
         <include
             android:id="@+id/googlePayButton"
@@ -188,6 +212,7 @@
 
 
         <Button
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

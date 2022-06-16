@@ -19,6 +19,8 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.wallet.PaymentData
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Payment : AppCompatActivity() {
 
@@ -27,16 +29,37 @@ class Payment : AppCompatActivity() {
     private lateinit var layout: ActivityPaymentBinding
     private lateinit var googlePayButton: View
 
+    private var namesList: ArrayList<String> = ArrayList()
+    private var total: Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Use view binding to access the UI elements
         layout = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(layout.root)
 
+        namesList = intent.getStringArrayListExtra("names_list") as ArrayList<String>
+        total = intent.getDoubleExtra("total_value", 0.0)
+
+        val purchaseDetails = StringBuilder()
+        namesList.forEach {
+            purchaseDetails.append("(${it}) , ")
+        }
+
+        layout.purchaseDescriptionTx.text = purchaseDetails
+        layout.amountValueTx.text = total.toString()
+
+        layout.dateTx.text = SimpleDateFormat("d MMMM, yyyy").format(Date())
+        layout.timeTx.text = SimpleDateFormat("hh:mm aa").format(Date())
+
+        layout.addressValueTx.text = "Alexandria, Egypt"
+        layout.changeAddress.setOnClickListener {
+
+        }
+
         // Setup buttons
         googlePayButton = layout.googlePayButton.root
-        googlePayButton.setOnClickListener { requestPayment() }
+        googlePayButton.setOnClickListener { requestPayment(total = total) }
 
         // Check Google Pay availability
         model.canUseGooglePay.observe(this, Observer(::setGooglePayAvailable))
@@ -61,22 +84,23 @@ class Payment : AppCompatActivity() {
         }
     }
 
-    private fun requestPayment() {
+    private fun requestPayment(total: Double) {
 
         // Disables the button to prevent multiple clicks.
         googlePayButton.isClickable = false
 
         // The price provided to the API should include taxes and shipping.
         // This price is not displayed to the user.
-        val dummyPriceCents = 100L
-        val shippingCostCents = 900L
-        val task = model.getLoadPaymentDataTask(dummyPriceCents + shippingCostCents)
+        val task = model.getLoadPaymentDataTask(total)
 
         task.addOnCompleteListener { completedTask ->
             if (completedTask.isSuccessful) {
                 completedTask.result.let(::handlePaymentSuccess)
             } else {
                 layout.statusImg.setImageResource(R.drawable.unpaid)
+                layout.googlePayButton.root.visibility = View.VISIBLE
+                layout.seperatorLineConstraint.visibility = View.VISIBLE
+
                 when (val exception = completedTask.exception) {
                     is ResolvableApiException -> {
                         resolvePaymentForResult.launch(
@@ -142,6 +166,13 @@ class Payment : AppCompatActivity() {
                 getString(R.string.payments_show_name, billingName),
                 Toast.LENGTH_LONG
             ).show()
+
+            layout.googlePayButton.root.visibility = View.INVISIBLE
+            layout.seperatorLineConstraint.visibility = View.INVISIBLE
+            layout.cancel.text = "Back"
+            layout.cancel.setOnClickListener {
+                finish()
+            }
 
             // Logging token string.
             Log.d(

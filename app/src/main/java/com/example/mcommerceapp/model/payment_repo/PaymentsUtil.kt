@@ -228,8 +228,6 @@
 //    .toString()
 
 
-
-
 /*
  * Copyright 2021 Google Inc.
  *
@@ -445,7 +443,7 @@ object PaymentsUtil {
                 put("allowedCountryCodes", JSONArray(listOf("EG")))
             }
             put("shippingAddressParameters", shippingAddressParameters)
-            put("shippingAddressRequired", true)
+            put("shippingAddressRequired", false)
         }
     }
 }

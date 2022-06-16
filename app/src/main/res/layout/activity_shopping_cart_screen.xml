@@ -149,7 +149,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="end"
-                    android:text="3000"
                     app:layout_constraintEnd_toStartOf="@id/sub_total_currency_tx"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.2" />
@@ -191,7 +190,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="end"
-                    android:text="250"
                     app:layout_constraintEnd_toStartOf="@id/discount_currency_tx"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.2" />
@@ -233,7 +231,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="end"
-                    android:text="25"
                     app:layout_constraintEnd_toStartOf="@id/shipping_currency_tx"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.2" />
@@ -282,7 +279,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="end"
-                    android:text="3025"
                     app:layout_constraintEnd_toStartOf="@id/total_currency_tx"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.2" />

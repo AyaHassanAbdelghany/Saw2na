@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.Keys
@@ -19,7 +18,6 @@ import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSour
 import com.example.mcommerceapp.model.room_repository.RoomRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
-import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.products.Variants
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
@@ -29,7 +27,6 @@ import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
 import com.example.mcommerceapp.view.ui.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceapp.view.ui.product_detail.viewmodelfactory.ProductDetailVMFactory
-import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.snackbar.Snackbar
 import draft_orders.DraftOrder
 import draft_orders.LineItems
@@ -86,24 +83,31 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         }
 
         detailVM.favList.observe(this) { favList ->
-            favList?.forEach { id ->
-                if (productDetail.id == id) {
+            isFav = 0
+            for (favId in favList) {
+                Log.e("TAG", "onCreate: ${favId} -- ${id}")
+                if (favId == productDetail.id) {
                     isFav = 1
-                    binding.detailBtn.favImage.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            applicationContext, // Context
-                            R.drawable.ic_baseline_favorite_24_black
-                        )
-                    )
+                    break
                 } else {
                     isFav = 0
-                    binding.detailBtn.favImage.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            applicationContext, // Context
-                            R.drawable.ic_baseline_favorite_border_24
-                        )
-                    )
                 }
+            }
+
+            if (isFav == 1) {
+                binding.detailBtn.favImage.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext, // Context
+                        R.drawable.ic_baseline_favorite_24_black
+                    )
+                )
+            } else if (isFav == 0) {
+                binding.detailBtn.favImage.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        applicationContext, // Context
+                        R.drawable.ic_baseline_favorite_border_24
+                    )
+                )
             }
         }
 
@@ -153,6 +157,12 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
             } else {
                 detailVM.deleteOrder(productDetail.id!!)
+//                binding.detailBtn.favImage.setImageDrawable(
+//                    ContextCompat.getDrawable(
+//                        applicationContext, // Context
+//                        R.drawable.ic_baseline_favorite_border_24
+//                    )
+//                )
             }
         }
 
@@ -164,7 +174,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun updateUI(products: Products) {
         variant = products.variants
         color = variant[0].option2!!

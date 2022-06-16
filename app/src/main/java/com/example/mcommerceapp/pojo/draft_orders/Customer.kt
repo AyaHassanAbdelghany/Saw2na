@@ -3,8 +3,7 @@ package draft_orders
 import com.google.gson.annotations.SerializedName
 
 
-data class Customer (
-
+data class Customer(
   @SerializedName("id"                           ) var id                        : Long?                 = null,
   @SerializedName("email"                        ) var email                     : String?              = null,
   @SerializedName("accepts_marketing"            ) var acceptsMarketing          : Boolean?             = null,

@@ -1,6 +1,5 @@
 package com.example.mcommerceapp.view.ui.product_detail.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +13,9 @@ import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import com.example.mcommerceapp.pojo.products.Products
 import draft_orders.DraftOrder
-import draft_orders.DraftOrders
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.reflect.Array
 
 class ProductDetailVM(
     private val iProducts: ProductDetailRepo,
@@ -61,13 +58,13 @@ class ProductDetailVM(
     }
 
     fun addOrder(order: DraftOrder) {
-        viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             val newOrder = iOrder.createOrder(order)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 if (newOrder.note == Keys.CART) {
                     listCart.add(newOrder.lineItems[0].variantId!!)
                     _cartList.postValue(listCart)
-                }else if(newOrder.note == Keys.FAV){
+                } else if (newOrder.note == Keys.FAV) {
                     listFav.add(newOrder.lineItems[0].productId!!)
                     _favList.postValue(listFav)
                 }
@@ -78,13 +75,15 @@ class ProductDetailVM(
     fun deleteOrder(id: Long) {
         viewModelScope.launch {
             val order = iOrder.getAllOrders(user.userID)
-            order.forEach {
-                if (it.lineItems[0].productId == id) {
-                    Log.d("TEst", it.orderId.toString())
-                    iOrder.deleteOrderByID(it.id!!)
+            withContext(Dispatchers.Main) {
+                order.forEach {
+                    if (it.lineItems[0].productId == id) {
+                        iOrder.deleteOrderByID(it.id!!)
+                        listFav.remove(id)
+                        _favList.postValue(listFav)
+                    }
                 }
             }
-
         }
     }
 
