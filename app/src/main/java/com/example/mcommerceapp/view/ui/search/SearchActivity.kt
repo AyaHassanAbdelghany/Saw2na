@@ -36,24 +36,25 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         init()
-        searchVM.category.observe(this) {
-            for (cat in it) {
-                searchList.add(cat.productType.lowercase())
-                categoryList.add(cat.productType.lowercase())
-            }
-        }
+//        searchVM.category.observe(this) {
+//            for (cat in it) {
+//                searchList.add(cat.productType)
+//                categoryList.add(cat.productType)
+//                Log.d("Search", categoryList.count().toString())
+//            }
+//        }
 
         searchVM.smartCollection.observe(this) {
             for (vendor in it) {
-                vendor.title?.lowercase().let { it1 -> searchList.add(it1!!) }
-                vendor.title?.lowercase().let { it1 -> vendorList.add(it1!!) }
+                vendor.title?.let { it1 -> searchList.add(it1) }
+                vendor.title?.let { it1 -> vendorList.add(it1) }
             }
         }
 
         searchVM.allProducts.observe(this) {
             productList = it
             for (product in it) {
-                searchList.add(product.title?.lowercase()!!)
+                searchList.add(product.title!!)
             }
         }
 
@@ -65,32 +66,34 @@ class SearchActivity : AppCompatActivity() {
             val bundle = Bundle()
             binding.foundTxt.visibility = View.INVISIBLE
             val chooseWord = binding.searchEditTxt.text.toString()
+            Log.d("Search", chooseWord)
             when {
-                categoryList.contains(chooseWord) -> {
-                    bundle.putString("TYPE", Keys.COLLECTION)
-                    bundle.putString("SUB_CATEGORY", chooseWord)
-                    val intent = Intent(this, CategorizedProductActivity::class.java)
-                    intent.putExtra("PRODUCTS", bundle)
-                    startActivity(intent)
-                }
-//                vendorList.contains(chooseWord) -> {
-//                    bundle.putString("TYPE", Keys.VENDOR)
-//                    bundle.putString("VENDOR", chooseWord.toString())
+//                categoryList.contains(chooseWord) -> {
+//                    Log.d("search", "cat")
+//                    bundle.putString("TYPE", Keys.COLLECTION)
+//                    bundle.putString("SUB_CATEGORY", chooseWord)
 //                    val intent = Intent(this, CategorizedProductActivity::class.java)
 //                    intent.putExtra("PRODUCTS", bundle)
 //                    startActivity(intent)
 //                }
-//                else -> {
-//                    for (index in productList) {
-//                        if (index.title?.lowercase() == chooseWord) {
-//                            val intent = Intent(this, ProductDetail::class.java)
-//                            intent.putExtra("PRODUCTS_ID", index.id)
-//                            startActivity(intent)
-//                        }else{
-//                            binding.foundTxt.visibility = View.VISIBLE
-//                        }
-//                    }
-//                }
+                vendorList.contains(chooseWord) -> {
+                    bundle.putString("TYPE", Keys.VENDOR)
+                    bundle.putString("VALUE", chooseWord.toString())
+                    val intent = Intent(this, CategorizedProductActivity::class.java)
+                    intent.putExtra("PRODUCTS", bundle)
+                    startActivity(intent)
+                }
+                else -> {
+                    for (index in productList) {
+                        if (index.title == chooseWord) {
+                            val intent = Intent(this, ProductDetail::class.java)
+                            intent.putExtra("PRODUCTS_ID", index.id.toString())
+                            startActivity(intent)
+                        }else{
+                            binding.foundTxt.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
         }
         binding.cancelTxt.setOnClickListener { finish() }
