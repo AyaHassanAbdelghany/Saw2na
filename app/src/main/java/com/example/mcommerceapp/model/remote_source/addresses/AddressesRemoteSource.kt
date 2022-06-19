@@ -1,9 +1,8 @@
 package com.example.mcommerceapp.model.remote_source.addresses
 
 import android.util.Log
-import com.example.example.Customers
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
-import com.example.mcommerceapp.network.ShopifyService
 import com.example.mcommerceapp.network.addresses.AddressesService
 import com.example.mcommerceapp.pojo.customers.Addresses
 import com.google.gson.Gson
@@ -21,38 +20,32 @@ class AddressesRemoteSource {
 
     suspend fun addNewAddress(id : String,req:RequestBody): Addresses {
         val res = api.addNewAddress(id,req)
-        Log.i("AddressesRemoteSource", "res : $res")
         return gson.fromJson(
-            res.body()!!.get("customer_address") as JsonObject,
+            res.body()!!.get(Keys.CUSTOMER_ADDRESS) as JsonObject,
             object : TypeToken<Addresses>() {}.type
         )
     }
 
     suspend fun updateAddress(customerID:String,addressID :String,req:RequestBody): Addresses {
         val res = api.updateAddress(customerID,addressID,req)
-        Log.i("AddressesRemoteSource", "res : $res")
         return gson.fromJson(
-            res.body()!!.get("customer_address") as JsonObject,
+            res.body()!!.get(Keys.CUSTOMER_ADDRESS) as JsonObject,
             object : TypeToken<Addresses>() {}.type
         )
     }
 
     suspend fun getAddressByCustomerID(customerID:String): ArrayList<Addresses> {
         val res = api.getAddressByCustomerID(customerID)
-        Log.i("AddressesRemoteSource", "res : $res")
         return gson.fromJson(
-            res.body()!!.get("addresses") as JsonArray,
+            res.body()!!.get(Keys.ADDRESS) as JsonArray,
             object : TypeToken<ArrayList<Addresses>>() {}.type
         )
     }
 
     suspend fun setDefaultAddress(customerID:String,addressID :String) {
-        val res = api.setDefaultAddress(customerID,addressID)
-        Log.i("AddressesRemoteSource", "res : $res")
-    }
+        val res = api.setDefaultAddress(customerID,addressID) }
 
     suspend fun deleteAddressByID(customerID:String,addressID :String) {
         val res = api.deleteAddressByID(customerID,addressID)
-        Log.i("AddressesRemoteSource", "res : $res")
     }
 }

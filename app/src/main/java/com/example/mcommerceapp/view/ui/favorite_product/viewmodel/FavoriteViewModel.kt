@@ -34,7 +34,7 @@ class FavoriteViewModel(
     private var _favList = MutableLiveData<ArrayList<DraftOrder>>()
     var favList: LiveData<ArrayList<DraftOrder>> = _favList
 
-    fun getAllFavoriteProducts() {
+    private fun getAllFavoriteProducts() {
         viewModelScope.launch(Dispatchers.IO) {
             val products = iFavRepo.getAllFavoriteProducts()
             withContext(Dispatchers.Main) {

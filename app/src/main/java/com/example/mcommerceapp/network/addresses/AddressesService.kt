@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.network.addresses
 
+import com.example.mcommerceapp.model.Keys
 import com.google.gson.JsonObject
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -8,7 +9,7 @@ import retrofit2.http.*
 interface AddressesService {
 
     @Headers(
-        "X-Shopify-Access-Token: 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",
+        "X-Shopify-Access-Token: ${Keys.ACCESS_TOKEN}",
         "Content-Type: application/json"
     )
     @GET("customers/{resource}/addresses.json")
@@ -18,7 +19,7 @@ interface AddressesService {
 
 
     @Headers(
-        "X-Shopify-Access-Token: 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",
+        "X-Shopify-Access-Token:${Keys.ACCESS_TOKEN}",
         "Content-Type: application/json"
     )
     @POST("customers/{resource}/addresses.json")

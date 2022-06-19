@@ -1,6 +1,6 @@
 package com.example.mcommerceapp.model.remote_source.orders
 
-import android.util.Log
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceapp.network.orders.OrdersService
 import com.google.gson.Gson
@@ -18,30 +18,24 @@ class OrdersRemoteSource {
 
     suspend fun createOrder(req: RequestBody):Order {
         val res = api.createOrder(req)
-        Log.i("OrdersRemoteSource", "\n\n\n\n\ncreateOrder: $res")
-
        return gson.fromJson(
-            res.body()!!.get("order") as JsonObject,
+            res.body()!!.get(Keys.ORDERS) as JsonObject,
             object : TypeToken<Order>() {}.type
         )
     }
 
     suspend fun updateOrder(orderID: String,req: RequestBody):Order {
         val res = api.updateOrder(orderID,req)
-        Log.i("OrdersRemoteSource", "\n\n\n\n\n updateOrder: $res")
-
         return gson.fromJson(
-            res.body()!!.get("order") as JsonObject,
+            res.body()!!.get(Keys.ORDERS) as JsonObject,
             object : TypeToken<Order>() {}.type
         )
     }
 
     suspend fun getAllOrders(userID:String):ArrayList<Order> {
         val res = api.getAllOrders()
-        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetAllOrders: $res")
-
         val resOrders :ArrayList<Order> = gson.fromJson(
-            res.body()!!.get("orders") as JsonArray,
+            res.body()!!.get(Keys.ORDERS) as JsonArray,
             object : TypeToken<ArrayList<Order>>() {}.type
         )
 
@@ -57,16 +51,14 @@ class OrdersRemoteSource {
 
     suspend fun getOrderByID(orderID:String):Order {
         val res = api.getOrderByID(orderID = orderID)
-        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetOrderByID: $res")
         return gson.fromJson(
-            res.body()!!.get("order") as JsonObject,
+            res.body()!!.get(Keys.ORDERS) as JsonObject,
             object : TypeToken<Order>() {}.type
         )
     }
 
     suspend fun deleteOrderByID(orderID:String) {
         val res = api.deleteOrderByID(orderID = orderID)
-        Log.i("OrdersRemoteSource", "\n\n\n\ndeleteOrderByID: $res")
     }
 
 }

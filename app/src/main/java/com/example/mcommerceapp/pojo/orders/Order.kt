@@ -1,5 +1,7 @@
 package orders
 
+import com.example.example.TaxLines
+import com.example.mcommerceapp.pojo.orders.NoteAttributes
 import com.google.gson.annotations.SerializedName
 
 
@@ -42,7 +44,7 @@ data class Order (
   @SerializedName("location_id"                 ) var locationId               : String?                   = null,
   @SerializedName("name"                        ) var name                     : String?                   = null,
   @SerializedName("note"                        ) var note                     : String?                   = null,
-  @SerializedName("note_attributes"             ) var noteAttributes           : ArrayList<String>         = arrayListOf(),
+  @SerializedName("note_attributes"             ) var noteAttributes           : ArrayList<NoteAttributes> = arrayListOf(),
   @SerializedName("number"                      ) var number                   : Int?                      = null,
   @SerializedName("order_number"                ) var orderNumber              : Int?                      = null,
   @SerializedName("order_status_url"            ) var orderStatusUrl           : String?                   = null,
@@ -60,7 +62,7 @@ data class Order (
   @SerializedName("subtotal_price"              ) var subtotalPrice            : String?                   = null,
   @SerializedName("subtotal_price_set"          ) var subtotalPriceSet         : SubtotalPriceSet?         = SubtotalPriceSet(),
   @SerializedName("tags"                        ) var tags                     : String?                   = null,
-  @SerializedName("tax_lines"                   ) var taxLines                 : ArrayList<String>         = arrayListOf(),
+  @SerializedName("tax_lines"                   ) var taxLines                 : ArrayList<TaxLines>         = arrayListOf(),
   @SerializedName("taxes_included"              ) var taxesIncluded            : Boolean?                  = null,
   @SerializedName("test"                        ) var test                     : Boolean?                  = null,
   @SerializedName("token"                       ) var token                    : String?                   = null,

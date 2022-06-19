@@ -107,7 +107,7 @@ class ProductDetailVM(
     }
 
 
-    fun checkForFavouriteProductById(productId: String) {
+    private fun checkForFavouriteProductById(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val value = iFavRepo.checkForFavoriteProductById(productId)
             withContext(Dispatchers.Main) {
