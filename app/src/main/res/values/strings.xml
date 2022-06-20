@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">M Commerce App</string>
+    <string name="app_name">Saw2na</string>
+
+
     <string name="title_home">Home</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -49,7 +51,7 @@
     <string name="brands">Brands</string>
     <string name="catogeries">Catogeries</string>
     <string name="no_found">No Found</string>
-    <string name="recommendation">Recommendation</string>
+    <string name="recommendation">Recommend</string>
 
 
     <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
@@ -87,7 +89,6 @@
     <string name="zip_code">Zip Code</string>
     <string name="addresses">Addresses</string>
     <string name="city">City</string>
-
 
 
 </resources>

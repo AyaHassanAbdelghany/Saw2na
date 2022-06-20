@@ -19,24 +19,46 @@
             android:id="@+id/productImage"
             android:layout_width="130dp"
             android:layout_height="120dp"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/productPriceTxt"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/grey"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/productPriceTxt"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="3"
+                android:gravity="end|bottom"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/productPriceCurrencyTxt"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="start|top"
+                android:lines="1"
+                android:textColor="@color/grey"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/productNameTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@android:color/background_dark"
-            android:textSize="17sp"
             android:lines="2"
+            android:textColor="@android:color/background_dark"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

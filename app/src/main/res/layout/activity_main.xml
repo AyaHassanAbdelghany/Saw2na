@@ -5,29 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <!--    <com.google.android.material.appbar.AppBarLayout-->
-    <!--        android:id="@+id/appbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        >-->
-
-    <!--        <com.google.android.material.appbar.MaterialToolbar-->
-    <!--            android:id="@+id/top_bar"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="?attr/actionBarSize"-->
-    <!--            app:navigationIcon="@drawable/ic_baseline_search_24"-->
-    <!--            app:menu="@menu/app_top_item"-->
-    <!--            app:title="@string/app_name"-->
-    <!--            app:titleTextColor="@color/grey"-->
-    <!--            style="@style/Widget.MaterialComponents.Toolbar.Primary"-->
-    <!--            />-->
-    <!--    </com.google.android.material.appbar.AppBarLayout>-->
-    <!--    -->
+    tools:context=".view.MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

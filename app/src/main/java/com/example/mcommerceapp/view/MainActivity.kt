@@ -1,25 +1,18 @@
-package com.example.mcommerceapp
+package com.example.mcommerceapp.view
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
-import android.widget.ImageView
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityMainBinding
 
-import com.example.mcommerceapp.view.FragmentContainer
 import com.example.mcommerceapp.view.ui.category.CategoryTabLayoutFragment
-import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.more.view.MoreFragment
 import com.example.mcommerceapp.view.ui.profile.view.Profile
-import com.example.mcommerceapp.view.ui.search.SearchActivity
-import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,16 +30,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-//        supportActionBar!!.setDisplayShowCustomEnabled(true)
-//        supportActionBar!!.setCustomView(R.layout.action_bar)
-//        supportActionBar!!.hide()
-
         setCurrentFragment(FragmentContainer())
 
-        binding.navView.setOnItemSelectedListener  {
+        binding.navView.setOnItemSelectedListener {
             onOptionsItemSelected(it)
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.navigation_home -> setCurrentFragment(FragmentContainer())
                 R.id.navigation_profile -> setCurrentFragment(Profile())
                 R.id.navigation_setting -> setCurrentFragment(MoreFragment())
@@ -56,9 +44,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCurrentFragment(fragment:Fragment)=
+    override fun onBackPressed() {
+        when (binding.navView.selectedItemId) {
+            R.id.navigation_home -> finishAffinity()
+            else -> {
+                setCurrentFragment(FragmentContainer())
+                binding.navView.selectedItemId = R.id.navigation_home
+            }
+        }
+    }
+
+    private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.nav_host_fragment_activity_main,fragment)
+            replace(R.id.nav_host_fragment_activity_main, fragment)
             commit()
         }
 

@@ -9,7 +9,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.MainActivity
+import com.example.mcommerceapp.view.MainActivity
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.CategorizedProductScreenBinding
 import com.example.mcommerceapp.model.Keys
@@ -27,7 +27,6 @@ import com.example.mcommerceapp.view.ui.search.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.RangeSlider
-import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 
 class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 

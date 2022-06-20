@@ -31,13 +31,16 @@ class CategoryAdapter  (private var context :Context ,private var listner : OnCl
 
         val currentItem = collectionProducts[position]
         holder.binding.apply {
-            productNameTxt.text = currentItem.title
+            productNameTxt.text = currentItem.title?.split("|")?.get(1)?.trim()
 
             Glide.with(context)
                 .load(currentItem.image?.src)
                 .into(productImage)
 
-            productPriceTxt.text = "${currentItem.variants[0].price?.toDouble()?.times(value)} ${symbol}"
+            productPriceTxt.text =
+                String.format("%.2f", currentItem.variants[0].price?.toDouble()?.times(value))
+
+            productPriceCurrencyTxt.text = "${symbol}"
 
         }
 //        when(currentItem.productType ){
