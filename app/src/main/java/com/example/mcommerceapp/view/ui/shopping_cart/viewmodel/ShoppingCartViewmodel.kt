@@ -48,14 +48,22 @@ class ShoppingCartViewmodel(
 
     fun updateDarftOrder(draftOrders: ArrayList<DraftOrder>) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.e(ShoppingCartViewmodel::class.java.name, draftOrders.size.toString())
-            Log.e("TAG", "updateDarftOrder: ${draftOrders.size}")
             for (draftOrder in draftOrders) {
-                Log.e("TAG2", "updateDarftOrder: ${draftOrder.lineItems[0].quantity}")
                 iCartRepo.updateOrder(draftOrder.id.toString(), draftOrder)
             }
             withContext(Dispatchers.Main) {
                 updateMutableLiveData.postValue(true)
+            }
+        }
+    }
+
+    fun deleteAllOrders(draftOrders: ArrayList<DraftOrder>, userId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            draftOrders.forEach {
+                iCartRepo.deleteOrderByID(it.id!!)
+            }
+            withContext(Dispatchers.Main) {
+                getAllDraftOrders(userId)
             }
         }
     }

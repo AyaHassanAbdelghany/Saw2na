@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">"تسوق معنا "</string>
+    <string name="app_name">سَــــوقنـــا</string>
+
+
     <string name="title_home">الريئسيه</string>
     <string name="title_activity_login">تسجيل</string>
     <string name="prompt_email">البريد الالكتروني</string>

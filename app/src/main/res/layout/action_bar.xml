@@ -12,7 +12,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="10sp"
         android:layout_marginTop="13dp"
-        android:src="@drawable/icon_back_bt"
+        android:src="@drawable/icon_white_back_bt"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

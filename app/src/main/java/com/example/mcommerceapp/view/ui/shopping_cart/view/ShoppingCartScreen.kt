@@ -1,9 +1,12 @@
 package com.example.mcommerceapp.view.ui.shopping_cart.view
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +20,7 @@ import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
@@ -36,7 +40,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     private var cartList: ArrayList<DraftOrder> = ArrayList()
     private var codeList: ArrayList<DiscountCodes> = ArrayList()
+    private var user: User? = null
+
     private lateinit var dialog: BottomSheetDialog
+    private lateinit var loadingDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +52,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
         binding.cartItemsRecyclerView.setHasFixedSize(true)
         // supportActionBar?.hide()
+
+        loadingDialog = Dialog(this)
 
         binding.progressIndicator.visibility = View.VISIBLE
 
@@ -64,7 +73,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 var intent = Intent(this, Payment::class.java)
                 intent.putStringArrayListExtra("names_list", myTitleList)
                 intent.putExtra("total_value", binding.totalValueTx.text.toString().toDouble())
-                startActivity(intent)
+                startActivityForResult(intent, PAY_INTENT_CODE)
             }
         }
 
@@ -80,8 +89,9 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
             class.java]
 
         cartViewModel.getUser().observe(this) {
-            if (it != null) {
-                cartViewModel.getAllDraftOrders(it.userID)
+            user = it
+            if (user != null) {
+                cartViewModel.getAllDraftOrders(user!!.userID)
             } else {
                 print("No User Found")
             }
@@ -90,6 +100,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartViewModel.draftOrderLiveData.observe(this)
         {
             if (it != null) {
+                loadingDialog.dismiss()
                 cartList = it
                 binding.progressIndicator.visibility = View.INVISIBLE
                 cartItemsAdapter.setOrders(cartList)
@@ -100,6 +111,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartViewModel.updateLiveData.observe(this)
         {
             if (it != null) {
+                loadingDialog.dismiss()
                 finish()
             }
         }
@@ -117,12 +129,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
             for (code in codeList) {
                 if (binding.couponEditText.text.toString() == code.code) {
-                    Log.d("codeeee", "True")
                     isCode = true
                     binding.discountValueTx.text = discountLimit.drop(1)
                     break
                 } else {
-                    Log.d("codeeee", "False")
                     binding.couponEditText.error = "Code Wrong"
                 }
             }
@@ -133,7 +143,23 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            PAY_INTENT_CODE -> {
+                val isSuccessful = data?.getBooleanExtra("isSuccessful", false)
+                showLoadingDialog("Creating Order...")
+                if (isSuccessful!!) {
+                    cartViewModel.deleteAllOrders(cartList, user!!.userID)
+                } else {
+                    loadingDialog.dismiss()
+                }
+            }
+        }
+    }
+
     override fun onBackPressed() {
+        showLoadingDialog("Saving...")
         cartViewModel.updateDarftOrder(cartList)
     }
 
@@ -221,5 +247,19 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    private fun showLoadingDialog(string: String) {
+        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        loadingDialog.setCancelable(false)
+
+        loadingDialog.setContentView(R.layout.dialog_wait_to_finish)
+        loadingDialog.findViewById<TextView>(R.id.loading_tx).text = string
+
+        loadingDialog.show()
+    }
+
+    companion object {
+        const val PAY_INTENT_CODE = 144
     }
 }

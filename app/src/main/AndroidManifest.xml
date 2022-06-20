@@ -3,6 +3,8 @@
     package="com.example.mcommerceapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -23,8 +25,9 @@
         <activity
             android:name=".view.ui.search.SearchActivity"
             android:exported="false" />
-        <activity android:name=".view.ui.authentication.signup.view.SignUpActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".view.ui.authentication.signup.view.SignUpActivity"
+            android:exported="false" />
         <activity
             android:name=".view.ui.feature_product.CategorizedProductActivity"
             android:exported="false" />

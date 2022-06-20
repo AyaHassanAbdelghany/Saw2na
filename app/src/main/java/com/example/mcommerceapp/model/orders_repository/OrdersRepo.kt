@@ -9,20 +9,18 @@ import orders.Order
 import org.json.JSONArray
 import org.json.JSONObject
 
-class OrdersRepo private constructor(private val source: OrdersRemoteSource) {
+class OrdersRepo private constructor(private val source: OrdersRemoteSource) : IOrderPayment {
 
     companion object {
-
         private val ordersRepo: OrdersRepo? = null
 
         fun getInstance(remoteSource: OrdersRemoteSource): OrdersRepo {
-
             return ordersRepo ?: OrdersRepo(remoteSource)
         }
     }
 
 
-    suspend fun createOrder(order: Order): Order {
+    override suspend fun createOrder(order: Order): Order {
         return source.createOrder(getRequest(order))
     }
 
@@ -55,11 +53,27 @@ class OrdersRepo private constructor(private val source: OrdersRemoteSource) {
             jsonArray.put(json)
         }
 
+        val shippingAddress = JSONObject()
+        shippingAddress.put("address1", order.shippingAddress?.address1)
+        shippingAddress.put("city", order.shippingAddress?.city)
+        shippingAddress.put("country", order.shippingAddress?.country)
+        shippingAddress.put("zip", order.shippingAddress?.zip)
+
+        val discount_codes = JSONArray()
+        for (code in order.discountCodes) {
+            val discount_code = JSONObject()
+            discount_code.put("code", code.code)
+            discount_code.put("amount", code.amount)
+            discount_code.put("type", code.type)
+
+            discount_codes.put(discount_code)
+        }
+
         val jsonReq = JSONObject()
         jsonReq.put("line_items", jsonArray)
-
         jsonReq.put("email", order.email)
-        jsonReq.put("note", order.note)
+        jsonReq.put("shipping_address", order.shippingAddress)
+        jsonReq.put("discount_codes", discount_codes)
 
         val req = JSONObject()
         req.put("order", jsonReq)

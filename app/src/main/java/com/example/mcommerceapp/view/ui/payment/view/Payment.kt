@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.payment.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,9 +11,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityPaymentBinding
+import com.example.mcommerceapp.model.addresses_repository.AddressesRepo
+import com.example.mcommerceapp.model.orders_repository.OrdersRepo
+import com.example.mcommerceapp.model.remote_source.addresses.AddressesRemoteSource
+import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
+import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.pojo.orders.ShippingAddress
+import com.example.mcommerceapp.pojo.user.User
+import com.example.mcommerceapp.view.ui.addresses.view.AddressesActivity
 import com.example.mcommerceapp.view.ui.payment.viewmodel.CheckoutViewModel
+import com.example.mcommerceapp.view.ui.payment.viewmodel.PaymentViewmodel
+import com.example.mcommerceapp.view.ui.payment.viewmodel.PaymentViewmodelFactory
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.ResolvableApiException
@@ -23,7 +36,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Payment : AppCompatActivity() {
-
     private val model: CheckoutViewModel by viewModels()
 
     private lateinit var layout: ActivityPaymentBinding
@@ -31,6 +43,14 @@ class Payment : AppCompatActivity() {
 
     private var namesList: ArrayList<String> = ArrayList()
     private var total: Double = 0.0
+
+    private var isSuccessful = false
+
+    private lateinit var paymentViewmodel: PaymentViewmodel
+    private lateinit var paymentViewmodelFactory: PaymentViewmodelFactory
+
+    private lateinit var user: User
+    private lateinit var shippingAddress: ShippingAddress
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +72,8 @@ class Payment : AppCompatActivity() {
         layout.dateTx.text = SimpleDateFormat("d MMMM, yyyy").format(Date())
         layout.timeTx.text = SimpleDateFormat("hh:mm aa").format(Date())
 
-        layout.addressValueTx.text = "Alexandria, Egypt"
         layout.changeAddress.setOnClickListener {
-
+            startActivity(Intent(this, AddressesActivity::class.java))
         }
 
         // Setup buttons
@@ -63,6 +82,33 @@ class Payment : AppCompatActivity() {
 
         // Check Google Pay availability
         model.canUseGooglePay.observe(this, Observer(::setGooglePayAvailable))
+
+        paymentViewmodelFactory = PaymentViewmodelFactory(
+            OrdersRepo.getInstance(OrdersRemoteSource()),
+            AddressesRepo.getInstance(AddressesRemoteSource()),
+            UserRepo.getInstance(this)
+        )
+
+        paymentViewmodel =
+            ViewModelProvider(this, paymentViewmodelFactory)[PaymentViewmodel::class.java]
+
+        paymentViewmodel.getUser().observe(this) {
+            user = it
+            if (it != null) {
+                paymentViewmodel.getAddress(user)
+            }
+        }
+
+        paymentViewmodel.addresses.observe(this) {
+            shippingAddress = ShippingAddress(
+                address1 = it.address1,
+                city = it.city,
+                country = it.country,
+                zip = it.zip
+            )
+            layout.addressValueTx.text =
+                "${shippingAddress.address1}, ${shippingAddress.city}, ${shippingAddress.country}"
+        }
     }
 
     /**
@@ -170,7 +216,13 @@ class Payment : AppCompatActivity() {
             layout.googlePayButton.root.visibility = View.INVISIBLE
             layout.seperatorLineConstraint.visibility = View.INVISIBLE
             layout.cancel.text = "Back"
+
+            isSuccessful = true
+
             layout.cancel.setOnClickListener {
+                val newIntent = Intent()
+                newIntent.putExtra("isSuccessful", isSuccessful)
+                setResult(ShoppingCartScreen.PAY_INTENT_CODE, newIntent)
                 finish()
             }
 
