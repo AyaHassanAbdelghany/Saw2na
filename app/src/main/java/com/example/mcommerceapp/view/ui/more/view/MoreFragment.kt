@@ -3,6 +3,7 @@ package com.example.mcommerceapp.view.ui.more.view
 import android.R
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
@@ -57,6 +58,11 @@ class MoreFragment : Fragment() {
             Toast.makeText(requireContext(), "Signed Out Successfully", Toast.LENGTH_SHORT).show()
 
         }
+        var sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("user", 0)
+        val lang = sharedPreferences.getString("lan", "en")
+        sharedPreferences = requireContext().getSharedPreferences("currency", 0)
+        val cur = sharedPreferences.getString("symbol","EGP")
+
 
         var currencyAdapter: ArrayAdapter<String> =
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, currencyArray)
@@ -66,6 +72,7 @@ class MoreFragment : Fragment() {
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, languagesArray)
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
+        languageSpinner.setSelection(languagesArray.indexOf(lang))
 
         binding.saveSettingsButton.setOnClickListener {
             val currency = currencyArray[currencySpinner.selectedItemPosition]
@@ -100,6 +107,7 @@ class MoreFragment : Fragment() {
             )
             currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             currencySpinner.adapter = currencyAdapter
+            currencySpinner.setSelection(this.currencyArray.indexOf(cur))
 
         }
 
