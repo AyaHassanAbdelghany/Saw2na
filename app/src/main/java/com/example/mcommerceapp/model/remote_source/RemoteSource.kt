@@ -1,13 +1,12 @@
 package com.example.mcommerceapp.model.remote_source
 
-import android.util.Log
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.interfaces.ICurrencyRemoteSource
 import com.example.mcommerceapp.model.remote_source.interfaces.IRemoteSource
+import com.example.mcommerceapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceapp.network.currency.CurrencyService
 import com.example.mcommerceapp.network.currency.ICurrencyService
-import com.example.mcommerceapp.network.ShopifyRetrofitHelper
-import com.example.mcommerceapp.network.ShopifyService
+import com.example.mcommerceapp.network.product.ShopifyService
 import com.example.mcommerceapp.pojo.currency.CurrencyConversion
 import com.example.mcommerceapp.pojo.currency.CurrencySymbols
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
@@ -30,56 +29,60 @@ class RemoteSource : IRemoteSource, ICurrencyRemoteSource {
 
 
     override suspend fun getAllProducts(): ArrayList<Products> {
-        val res = api.getAllProducts(Keys.PRODUCTS)
+        val res = api.getAllProducts(Keys.PRODUCTS_URL)
         return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
+            res.body()!!.get(Keys.PRODUCTS) as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
+
     override suspend fun getProductsCollection(collectionId: String): ArrayList<Products> {
-        val res = api.getProductsCollection(Keys.PRODUCTS,collectionId)
+        val res = api.getProductsCollection(Keys.PRODUCTS_URL, collectionId)
         return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
+            res.body()!!.get(Keys.PRODUCTS) as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
+
     override suspend fun getProductsVendor(vendor: String): ArrayList<Products> {
-        val res = api.getProductsVendor(Keys.PRODUCTS,vendor)
+        val res = api.getProductsVendor(Keys.PRODUCTS_URL, vendor)
         return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
+            res.body()!!.get(Keys.PRODUCTS) as JsonArray,
             object : TypeToken<ArrayList<Products>>() {}.type
         )
     }
+
     override suspend fun getSmartCollections(): HashSet<SmartCollections> {
-        val res = api.getAllProducts(Keys.SMART_COLLECTIONS)
+        val res = api.getAllProducts(Keys.SMART_COLLECTIONS_URL)
         return gson.fromJson(
-            res.body()!!.get("smart_collections") as JsonArray,
+            res.body()!!.get(Keys.SMART_COLLECTIONS) as JsonArray,
             object : TypeToken<HashSet<SmartCollections>>() {}.type
         )
     }
+
     override suspend fun getSubCollections(fields: String): HashSet<ProductFields> {
-        val res = api.getSubCollection(Keys.PRODUCTS, fields)
+        val res = api.getSubCollection(Keys.PRODUCTS_URL, fields)
         return gson.fromJson(
-            res.body()!!.get("products") as JsonArray,
+            res.body()!!.get(Keys.PRODUCTS) as JsonArray,
             object : TypeToken<HashSet<ProductFields>>() {}.type
         )
     }
+
     override suspend fun getCollectionId(id: String): ArrayList<CustomCollections> {
-        val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS,id)
+        val res = api.getCollectionId(Keys.CUSTOM_COLLECTIONS_URL, id)
         return gson.fromJson(
-            res.body()!!.get("custom_collections") as JsonArray,
+            res.body()!!.get(Keys.CUSTOM_COLLECTIONS) as JsonArray,
             object : TypeToken<ArrayList<CustomCollections>>() {}.type
         )
     }
-    override suspend fun getProductDetail(id: String): Products{
-        val res = api.getAllProducts("products${"/$id"}.json")
+
+    override suspend fun getProductDetail(id: String): Products {
+        val res = api.getAllProducts("${Keys.PRODUCTS}/${id}${Keys.JSON_Extension}")
         return gson.fromJson(
-            res.body()!!.get("product") as JsonObject,
+            res.body()!!.get(Keys.PRODUCT) as JsonObject,
             object : TypeToken<Products>() {}.type
         )
     }
-
-
 
 
     private inline fun <reified T> parsingJsonToObject(jsonObject: JsonArray): T {

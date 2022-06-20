@@ -23,6 +23,8 @@
         <activity
             android:name=".view.ui.search.SearchActivity"
             android:exported="false" />
+        <activity android:name=".view.ui.authentication.signup.view.SignUpActivity"
+            android:exported="false"/>
         <activity
             android:name=".view.ui.feature_product.CategorizedProductActivity"
             android:exported="false" />

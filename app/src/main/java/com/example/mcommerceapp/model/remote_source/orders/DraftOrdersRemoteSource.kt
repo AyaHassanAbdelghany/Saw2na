@@ -1,6 +1,7 @@
 package com.example.mcommerceapp.model.remote_source.orders
 
 import android.util.Log
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceapp.network.orders.DraftOrdersService
 import com.google.gson.Gson
@@ -45,7 +46,7 @@ class DraftOrdersRemoteSource private constructor() {
 
     suspend fun getAllOrders(userID: String): ArrayList<DraftOrder> {
         val res = api.getAllDraftOrders()
-        Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ngetAllOrders: $res")
+        Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ngetAllOrders: ${userID} -- ${res.body()}")
 
         val resOrders: ArrayList<DraftOrder> = gson.fromJson(
             res.body()!!.get("draft_orders") as JsonArray,
@@ -71,7 +72,7 @@ class DraftOrdersRemoteSource private constructor() {
         Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ngetOrderByID: $res")
 
         return gson.fromJson(
-            res.body()!!.get("draft_order") as JsonObject,
+            res.body()!!.get(Keys.DraftORDER) as JsonObject,
             object : TypeToken<DraftOrder>() {}.type
         )
     }

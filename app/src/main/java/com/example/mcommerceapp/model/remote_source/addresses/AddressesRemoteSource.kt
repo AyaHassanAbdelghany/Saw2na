@@ -3,7 +3,6 @@ package com.example.mcommerceapp.model.remote_source.addresses
 import android.util.Log
 import com.example.example.Customers
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
-import com.example.mcommerceapp.network.ShopifyService
 import com.example.mcommerceapp.network.addresses.AddressesService
 import com.example.mcommerceapp.pojo.customers.Addresses
 import com.google.gson.Gson

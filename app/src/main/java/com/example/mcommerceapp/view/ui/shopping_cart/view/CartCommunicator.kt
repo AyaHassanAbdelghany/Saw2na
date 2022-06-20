@@ -5,4 +5,5 @@ interface CartCommunicator {
     fun deleteProductFromCart(index: Int)
     fun increaseUpdateInList(index: Int)
     fun decreaseUpdateInList(index: Int)
+    fun onClick(code: String, limit: String)
 }
