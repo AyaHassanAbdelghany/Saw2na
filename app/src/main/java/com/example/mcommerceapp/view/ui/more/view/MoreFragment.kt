@@ -97,8 +97,6 @@ class MoreFragment : Fragment() {
 
         viewModel.symbols.observe(viewLifecycleOwner) {
 
-            Log.e("TAG", "observe : ")
-
             this.currencyArray = it.symbols.keys.toList()
             currencyAdapter = ArrayAdapter<String>(
                 this@MoreFragment.requireContext(),

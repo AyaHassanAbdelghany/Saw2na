@@ -23,8 +23,6 @@ class HomeViewModel(private var iCollections: CollectionsRepo, private var iProd
     private val _allProducts: MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
     var allProducts: LiveData<ArrayList<Products>> = _allProducts
 
-    val currencySymbol = iCurrency.getCurrencySymbol()
-    val currencyValue = iCurrency.getCurrencyValue()
 
     fun getProduct() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -33,4 +31,13 @@ class HomeViewModel(private var iCollections: CollectionsRepo, private var iProd
             iProducts.getAllProducts()
         }
     }
+
+    fun getCurrencySymbol():String{
+        return iCurrency.getCurrencySymbol()
+    }
+
+    fun getCurrencyValue():Double{
+        return iCurrency.getCurrencyValue()
+    }
+
 }
