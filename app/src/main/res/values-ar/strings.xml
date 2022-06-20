@@ -72,5 +72,6 @@
     <string name="addresses">Addresses</string>
     <string name="notify_me">Notify Me</string>
     <string name="city">City</string>
+    <string name="searching_for_network_connection">Searching for network connection</string>
 
 </resources>

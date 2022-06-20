@@ -104,4 +104,8 @@ dependencies {
     //range
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
     //implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
+
+    //Animated GIF
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+
 }

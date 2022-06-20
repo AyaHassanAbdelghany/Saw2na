@@ -3,10 +3,12 @@ package com.example.mcommerceapp.view
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityMainBinding
 
@@ -42,6 +44,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        val connectivityManager = getSystemService(ConnectivityManager::class.java) as ConnectivityManager
+        connectivityManager.requestNetwork(
+            MyConnectivityManager.networkRequest,
+            MyConnectivityManager.networkCallback
+        )
     }
 
     override fun onBackPressed() {

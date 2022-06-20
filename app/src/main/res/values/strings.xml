@@ -89,6 +89,7 @@
     <string name="zip_code">Zip Code</string>
     <string name="addresses">Addresses</string>
     <string name="city">City</string>
+    <string name="searching_for_network_connection">Searching for network connection</string>
 
 
 </resources>
