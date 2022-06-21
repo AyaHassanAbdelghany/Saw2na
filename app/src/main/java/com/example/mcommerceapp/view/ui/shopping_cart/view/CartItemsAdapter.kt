@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
@@ -47,6 +48,8 @@ class CartItemsAdapter(
 
         if (quantity == 1) {
             holder.minusBt.visibility = View.INVISIBLE
+        } else if (quantity == 6) {
+            holder.plusBt.visibility = View.INVISIBLE
         }
 
         holder.minusBt.setOnClickListener {
@@ -59,17 +62,28 @@ class CartItemsAdapter(
                 holder.value.text = String.format("%.2f", price * quantity)
                 holder.minusBt.visibility = View.INVISIBLE
             } else {
+                holder.plusBt.visibility = View.VISIBLE
                 holder.countTx.text = (quantity).toString()
                 holder.value.text = String.format("%.2f", price * quantity)
             }
         }
 
         holder.plusBt.setOnClickListener {
-            holder.minusBt.visibility = View.VISIBLE
-            quantity++
-            holder.countTx.text = (quantity).toString()
-            holder.value.text = String.format("%.2f", price * quantity)
-            communicator.increaseUpdateInList(position)
+            if (quantity <= 5) {
+                quantity++
+                communicator.increaseUpdateInList(position)
+            }
+
+            if (quantity == 6) {
+                holder.plusBt.visibility = View.INVISIBLE
+                holder.countTx.text = (quantity).toString()
+                holder.value.text = String.format("%.2f", price * quantity)
+                Toast.makeText(myContext, "max quantity in one order", Toast.LENGTH_SHORT).show()
+            } else {
+                holder.minusBt.visibility = View.VISIBLE
+                holder.countTx.text = (quantity).toString()
+                holder.value.text = String.format("%.2f", price * quantity)
+            }
         }
 
         holder.deleteBt.setOnClickListener {

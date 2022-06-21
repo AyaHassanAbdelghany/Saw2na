@@ -85,13 +85,16 @@ class ShoppingCartViewmodel(
             Log.d("priceRuleAct", priceRules.size.toString())
 
             priceRules.forEach { rules ->
-                end = SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().time)
+//                end = SimpleDateFormat("dd-MM-yyyy").format(rules.endsAt)
                 println("Testing: ${rules.startsAt}")
-                val check = checkCurrentTimeIsBetweenGivenString(formatDate(rules.startsAt!!), end)
+                val check = checkCurrentTimeIsBetweenGivenString(formatDate(rules.startsAt!!), formatDate(rules.endsAt!!))
                 Log.d("Testing", check.toString())
+
                 if (check) {
                     val discount = iCouponsRepo.getAllDiscountCode(rules.id.toString())
+                    Log.d("TestingDiscount", discount.toString())
                     discount.forEach {
+                        println("code: ${it.code}")
                         it.createdAt = rules.value
                         discountList.add(it)
                     }

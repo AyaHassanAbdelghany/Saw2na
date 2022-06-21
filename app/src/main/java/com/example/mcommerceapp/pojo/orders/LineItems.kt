@@ -1,5 +1,6 @@
 package orders
 
+import com.example.mcommerceapp.pojo.orders.DiscountAllocations
 import com.google.gson.annotations.SerializedName
 
 
@@ -31,6 +32,6 @@ data class LineItems (
   @SerializedName("vendor"                       ) var vendor                     : String?           = null,
   @SerializedName("tax_lines"                    ) var taxLines                   : ArrayList<String> = arrayListOf(),
   @SerializedName("duties"                       ) var duties                     : ArrayList<String> = arrayListOf(),
-  @SerializedName("discount_allocations"         ) var discountAllocations        : ArrayList<String> = arrayListOf()
+  @SerializedName("discount_allocations"         ) var discountAllocations        : ArrayList<DiscountAllocations> = arrayListOf()
 
 )

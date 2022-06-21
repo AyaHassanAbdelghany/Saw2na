@@ -1,6 +1,7 @@
 package draft_orders
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class DefaultAddress (
@@ -23,4 +24,4 @@ data class DefaultAddress (
   @SerializedName("country_name"  ) var countryName  : String?  = null,
   @SerializedName("default"       ) var default      : Boolean? = null
 
-)
+): Serializable

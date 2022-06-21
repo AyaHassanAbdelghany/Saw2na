@@ -1,6 +1,7 @@
 package draft_orders
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class SmsMarketingConsent (
@@ -10,4 +11,4 @@ data class SmsMarketingConsent (
   @SerializedName("consent_updated_at"     ) var consentUpdatedAt     : String? = null,
   @SerializedName("consent_collected_from" ) var consentCollectedFrom : String? = null
 
-)
+): Serializable

@@ -1,5 +1,6 @@
 package orders
 
+import com.example.mcommerceapp.pojo.orders.DiscountApplications
 import com.example.mcommerceapp.pojo.orders.DiscountCodes
 import com.example.mcommerceapp.pojo.orders.ShippingAddress
 import com.google.gson.annotations.SerializedName
@@ -34,6 +35,7 @@ data class Order(
     @SerializedName("customer_locale") var customerLocale: String? = null,
     @SerializedName("device_id") var deviceId: String? = null,
     @SerializedName("discount_codes") var discountCodes: ArrayList<DiscountCodes> = arrayListOf(),
+    @SerializedName("discount_applications") var discountApplications: ArrayList<DiscountApplications> = arrayListOf(),
     @SerializedName("email") var email: String? = null,
     @SerializedName("estimated_taxes") var estimatedTaxes: Boolean? = null,
     @SerializedName("financial_status") var financialStatus: String? = null,
@@ -82,7 +84,6 @@ data class Order(
     @SerializedName("updated_at") var updatedAt: String? = null,
     @SerializedName("user_id") var userId: String? = null,
     @SerializedName("customer") var customer: Customer? = Customer(),
-    @SerializedName("discount_applications") var discountApplications: ArrayList<String> = arrayListOf(),
     @SerializedName("fulfillments") var fulfillments: ArrayList<String> = arrayListOf(),
     @SerializedName("line_items") var lineItems: ArrayList<LineItems> = arrayListOf(),
     @SerializedName("payment_terms") var paymentTerms: String? = null,

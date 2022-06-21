@@ -47,7 +47,7 @@ class PaymentViewmodel(
         draftOrders: ArrayList<DraftOrder>,
         shippingAddress: ShippingAddress,
         user: User,
-        discountCodes: DiscountCodes
+        discountCodes: ArrayList<DiscountCodes>
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val order = makeOrder(draftOrders, shippingAddress, user, discountCodes)
@@ -59,18 +59,24 @@ class PaymentViewmodel(
         draftOrders: ArrayList<DraftOrder>,
         shippingAddress: ShippingAddress,
         user: User,
-        discountCodes: DiscountCodes
+        discountCodes: ArrayList<DiscountCodes>
     ): Order {
         var orders = Order()
         orders.shippingAddress = shippingAddress
         orders.email = user.email
-        orders.discountCodes.add(
-            DiscountCodes(
-                code = discountCodes.code,
-                amount = discountCodes.amount,
-                type = discountCodes.type
-            )
-        )
+
+        if (discountCodes.size > 0) {
+            discountCodes.forEach {
+                orders.discountCodes.add(
+                    DiscountCodes(
+                        code = it?.code,
+                        amount = it?.amount,
+                        type = it?.type
+                    )
+                )
+            }
+        }
+
         for (draftOrder in draftOrders) {
             orders.lineItems.add(
                 LineItems(

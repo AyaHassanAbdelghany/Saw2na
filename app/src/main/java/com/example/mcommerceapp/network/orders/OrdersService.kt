@@ -18,7 +18,7 @@ interface OrdersService {
     ): Response<JsonObject>
 
     @Headers(
-        "X-Shopify-Access-Token:  ${Keys.ACCESS_TOKEN}5",
+        "X-Shopify-Access-Token:  ${Keys.ACCESS_TOKEN}",
         "Content-Type: application/json"
     )
     @GET("orders.json")

@@ -1,6 +1,7 @@
 package draft_orders
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class LineItems (
@@ -27,4 +28,4 @@ data class LineItems (
   @SerializedName("admin_graphql_api_id" ) var adminGraphqlApiId  : String?             = null
 
 
-)
+): Serializable

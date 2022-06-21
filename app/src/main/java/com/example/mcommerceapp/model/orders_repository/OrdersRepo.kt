@@ -59,21 +59,21 @@ class OrdersRepo private constructor(private val source: OrdersRemoteSource) : I
         shippingAddress.put("country", order.shippingAddress?.country)
         shippingAddress.put("zip", order.shippingAddress?.zip)
 
-        val discount_codes = JSONArray()
+        val discountCodes = JSONArray()
         for (code in order.discountCodes) {
-            val discount_code = JSONObject()
-            discount_code.put("code", code.code)
-            discount_code.put("amount", code.amount)
-            discount_code.put("type", code.type)
+            val discountCode = JSONObject()
+            discountCode.put("code", code.code)
+            discountCode.put("amount", code.amount)
+            discountCode.put("type", code.type)
 
-            discount_codes.put(discount_code)
+            discountCodes.put(discountCode)
         }
 
         val jsonReq = JSONObject()
         jsonReq.put("line_items", jsonArray)
         jsonReq.put("email", order.email)
-        jsonReq.put("shipping_address", order.shippingAddress)
-        jsonReq.put("discount_codes", discount_codes)
+        jsonReq.put("shipping_address", shippingAddress)
+        jsonReq.put("discount_codes", discountCodes)
 
         val req = JSONObject()
         req.put("order", jsonReq)

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +72,11 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 var intent = Intent(this, Payment::class.java)
                 intent.putStringArrayListExtra("names_list", myTitleList)
                 intent.putExtra("total_value", binding.totalValueTx.text.toString().toDouble())
+                if (binding.discountValueTx.text != "0.0") {
+                    intent.putExtra("coupon_code", binding.couponEditText.text.toString())
+                    intent.putExtra("coupon_amount", binding.discountValueTx.text.toString())
+                }
+                intent.putExtra("cart_list", cartList)
                 startActivityForResult(intent, PAY_INTENT_CODE)
             }
         }
@@ -101,6 +105,9 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         {
             if (it != null) {
                 loadingDialog.dismiss()
+                if (it.size > 0) {
+                    binding.shippingValueTx.text = "30.0"
+                }
                 cartList = it
                 binding.progressIndicator.visibility = View.INVISIBLE
                 cartItemsAdapter.setOrders(cartList)
@@ -131,6 +138,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 if (binding.couponEditText.text.toString() == code.code) {
                     isCode = true
                     binding.discountValueTx.text = discountLimit.drop(1)
+                    calculateTotalAmountOfMoney()
+                    binding.couponEditText.isEnabled = false
                     break
                 } else {
                     binding.couponEditText.error = "Code Wrong"
@@ -141,6 +150,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 binding.couponEditText.error = "Code Wrong"
             }
         }
+        binding.subTotalValueTx.text = "0.0"
+        binding.discountValueTx.text = "0.0"
+        binding.shippingValueTx.text = "0.0"
+        binding.totalValueTx.text = "0.0"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -154,6 +167,9 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 } else {
                     loadingDialog.dismiss()
                 }
+                binding.shippingValueTx.text = "0.0"
+                binding.discountValueTx.text = "0.0"
+                binding.couponEditText.setText("")
             }
         }
     }
@@ -197,15 +213,20 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private fun deleteDraftOrderFromList(draftOrder: DraftOrder) {
         cartList.remove(draftOrder)
         cartItemsAdapter.setOrders(cartList)
+        if (cartList.size == 0) {
+            binding.shippingValueTx.text = "0.0"
+        }
         calculateTotalAmountOfMoney()
     }
 
     private fun calculateTotalAmountOfMoney() {
         val subTotal = calculateSubTotal()
-        val total = calculateTotal(subTotal, 0.0, 0.0)
         binding.subTotalValueTx.text = subTotal.toString()
-        binding.discountValueTx.text = "0.0"
-        binding.shippingValueTx.text = "0.0"
+        val total = calculateTotal(
+            subTotal,
+            binding.discountValueTx.text.toString().toDouble(),
+            binding.shippingValueTx.text.toString().toDouble()
+        )
         binding.totalValueTx.text = total.toString()
     }
 
@@ -219,7 +240,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     }
 
     private fun calculateTotal(subTotal: Double, discount: Double, shipping: Double): Double {
-        return (subTotal + discount + shipping)
+        return (subTotal - discount + shipping)
     }
 
     private fun retrieveProductsTitle(list: ArrayList<DraftOrder>): ArrayList<String> {
@@ -250,7 +271,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     }
 
     private fun showLoadingDialog(string: String) {
-        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         loadingDialog.setCancelable(false)
 
         loadingDialog.setContentView(R.layout.dialog_wait_to_finish)

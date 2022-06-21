@@ -38,7 +38,7 @@ class OrdersRemoteSource {
 
     suspend fun getAllOrders(userID:String):ArrayList<Order> {
         val res = api.getAllOrders()
-        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetAllOrders: $res")
+        Log.i("OrdersRemoteSource", "\n\n\n\n\ngetAllOrders: ${res.body()}")
 
         val resOrders :ArrayList<Order> = gson.fromJson(
             res.body()!!.get("orders") as JsonArray,

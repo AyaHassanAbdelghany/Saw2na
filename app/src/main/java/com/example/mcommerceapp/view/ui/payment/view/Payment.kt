@@ -19,6 +19,7 @@ import com.example.mcommerceapp.model.orders_repository.OrdersRepo
 import com.example.mcommerceapp.model.remote_source.addresses.AddressesRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.pojo.orders.DiscountCodes
 import com.example.mcommerceapp.pojo.orders.ShippingAddress
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.addresses.view.AddressesActivity
@@ -30,6 +31,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.wallet.PaymentData
+import draft_orders.DraftOrder
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -43,6 +45,8 @@ class Payment : AppCompatActivity() {
 
     private var namesList: ArrayList<String> = ArrayList()
     private var total: Double = 0.0
+    private var couponAmount = ""
+    private var couponCode: String = ""
 
     private var isSuccessful = false
 
@@ -51,6 +55,9 @@ class Payment : AppCompatActivity() {
 
     private lateinit var user: User
     private lateinit var shippingAddress: ShippingAddress
+    private var discountCodes = DiscountCodes()
+    private var discountCodesList: ArrayList<DiscountCodes> = ArrayList()
+    private var cartList: ArrayList<DraftOrder> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +67,19 @@ class Payment : AppCompatActivity() {
 
         namesList = intent.getStringArrayListExtra("names_list") as ArrayList<String>
         total = intent.getDoubleExtra("total_value", 0.0)
+        couponCode = intent.getStringExtra("coupon_code") ?: ""
+        couponAmount = intent.getStringExtra("coupon_amount") ?: ""
+        cartList = intent.getSerializableExtra("cart_list") as ArrayList<DraftOrder>
+
+        if (couponCode.isNotEmpty() && couponAmount.isNotEmpty()) {
+            discountCodes.type = "fixed_amount"
+            discountCodes.amount = couponAmount
+            discountCodes.code = couponCode
+
+            discountCodesList.add(discountCodes)
+        }
+
+        Log.e("TAG", "onCreate: Marwan ${discountCodesList.size}")
 
         val purchaseDetails = StringBuilder()
         namesList.forEach {
@@ -74,6 +94,13 @@ class Payment : AppCompatActivity() {
 
         layout.changeAddress.setOnClickListener {
             startActivity(Intent(this, AddressesActivity::class.java))
+        }
+
+        layout.cancel.setOnClickListener {
+            val newIntent = Intent()
+            newIntent.putExtra("isSuccessful", isSuccessful)
+            setResult(ShoppingCartScreen.PAY_INTENT_CODE, newIntent)
+            finish()
         }
 
         // Setup buttons
@@ -219,12 +246,12 @@ class Payment : AppCompatActivity() {
 
             isSuccessful = true
 
-            layout.cancel.setOnClickListener {
-                val newIntent = Intent()
-                newIntent.putExtra("isSuccessful", isSuccessful)
-                setResult(ShoppingCartScreen.PAY_INTENT_CODE, newIntent)
-                finish()
-            }
+            paymentViewmodel.createOrder(
+                draftOrders = cartList,
+                shippingAddress = shippingAddress,
+                user = user,
+                discountCodesList
+            )
 
             // Logging token string.
             Log.d(
