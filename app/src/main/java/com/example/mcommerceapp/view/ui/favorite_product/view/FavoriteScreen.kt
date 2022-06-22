@@ -63,7 +63,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
         binding.favItemsRecyclerView.adapter = favoriteItemsAdapter
 
         favoriteViewModel.favList.observe(this){
-            favoriteItemsAdapter.setFavoriteProducts(it)
+            favoriteItemsAdapter.setFavoriteProducts(it, favoriteViewModel.symbol, favoriteViewModel.value)
         }
 
         binding.favItemsRecyclerView.setHasFixedSize(true)
@@ -78,6 +78,6 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
        // favoriteViewModel.deleteFavoriteProduct(product)
         favoriteViewModel.deleteOrder(product.lineItems[0].productId!!)
         favProductsList.remove(product)
-        favoriteItemsAdapter.setFavoriteProducts(favProductsList)
+        favoriteItemsAdapter.setFavoriteProducts(favProductsList, favoriteViewModel.symbol, favoriteViewModel.value)
     }
 }

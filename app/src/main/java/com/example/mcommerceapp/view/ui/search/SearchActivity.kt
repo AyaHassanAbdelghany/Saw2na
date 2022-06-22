@@ -25,24 +25,16 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchVM: SearchViewModel
     private lateinit var searchVMFactory: SearchViewModelFactory
     private var searchList: ArrayList<String> = arrayListOf()
-    private var categoryList: MutableList<String> = mutableListOf()
-    private var vendorList: MutableList<String> = mutableListOf()
-    private var productList: MutableList<Products> = mutableListOf()
+    private var vendorList: ArrayList<String> = arrayListOf()
+    private var productList: ArrayList<Products> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.foundTxt.visibility = View.INVISIBLE
         init()
-//        searchVM.category.observe(this) {
-//            for (cat in it) {
-//                searchList.add(cat.productType)
-//                categoryList.add(cat.productType)
-//                Log.d("Search", categoryList.count().toString())
-//            }
-//        }
 
         searchVM.smartCollection.observe(this) {
             for (vendor in it) {
@@ -64,24 +56,16 @@ class SearchActivity : AppCompatActivity() {
         binding.searchEditTxt.setAdapter(adapter)
         binding.searchIcon.setOnClickListener {
             val bundle = Bundle()
-            binding.foundTxt.visibility = View.INVISIBLE
             val chooseWord = binding.searchEditTxt.text.toString()
             Log.d("Search", chooseWord)
             when {
-//                categoryList.contains(chooseWord) -> {
-//                    Log.d("search", "cat")
-//                    bundle.putString("TYPE", Keys.COLLECTION)
-//                    bundle.putString("SUB_CATEGORY", chooseWord)
-//                    val intent = Intent(this, CategorizedProductActivity::class.java)
-//                    intent.putExtra("PRODUCTS", bundle)
-//                    startActivity(intent)
-//                }
                 vendorList.contains(chooseWord) -> {
                     bundle.putString("TYPE", Keys.VENDOR)
                     bundle.putString("VALUE", chooseWord.toString())
                     val intent = Intent(this, CategorizedProductActivity::class.java)
                     intent.putExtra("PRODUCTS", bundle)
                     startActivity(intent)
+                    finish()
                 }
                 else -> {
                     for (index in productList) {
@@ -93,6 +77,7 @@ class SearchActivity : AppCompatActivity() {
                             binding.foundTxt.visibility = View.VISIBLE
                         }
                     }
+                    finish()
                 }
             }
         }

@@ -90,6 +90,7 @@
     <string name="get_coupon">get coupon?</string>
     <string name="validate">Validate</string>
     <string name="enter_coupon">Enter Coupon</string>
+    <string name="search_by_name">Search by name</string>
 
 
 </resources>

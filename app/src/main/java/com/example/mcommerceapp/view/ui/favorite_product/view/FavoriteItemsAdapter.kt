@@ -19,9 +19,13 @@ class FavoriteItemsAdapter(
     private var communicator: FavoriteScreenCommunicator
 ) :
     RecyclerView.Adapter<FavoriteItemsAdapter.ViewHolder>() {
+    private lateinit var symbol: String
+    private var value: Double = 0.0
 
-    fun setFavoriteProducts(myList: ArrayList<DraftOrder>) {
+    fun setFavoriteProducts(myList: ArrayList<DraftOrder>, symbol: String, value: Double) {
         this.myList = myList
+        this.symbol = symbol
+        this.value = value
         notifyDataSetChanged()
     }
 
@@ -36,8 +40,8 @@ class FavoriteItemsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.productImage.clipToOutline = true
         holder.productName.text = myList[position].lineItems[0].variantTitle
-        holder.productValue.text = myList[position].lineItems[0].price
-        holder.productsCurrency.text = "$"
+        holder.productValue.text = "${myList[position].lineItems[0].price?.toDouble()?.times(value)}"
+        holder.productsCurrency.text = symbol
         holder.productDeleteBt.setOnClickListener {
             communicator.performDeleteProduct(myList[position])
         }

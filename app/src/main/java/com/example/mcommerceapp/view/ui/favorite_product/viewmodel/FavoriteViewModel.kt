@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.Keys
+import com.example.mcommerceapp.model.currency_repository.interfaces.ICurrencyRepo
+import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.room_repository.IFavProductRoomRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
@@ -19,7 +21,8 @@ import kotlinx.coroutines.withContext
 class FavoriteViewModel(
     private val iFavRepo: IFavProductRoomRepo,
     private val iOrder: DraftOrdersRepo,
-    private val iUser: UserRepo
+    private val iUser: UserRepo,
+    private val iCurrencyRepo: StoredCurrency
 ) : ViewModel() {
 
     private var favProductsMutableLiveData = MutableLiveData<List<FavProducts>>()
@@ -29,6 +32,9 @@ class FavoriteViewModel(
     var inFavLiveData: LiveData<Int> = inFavMutableLiveData
 
     val user = iUser.getUser()
+
+    val symbol = iCurrencyRepo.getCurrencySymbol()
+    val value = iCurrencyRepo.getCurrencyValue()
 
     private var listFav = arrayListOf<DraftOrder>()
     private var _favList = MutableLiveData<ArrayList<DraftOrder>>()
