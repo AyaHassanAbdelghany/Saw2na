@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentProfileBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
+import com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivity
 import com.example.mcommerceapp.view.ui.order.OrderActivity
 import com.example.mcommerceapp.view.ui.profile.view_model.ProfileViewModel
 import com.example.mcommerceapp.view.ui.profile.view_model.factory.ProfileViewModelFactory
@@ -40,8 +41,12 @@ class Profile : Fragment() {
         val viewModelFactory = ProfileViewModelFactory(UserRepo.getInstance(requireContext()))
         viewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
 
-        binding.profileSigninButton.setOnClickListener {
+        binding.signInConstraint.setOnClickListener {
             startActivity(Intent(requireContext(), SigninActivity::class.java))
+        }
+
+        binding.signUpConstraint.setOnClickListener{
+            startActivity(Intent(requireContext(), SignUpActivity::class.java))
         }
 
         binding.linearLayout.setOnClickListener { startActivity(Intent(requireContext(), OrderActivity::class.java)) }

@@ -28,7 +28,7 @@
     <string name="pending_shipments">Pending Shipments</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="login_first">Login First</string>
-    <string name="sign_in_first">Sign in first</string>
+    <string name="sign_in_first">Welcome to Saw2na</string>
     <string name="profile">Profile</string>
     <string name="fav">Favorite</string>
     <string name="card">Shopping Cart</string>
@@ -92,5 +92,7 @@
     <string name="search_by_name" translatable="false">Search by name</string>
 
     <string name="searching_for_network_connection">Searching for network connection</string>
+    <string name="Sign_in_tx">Sign in</string>
+    <string name="Sign_up_tx">Sign up</string>
 
 </resources>

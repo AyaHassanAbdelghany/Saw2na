@@ -43,7 +43,6 @@ class MoreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentMoreBinding.inflate(inflater, container, false)
         return binding.root
     }

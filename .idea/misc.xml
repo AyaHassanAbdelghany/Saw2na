@@ -98,6 +98,19 @@
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_orders.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/item_shopping_cart.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceApp/app/src/main/res/layout/product_card.xml" value="0.11322463768115942" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable-v24/navigate_arrow.xml" value="0.1185" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable/currency_rates.xml" value="0.105" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable/icon_all_orders.xml" value="0.1185" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable/icon_delete.xml" value="0.1185" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable/icon_pending_payment.xml" value="0.1185" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable/icon_pending_shipment.xml" value="0.1185" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/drawable/language.xml" value="0.105" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/activity_payment.xml" value="0.1" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/activity_shopping_cart_screen.xml" value="0.17701575532900835" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/fragment_more.xml" value="0.1" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/item_list_collection.xml" value="0.1" />
         <entry key="..\:/ITI/Projects/Graduation/MCommerceApp/app/src/main/res/layout/item_shopping_cart.xml" value="0.1" />
       </map>
     </option>
