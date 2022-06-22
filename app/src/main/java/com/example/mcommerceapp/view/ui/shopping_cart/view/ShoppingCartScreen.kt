@@ -15,7 +15,9 @@ import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
+import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
@@ -85,7 +87,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartViewModelFactory = ShoppingCartViewmodelFactory(
             DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
             UserRepo.getInstance(this),
-            CouponRepo.getInstance(CouponRemoteSource())
+            CouponRepo.getInstance(CouponRemoteSource()),
+            CurrencyRepo.getInstance(RemoteSource(), this)
         )
 
         cartViewModel =
@@ -110,7 +113,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 }
                 cartList = it
                 binding.progressIndicator.visibility = View.INVISIBLE
-                cartItemsAdapter.setOrders(cartList)
+                cartItemsAdapter.setOrders(cartList, cartViewModel.symbol, cartViewModel.value)
                 calculateTotalAmountOfMoney()
             }
         }
@@ -154,6 +157,11 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         binding.discountValueTx.text = "0.0"
         binding.shippingValueTx.text = "0.0"
         binding.totalValueTx.text = "0.0"
+        binding.subTotalValueTx.text = cartViewModel.symbol
+        binding.discountCurrencyTx.text = cartViewModel.symbol
+        binding.shippingCurrencyTx.text = cartViewModel.symbol
+        binding.totalCurrencyTx.text = cartViewModel.symbol
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -212,7 +220,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     private fun deleteDraftOrderFromList(draftOrder: DraftOrder) {
         cartList.remove(draftOrder)
-        cartItemsAdapter.setOrders(cartList)
+        cartItemsAdapter.setOrders(cartList, cartViewModel.symbol, cartViewModel.value)
         if (cartList.size == 0) {
             binding.shippingValueTx.text = "0.0"
         }

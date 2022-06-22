@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">سَــــوقنـــا</string>
-
-
     <string name="title_home">الريئسيه</string>
     <string name="title_activity_login">تسجيل</string>
     <string name="prompt_email">البريد الالكتروني</string>
@@ -18,11 +16,8 @@
     <string name="EmailAddress">البريد</string>
     <string name="prompt_retype_password">اعد الرقم السري</string>
     <string name="AlreadyHaveAccount">لديك حساب بالفعل؟</string>
-    <string name="Signin">تسجيل</string>
     <string name="DonNotHaveAccount">ليس لديك حساب؟</string>
-
     <string name="categorytype">انواع الاصناف</string>
-
     <string name="hello_blank_fragment">اهلا</string>
     <string name="all_my_orders">كل الطلبات</string>
     <string name="finished_orders">الطلبات المنتهيه</string>
@@ -50,7 +45,6 @@
     <string name="brands">علامات تجاريه</string>
     <string name="no_found">غير موجود</string>
     <string name="catogeries">اصناف</string>
-
     <string name="orders">الطلبات</string>
     <string name="order_again">طلب مجددا</string>
     <string name="price">السعر</string>
@@ -67,13 +61,14 @@
     <string name="add_google_wallet_success" translatable="false">الرقم السري صحيح</string>
     <string name="recommendation" translatable="false">اقتراحات</string>
     <string name="buy_with_googlepay_button_content_description" translatable="false">الدفع عن طريق google pay</string>
-    <string name="favourite">Favourite</string>
-    <string name="shopping_cart">Shopping Cart</string>
-    <string name="country">Country</string>
+    <string name="favourite">المفضله</string>
+    <string name="shopping_cart">عربه التسوق</string>
+    <string name="country">البلد</string>
     <string name="zip_code">Zip Code</string>
-    <string name="addresses">Addresses</string>
+    <string name="addresses">العناوين</string>
     <string name="notify_me">Notify Me</string>
-    <string name="city">City</string>
-    <string name="searching_for_network_connection">Searching for network connection</string>
-
+    <string name="city">المدينه</string>
+    <string name="searching_for_network_connection">البحث عن الانترنت</string>
+    <string name="Sign_in_tx">تسجيل الدخول</string>
+    <string name="Sign_up_tx">التسجيل</string>
 </resources>

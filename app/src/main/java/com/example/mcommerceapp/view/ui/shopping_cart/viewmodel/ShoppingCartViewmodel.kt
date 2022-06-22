@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.ICouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
+import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.draft_orders_repository.interfaces.ShoppingCartRepoInterface
 import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.GetUserCartRepo
 import com.example.mcommerceapp.pojo.user.User
@@ -22,7 +23,8 @@ import java.util.*
 class ShoppingCartViewmodel(
     private val iCartRepo: ShoppingCartRepoInterface,
     private val iUserRepo: GetUserCartRepo,
-    private val iCouponsRepo: ICouponRepo
+    private val iCouponsRepo: ICouponRepo,
+    private val iCurrencyRepo: StoredCurrency
 ) : ViewModel() {
     private var draftOrderMutableLiveData = MutableLiveData<ArrayList<DraftOrder>>()
     var draftOrderLiveData: LiveData<ArrayList<DraftOrder>> = draftOrderMutableLiveData
@@ -34,6 +36,9 @@ class ShoppingCartViewmodel(
     var allDiscountCode: LiveData<ArrayList<DiscountCodes>> = _allDiscountCode
 
     private var discountList = arrayListOf<DiscountCodes>()
+
+    val symbol = iCurrencyRepo.getCurrencySymbol()
+    val value = iCurrencyRepo.getCurrencyValue()
 
     private lateinit var end: String
 

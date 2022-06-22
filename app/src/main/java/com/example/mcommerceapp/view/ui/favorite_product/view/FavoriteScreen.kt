@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mcommerceapp.databinding.ActivityFavoriteScreenBinding
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.local_source.LocalSource
+import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.room_repository.RoomRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
@@ -36,7 +38,8 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
                 LocalSource.getInstance(this),
                 this
             ), DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
-            UserRepo.getInstance(this)
+            UserRepo.getInstance(this),
+            CurrencyRepo.getInstance(RemoteSource(), this)
         )
 
         favoriteViewModel =
@@ -56,7 +59,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
         binding.favItemsRecyclerView.adapter = favoriteItemsAdapter
 
         favoriteViewModel.favList.observe(this) {
-            favoriteItemsAdapter.setFavoriteProducts(it)
+            favoriteItemsAdapter.setFavoriteProducts(it, favoriteViewModel.symbol, favoriteViewModel.value)
         }
 
         binding.favItemsRecyclerView.setHasFixedSize(true)
@@ -73,6 +76,6 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
         // favoriteViewModel.deleteFavoriteProduct(product)
         favoriteViewModel.deleteOrder(product.lineItems[0].productId!!)
         favProductsList.remove(product)
-        favoriteItemsAdapter.setFavoriteProducts(favProductsList)
+        favoriteItemsAdapter.setFavoriteProducts(favProductsList, favoriteViewModel.symbol, favoriteViewModel.value)
     }
 }

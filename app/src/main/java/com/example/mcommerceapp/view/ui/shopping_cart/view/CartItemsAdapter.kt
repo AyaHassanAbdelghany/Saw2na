@@ -20,8 +20,13 @@ class CartItemsAdapter(
 ) :
     RecyclerView.Adapter<CartItemsAdapter.ViewHolder>() {
 
-    fun setOrders(cartList: ArrayList<DraftOrder>) {
+    private lateinit var symbol: String
+    private var value: Double = 0.0
+
+    fun setOrders(cartList: ArrayList<DraftOrder>, symbol: String, value: Double) {
         this.cartList = cartList
+        this.symbol = symbol
+        this.value = value
         notifyDataSetChanged()
     }
 
@@ -34,17 +39,18 @@ class CartItemsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = cartList.get(position).lineItems.get(0).name.toString()
+        holder.name.text = cartList[position].lineItems[0].name.toString()
         holder.image.clipToOutline = true
         Glide.with(myContext)
-            .load(cartList.get(position).noteAttributes.get(0).value)
+            .load(cartList[position].noteAttributes[0].value)
             .into(holder.image)
 
-        var quantity = cartList.get(position).lineItems.get(0).quantity!!
-        var price = cartList.get(position).lineItems.get(0).price.toString().toDouble()
+        var quantity = cartList[position].lineItems[0].quantity!!
+        var price = cartList[position].lineItems[0].price.toString().toDouble()
+        holder.currencyTxt.text = symbol
 
         holder.countTx.text = quantity.toString()
-        holder.value.text = String.format("%.2f", price * quantity)
+        holder.value.text = String.format("%.2f", price * quantity * value)
 
         if (quantity == 1) {
             holder.minusBt.visibility = View.INVISIBLE
@@ -59,12 +65,12 @@ class CartItemsAdapter(
             }
             if (quantity == 1) {
                 holder.countTx.text = (quantity).toString()
-                holder.value.text = String.format("%.2f", price * quantity)
+                holder.value.text = String.format("%.2f", price * quantity * value)
                 holder.minusBt.visibility = View.INVISIBLE
             } else {
                 holder.plusBt.visibility = View.VISIBLE
                 holder.countTx.text = (quantity).toString()
-                holder.value.text = String.format("%.2f", price * quantity)
+                holder.value.text = String.format("%.2f", price * quantity * value)
             }
         }
 
@@ -82,7 +88,7 @@ class CartItemsAdapter(
             } else {
                 holder.minusBt.visibility = View.VISIBLE
                 holder.countTx.text = (quantity).toString()
-                holder.value.text = String.format("%.2f", price * quantity)
+                holder.value.text = String.format("%.2f", price * quantity * value)
             }
         }
 
@@ -105,6 +111,7 @@ class CartItemsAdapter(
         var name: TextView = itemView.findViewById(R.id.item_name_tx)
         var value: TextView = itemView.findViewById(R.id.item_value_tx)
         var deleteBt: ImageButton = itemView.findViewById(R.id.item_delete_bt)
+        var currencyTxt : TextView = itemView.findViewById(R.id.item_currency_tx)
     }
 
 }

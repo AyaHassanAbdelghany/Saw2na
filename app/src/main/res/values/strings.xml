@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Saw2na</string>
-
-
     <string name="title_home">Home</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -17,10 +15,8 @@
     <string name="EmailAddress">Email address</string>
     <string name="prompt_retype_password">Retype password</string>
     <string name="AlreadyHaveAccount">Already have an account?</string>
-    <string name="Signin">Signin</string>
-    <string name="DonNotHaveAccount">You do not hava an account?</string>
-
-    <string name="categorytype">CategoryType</string>
+    <string name="DonNotHaveAccount">You do not have an account?</string>
+    <string name="categorytype">Category Type</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="all_my_orders">All My Orders</string>
     <string name="finished_orders">Finished Orders</string>
@@ -43,27 +39,20 @@
     <string name="payment_method">Payment method</string>
     <string name="currency">Currency</string>
     <string name="language">Language</string>
-
     <string name="save_settings">Save Settings</string>
-
     <string name="see">See More</string>
     <string name="cancel">Cancel</string>
     <string name="brands">Brands</string>
-    <string name="catogeries">Catogeries</string>
+    <string name="catogeries">Categories</string>
     <string name="no_found">No Found</string>
     <string name="recommendation">Recommend</string>
-
-
     <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
-
-
     <string name="sub_category" translatable="false">Sub Category</string>
     <string name="submit" translatable="false">Submit</string>
     <string name="products" translatable="false">Products</string>
     <string name="view_more" translatable="false">view more</string>
-
     <string name="add_google_wallet_success">The pass was added successfully!</string>
     <string name="orders">Orders</string>
     <string name="order_again">Order Again</string>
@@ -78,21 +67,15 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="items">Items</string>
-
-
     <string name="notify_me" translatable="false">Notify Me</string>
-
     <string name="favourite">Favourite</string>
     <string name="shopping_cart">Shopping Cart</string>
-
     <string name="country">Country</string>
     <string name="zip_code">Zip Code</string>
     <string name="addresses">Addresses</string>
     <string name="city">City</string>
     <string name="search_by_name" translatable="false">Search by name</string>
-
     <string name="searching_for_network_connection">Searching for network connection</string>
     <string name="Sign_in_tx">Sign in</string>
     <string name="Sign_up_tx">Sign up</string>
-
 </resources>
