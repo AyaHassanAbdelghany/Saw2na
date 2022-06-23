@@ -1,9 +1,7 @@
-package com.example.mcommerceapp.view.ui.search
+package com.example.mcommerceapp.view.ui.search.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.shopify_repository.product.CategoryRepo
-import com.example.mcommerceapp.model.shopify_repository.product.ProductsRepo
 
 class SearchViewModelFactory() : ViewModelProvider.Factory {
 

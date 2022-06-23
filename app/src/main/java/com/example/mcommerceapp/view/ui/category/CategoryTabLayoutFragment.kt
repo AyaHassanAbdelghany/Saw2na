@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.databinding.FragmentCategoryBinding
 import com.example.mcommerceapp.view.ui.category.adapter.PagerAdapter
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
-import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.search.view.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -74,6 +74,7 @@ class CategoryTabLayoutFragment : Fragment() {
                 )
             )
         }
+
 
         return binding.root
     }

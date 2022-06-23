@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.view.MainActivity
@@ -16,6 +18,7 @@ import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.adapter.CategorizedProductAdapter
@@ -23,7 +26,7 @@ import com.example.mcommerceapp.view.ui.feature_product.adapter.OnClickListner
 import com.example.mcommerceapp.view.ui.feature_product.viewmodel.CategorizedProductVM
 import com.example.mcommerceapp.view.ui.feature_product.viewmodel.CategorizedProductVMFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
-import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.search.view.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.RangeSlider
@@ -32,7 +35,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
     lateinit var binding: CategorizedProductScreenBinding
 
-    private var minValue = 1.0
+    private var minValue = 100.0
     private var maxValue = 2000.0
     private lateinit var products: ArrayList<Products>
     private var checkboxText: ArrayList<String> = arrayListOf()
@@ -43,6 +46,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
     private lateinit var productsVM: CategorizedProductVM
     private lateinit var productsVMFactory: CategorizedProductVMFactory
     private lateinit var value: String
+    private lateinit var type :String
     private lateinit var categoryProductAdapter: CategorizedProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,13 +56,25 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         setContentView(binding.root)
         init()
 
-        val intent = intent.getBundleExtra("PRODUCTS")
-        value = intent?.getString("VALUE", " ") ?: ""
 
-        when (intent?.get("TYPE").toString()) {
-            Keys.VENDOR -> observeVendor()
-            Keys.ALL_PRODUCT -> observeAllProducts()
+        MyConnectivityManager.state.observe(this) {
+
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                checkType()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
         }
+       val intent = intent.getBundleExtra("PRODUCTS")
+        value = intent?.getString("VALUE", " ") ?: ""
+         type = intent?.get("TYPE").toString()
 
         binding.actionBarLayout.backImg.visibility = ImageView.VISIBLE
 
@@ -108,7 +124,6 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
 
 
-
         binding.filterImageView.setOnClickListener {
             showSupportBottomSheet()
 
@@ -125,6 +140,12 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
     }
 
+    private fun checkType(){
+        when (type) {
+            Keys.VENDOR -> observeVendor()
+            Keys.ALL_PRODUCT -> observeAllProducts()
+        }
+    }
         private fun observeVendor() {
             productsVM.getProductsVendor(value)
             observeProducts()

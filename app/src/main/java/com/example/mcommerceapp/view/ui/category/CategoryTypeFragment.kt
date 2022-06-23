@@ -22,19 +22,15 @@ import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
 import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
-import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
-import com.example.mcommerceapp.view.ui.search.SearchActivity
-import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.RangeSlider
-import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 
 
 class CategoryTypeFragment() : OnClickListener, Fragment() {
 
     private var tabTitle: String = ""
-    private var minValue = 1.0
+    private var minValue = 100.0
     private var maxValue = 2000.0
     private lateinit var products: ArrayList<Products>
     private var checkboxText: ArrayList<String> = arrayListOf()
@@ -60,6 +56,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     ): View {
         binding = FragmentCategoryTypeBinding.inflate(inflater, container, false)
         init()
+
         return binding.root
     }
 

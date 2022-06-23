@@ -6,129 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.home.HomeFragment">
 
-    <include
-        android:id="@+id/action_bar"
-        layout="@layout/action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp" />
 
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_bar">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint"
+        <include
+            android:id="@+id/action_bar"
+            layout="@layout/action_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp">
+            android:layout_height="56dp" />
 
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/action_bar">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/advViewPager"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp">
 
 
-            <TextView
-                android:id="@+id/brand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/brands"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advViewPager" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_list_vendor"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/brand"
-                app:layout_constraintTop_toBottomOf="@id/brand"
-                tools:listitem="@layout/item_list_vendor" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/advViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            <ImageView
-                android:id="@+id/coupon_image"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/coupon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintStart_toStartOf="@id/recycler_list_vendor"
-                app:layout_constraintTop_toBottomOf="@id/recycler_list_vendor" />
+                <TextView
+                    android:id="@+id/brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/brands"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/advViewPager" />
 
-            <TextView
-                android:id="@+id/productTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/recommendation"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/brand"
-                app:layout_constraintTop_toBottomOf="@id/coupon_image" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_view_product"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintStart_toStartOf="@id/productTxt"
-                app:layout_constraintTop_toBottomOf="@id/productTxt"
-                app:spanCount="2"
-                tools:listitem="@layout/product_card" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_list_vendor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/brand"
+                    app:layout_constraintTop_toBottomOf="@id/brand"
+                    tools:listitem="@layout/item_list_vendor" />
 
 
-            <TextView
-                android:id="@+id/view_more_tx"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="@string/view_more"
-                android:textColor="@color/blue"
-                android:textSize="15sp"
-                android:layout_marginEnd="22dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/recycle_view_product"
-                app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
+                <ImageView
+                    android:id="@+id/coupon_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coupon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.2"
+                    app:layout_constraintStart_toStartOf="@id/recycler_list_vendor"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_list_vendor" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
+                <TextView
+                    android:id="@+id/productTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/recommendation"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/brand"
+                    app:layout_constraintTop_toBottomOf="@id/coupon_image" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_view_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintStart_toStartOf="@id/productTxt"
+                    app:layout_constraintTop_toBottomOf="@id/productTxt"
+                    app:spanCount="2"
+                    tools:listitem="@layout/product_card" />
 
-    </androidx.core.widget.NestedScrollView>
+
+                <TextView
+                    android:id="@+id/view_more_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="22dp"
+                    android:text="@string/view_more"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/recycle_view_product"
+                    app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

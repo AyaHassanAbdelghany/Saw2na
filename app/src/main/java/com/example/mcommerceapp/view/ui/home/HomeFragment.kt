@@ -4,7 +4,6 @@ package com.example.mcommerceapp.view.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +30,7 @@ import com.example.mcommerceapp.view.ui.home.adapter.VendorAdapter
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModel
 import com.example.mcommerceapp.view.ui.home.viewmodel.HomeViewModelFactory
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
-import com.example.mcommerceapp.view.ui.search.SearchActivity
+import com.example.mcommerceapp.view.ui.search.view.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 
 
@@ -57,6 +56,8 @@ class HomeFragment : OnClickListner, Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
+
+
         return binding.root
     }
 
@@ -75,6 +76,7 @@ class HomeFragment : OnClickListner, Fragment() {
             intent.putExtra("PRODUCTS", bundle)
             startActivity(intent)
         }
+
     }
 
     override fun onResume() {

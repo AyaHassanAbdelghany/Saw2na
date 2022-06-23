@@ -1,4 +1,4 @@
-package com.example.mcommerceapp.view.ui.search
+package com.example.mcommerceapp.view.ui.search.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
