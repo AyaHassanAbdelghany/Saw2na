@@ -69,9 +69,9 @@ class PaymentViewmodel(
             discountCodes.forEach {
                 orders.discountCodes.add(
                     DiscountCodes(
-                        code = it?.code,
-                        amount = it?.amount,
-                        type = it?.type
+                        code = it.code,
+                        amount = it.amount,
+                        type = it.type
                     )
                 )
             }

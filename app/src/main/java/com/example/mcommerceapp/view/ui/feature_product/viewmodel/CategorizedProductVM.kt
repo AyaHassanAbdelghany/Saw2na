@@ -13,11 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategorizedProductVM (private var iCategory : CategoryRepo, private var iCurrency: StoredCurrency): ViewModel()
-{
+class CategorizedProductVM(
+    private var iCategory: CategoryRepo,
+    private var iCurrency: StoredCurrency
+) : ViewModel() {
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
-    var  subCategory: LiveData<HashSet<ProductFields>> = _subCategory
+    var subCategory: LiveData<HashSet<ProductFields>> = _subCategory
 
     private val _products = MutableLiveData<ArrayList<Products>>()
     var products: LiveData<ArrayList<Products>> = _products
@@ -33,7 +35,7 @@ class CategorizedProductVM (private var iCategory : CategoryRepo, private var iC
     fun getProductsVendor(vendor: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val product = iCategory.getProductsVendor(vendor)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 _products.postValue(product)
             }
         }

@@ -1,8 +1,6 @@
 package com.example.mcommerceapp.view.ui.addresses.view.adapter
 
 import android.content.Context
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast

@@ -85,6 +85,9 @@ class SearchActivity : AppCompatActivity() {
                             val intent = Intent(this, ProductDetail::class.java)
                             intent.putExtra("PRODUCTS_ID", index.id.toString())
                             startActivity(intent)
+
+                        } else {
+                            binding.foundTxt.visibility = View.VISIBLE
                         }
                     }
                     binding.foundTxt.visibility = View.VISIBLE

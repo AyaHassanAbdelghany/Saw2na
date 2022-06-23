@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
-import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import draft_orders.DraftOrder
 
 class FavoriteItemsAdapter(
@@ -41,7 +40,8 @@ class FavoriteItemsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.productImage.clipToOutline = true
         holder.productName.text = myList[position].lineItems[0].variantTitle
-        holder.productValue.text = "${myList[position].lineItems[0].price?.toDouble()?.times(value)}"
+        holder.productValue.text =
+            "${myList[position].lineItems[0].price?.toDouble()?.times(value)}"
         holder.productsCurrency.text = symbol
         holder.productDeleteBt.setOnClickListener {
             communicator.performDeleteProduct(myList[position])

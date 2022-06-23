@@ -10,19 +10,19 @@ class SignInViewModel(var userRepo: UserRepo) : ViewModel() {
 
     val authState: LiveData<String> = userRepo.signInAuthState
 
-    fun signIn(email : String, password:String){
-        userRepo.signIn(email,password)
+    fun signIn(email: String, password: String) {
+        userRepo.signIn(email, password)
     }
 
-    fun getUser():User{
+    fun getUser(): User {
         return userRepo.getUser()
     }
 
-    fun setLoggedInState(state:Boolean){
+    fun setLoggedInState(state: Boolean) {
         userRepo.setLoggedInState(state)
     }
 
-    fun retrieveUserFromFireStore() : LiveData<User>{
+    fun retrieveUserFromFireStore(): LiveData<User> {
         return userRepo.retrieveUserFromFireStore()
     }
 }

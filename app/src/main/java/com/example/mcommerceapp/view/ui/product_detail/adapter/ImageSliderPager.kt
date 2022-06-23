@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.pojo.products.Images
 
-class ImageSlideAdapter(private val context: Context, private var imageList: List<Images>) : PagerAdapter() {
+class ImageSlideAdapter(private val context: Context, private var imageList: List<Images>) :
+    PagerAdapter() {
     override fun getCount(): Int {
         return imageList.size
     }
@@ -21,8 +22,9 @@ class ImageSlideAdapter(private val context: Context, private var imageList: Lis
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view: View =  (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-            .inflate(R.layout.card_image, null)
+        val view: View =
+            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+                .inflate(R.layout.card_image, null)
         val ivImages = view.findViewById<ImageView>(R.id.iv_images)
 
         imageList[position].let {

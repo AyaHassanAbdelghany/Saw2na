@@ -31,8 +31,8 @@ class DraftOrdersRepo private constructor(private val source: DraftOrdersRemoteS
         return source.updateOrder(orderID, getRequest(order))
     }
 
-    override suspend fun getAllOrders(userID: String): ArrayList<DraftOrder> {
-        return source.getAllOrders(userID)
+    override suspend fun getAllOrders(userEmail: String): ArrayList<DraftOrder> {
+        return source.getAllOrders(userEmail)
     }
 
     suspend fun getOrderByID(orderID: String): DraftOrder {

@@ -92,7 +92,10 @@ class ShoppingCartViewmodel(
             priceRules.forEach { rules ->
 //                end = SimpleDateFormat("dd-MM-yyyy").format(rules.endsAt)
                 println("Testing: ${rules.startsAt}")
-                val check = checkCurrentTimeIsBetweenGivenString(formatDate(rules.startsAt!!), formatDate(rules.endsAt!!))
+                val check = checkCurrentTimeIsBetweenGivenString(
+                    formatDate(rules.startsAt!!),
+                    formatDate(rules.endsAt!!)
+                )
                 Log.d("Testing", check.toString())
 
                 if (check) {

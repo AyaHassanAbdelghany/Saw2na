@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="20sp"
-   android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
     android:background="@drawable/card_border"
-    android:layout_height="200dp">
+    app:cardCornerRadius="20sp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,36 +16,37 @@
             android:id="@+id/reviewerNameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
             android:id="@+id/reviewerRaring"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/ratingBarStyleSmall"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="@id/reviewerNameTxt"
-            app:layout_constraintTop_toBottomOf="@id/reviewerNameTxt"/>
+            app:layout_constraintTop_toBottomOf="@id/reviewerNameTxt" />
 
         <TextView
             android:id="@+id/reviewerDateTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/reviewerNameTxt"
+            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toEndOf="@id/reviewerNameTxt"
-            app:layout_constraintHorizontal_bias="0.9"/>
+            app:layout_constraintTop_toTopOf="@id/reviewerNameTxt" />
 
         <TextView
             android:id="@+id/reviewerDescTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="3"
-            app:layout_constraintTop_toBottomOf="@id/reviewerRaring"
-            app:layout_constraintStart_toStartOf="@id/reviewerRaring"/>
+            app:layout_constraintStart_toStartOf="@id/reviewerRaring"
+            app:layout_constraintTop_toBottomOf="@id/reviewerRaring" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

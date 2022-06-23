@@ -3,7 +3,6 @@ package com.example.mcommerceapp.view.ui.category
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -190,7 +189,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
 
         for (index in 0..this.products.size - 1) {
             if ((products[index].variants[0].price?.toDouble()!! >= this.minValue)
-                && (this.maxValue >= this.products[index].variants[0].price!!.toDouble()!!)
+                && (this.maxValue >= this.products[index].variants[0].price!!.toDouble())
                 && (checkboxText.contains(products[index].productType))
 
             ) {

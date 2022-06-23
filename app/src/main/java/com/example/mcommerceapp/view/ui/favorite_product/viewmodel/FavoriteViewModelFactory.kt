@@ -1,9 +1,7 @@
 package com.example.mcommerceapp.view.ui.favorite_product.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.currency_repository.interfaces.ICurrencyRepo
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.room_repository.IFavProductRoomRepo

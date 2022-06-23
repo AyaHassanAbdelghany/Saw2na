@@ -34,8 +34,8 @@ class SignUpActivity : AppCompatActivity() {
 
         initViews()
 
-        val viewModelFactory = SignupViewModelFactory(UserRepo.getInstance( this))
-        val viewModel = ViewModelProvider(this,viewModelFactory)[SignupViewModel::class.java]
+        val viewModelFactory = SignupViewModelFactory(UserRepo.getInstance(this))
+        val viewModel = ViewModelProvider(this, viewModelFactory)[SignupViewModel::class.java]
 
         viewModel.authState.observe(this) {
             loading.visibility = View.INVISIBLE
@@ -43,7 +43,11 @@ class SignUpActivity : AppCompatActivity() {
                 AuthState.SUCCESS -> {
                     Toast.makeText(this, "please check your mail ..", Toast.LENGTH_SHORT).show()
 
-                    val user = User( displayNameEditText.text.toString(), emailEditText.text.toString(),true)
+                    val user = User(
+                        displayNameEditText.text.toString(),
+                        emailEditText.text.toString(),
+                        true
+                    )
                     viewModel.setUser(user)
                     loading.visibility = View.VISIBLE
                 }
@@ -56,7 +60,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.finish.observe(this){
+        viewModel.finish.observe(this) {
             loading.visibility = View.INVISIBLE
             finish()
         }
@@ -75,7 +79,7 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
-    private fun initViews(){
+    private fun initViews() {
         displayNameEditText = binding.displayNameEditText
         emailEditText = binding.usernameEditText
         passwordEditText = binding.passwordEditText

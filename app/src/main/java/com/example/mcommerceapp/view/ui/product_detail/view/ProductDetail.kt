@@ -1,10 +1,10 @@
 package com.example.mcommerceapp.view.ui.product_detail.view
 
-import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.ActionBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -52,32 +52,45 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     private var isCart = 0
     private lateinit var variant: ArrayList<Variants>
 
+    private lateinit var loadingDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-//        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-//        supportActionBar?.setDisplayShowCustomEnabled(true)
-//        supportActionBar?.setCustomView(binding.toolbar)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        loadingDialog = Dialog(this)
 
         detailVMFactory = ProductDetailVMFactory(
-            ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
-                LocalSource(this), this
-            ), CurrencyRepo.getInstance(RemoteSource(), this),
-            DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
-            UserRepo.getInstance(this)
+            ProductRepo.getInstance(
+                RemoteSource()
+            ),
+            RoomRepo.getInstance(
+                LocalSource(this),
+                this
+            ),
+            CurrencyRepo.getInstance(
+                RemoteSource(),
+                this
+            ),
+            DraftOrdersRepo.getInstance(
+                DraftOrdersRemoteSource.getInstance()
+            ),
+            UserRepo.getInstance(
+                this
+            )
         )
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
         val intent = intent.getStringExtra("PRODUCTS_ID")
 
-        detailVM.getDraftOrder()
+        detailVM.getProductDetail(intent!!)
+        showLoadingDialog("Loading Data")
+//        detailVM.getDraftOrder()
         detailVM.cartList.observe(this) { cart ->
+            loadingDialog.dismiss()
             if (!cart.isEmpty()) {
                 id = getVariant(variant, color, size)
                 cart.forEach { cartId ->
@@ -89,6 +102,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         }
 
         detailVM.favList.observe(this) { favList ->
+            loadingDialog.dismiss()
             isFav = 0
             for (favId in favList) {
                 Log.e("TAG", "onCreate: ${favId} -- ${id}")
@@ -122,6 +136,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                 startActivity(Intent(this, SigninActivity::class.java))
             } else {
                 if (isCart == 0) {
+                    showLoadingDialog("Adding to cart")
                     detailVM.addOrder(
                         DraftOrder(
                             note = Keys.CART, email = detailVM.user.email,
@@ -140,6 +155,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         binding.detailBtn.favImage.setOnClickListener {
             if (isFav == 0) {
+                showLoadingDialog("Adding to favorite")
+                Log.d("email_user", detailVM.user.email)
                 detailVM.addOrder(
                     DraftOrder(
                         note = Keys.FAV, email = detailVM.user.email,
@@ -162,6 +179,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                 )
 
             } else {
+                showLoadingDialog("Removing from favorite")
                 detailVM.deleteOrder(productDetail.id!!)
 //                binding.detailBtn.favImage.setImageDrawable(
 //                    ContextCompat.getDrawable(
@@ -172,7 +190,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             }
         }
 
-        detailVM.getProductDetail(intent!!)
         detailVM.productDetail.observe(this) { products ->
             if (products != null) {
                 updateUI(products)
@@ -192,7 +209,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         binding.contentDetail.ProductPriceTxt.text = "${
             products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
-        } ${detailVM.currencySymbol}"
+        }"
+        binding.contentDetail.ProductPriceCurrencyTxt.text = "${detailVM.currencySymbol}"
         binding.contentDetail.ProductRating.rating =
             (products.variants[0].inventoryQuantity)!!.toFloat()
         imageSliderPager = ImageSlideAdapter(this, products.images)
@@ -243,5 +261,15 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         this.color = color
         this.size = size
         return variant[0].id!!
+    }
+
+    private fun showLoadingDialog(string: String) {
+//        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        loadingDialog.setCancelable(false)
+
+        loadingDialog.setContentView(R.layout.dialog_wait_to_finish)
+        loadingDialog.findViewById<TextView>(R.id.loading_tx).text = string
+
+        loadingDialog.show()
     }
 }

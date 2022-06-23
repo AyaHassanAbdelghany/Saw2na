@@ -1,8 +1,8 @@
 package com.example.mcommerceapp.view.ui.addresses.view.add_address
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mcommerceapp.databinding.ActivityAddAddressBinding
 
 class AddAddressActivity : AppCompatActivity() {
@@ -31,19 +31,19 @@ class AddAddressActivity : AppCompatActivity() {
     private fun isValid(): Boolean {
 
         var res = true
-        if(binding.addressEditText.text.toString().isEmpty()){
+        if (binding.addressEditText.text.toString().isEmpty()) {
             binding.addressEditText.error = "not valid"
             res = false
         }
-        if(binding.cityEditText.text.toString().isEmpty()){
+        if (binding.cityEditText.text.toString().isEmpty()) {
             binding.cityEditText.error = "not valid"
             res = false
         }
-        if(binding.countryEditText.text.toString().isEmpty()){
+        if (binding.countryEditText.text.toString().isEmpty()) {
             binding.countryEditText.error = "not valid"
             res = false
         }
-        if(binding.zipCodeEditText.text.toString().isEmpty()){
+        if (binding.zipCodeEditText.text.toString().isEmpty()) {
             binding.zipCodeEditText.error = "not valid"
             res = false
         }

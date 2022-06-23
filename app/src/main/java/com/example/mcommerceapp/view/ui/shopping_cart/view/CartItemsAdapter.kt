@@ -39,7 +39,7 @@ class CartItemsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = cartList[position].lineItems[0].name.toString()
+        holder.name.text = cartList[position].lineItems[0].name?.split("|")?.get(1)
         holder.image.clipToOutline = true
         Glide.with(myContext)
             .load(cartList[position].noteAttributes[0].value)
@@ -111,7 +111,6 @@ class CartItemsAdapter(
         var name: TextView = itemView.findViewById(R.id.item_name_tx)
         var value: TextView = itemView.findViewById(R.id.item_value_tx)
         var deleteBt: ImageButton = itemView.findViewById(R.id.item_delete_bt)
-        var currencyTxt : TextView = itemView.findViewById(R.id.item_currency_tx)
+        var currencyTxt: TextView = itemView.findViewById(R.id.item_currency_tx)
     }
-
 }
