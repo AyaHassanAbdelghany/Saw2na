@@ -12,16 +12,17 @@ import com.example.mcommerceapp.databinding.ProductCardBinding
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 
-class CategoryAdapter  (private var context :Context ,private var listner : OnClickListener): RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CategoryAdapter(private var context: Context, private var listner: OnClickListener) :
+    RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    private  var category : HashSet<ProductFields> = hashSetOf()
-    private  var collectionProducts : ArrayList<Products> = arrayListOf()
+    private var category: HashSet<ProductFields> = hashSetOf()
+    private var collectionProducts: ArrayList<Products> = arrayListOf()
 
     private lateinit var symbol: String
     private var value: Double = 0.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -73,7 +74,7 @@ class CategoryAdapter  (private var context :Context ,private var listner : OnCl
 //            View.OnClickListener
 //            { listner!!.onClick(currentItem.productType) })
         holder.itemView.setOnClickListener {
-           listner.onClick(currentItem.id.toString())
+            listner.onClick(currentItem.id.toString())
         }
     }
 
@@ -81,12 +82,12 @@ class CategoryAdapter  (private var context :Context ,private var listner : OnCl
         return collectionProducts.count()
     }
 
-    fun setData(collectionProducts: ArrayList<Products>, symbol: String, value: Double){
+    fun setData(collectionProducts: ArrayList<Products>, symbol: String, value: Double) {
         this.collectionProducts = collectionProducts
         this.symbol = symbol
         this.value = value
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: ProductCardBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root)
 }

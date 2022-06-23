@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.55" />
 
     <ImageButton
         android:id="@+id/minus_bt"
@@ -71,29 +71,28 @@
         android:id="@+id/item_value_tx"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:gravity="end"
         android:text="15"
         app:layout_constraintEnd_toStartOf="@id/item_currency_tx"
-        app:layout_constraintTop_toTopOf="@id/item_name_tx" />
+        app:layout_constraintTop_toBottomOf="@id/item_name_tx" />
 
     <TextView
         android:id="@+id/item_currency_tx"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
         android:text="$"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/item_name_tx" />
+        app:layout_constraintTop_toTopOf="@id/item_value_tx" />
 
     <ImageButton
         android:id="@+id/item_delete_bt"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:src="@drawable/icon_delete"

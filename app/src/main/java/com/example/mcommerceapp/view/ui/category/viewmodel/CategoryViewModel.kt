@@ -14,37 +14,37 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryViewModel(var iCategory :CategoryRepo, var iCurrency: StoredCurrency) : ViewModel() {
+class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurrency) : ViewModel() {
 
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
-    var  subCategory: LiveData<HashSet<ProductFields>> = _subCategory
+    var subCategory: LiveData<HashSet<ProductFields>> = _subCategory
 
-    private val _customCollection = MutableLiveData<ArrayList<CustomCollections>> ()
-    var  customCollection: LiveData<ArrayList<CustomCollections>>  = _customCollection
+    private val _customCollection = MutableLiveData<ArrayList<CustomCollections>>()
+    var customCollection: LiveData<ArrayList<CustomCollections>> = _customCollection
 
     private val _collectionProducts = MutableLiveData<ArrayList<Products>>()
-    var  collectionProducts: LiveData<ArrayList<Products>>  = _collectionProducts
+    var collectionProducts: LiveData<ArrayList<Products>> = _collectionProducts
 
-    private val _allProducts : MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
-    var  allProducts: LiveData<ArrayList<Products>>  = _allProducts
+    private val _allProducts: MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
+    var allProducts: LiveData<ArrayList<Products>> = _allProducts
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
 
-    fun getCollectionId(id :String){
+    fun getCollectionId(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val customCollection = iCategory.getCollectionId(id)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 _customCollection.postValue(customCollection)
             }
         }
     }
 
-    fun getCollectionProducts(id :String){
+    fun getCollectionProducts(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val collectionProducts = iCategory.getProductsCollection(id)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 _collectionProducts.postValue(collectionProducts)
             }
 

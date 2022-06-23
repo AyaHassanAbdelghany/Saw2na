@@ -1,4 +1,5 @@
 package com.example.mcommerceapp.view.ui.product_detail.adapter
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.pojo.products.Variants
 
-class SizeAdapter(var context: Context, var listener: OnClickListener): RecyclerView.Adapter<SizeAdapter.ViewHolder>() {
+class SizeAdapter(var context: Context, var listener: OnClickListener) :
+    RecyclerView.Adapter<SizeAdapter.ViewHolder>() {
 
     private lateinit var listSize: ArrayList<Variants>
 
@@ -23,9 +25,9 @@ class SizeAdapter(var context: Context, var listener: OnClickListener): Recycler
         this.listSize = listSize
     }
 
-    @SuppressLint("SetTextI18n")
+
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        val size = listSize!![position].option1
+        val size = listSize[position].option1
         holder.sizeTxt.text = size
         holder.itemView.setOnClickListener {
             listener.onClickSize(size!!)
@@ -34,7 +36,6 @@ class SizeAdapter(var context: Context, var listener: OnClickListener): Recycler
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val sizeTxt: TextView = view.findViewById(R.id.sizeTxt)
     }
 

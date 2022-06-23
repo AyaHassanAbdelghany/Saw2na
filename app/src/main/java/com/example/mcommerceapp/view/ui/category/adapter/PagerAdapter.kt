@@ -7,20 +7,18 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.adapter.FragmentViewHolder
 import com.example.mcommerceapp.view.ui.category.CategoryTypeFragment
 
-class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(manager, lifecycle) {
+class PagerAdapter(manager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(manager, lifecycle) {
 
 
-    var tabTitle :String="ALL"
+    var tabTitle: String = "ALL"
 
     override fun createFragment(position: Int): Fragment {
         return CategoryTypeFragment(tabTitle)
     }
 
     override fun getItemCount(): Int {
-        return  5
+        return 5
     }
 
-    override fun onViewDetachedFromWindow(holder: FragmentViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-    }
 }

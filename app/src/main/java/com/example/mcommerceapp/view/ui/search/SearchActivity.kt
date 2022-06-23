@@ -4,16 +4,12 @@ import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.ActivitySearchBinding
 import com.example.mcommerceapp.model.Keys
-import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
@@ -89,7 +85,7 @@ class SearchActivity : AppCompatActivity() {
                             val intent = Intent(this, ProductDetail::class.java)
                             intent.putExtra("PRODUCTS_ID", index.id.toString())
                             startActivity(intent)
-                        }else{
+                        } else {
                             binding.foundTxt.visibility = View.VISIBLE
                         }
                     }

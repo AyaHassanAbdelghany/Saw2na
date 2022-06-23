@@ -3,7 +3,6 @@ package com.example.mcommerceapp.view.ui.category
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,13 +21,9 @@ import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
 import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
-import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.product_detail.view.ProductDetail
-import com.example.mcommerceapp.view.ui.search.SearchActivity
-import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.RangeSlider
-import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
 
 
 class CategoryTypeFragment() : OnClickListener, Fragment() {
@@ -193,7 +188,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
 
         for (index in 0..this.products.size - 1) {
             if ((products[index].variants[0].price?.toDouble()!! >= this.minValue)
-                && (this.maxValue >= this.products[index].variants[0].price!!.toDouble()!!)
+                && (this.maxValue >= this.products[index].variants[0].price!!.toDouble())
                 && (checkboxText.contains(products[index].productType))
 
             ) {

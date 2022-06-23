@@ -1,13 +1,11 @@
 package com.example.mcommerceapp.view.ui.favorite_product.viewmodel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.Keys
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
 import com.example.mcommerceapp.model.room_repository.IFavProductRoomRepo
@@ -51,7 +49,7 @@ class FavoriteViewModel(
 
     fun getDraftOrder() {
         viewModelScope.launch {
-            val order = iOrder.getAllOrders(user.userID)
+            val order = iOrder.getAllOrders(user.email)
             withContext(Dispatchers.Main) {
                 order.forEach {
                     if (it.note == Keys.FAV) {

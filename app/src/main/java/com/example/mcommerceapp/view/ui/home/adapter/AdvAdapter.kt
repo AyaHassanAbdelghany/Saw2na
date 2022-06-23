@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.R
 
-class AdvAdapter(val viewPager: ViewPager2, private val advImages: ArrayList<Int>): RecyclerView.Adapter<AdvAdapter.SliderImageHolder>() {
+class AdvAdapter(val viewPager: ViewPager2, private val advImages: ArrayList<Int>) :
+    RecyclerView.Adapter<AdvAdapter.SliderImageHolder>() {
 
-    inner class SliderImageHolder(var view: View): RecyclerView.ViewHolder(view){
+    inner class SliderImageHolder(var view: View) : RecyclerView.ViewHolder(view) {
         val advImage = view.findViewById<ImageView>(R.id.advImage)!!
     }
 
@@ -23,10 +24,11 @@ class AdvAdapter(val viewPager: ViewPager2, private val advImages: ArrayList<Int
     override fun onBindViewHolder(holder: SliderImageHolder, position: Int) {
         val listAdv = advImages[position]
         holder.advImage.setImageResource(listAdv)
-        if(position == advImages.size -2){
+        if (position == advImages.size - 2) {
             viewPager.post(run)
         }
     }
+
     private val run = Runnable {
         advImages.addAll(advImages)
         notifyDataSetChanged()

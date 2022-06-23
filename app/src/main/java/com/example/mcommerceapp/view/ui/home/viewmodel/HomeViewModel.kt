@@ -14,7 +14,11 @@ import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private var iCollections: CollectionsRepo, private var iProducts: ProductsRepo, private var iCurrency: StoredCurrency) : ViewModel() {
+class HomeViewModel(
+    private var iCollections: CollectionsRepo,
+    private var iProducts: ProductsRepo,
+    private var iCurrency: StoredCurrency
+) : ViewModel() {
 
     private val _vendors: MutableLiveData<HashSet<SmartCollections>> = ProductRepo.vendors
     var vendors: LiveData<HashSet<SmartCollections>> = _vendors
@@ -32,11 +36,11 @@ class HomeViewModel(private var iCollections: CollectionsRepo, private var iProd
         }
     }
 
-    fun getCurrencySymbol():String{
+    fun getCurrencySymbol(): String {
         return iCurrency.getCurrencySymbol()
     }
 
-    fun getCurrencyValue():Double{
+    fun getCurrencyValue(): Double {
         return iCurrency.getCurrencyValue()
     }
 

@@ -76,20 +76,6 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-    override fun onStart() {
-        super.onStart()
-
-//        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
-//        val lang = sharedPreferences.getString("lan", "en")
-//        val locale = lang?.let { Locale(it) }
-//        if (locale != null) {
-//            Locale.setDefault(locale)
-//        }
-//        val resources: Resources = resources
-//        val config: Configuration = resources.configuration
-//        config.setLocale(locale)
-//        resources.updateConfiguration(config, resources.displayMetrics)
-    }
 }
 
 

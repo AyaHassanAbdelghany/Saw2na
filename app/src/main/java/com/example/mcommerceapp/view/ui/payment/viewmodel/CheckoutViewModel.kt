@@ -8,7 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mcommerceapp.model.payment_repo.PaymentsUtil
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.wallet.*
+import com.google.android.gms.wallet.IsReadyToPayRequest
+import com.google.android.gms.wallet.PaymentData
+import com.google.android.gms.wallet.PaymentDataRequest
 import com.google.android.gms.wallet.PaymentsClient
 
 class CheckoutViewModel(application: Application) : AndroidViewModel(application) {

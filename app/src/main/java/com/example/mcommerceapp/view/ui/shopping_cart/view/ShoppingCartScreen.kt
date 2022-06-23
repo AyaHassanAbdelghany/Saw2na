@@ -68,6 +68,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartItemsAdapter = CartItemsAdapter(cartList, this, this)
         binding.cartItemsRecyclerView.adapter = cartItemsAdapter
 
+        binding.numberOfItemsTx.text= "You have ${cartList.size} item in your cart"
+
         binding.checkoutBt.setOnClickListener {
             val myTitleList = retrieveProductsTitle(cartList)
             if (!myTitleList.isNullOrEmpty()) {
@@ -98,7 +100,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartViewModel.getUser().observe(this) {
             user = it
             if (user != null) {
-                cartViewModel.getAllDraftOrders(user!!.userID)
+                cartViewModel.getAllDraftOrders(user!!.email)
             } else {
                 print("No User Found")
             }
@@ -115,6 +117,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 binding.progressIndicator.visibility = View.INVISIBLE
                 cartItemsAdapter.setOrders(cartList, cartViewModel.symbol, cartViewModel.value)
                 calculateTotalAmountOfMoney()
+                binding.numberOfItemsTx.text= "You have ${cartList.size} item in your cart"
             }
         }
 
@@ -157,7 +160,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         binding.discountValueTx.text = "0.0"
         binding.shippingValueTx.text = "0.0"
         binding.totalValueTx.text = "0.0"
-        binding.subTotalValueTx.text = cartViewModel.symbol
+        binding.subTotalCurrencyTx.text = cartViewModel.symbol
         binding.discountCurrencyTx.text = cartViewModel.symbol
         binding.shippingCurrencyTx.text = cartViewModel.symbol
         binding.totalCurrencyTx.text = cartViewModel.symbol
@@ -195,6 +198,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         val obj = cartList[index]
         cartViewModel.deleteProductFromDraftOrder(obj.id!!)
         deleteDraftOrderFromList(obj)
+        binding.numberOfItemsTx.text= "You have ${cartList.size} item in your cart"
     }
 
     override fun increaseUpdateInList(index: Int) {

@@ -2,7 +2,6 @@ package com.example.mcommerceapp.view.ui.home.adapter
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +12,14 @@ import com.example.mcommerceapp.databinding.ItemListVendorBinding
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
-class VendorAdapter (var context :Context , var listner : OnClickListner) : RecyclerView.Adapter<VendorAdapter.ViewHolder>(){
+class VendorAdapter(var context: Context, var listner: OnClickListner) :
+    RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
 
-    private  var vendor : HashSet<SmartCollections> = hashSetOf()
+    private var vendor: HashSet<SmartCollections> = hashSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemListVendorBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemListVendorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -35,7 +36,7 @@ class VendorAdapter (var context :Context , var listner : OnClickListner) : Recy
         }
         holder.binding.constraintVendor.setOnClickListener(View.OnClickListener
         {
-            listner!!.onClick(currentItem.title,Keys.VENDOR)
+            listner.onClick(currentItem.title, Keys.VENDOR)
         })
     }
 
@@ -43,10 +44,10 @@ class VendorAdapter (var context :Context , var listner : OnClickListner) : Recy
         return vendor.count()
     }
 
-    fun setData(vendor: HashSet<SmartCollections>){
+    fun setData(vendor: HashSet<SmartCollections>) {
         this.vendor = vendor
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: ItemListVendorBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemListVendorBinding) : RecyclerView.ViewHolder(binding.root)
 }

@@ -53,6 +53,7 @@ class ProductDetailVM(
             val detail = iProducts.getProductDetail(id)
             withContext(Dispatchers.Main) {
                 _productDetail.postValue(detail)
+                getDraftOrder()
             }
         }
     }
@@ -74,7 +75,7 @@ class ProductDetailVM(
 
     fun deleteOrder(id: Long) {
         viewModelScope.launch {
-            val order = iOrder.getAllOrders(user.userID)
+            val order = iOrder.getAllOrders(user.email)
             withContext(Dispatchers.Main) {
                 order.forEach {
                     if (it.lineItems[0].productId == id) {
@@ -89,7 +90,7 @@ class ProductDetailVM(
 
     fun getDraftOrder() {
         viewModelScope.launch {
-            val order = iOrder.getAllOrders(user.userID)
+            val order = iOrder.getAllOrders(user.email)
             withContext(Dispatchers.Main) {
                 order.forEach {
                     if (it.note == Keys.FAV) {
@@ -99,8 +100,8 @@ class ProductDetailVM(
                         listCart.add(it.lineItems[0].variantId!!)
                     }
                 }
-                _favList.postValue(listFav)
                 _cartList.postValue(listCart)
+                _favList.postValue(listFav)
             }
         }
     }

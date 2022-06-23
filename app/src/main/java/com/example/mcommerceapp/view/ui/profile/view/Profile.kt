@@ -3,11 +3,10 @@ package com.example.mcommerceapp.view.ui.profile.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentProfileBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
@@ -45,11 +44,18 @@ class Profile : Fragment() {
             startActivity(Intent(requireContext(), SigninActivity::class.java))
         }
 
-        binding.signUpConstraint.setOnClickListener{
+        binding.signUpConstraint.setOnClickListener {
             startActivity(Intent(requireContext(), SignUpActivity::class.java))
         }
 
-        binding.linearLayout.setOnClickListener { startActivity(Intent(requireContext(), OrderActivity::class.java)) }
+        binding.linearLayout.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    OrderActivity::class.java
+                )
+            )
+        }
     }
 
 

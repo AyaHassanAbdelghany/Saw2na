@@ -9,7 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentContianerBinding
 
-class FragmentContainer :Fragment() {
+class FragmentContainer : Fragment() {
 
     private lateinit var binding: FragmentContianerBinding
 

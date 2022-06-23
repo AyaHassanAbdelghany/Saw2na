@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.profile.view_model.ProfileViewModel
 
-class ProfileViewModelFactory(private var userRepo: UserRepo): ViewModelProvider.Factory  {
+class ProfileViewModelFactory(private var userRepo: UserRepo) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             ProfileViewModel(userRepo) as T

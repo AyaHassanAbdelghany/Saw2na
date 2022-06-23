@@ -44,9 +44,9 @@ class DraftOrdersRemoteSource private constructor() {
         )
     }
 
-    suspend fun getAllOrders(userID: String): ArrayList<DraftOrder> {
+    suspend fun getAllOrders(userEmail: String): ArrayList<DraftOrder> {
         val res = api.getAllDraftOrders()
-        Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ngetAllOrders: ${userID} -- ${res.body()}")
+        Log.i("DraftOrdersRemoteSource", "\n\n\n\n\ngetAllOrders: ${userEmail} -- ${res.body()}")
 
         val resOrders: ArrayList<DraftOrder> = gson.fromJson(
             res.body()!!.get("draft_orders") as JsonArray,
@@ -58,7 +58,10 @@ class DraftOrdersRemoteSource private constructor() {
         for (order in resOrders) {
 //            if (order.id != 872900919435) {
 //                deleteOrderByID(order.id!!)
-            if (order.customer?.id.toString() == userID) {
+
+            Log.e("TAG", "getAllOrders Marwan: ${order.email} - ${userEmail}", )
+            if (order.email.equals(userEmail)) {
+
                 myOrders.add(order)
             }
 //            }

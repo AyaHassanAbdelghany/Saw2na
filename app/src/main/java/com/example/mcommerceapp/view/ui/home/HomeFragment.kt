@@ -4,7 +4,6 @@ package com.example.mcommerceapp.view.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,13 +61,34 @@ class HomeFragment : OnClickListner, Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.actionBar.favouriteImage.setOnClickListener { startActivity(Intent(requireContext(), FavoriteScreen::class.java)) }
+        binding.actionBar.favouriteImage.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    FavoriteScreen::class.java
+                )
+            )
+        }
 
-        binding.actionBar.cardImage.setOnClickListener { startActivity(Intent(requireContext(), ShoppingCartScreen::class.java)) }
+        binding.actionBar.cardImage.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    ShoppingCartScreen::class.java
+                )
+            )
+        }
 
-        binding.actionBar.searchImage.setOnClickListener { startActivity(Intent(requireContext(), SearchActivity::class.java)) }
+        binding.actionBar.searchImage.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    SearchActivity::class.java
+                )
+            )
+        }
 
-        binding.viewMoreTx.setOnClickListener{
+        binding.viewMoreTx.setOnClickListener {
             bundle.putString("VALUE", "")
             bundle.putString("TYPE", Keys.ALL_PRODUCT)
             val intent = Intent(requireContext(), CategorizedProductActivity::class.java)
@@ -148,7 +168,11 @@ class HomeFragment : OnClickListner, Fragment() {
     private fun observerAllProducts() {
         homeVM.allProducts.removeObservers(viewLifecycleOwner)
         homeVM.allProducts.observe(viewLifecycleOwner) {
-            allProductsAdapter.setData(it.take(4) as ArrayList<Products>, homeVM.getCurrencySymbol(), homeVM.getCurrencyValue())
+            allProductsAdapter.setData(
+                it.take(4) as ArrayList<Products>,
+                homeVM.getCurrencySymbol(),
+                homeVM.getCurrencyValue()
+            )
             binding.viewMoreTx.visibility = TextView.VISIBLE
             binding.view.visibility = TextView.VISIBLE
             binding.recycleViewProduct.adapter = allProductsAdapter

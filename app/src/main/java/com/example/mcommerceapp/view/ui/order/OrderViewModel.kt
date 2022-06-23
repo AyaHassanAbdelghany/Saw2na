@@ -1,6 +1,5 @@
 package com.example.mcommerceapp.view.ui.order
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.orders_repository.OrdersRepo
 import com.example.mcommerceapp.model.user_repository.UserRepo
-import com.example.mcommerceapp.pojo.products.Products
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,7 +27,7 @@ class OrderViewModel(
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
 
-    fun getAllOrders(){
+    fun getAllOrders() {
         viewModelScope.launch(Dispatchers.IO) {
             val user = iUser.getUser()
             val orders = iOrders.getAllOrders(user.userID)

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.R
-import com.example.mcommerceapp.pojo.products.Variants
 
 class ColorAdapter(var context: Context, var listener: OnClickListener) :
     RecyclerView.Adapter<ColorAdapter.ViewHolder>() {

@@ -1,12 +1,12 @@
 package com.example.mcommerceapp.view.ui.authentication.signin.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySigninBinding
@@ -19,11 +19,11 @@ import com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivit
 
 class SigninActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySigninBinding
-    private lateinit var emailEditText : EditText
-    private lateinit var passwordEditText : EditText
-    private lateinit var signinButton : Button
-    private lateinit var loading : ProgressBar
-    private lateinit var signup : TextView
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var signinButton: Button
+    private lateinit var loading: ProgressBar
+    private lateinit var signup: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,22 +38,22 @@ class SigninActivity : AppCompatActivity() {
         loading = binding.loadingProgressBar
         signup = binding.signupTextView
 
-        val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance( this))
-        val signinViewModel = ViewModelProvider(this,viewModelFactory)[SignInViewModel::class.java]
+        val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance(this))
+        val signinViewModel = ViewModelProvider(this, viewModelFactory)[SignInViewModel::class.java]
 
-        signinViewModel.authState.observe(this){
+        signinViewModel.authState.observe(this) {
             loading.visibility = View.INVISIBLE
-            when(it){
-                AuthState.SUCCESS ->{
+            when (it) {
+                AuthState.SUCCESS -> {
                     signinViewModel.setLoggedInState(true)
                     Toast.makeText(this, "welcome ...", Toast.LENGTH_SHORT).show()
                     finish()
                 }
-                AuthState.EMAIL_NOT_VERIFIED ->{
+                AuthState.EMAIL_NOT_VERIFIED -> {
                     Toast.makeText(this, "please verify your email...", Toast.LENGTH_SHORT).show()
                 }
                 AuthState.LOADING -> loading.visibility = View.VISIBLE
-                else ->{
+                else -> {
                     Log.i("TAG", "onCreate: AuthState.error :${it} ")
                     Toast.makeText(this, "${it}...", Toast.LENGTH_SHORT).show()
                 }
@@ -61,16 +61,19 @@ class SigninActivity : AppCompatActivity() {
         }
 
 
-        signinButton.setOnClickListener{
-            if (isEmailValid() && isPasswordValid() ){
+        signinButton.setOnClickListener {
+            if (isEmailValid() && isPasswordValid()) {
                 loading.visibility = View.VISIBLE
-                signinViewModel.signIn(emailEditText.text.toString(), passwordEditText.text.toString())
+                signinViewModel.signIn(
+                    emailEditText.text.toString(),
+                    passwordEditText.text.toString()
+                )
             }
 
         }
 
-        signup.setOnClickListener{
-            startActivity(Intent(this , SignUpActivity::class.java))
+        signup.setOnClickListener {
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
     }
@@ -87,9 +90,9 @@ class SigninActivity : AppCompatActivity() {
 
     // A placeholder password validation check
     private fun isPasswordValid(): Boolean {
-        return if ( passwordEditText.text.toString().length > 5){
+        return if (passwordEditText.text.toString().length > 5) {
             true
-        }else{
+        } else {
             passwordEditText.error = "password must be at least 6 char"
             false
         }
