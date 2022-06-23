@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.shopify_repository.product.CategoryRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
@@ -14,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurrency) : ViewModel() {
+class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurrency,  private val iUser: UserRepo) : ViewModel() {
 
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
@@ -31,6 +32,8 @@ class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurren
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
+
+    val isLogged = iUser.getLoggedInState()
 
     fun getCollectionId(id: String) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -17,9 +17,11 @@ import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.MainActivity
+import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.adapter.CategorizedProductAdapter
 import com.example.mcommerceapp.view.ui.feature_product.adapter.OnClickListner
@@ -46,7 +48,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
     private lateinit var productsVM: CategorizedProductVM
     private lateinit var productsVMFactory: CategorizedProductVMFactory
     private lateinit var value: String
-    private lateinit var type :String
+    private lateinit var type: String
     private lateinit var categoryProductAdapter: CategorizedProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,9 +74,9 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
             }
         }
-       val intent = intent.getBundleExtra("PRODUCTS")
+        val intent = intent.getBundleExtra("PRODUCTS")
         value = intent?.getString("VALUE", " ") ?: ""
-         type = intent?.get("TYPE").toString()
+        type = intent?.get("TYPE").toString()
 
         binding.actionBarLayout.backImg.visibility = ImageView.VISIBLE
 
@@ -88,21 +90,29 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
 
         binding.actionBarLayout.favouriteImage.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    FavoriteScreen::class.java
+            if (!productsVM.isLogged) {
+                startActivity(Intent(this, SigninActivity::class.java))
+            } else {
+                startActivity(
+                    Intent(
+                        this,
+                        FavoriteScreen::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.actionBarLayout.cardImage.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    ShoppingCartScreen::class.java
+            if (!productsVM.isLogged) {
+                startActivity(Intent(this, SigninActivity::class.java))
+            } else {
+                startActivity(
+                    Intent(
+                        this,
+                        ShoppingCartScreen::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.actionBarLayout.searchImage.setOnClickListener {
@@ -140,15 +150,13 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
         }
     }
 
-    private fun checkType(){
+    private fun checkType() {
         when (type) {
             Keys.VENDOR -> observeVendor()
             Keys.ALL_PRODUCT -> observeAllProducts()
         }
     }
-        private fun observeVendor() {
-            productsVM.getProductsVendor(value)
-            observeProducts()
+
     private fun observeVendor() {
         productsVM.getProductsVendor(value)
         observeProducts()
@@ -160,7 +168,7 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
 
             categoryProductAdapter.setData(it, productsVM.currencySymbol, productsVM.currencyValue)
             binding.grid.adapter = categoryProductAdapter
-=        }
+        }
     }
 
     private fun observeAllProducts() {
@@ -183,7 +191,8 @@ class CategorizedProductActivity : AppCompatActivity(), OnClickListner {
     private fun init() {
         productsVMFactory = CategorizedProductVMFactory(
             ProductRepo.getInstance(RemoteSource()),
-            CurrencyRepo.getInstance(RemoteSource(), this)
+            CurrencyRepo.getInstance(RemoteSource(), this),
+            UserRepo.getInstance(this)
         )
         productsVM =
             ViewModelProvider(this, productsVMFactory)[CategorizedProductVM::class.java]

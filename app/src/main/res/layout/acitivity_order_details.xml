@@ -5,19 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/action_bar_customized"/>
+
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:text="@string/product"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view_product"
@@ -37,7 +42,8 @@
         android:layout_marginTop="5dp"
         android:text="@string/shipping_details"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/recycle_view_product"
         app:layout_constraintTop_toBottomOf="@id/recycle_view_product" />
@@ -138,7 +144,8 @@
         android:layout_marginTop="5dp"
         android:text="@string/payment_details"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        android:layout_marginStart="10dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/card_shipping_details"
         app:layout_constraintTop_toBottomOf="@id/card_shipping_details" />

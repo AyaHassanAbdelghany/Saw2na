@@ -46,6 +46,10 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
             binding.recycleViewOrder.adapter = orderAdapter
         }
 
+        binding.toolbar.backImg.setOnClickListener {
+            finish()
+        }
+
     }
 
     override fun onClick(id: String) {
@@ -53,4 +57,5 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
         intent.putExtra("ORDER_ID", id)
         startActivity(intent)
     }
+
 }

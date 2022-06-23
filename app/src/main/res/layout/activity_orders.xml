@@ -2,7 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/action_bar_customized"
+        android:layout_height="56dp"
+        android:layout_width="match_parent"/>
 
     <TextView
         android:id="@+id/textOrder"
@@ -10,22 +17,25 @@
         android:layout_height="wrap_content"
         android:text="@string/orders"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15sp"
+        android:layout_marginTop="15dp"
         app:layout_constraintHorizontal_bias="0.06"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/textOrder"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        android:layout_marginTop="20sp"
+        tools:listitem="@layout/item_orders"
+        android:layout_marginTop="20dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

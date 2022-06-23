@@ -29,7 +29,7 @@ class OrderDetailAdapter(var context: Context, var listner: OnClickListener) :
         val currentItem = orderList[position]
         holder.binding.apply {
             nameOrderDetailTxt.text = currentItem.name
-            priceOrderDetailTxt.text = "${currentItem.price?.toDouble()?.times(value)} ${symbol}"
+            priceOrderDetailTxt.text = "${currentItem.price?.toDouble()?.times(value)} $symbol"
             quantityOrderDetail.text = "quantity  ${currentItem.quantity}"
         }
         holder.itemView.setOnClickListener {

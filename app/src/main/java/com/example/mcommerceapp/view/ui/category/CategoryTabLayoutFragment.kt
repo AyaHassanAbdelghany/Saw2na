@@ -8,9 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.databinding.FragmentCategoryBinding
+import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
+import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.category.adapter.PagerAdapter
+import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
+import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModelFactory
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.search.view.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
@@ -22,6 +30,9 @@ class CategoryTabLayoutFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var pagerAdapter: PagerAdapter
+
+    private lateinit var categoryVM: CategoryViewModel
+    private lateinit var categoryVMFactory: CategoryViewModelFactory
 
 
     private val pagerCallback by lazy {
@@ -49,21 +60,29 @@ class CategoryTabLayoutFragment : Fragment() {
         binding.actionBar.backImg.visibility = ImageView.INVISIBLE
 
         binding.actionBar.favouriteImage.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    FavoriteScreen::class.java
+            if (!categoryVM.isLogged) {
+                startActivity(Intent(requireContext(), SigninActivity::class.java))
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        FavoriteScreen::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.actionBar.cardImage.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    ShoppingCartScreen::class.java
+            if (!categoryVM.isLogged) {
+                startActivity(Intent(requireContext(), SigninActivity::class.java))
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        ShoppingCartScreen::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.actionBar.searchImage.setOnClickListener {
@@ -104,5 +123,14 @@ class CategoryTabLayoutFragment : Fragment() {
         binding.viewPager.adapter = pagerAdapter
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.registerOnPageChangeCallback(pagerCallback)
+
+        categoryVMFactory = CategoryViewModelFactory(
+            ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
+                RemoteSource(), requireContext
+                    ()
+            ),
+            UserRepo.getInstance(requireContext())
+        )
+        categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
     }
 }

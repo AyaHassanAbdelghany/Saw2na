@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.order_detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
 import com.example.mcommerceapp.view.ui.order_detail.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.order_detail.adapter.OrderDetailAdapter
+import java.text.SimpleDateFormat
 
 class OrderDetailActivity : AppCompatActivity(), OnClickListener {
 
@@ -18,6 +20,7 @@ class OrderDetailActivity : AppCompatActivity(), OnClickListener {
     lateinit var orderDetailVM: OrderDetailViewModel
     lateinit var orderDetailVMFactory: OrderDetailViewModelFactory
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = AcitivityOrderDetailsBinding.inflate(layoutInflater)
@@ -48,7 +51,9 @@ class OrderDetailActivity : AppCompatActivity(), OnClickListener {
 
             binding.phoneItemsTxt.text = it.phone
             binding.addressItemsTxt.text = it.customer?.defaultAddress?.address1
-            binding.dateItemsTxt.text = it.createdAt
+            val spf = SimpleDateFormat("yyyy-MM-dd")
+            val createdAt = spf.format(spf.parse(it.createdAt))
+            binding.dateItemsTxt.text = createdAt
 
             orderDetailAdapter.setData(
                 it.lineItems,
@@ -56,6 +61,9 @@ class OrderDetailActivity : AppCompatActivity(), OnClickListener {
                 orderDetailVM.currencyValue
             )
             binding.recycleViewProduct.adapter = orderDetailAdapter
+        }
+        binding.toolbar.backImg.setOnClickListener {
+            finish()
         }
     }
 

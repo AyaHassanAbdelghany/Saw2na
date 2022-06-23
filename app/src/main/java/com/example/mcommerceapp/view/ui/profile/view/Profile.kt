@@ -12,9 +12,11 @@ import com.example.mcommerceapp.databinding.FragmentProfileBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivity
+import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.order.OrderActivity
 import com.example.mcommerceapp.view.ui.profile.view_model.ProfileViewModel
 import com.example.mcommerceapp.view.ui.profile.view_model.factory.ProfileViewModelFactory
+import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 
 
 class Profile : Fragment() {
@@ -53,6 +55,25 @@ class Profile : Fragment() {
                 Intent(
                     requireContext(),
                     OrderActivity::class.java
+                )
+            )
+        }
+
+
+        binding.linearLayout3.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    FavoriteScreen::class.java
+                )
+            )
+        }
+
+        binding.linearLayout2.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    ShoppingCartScreen::class.java
                 )
             )
         }

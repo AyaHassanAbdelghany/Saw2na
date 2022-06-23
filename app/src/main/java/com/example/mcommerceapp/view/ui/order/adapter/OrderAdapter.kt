@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.databinding.ItemOrdersBinding
 import orders.Order
+import java.text.SimpleDateFormat
 
 class OrderAdapter(var context: Context, var listner: OnClickListener) :
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
@@ -28,10 +29,12 @@ class OrderAdapter(var context: Context, var listner: OnClickListener) :
         val currentItem = orderList[position]
         holder.binding.apply {
             orderNameTxt.text = currentItem.name
-            orderDateTxt.text = currentItem.createdAt
+            val spf = SimpleDateFormat("yyyy-MM-dd")
+            val createdAt = spf.format(spf.parse(currentItem.createdAt))
+            orderDateTxt.text = createdAt
             countItemsTxt.text = "${currentItem.lineItems.size} items"
             totalItemsTxt.text =
-                "${currentItem.currentTotalPrice?.toDouble()?.times(value)} ${symbol}"
+                "${currentItem.currentTotalPrice?.toDouble()?.times(value)} $symbol"
         }
         holder.itemView.setOnClickListener {
             listner.onClick(currentItem.id.toString())

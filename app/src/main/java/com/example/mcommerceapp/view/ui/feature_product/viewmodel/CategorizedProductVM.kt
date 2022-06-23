@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
 import com.example.mcommerceapp.model.shopify_repository.product.CategoryRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 
 class CategorizedProductVM(
     private var iCategory: CategoryRepo,
-    private var iCurrency: StoredCurrency
+    private var iCurrency: StoredCurrency,
+    private val iUser: UserRepo
 ) : ViewModel() {
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
@@ -31,6 +33,8 @@ class CategorizedProductVM(
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
+
+    val isLogged = iUser.getLoggedInState()
 
     fun getProductsVendor(vendor: String) {
         viewModelScope.launch(Dispatchers.IO) {

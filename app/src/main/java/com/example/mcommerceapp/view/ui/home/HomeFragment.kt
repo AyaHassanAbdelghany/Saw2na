@@ -20,7 +20,9 @@ import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.products.Products
+import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
 import com.example.mcommerceapp.view.ui.feature_product.CategorizedProductActivity
 import com.example.mcommerceapp.view.ui.feature_product.adapter.AllProductsAdapter
@@ -64,21 +66,29 @@ class HomeFragment : OnClickListner, Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.actionBar.favouriteImage.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    FavoriteScreen::class.java
+            if (!homeVM.isLogged) {
+                startActivity(Intent(requireContext(), SigninActivity::class.java))
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        FavoriteScreen::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.actionBar.cardImage.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    ShoppingCartScreen::class.java
+            if (!homeVM.isLogged) {
+                startActivity(Intent(requireContext(), SigninActivity::class.java))
+            } else {
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        ShoppingCartScreen::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.actionBar.searchImage.setOnClickListener {
@@ -150,7 +160,10 @@ class HomeFragment : OnClickListner, Fragment() {
         homeVMFactory = HomeViewModelFactory(
             ProductRepo.getInstance(RemoteSource()),
             ProductRepo.getInstance(RemoteSource()),
-            CurrencyRepo.getInstance(RemoteSource(), requireContext())
+            CurrencyRepo.getInstance(RemoteSource(), requireContext()),
+            UserRepo.getInstance(
+                requireContext()
+            )
         )
         homeVM = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         vendorAdapter = VendorAdapter(requireContext(), this)
