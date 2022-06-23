@@ -8,10 +8,9 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityMainBinding
-
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.view.ui.category.CategoryTabLayoutFragment
 import com.example.mcommerceapp.view.ui.more.view.MoreFragment
 import com.example.mcommerceapp.view.ui.profile.view.Profile
@@ -28,7 +27,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
+        val lang = sharedPreferences.getString("lan", "en")
+        val locale = lang?.let { Locale(it) }
+        if (locale != null) {
+            Locale.setDefault(locale)
+        }
+        val resources: Resources = resources
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -44,7 +52,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        val connectivityManager = getSystemService(ConnectivityManager::class.java) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(ConnectivityManager::class.java) as ConnectivityManager
         connectivityManager.requestNetwork(
             MyConnectivityManager.networkRequest,
             MyConnectivityManager.networkCallback
@@ -70,16 +79,16 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
-        val lang = sharedPreferences.getString("lan", "en")
-        val locale = lang?.let { Locale(it) }
-        if (locale != null) {
-            Locale.setDefault(locale)
-        }
-        val resources: Resources = resources
-        val config: Configuration = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
+//        val sharedPreferences: SharedPreferences = getSharedPreferences("user", 0)
+//        val lang = sharedPreferences.getString("lan", "en")
+//        val locale = lang?.let { Locale(it) }
+//        if (locale != null) {
+//            Locale.setDefault(locale)
+//        }
+//        val resources: Resources = resources
+//        val config: Configuration = resources.configuration
+//        config.setLocale(locale)
+//        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
 

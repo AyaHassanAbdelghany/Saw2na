@@ -165,7 +165,7 @@
         android:layout_marginStart="8dp"
         android:textStyle="bold"
         android:clickable="true"
-        android:text="@string/Signin"
+        android:text="@string/Sign_up_tx"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
         app:layout_constraintStart_toEndOf="@+id/textView5" />
 

@@ -1,13 +1,9 @@
 package com.example.mcommerceapp.view.ui.more.view
 
 import android.R
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +19,6 @@ import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.addresses.view.AddressesActivity
 import com.example.mcommerceapp.view.ui.more.view_model.MoreViewModel
 import com.example.mcommerceapp.view.ui.more.view_model.factory.MoreViewModelFactory
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MoreFragment : Fragment() {
@@ -60,7 +54,7 @@ class MoreFragment : Fragment() {
         var sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("user", 0)
         val lang = sharedPreferences.getString("lan", "en")
         sharedPreferences = requireContext().getSharedPreferences("currency", 0)
-        val cur = sharedPreferences.getString("symbol","EGP")
+        val cur = sharedPreferences.getString("symbol", "EGP")
 
 
         var currencyAdapter: ArrayAdapter<String> =
@@ -80,12 +74,12 @@ class MoreFragment : Fragment() {
             val lang = languagesArray[languageSpinner.selectedItemPosition]
             viewModel.setLanguage(lang)
 
-            val locale = Locale(lang)
-            Locale.setDefault(locale)
-            val resources: Resources = resources
-            val config: Configuration = resources.configuration
-            config.setLocale(locale)
-            resources.updateConfiguration(config, resources.displayMetrics)
+//            val locale = Locale(lang)
+//            Locale.setDefault(locale)
+//            val resources: Resources = resources
+//            val config: Configuration = resources.configuration
+//            config.setLocale(locale)
+//            resources.updateConfiguration(config, resources.displayMetrics)
 
             requireActivity().finish()
             requireActivity().startActivity(requireActivity().intent)
@@ -109,7 +103,7 @@ class MoreFragment : Fragment() {
         }
 
         binding.shippingAddressesLayout.setOnClickListener {
-            startActivity(Intent(requireContext(),AddressesActivity::class.java))
+            startActivity(Intent(requireContext(), AddressesActivity::class.java))
         }
 
     }

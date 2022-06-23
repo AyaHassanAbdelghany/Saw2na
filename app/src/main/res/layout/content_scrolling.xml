@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
+            android:text="20.0"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:text="20.0"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,14 +37,13 @@
             app:layout_constraintTop_toBottomOf="@+id/ProductPriceTxt" />
 
 
-
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/size"
-            android:textStyle="bold"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/ProductRating"
             app:layout_constraintTop_toBottomOf="@id/ProductRating" />
 
@@ -53,8 +52,8 @@
             android:id="@+id/sizeRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/text"
             app:layout_constraintTop_toBottomOf="@id/text"
             tools:listitem="@layout/card_size" />
@@ -65,8 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/color"
-            android:textStyle="bold"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/sizeRecycleView"
             app:layout_constraintTop_toBottomOf="@id/sizeRecycleView" />
 
@@ -75,8 +74,8 @@
             android:id="@+id/colorRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/text1"
             app:layout_constraintTop_toBottomOf="@id/text1"
             tools:listitem="@layout/card_size" />
@@ -86,8 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/desc"
-            android:textStyle="bold"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/colorRecycleView"
             app:layout_constraintTop_toBottomOf="@id/colorRecycleView" />
 
@@ -95,24 +94,25 @@
             android:id="@+id/readMore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:readMoreColor="@color/black"
-            android:textSize="17sp"
             android:textColor="@color/black"
-            app:readMoreMaxLine="2"
-            app:readMoreText="                     See more"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@id/text2"
-            app:layout_constraintTop_toBottomOf="@id/text2"/>
+            app:layout_constraintTop_toBottomOf="@id/text2"
+            app:readMoreColor="@color/black"
+            app:readMoreMaxLine="2"
+            app:readMoreText="                     See more" />
 
-       <androidx.constraintlayout.widget.ConstraintLayout
-           android:id="@+id/layout1"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           app:layout_constraintStart_toStartOf="@id/readMore"
-           app:layout_constraintTop_toBottomOf="@id/readMore">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/readMore"
+            app:layout_constraintTop_toBottomOf="@id/readMore">
 
-           <include layout="@layout/card_review"
-               android:id="@+id/card1"/>
-       </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/card1"
+                layout="@layout/card_review" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout2"
@@ -122,8 +122,9 @@
             app:layout_constraintStart_toStartOf="@id/layout1"
             app:layout_constraintTop_toBottomOf="@id/layout1">
 
-            <include layout="@layout/card_review"
-                android:id="@+id/card2"/>
+            <include
+                android:id="@+id/card2"
+                layout="@layout/card_review" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -133,9 +134,9 @@
             android:text="@string/see"
             android:textColor="@color/teal_700"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout2"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

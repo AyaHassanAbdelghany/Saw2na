@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -51,13 +52,18 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     private var isCart = 0
     private lateinit var variant: ArrayList<Variants>
 
-    @SuppressLint("SetTextI18n")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+//        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+//        supportActionBar?.setDisplayShowCustomEnabled(true)
+//        supportActionBar?.setCustomView(binding.toolbar)
 
         detailVMFactory = ProductDetailVMFactory(
             ProductRepo.getInstance(RemoteSource()), RoomRepo.getInstance(
@@ -182,7 +188,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         id = getVariant(variant, color, size)
         productDetail = products
 
-        binding.toolbar.title = products.title
+        binding.toolbarLayout.title = products.title
 
         binding.contentDetail.ProductPriceTxt.text = "${
             products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)

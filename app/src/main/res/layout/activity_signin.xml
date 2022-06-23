@@ -23,7 +23,7 @@
         android:elevation="5dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        android:text="@string/Signin"
+        android:text="@string/Sign_in_tx"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.433"
@@ -51,7 +51,7 @@
         android:layout_height="66dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="48dp"
-        android:text="@string/Signin"
+        android:text="@string/Sign_in_tx"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
