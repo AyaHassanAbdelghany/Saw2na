@@ -16,6 +16,7 @@ import com.example.mcommerceapp.databinding.FragmentCategoryTypeBinding
 import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
+import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
 import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
@@ -110,7 +111,8 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
                 RemoteSource(), requireContext
                     ()
-            )
+            ),
+            UserRepo.getInstance(requireContext())
         )
         categoryVM = ViewModelProvider(this, categoryVMFactory)[CategoryViewModel::class.java]
         categoryAdapter = CategoryAdapter(requireContext(), this)
