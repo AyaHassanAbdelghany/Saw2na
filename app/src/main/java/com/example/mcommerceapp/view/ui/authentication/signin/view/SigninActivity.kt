@@ -73,6 +73,7 @@ class SigninActivity : AppCompatActivity() {
         }
 
         signup.setOnClickListener {
+            finish()
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 

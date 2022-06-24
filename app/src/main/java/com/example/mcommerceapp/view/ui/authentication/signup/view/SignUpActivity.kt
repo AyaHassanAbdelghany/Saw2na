@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.authentication.signup.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -12,6 +13,7 @@ import com.example.mcommerceapp.databinding.ActivitySignUpBinding
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
+import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.authentication.signup.view_model.SignupViewModel
 import com.example.mcommerceapp.view.ui.authentication.signup.view_model.factory.SignupViewModelFactory
 
@@ -75,6 +77,7 @@ class SignUpActivity : AppCompatActivity() {
         }
         signinTextView.setOnClickListener {
             finish()
+            startActivity(Intent(this, SigninActivity::class.java))
         }
 
     }
