@@ -113,12 +113,8 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
     override suspend fun setUser(user: User) {
         val req = getRequest(user)
         user.userID = customerRemoteSource.createCustomer(req)
-
-        Log.e("iiiiiiiiiiid", "  customerRemoteSource     " + user.userID)
-
         sharedPreferences.edit().putString("name", user.displayName)
             .putString("email", user.email).putString("userId", user.userID).apply()
-
         addToFireStore(user)
     }
 
