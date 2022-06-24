@@ -19,11 +19,7 @@ class CustomerRemoteSource {
     suspend fun createCustomer(req: RequestBody): String {
         val res = api.createCustomer(req)
         Log.i("createCustomer", "createCustomer: $res")
-        return if (res.message() == "Created") {
-            (res.body()!!.get("customer") as JsonObject).get("id").toString()
-        } else {
-            "null"
-        }
+        return (res.body()!!.get("customer") as JsonObject).get("id").toString()
     }
 
     suspend fun getCustomerById(id: String): Customers {

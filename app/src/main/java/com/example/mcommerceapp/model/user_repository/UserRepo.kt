@@ -114,7 +114,7 @@ class UserRepo private constructor(context: Context) : FirebaseAuthRepo,
         val req = getRequest(user)
         user.userID = customerRemoteSource.createCustomer(req)
 
-        Log.d("iiiiiiiiiiid", "  customerRemoteSource     " + user.userID)
+        Log.e("iiiiiiiiiiid", "  customerRemoteSource     " + user.userID)
 
         sharedPreferences.edit().putString("name", user.displayName)
             .putString("email", user.email).putString("userId", user.userID).apply()

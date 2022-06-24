@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.more.view_model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,7 @@ class MoreViewModel(private val userRepo: UserRepo, private val currencyRepo: IC
     fun convert(currency: String) {
         viewModelScope.launch(Dispatchers.IO) {
             currencyRepo.convertCurrency(currency)
+            Log.e("TAG", "convert:  Dispatchers finished", )
         }
     }
 
