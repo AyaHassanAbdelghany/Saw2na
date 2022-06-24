@@ -43,4 +43,8 @@ class MoreViewModel(private val userRepo: UserRepo, private val currencyRepo: IC
         userRepo.setLanguage(lan)
     }
 
+    fun isLogged(): Boolean{
+        return userRepo.getLoggedInState()
+    }
+
 }

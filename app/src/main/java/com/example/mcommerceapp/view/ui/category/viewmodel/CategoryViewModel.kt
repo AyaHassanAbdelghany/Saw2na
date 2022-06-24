@@ -15,7 +15,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurrency,  private val iUser: UserRepo) : ViewModel() {
+class CategoryViewModel(
+    var iCategory: CategoryRepo,
+    var iCurrency: StoredCurrency,
+    private val iUser: UserRepo
+) : ViewModel() {
 
 
     private val _subCategory: MutableLiveData<HashSet<ProductFields>> = ProductRepo.subCollections
@@ -33,8 +37,6 @@ class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurren
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
 
-    val isLogged = iUser.getLoggedInState()
-
     fun getCollectionId(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val customCollection = iCategory.getCollectionId(id)
@@ -50,7 +52,10 @@ class CategoryViewModel(var iCategory: CategoryRepo, var iCurrency: StoredCurren
             withContext(Dispatchers.Main) {
                 _collectionProducts.postValue(collectionProducts)
             }
-
         }
+    }
+
+    fun isLogged(): Boolean {
+        return iUser.getLoggedInState()
     }
 }

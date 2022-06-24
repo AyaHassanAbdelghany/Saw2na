@@ -49,6 +49,7 @@ class HomeFragment : OnClickListner, Fragment() {
     private lateinit var sliderRun: Runnable
     val bundle = Bundle()
 
+    private var isLoggedIn = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,15 +59,13 @@ class HomeFragment : OnClickListner, Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         init()
 
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.actionBar.favouriteImage.setOnClickListener {
-            if (!homeVM.isLogged) {
+            if (!isLoggedIn) {
                 startActivity(Intent(requireContext(), SigninActivity::class.java))
             } else {
                 startActivity(
@@ -79,7 +78,7 @@ class HomeFragment : OnClickListner, Fragment() {
         }
 
         binding.actionBar.cardImage.setOnClickListener {
-            if (!homeVM.isLogged) {
+            if (!isLoggedIn) {
                 startActivity(Intent(requireContext(), SigninActivity::class.java))
             } else {
                 startActivity(
@@ -117,6 +116,7 @@ class HomeFragment : OnClickListner, Fragment() {
         observerAllProducts()
         sliderItems()
         itemSliderView()
+        isLoggedIn = homeVM.isLogged()
     }
 
     private fun itemSliderView() {

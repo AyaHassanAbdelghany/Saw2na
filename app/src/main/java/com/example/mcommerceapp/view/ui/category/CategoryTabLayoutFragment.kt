@@ -34,6 +34,8 @@ class CategoryTabLayoutFragment : Fragment() {
     private lateinit var categoryVM: CategoryViewModel
     private lateinit var categoryVMFactory: CategoryViewModelFactory
 
+    private var isLoggedIn = false
+
 
     private val pagerCallback by lazy {
         object : ViewPager2.OnPageChangeCallback() {
@@ -60,7 +62,7 @@ class CategoryTabLayoutFragment : Fragment() {
         binding.actionBar.backImg.visibility = ImageView.INVISIBLE
 
         binding.actionBar.favouriteImage.setOnClickListener {
-            if (!categoryVM.isLogged) {
+            if (!isLoggedIn) {
                 startActivity(Intent(requireContext(), SigninActivity::class.java))
             } else {
                 startActivity(
@@ -73,7 +75,7 @@ class CategoryTabLayoutFragment : Fragment() {
         }
 
         binding.actionBar.cardImage.setOnClickListener {
-            if (!categoryVM.isLogged) {
+            if (!isLoggedIn) {
                 startActivity(Intent(requireContext(), SigninActivity::class.java))
             } else {
                 startActivity(
@@ -96,6 +98,11 @@ class CategoryTabLayoutFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isLoggedIn = categoryVM.isLogged()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

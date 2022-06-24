@@ -9,12 +9,12 @@ import retrofit2.http.Query
 // karam key i0sSwInnqkf7vn7j58PZ6hmFxamSHCKB
 // nayra key ZckheMOjLcIIs5QIjoWrVXQL6geNwOPA
 interface ICurrencyService {
-    @Headers("apikey:ZckheMOjLcIIs5QIjoWrVXQL6geNwOPA")
+    @Headers("apikey:iYeMYcT5keVNGNqpCCKndknRJCd0Ukcx")
     @GET("symbols")
     suspend fun getAllCurrencySymbols(): Response<JsonObject>
 
 
-    @Headers("apikey:ZckheMOjLcIIs5QIjoWrVXQL6geNwOPA")
+    @Headers("apikey:iYeMYcT5keVNGNqpCCKndknRJCd0Ukcx")
     @GET("convert")
     suspend fun convertCurrency(
         @Query("from") from: String,

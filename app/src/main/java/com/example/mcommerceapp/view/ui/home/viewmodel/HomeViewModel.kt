@@ -29,7 +29,6 @@ class HomeViewModel(
     private val _allProducts: MutableLiveData<ArrayList<Products>> = ProductRepo.allProducts
     var allProducts: LiveData<ArrayList<Products>> = _allProducts
 
-    val isLogged = iUser.getLoggedInState()
 
     fun getProduct() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -45,6 +44,10 @@ class HomeViewModel(
 
     fun getCurrencyValue(): Double {
         return iCurrency.getCurrencyValue()
+    }
+
+    fun isLogged(): Boolean{
+        return iUser.getLoggedInState()
     }
 
 }

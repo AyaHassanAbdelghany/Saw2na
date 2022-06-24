@@ -17,6 +17,7 @@ import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.RemoteSource
 import com.example.mcommerceapp.model.user_repository.UserRepo
 import com.example.mcommerceapp.view.ui.addresses.view.AddressesActivity
+import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.more.view_model.MoreViewModel
 import com.example.mcommerceapp.view.ui.more.view_model.factory.MoreViewModelFactory
 
@@ -33,6 +34,8 @@ class MoreFragment : Fragment() {
     private lateinit var currencySpinner: Spinner
     private lateinit var languageSpinner: Spinner
 
+    private var isLoggedIn = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,8 +51,8 @@ class MoreFragment : Fragment() {
 
         binding.signOutButton.setOnClickListener {
             viewModel.signOut()
-            Toast.makeText(requireContext(), "Signed Out Successfully", Toast.LENGTH_SHORT).show()
-
+            isLoggedIn = false
+            binding.signOutButton.visibility = View.INVISIBLE
         }
         var sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("user", 0)
         val lang = sharedPreferences.getString("lan", "en")
@@ -99,13 +102,27 @@ class MoreFragment : Fragment() {
             currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             currencySpinner.adapter = currencyAdapter
             currencySpinner.setSelection(this.currencyArray.indexOf(cur))
-
         }
 
         binding.shippingAddressesLayout.setOnClickListener {
-            startActivity(Intent(requireContext(), AddressesActivity::class.java))
+            if (isLoggedIn) {
+                startActivity(Intent(requireContext(), AddressesActivity::class.java))
+            } else {
+                startActivity(Intent(requireContext(), SigninActivity::class.java))
+            }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isLoggedIn = viewModel.isLogged()
+
+        if (isLoggedIn) {
+            binding.signOutButton.visibility = View.VISIBLE
+        } else {
+            binding.signOutButton.visibility = View.INVISIBLE
+        }
     }
 
     private fun init() {
