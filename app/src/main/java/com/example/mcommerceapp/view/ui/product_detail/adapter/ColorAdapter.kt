@@ -1,6 +1,5 @@
 package com.example.mcommerceapp.view.ui.product_detail.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.util.Log
@@ -26,15 +25,18 @@ class ColorAdapter(var context: Context, var listener: OnClickListener) :
         this.listColor = listSize
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val color = listColor.elementAt(position)
         Log.d("Colorrrrrrrrrrrr", color)
-        var intColor = Color.parseColor(color)
-        if (intColor == null)
-            intColor = Color.parseColor("white")
-        val hexColor = Integer.toHexString(intColor).substring(2)
-        holder.colorCard.setCardBackgroundColor((Color.parseColor("#${hexColor}")))
+
+        if (color.isNotEmpty()) {
+            var intColor = Color.parseColor(color)
+            if (intColor == null)
+                intColor = Color.parseColor("white")
+            val hexColor = Integer.toHexString(intColor).substring(2)
+            holder.colorCard.setCardBackgroundColor((Color.parseColor("#${hexColor}")))
+        }
 
         holder.itemView.setOnClickListener {
             listener.onClickColor(color)

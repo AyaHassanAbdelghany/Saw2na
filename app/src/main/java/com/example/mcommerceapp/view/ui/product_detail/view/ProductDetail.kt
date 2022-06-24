@@ -199,9 +199,9 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
     private fun updateUI(products: Products) {
         variant = products.variants
-        color = variant[0].option2!!
-        size = variant[0].option1!!
-        image = products.image?.src!!
+        color = variant[0].option2 ?: ""
+        size = variant[0].option1 ?: ""
+        image = products.image?.src ?: ""
         id = getVariant(variant, color, size)
         productDetail = products
 
@@ -227,7 +227,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         val set = hashSetOf<String>()
         products.variants.forEach { color ->
-            set.add(color.option2!!)
+            set.add(color.option2 ?: "")
         }
         colorAdapter.setColorList(set)
 
