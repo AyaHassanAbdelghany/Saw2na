@@ -97,13 +97,15 @@ class ShoppingCartViewmodel(
                 )
                 Log.d("Testing", check.toString())
 
-                if (check) {
+                if (check ) {
                     val discount = iCouponsRepo.getAllDiscountCode(rules.id.toString())
                     Log.d("TestingDiscount", discount.toString())
                     discount.forEach {
-                        println("code: ${it.code}")
-                        it.createdAt = rules.value
-                        discountList.add(it)
+                        if ((rules.usageLimit?.toInt() ?: 0) > (it.usageCount ?: 0)){
+                            println("code: ${it.code}")
+                            it.createdAt = rules.value
+                            discountList.add(it)
+                        }
                     }
                 } else {
                     Log.d("priceCheck", "Finish..")
