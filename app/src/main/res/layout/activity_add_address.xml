@@ -30,120 +30,96 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="415dp"
             android:layout_margin="15dp">
-
-
-            <TextView
-                android:id="@+id/city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/city"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@id/address_TextView"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                tools:layout_editor_absoluteX="10dp" />
-
-            <TextView
-                android:id="@+id/address_TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/addresses"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/confirm_add_address"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:src="@drawable/icon_plus_circle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/address_TextView" />
-
-            <EditText
-                android:id="@+id/address_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                app:layout_constraintStart_toStartOf="@id/address_TextView"
-                app:layout_constraintTop_toBottomOf="@id/address_TextView" />
-
-            <TextView
-                android:id="@+id/country"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:text="@string/country"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/city"
-                app:layout_constraintLeft_toLeftOf="@id/address_TextView"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="227dp" />
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:text="@string/zip_code"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/address_TextView"
-                app:layout_constraintTop_toBottomOf="@id/country" />
-
-            <View
-                android:id="@+id/line"
+                app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_layout"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="120dp"
-                android:background="@color/grey"
-                app:layout_constraintTop_toBottomOf="@id/address_TextView"
-                tools:layout_editor_absoluteX="35dp" />
-
-            <EditText
-                android:id="@+id/country_editText"
-                android:layout_width="126dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                app:layout_constraintStart_toEndOf="@id/city"
-                app:layout_constraintTop_toTopOf="@id/country"/>
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue_dark"
+                android:hint="@string/name"
+                app:hintTextColor="@color/blue_dark"
+                app:layout_constraintTop_toBottomOf="@+id/confirm_add_address"
+                tools:layout_editor_absoluteX="16dp">
 
-            <EditText
-                android:id="@+id/city_editText"
-                android:layout_width="126dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/blue_dark" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="91dp"
-                android:layout_marginTop="9dp"
-                app:layout_constraintStart_toEndOf="@+id/city"
-                app:layout_constraintTop_toBottomOf="@+id/line" />
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue_dark"
+                android:hint="@string/city"
+                app:hintTextColor="@color/blue_dark"
+                app:layout_constraintTop_toBottomOf="@+id/name_layout"
+                tools:layout_editor_absoluteX="16dp">
 
-            <EditText
-                android:id="@+id/zip_code_editText"
-                android:layout_width="126dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/city_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/blue_dark" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/country_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toEndOf="@id/country"
-                app:layout_constraintTop_toTopOf="@id/text1" />
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue_dark"
+                android:hint="@string/country"
+                app:hintTextColor="@color/blue_dark"
+                app:layout_constraintTop_toBottomOf="@+id/city_layout"
+                tools:layout_editor_absoluteX="16dp">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/country_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/blue_dark" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/zip_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/blue_dark"
+                android:hint="@string/zip_code"
+                app:hintTextColor="@color/blue_dark"
+                app:layout_constraintTop_toBottomOf="@+id/country_layout"
+                tools:layout_editor_absoluteX="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/zip_code_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/blue_dark" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

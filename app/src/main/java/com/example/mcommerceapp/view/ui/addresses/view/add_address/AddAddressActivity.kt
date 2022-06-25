@@ -15,7 +15,7 @@ class AddAddressActivity : AppCompatActivity() {
         binding.confirmAddAddress.setOnClickListener {
             if (isValid()) {
                 val intent = Intent()
-                intent.putExtra("address", binding.addressEditText.text.toString())
+                intent.putExtra("address", binding.nameEditText.text.toString())
                 intent.putExtra("city", binding.cityEditText.text.toString())
                 intent.putExtra("country", binding.countryEditText.text.toString())
                 intent.putExtra("zip", binding.zipCodeEditText.text.toString())
@@ -33,8 +33,8 @@ class AddAddressActivity : AppCompatActivity() {
     private fun isValid(): Boolean {
 
         var res = true
-        if (binding.addressEditText.text.toString().isEmpty()) {
-            binding.addressEditText.error = "not valid"
+        if (binding.nameEditText.text.toString().isEmpty()) {
+            binding.nameEditText.error = "not valid"
             res = false
         }
         if (binding.cityEditText.text.toString().isEmpty()) {

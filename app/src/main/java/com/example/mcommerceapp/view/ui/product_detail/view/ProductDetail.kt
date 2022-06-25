@@ -28,6 +28,7 @@ import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
 import com.example.mcommerceapp.view.ui.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceapp.view.ui.product_detail.viewmodelfactory.ProductDetailVMFactory
+import com.example.mcommerceapp.view.ui.review.ReviewActivity
 import com.google.android.material.snackbar.Snackbar
 import draft_orders.DraftOrder
 import draft_orders.LineItems
@@ -61,8 +62,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadingDialog = Dialog(this)
 
         detailVMFactory = ProductDetailVMFactory(
@@ -154,6 +153,9 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             }
         }
 
+        binding.contentDetail.reviewSeeMoreTxt.setOnClickListener {
+            startActivity(Intent(this, ReviewActivity::class.java))
+        }
         binding.detailBtn.favImage.setOnClickListener {
             if (!isLoggedIn) {
                 startActivity(Intent(this, SigninActivity::class.java))

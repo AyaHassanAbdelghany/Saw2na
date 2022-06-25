@@ -18,39 +18,55 @@
         android:theme="@style/Theme.MCommerceApp">
         <activity
             android:name="com.example.mcommerceapp.view.ui.addresses.view.add_address.AddAddressActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.addresses.view.AddressesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.payment.view.Payment"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.search.view.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.authentication.signup.view.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.feature_product.CategorizedProductActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".view.ui.order.OrderActivity" />
+        <activity android:name=".view.ui.order.OrderActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".view.ui.order_detail.OrderDetailActivity" />
+        <activity android:name=".view.ui.order_detail.OrderDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".view.ui.review.ReviewActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".view.ui.shopping_cart.view.ShoppingCartScreen"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.product_detail.view.ProductDetail"
-            android:exported="false" />
-        <activity android:name=".view.ui.authentication.signin.view.SigninActivity" />
-        <activity android:name=".view.ui.favorite_product.view.FavoriteScreen" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.authentication.signin.view.SigninActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.favorite_product.view.FavoriteScreen"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.ui.splash_screen.SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,7 +75,8 @@
 
         </activity>
 
-        <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.MainActivity"
+            android:screenOrientation="portrait"/>
 
 
         <meta-data
