@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.ICouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
-import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
-import com.example.mcommerceapp.model.draft_orders_repository.interfaces.ShoppingCartRepoInterface
-import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.GetUserCartRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.StoredCurrency
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.interfaces.ShoppingCartRepoInterface
+import com.example.mcommerceapp.model.shopify_repository.user.user_repo_interfaces.GetUserCartRepo
 import com.example.mcommerceapp.pojo.user.User
 import draft_orders.DraftOrder
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +40,6 @@ class ShoppingCartViewmodel(
     val symbol = iCurrencyRepo.getCurrencySymbol()
     val value = iCurrencyRepo.getCurrencyValue()
 
-    private lateinit var end: String
 
     fun getAllDraftOrders(userId: String) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -1,13 +1,14 @@
 package com.example.mcommerceapp.model.shopify_repository.product
 
 import androidx.lifecycle.MutableLiveData
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.remote_source.products.IProductRemoteSource
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.pojo.customcollections.CustomCollections
 import com.example.mcommerceapp.pojo.products.ProductFields
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.smartcollections.SmartCollections
 
-class ProductRepo private  constructor(private var remoteSource : RemoteSource): CollectionsRepo,ProductsRepo, ProductDetailRepo, CategoryRepo{
+class ProductRepo private  constructor(private var remoteSource : IProductRemoteSource): ICollectionsRepo,IProductsRepo, IProductDetailRepo, ICategoryRepo{
 
     companion object {
         private val productRepo: ProductRepo? = null
@@ -16,7 +17,7 @@ class ProductRepo private  constructor(private var remoteSource : RemoteSource):
         val subCollections = MutableLiveData<HashSet<ProductFields>>()
 
 
-        fun getInstance(remoteSource: RemoteSource): ProductRepo {
+        fun getInstance(remoteSource: IProductRemoteSource): ProductRepo {
             return productRepo ?: ProductRepo(remoteSource)
         }
     }

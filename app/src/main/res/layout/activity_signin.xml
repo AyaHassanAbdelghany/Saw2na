@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tttt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -11,6 +10,21 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".view.ui.authentication.signin.view.SigninActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/icon_black_back_bt"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/signin_button"
         android:layout_width="247dp"
@@ -120,5 +134,8 @@
         app:layout_constraintTop_toBottomOf="@id/signin_button"
         tools:ignore="TouchTargetSizeCheck" />
 
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/network_screen"
+        android:id="@+id/network_layout"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

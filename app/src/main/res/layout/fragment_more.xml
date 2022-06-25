@@ -7,6 +7,12 @@
     android:paddingHorizontal="20dp"
     tools:context=".view.ui.more.view.MoreFragment">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
@@ -257,5 +263,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.8" />
 
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/network_screen"
+        android:id="@+id/network_layout"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

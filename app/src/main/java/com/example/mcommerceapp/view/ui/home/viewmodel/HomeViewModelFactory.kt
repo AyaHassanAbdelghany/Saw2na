@@ -2,14 +2,14 @@ package com.example.mcommerceapp.view.ui.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
-import com.example.mcommerceapp.model.shopify_repository.product.CollectionsRepo
-import com.example.mcommerceapp.model.shopify_repository.product.ProductsRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.StoredCurrency
+import com.example.mcommerceapp.model.shopify_repository.product.ICollectionsRepo
+import com.example.mcommerceapp.model.shopify_repository.product.IProductsRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 
 class HomeViewModelFactory(
-    private val iProducts: CollectionsRepo,
-    var products: ProductsRepo,
+    private val iProducts: ICollectionsRepo,
+    var products: IProductsRepo,
     private var iCurrency: StoredCurrency,
     private val iUser: UserRepo
 ) : ViewModelProvider.Factory {

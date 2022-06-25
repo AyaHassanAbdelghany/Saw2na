@@ -13,9 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentMoreBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.view.ui.addresses.view.AddressesActivity
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.more.view_model.MoreViewModel
@@ -92,7 +93,6 @@ class MoreFragment : Fragment() {
         viewModel.getCurrencySymbols()
 
         viewModel.symbols.observe(viewLifecycleOwner) {
-
             this.currencyArray = it.symbols.keys.toList()
             currencyAdapter = ArrayAdapter<String>(
                 this@MoreFragment.requireContext(),
@@ -117,7 +117,6 @@ class MoreFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         isLoggedIn = viewModel.isLogged()
-
         if (isLoggedIn) {
             binding.signOutButton.visibility = View.VISIBLE
         } else {
@@ -133,7 +132,7 @@ class MoreFragment : Fragment() {
             UserRepo.getInstance(
                 requireContext()
             ), CurrencyRepo.getInstance(
-                RemoteSource(), requireContext()
+                ProductRemoteSource.getInstance(), requireContext()
             )
         )
         viewModel = ViewModelProvider(this, viewModelFactory)[MoreViewModel::class.java]

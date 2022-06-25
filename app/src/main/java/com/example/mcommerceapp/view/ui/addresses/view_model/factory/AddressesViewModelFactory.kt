@@ -2,8 +2,8 @@ package com.example.mcommerceapp.view.ui.addresses.view_model.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.addresses_repository.AddressesRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.addresses.AddressesRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.view.ui.addresses.view_model.AddressesViewModel
 
 class AddressesViewModelFactory(

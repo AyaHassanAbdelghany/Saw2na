@@ -2,7 +2,7 @@ package com.example.mcommerceapp.view.ui.profile.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.LocalUserInfoRepo
+import com.example.mcommerceapp.model.shopify_repository.user.user_repo_interfaces.LocalUserInfoRepo
 import com.example.mcommerceapp.pojo.user.User
 
 class ProfileViewModel(var userRepo: LocalUserInfoRepo) : ViewModel() {

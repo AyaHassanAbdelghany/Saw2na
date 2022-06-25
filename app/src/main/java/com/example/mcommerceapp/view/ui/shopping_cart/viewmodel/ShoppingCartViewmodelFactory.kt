@@ -3,9 +3,9 @@ package com.example.mcommerceapp.view.ui.shopping_cart.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.ICouponRepo
-import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
-import com.example.mcommerceapp.model.draft_orders_repository.interfaces.ShoppingCartRepoInterface
-import com.example.mcommerceapp.model.user_repository.user_repo_interfaces.GetUserCartRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.StoredCurrency
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.interfaces.ShoppingCartRepoInterface
+import com.example.mcommerceapp.model.shopify_repository.user.user_repo_interfaces.GetUserCartRepo
 
 class ShoppingCartViewmodelFactory(
     private val iCartRpo: ShoppingCartRepoInterface,

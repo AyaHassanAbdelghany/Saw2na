@@ -14,11 +14,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityPaymentBinding
-import com.example.mcommerceapp.model.addresses_repository.AddressesRepo
-import com.example.mcommerceapp.model.orders_repository.OrdersRepo
+import com.example.mcommerceapp.model.shopify_repository.addresses.AddressesRepo
+import com.example.mcommerceapp.model.shopify_repository.orders.OrdersRepo
 import com.example.mcommerceapp.model.remote_source.addresses.AddressesRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.orders.DiscountCodes
 import com.example.mcommerceapp.pojo.orders.ShippingAddress
 import com.example.mcommerceapp.pojo.user.User
@@ -40,7 +41,7 @@ import java.util.*
 class Payment : AppCompatActivity() {
     private val model: CheckoutViewModel by viewModels()
 
-    private lateinit var layout: ActivityPaymentBinding
+    private lateinit var binding: ActivityPaymentBinding
     private lateinit var googlePayButton: View
 
     private var namesList: ArrayList<String> = ArrayList()
@@ -62,8 +63,8 @@ class Payment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Use view binding to access the UI elements
-        layout = ActivityPaymentBinding.inflate(layoutInflater)
-        setContentView(layout.root)
+        binding = ActivityPaymentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         namesList = intent.getStringArrayListExtra("names_list") as ArrayList<String>
         total = intent.getDoubleExtra("total_value", 0.0)
@@ -79,24 +80,23 @@ class Payment : AppCompatActivity() {
             discountCodesList.add(discountCodes)
         }
 
-        Log.e("TAG", "onCreate: Marwan ${discountCodesList.size}")
 
         val purchaseDetails = StringBuilder()
         namesList.forEach {
             purchaseDetails.append("(${it}) , ")
         }
 
-        layout.purchaseDescriptionTx.text = purchaseDetails
-        layout.amountValueTx.text = total.toString()
+        binding.purchaseDescriptionTx.text = purchaseDetails
+        binding.amountValueTx.text = total.toString()
 
-        layout.dateTx.text = SimpleDateFormat("d MMMM, yyyy").format(Date())
-        layout.timeTx.text = SimpleDateFormat("hh:mm aa").format(Date())
+        binding.dateTx.text = SimpleDateFormat("d MMMM, yyyy").format(Date())
+        binding.timeTx.text = SimpleDateFormat("hh:mm aa").format(Date())
 
-        layout.changeAddress.setOnClickListener {
+        binding.changeAddress.setOnClickListener {
             startActivity(Intent(this, AddressesActivity::class.java))
         }
 
-        layout.cancel.setOnClickListener {
+        binding.cancel.setOnClickListener {
             val newIntent = Intent()
             newIntent.putExtra("isSuccessful", isSuccessful)
             setResult(ShoppingCartScreen.PAY_INTENT_CODE, newIntent)
@@ -104,7 +104,7 @@ class Payment : AppCompatActivity() {
         }
 
         // Setup buttons
-        googlePayButton = layout.googlePayButton.root
+        googlePayButton = binding.googlePayButton.root
         googlePayButton.setOnClickListener { requestPayment(total = total) }
 
         // Check Google Pay availability
@@ -133,8 +133,22 @@ class Payment : AppCompatActivity() {
                 country = it.country,
                 zip = it.zip
             )
-            layout.addressValueTx.text =
+            binding.addressValueTx.text =
                 "${shippingAddress.address1}, ${shippingAddress.city}, ${shippingAddress.country}"
+        }
+
+        MyConnectivityManager.state.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
         }
     }
 
@@ -170,9 +184,9 @@ class Payment : AppCompatActivity() {
             if (completedTask.isSuccessful) {
                 completedTask.result.let(::handlePaymentSuccess)
             } else {
-                layout.statusImg.setImageResource(R.drawable.unpaid)
-                layout.googlePayButton.root.visibility = View.VISIBLE
-                layout.seperatorLineConstraint.visibility = View.VISIBLE
+                binding.statusImg.setImageResource(R.drawable.unpaid)
+                binding.googlePayButton.root.visibility = View.VISIBLE
+                binding.seperatorLineConstraint.visibility = View.VISIBLE
 
                 when (val exception = completedTask.exception) {
                     is ResolvableApiException -> {
@@ -208,7 +222,7 @@ class Payment : AppCompatActivity() {
 
                 RESULT_CANCELED -> {
                     // The user cancelled the payment attempt
-                    layout.statusImg.setImageResource(R.drawable.unpaid)
+                    binding.statusImg.setImageResource(R.drawable.unpaid)
                 }
             }
         }
@@ -232,7 +246,7 @@ class Payment : AppCompatActivity() {
                 .getJSONObject("billingAddress").getString("name")
             Log.d("BillingName", billingName)
 
-            layout.statusImg.setImageResource(R.drawable.paid)
+            binding.statusImg.setImageResource(R.drawable.paid)
 
             Toast.makeText(
                 this,
@@ -240,9 +254,9 @@ class Payment : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
 
-            layout.googlePayButton.root.visibility = View.INVISIBLE
-            layout.seperatorLineConstraint.visibility = View.INVISIBLE
-            layout.cancel.text = "Back"
+            binding.googlePayButton.root.visibility = View.INVISIBLE
+            binding.seperatorLineConstraint.visibility = View.INVISIBLE
+            binding.cancel.text = "Back"
 
             isSuccessful = true
 

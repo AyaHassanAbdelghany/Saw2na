@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
-import com.example.mcommerceapp.model.orders_repository.OrdersRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.StoredCurrency
+import com.example.mcommerceapp.model.shopify_repository.orders.OrdersRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

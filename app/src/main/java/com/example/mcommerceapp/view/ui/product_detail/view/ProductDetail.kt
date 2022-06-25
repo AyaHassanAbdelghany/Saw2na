@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceapp.model.Keys
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
 import com.example.mcommerceapp.model.local_source.LocalSource
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.room_repository.RoomRepo
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.pojo.products.Variants
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
@@ -39,7 +39,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     lateinit var binding: ActivityProductDetailBinding
     private lateinit var imageSliderPager: ImageSlideAdapter
     private lateinit var sizeAdapter: SizeAdapter
-    lateinit var colorAdapter: ColorAdapter
+    private lateinit var colorAdapter: ColorAdapter
     private lateinit var detailVM: ProductDetailVM
     private lateinit var detailVMFactory: ProductDetailVMFactory
 
@@ -65,14 +65,14 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         detailVMFactory = ProductDetailVMFactory(
             ProductRepo.getInstance(
-                RemoteSource()
+                ProductRemoteSource.getInstance()
             ),
             RoomRepo.getInstance(
                 LocalSource(this),
                 this
             ),
             CurrencyRepo.getInstance(
-                RemoteSource(),
+                ProductRemoteSource.getInstance(),
                 this
             ),
             DraftOrdersRepo.getInstance(
@@ -85,13 +85,12 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
         val intent = intent.getStringExtra("PRODUCTS_ID")
-
         detailVM.getProductDetail(intent!!)
         showLoadingDialog("Loading Data")
-//        detailVM.getDraftOrder()
+
         detailVM.cartList.observe(this) { cart ->
             loadingDialog.dismiss()
-            if (!cart.isEmpty()) {
+            if (cart.isNotEmpty()) {
                 id = getVariant(variant, color, size)
                 cart.forEach { cartId ->
                     if (cartId == id) {
@@ -105,7 +104,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             loadingDialog.dismiss()
             isFav = 0
             for (favId in favList) {
-                Log.e("TAG", "onCreate: ${favId} -- ${id}")
+                Log.e("TAG", "onCreate: ${favId} -- $id")
                 if (favId == productDetail.id) {
                     isFav = 1
                     break
@@ -141,7 +140,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                         DraftOrder(
                             note = Keys.CART, email = detailVM.user.email,
                             noteAttributes = arrayListOf(NoteAttributes(value = image)),
-                            lineItems = arrayListOf<LineItems>(
+                            lineItems = arrayListOf(
                                 LineItems(variantId = id, quantity = 1)
                             )
                         )
@@ -156,7 +155,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         binding.detailBtn.favImage.setOnClickListener {
             if (isFav == 0) {
                 showLoadingDialog("Adding to favorite")
-                Log.d("email_user", detailVM.user.email)
                 detailVM.addOrder(
                     DraftOrder(
                         note = Keys.FAV, email = detailVM.user.email,
@@ -166,7 +164,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                                 value = image
                             )
                         ),
-                        lineItems = arrayListOf<LineItems>(
+                        lineItems = arrayListOf(
                             LineItems(
                                 variantId = id,
                                 productId = productDetail.id,
@@ -181,12 +179,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             } else {
                 showLoadingDialog("Removing from favorite")
                 detailVM.deleteOrder(productDetail.id!!)
-//                binding.detailBtn.favImage.setImageDrawable(
-//                    ContextCompat.getDrawable(
-//                        applicationContext, // Context
-//                        R.drawable.ic_baseline_favorite_border_24
-//                    )
-//                )
             }
         }
 
@@ -195,6 +187,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
                 updateUI(products)
             }
         }
+
     }
 
     private fun updateUI(products: Products) {
@@ -210,7 +203,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         binding.contentDetail.ProductPriceTxt.text = "${
             products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
         }"
-        binding.contentDetail.ProductPriceCurrencyTxt.text = "${detailVM.currencySymbol}"
+        binding.contentDetail.ProductPriceCurrencyTxt.text = detailVM.currencySymbol
         binding.contentDetail.ProductRating.rating =
             (products.variants[0].inventoryQuantity)!!.toFloat()
         imageSliderPager = ImageSlideAdapter(this, products.images)

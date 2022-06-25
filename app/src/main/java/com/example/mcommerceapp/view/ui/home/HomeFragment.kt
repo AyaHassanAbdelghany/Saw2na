@@ -17,10 +17,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentHomeBinding
 import com.example.mcommerceapp.model.Keys
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen
@@ -158,9 +158,9 @@ class HomeFragment : OnClickListner, Fragment() {
 
     private fun init() {
         homeVMFactory = HomeViewModelFactory(
-            ProductRepo.getInstance(RemoteSource()),
-            ProductRepo.getInstance(RemoteSource()),
-            CurrencyRepo.getInstance(RemoteSource(), requireContext()),
+            ProductRepo.getInstance(ProductRemoteSource.getInstance()),
+            ProductRepo.getInstance(ProductRemoteSource.getInstance()),
+            CurrencyRepo.getInstance(ProductRemoteSource.getInstance(), requireContext()),
             UserRepo.getInstance(
                 requireContext()
             )

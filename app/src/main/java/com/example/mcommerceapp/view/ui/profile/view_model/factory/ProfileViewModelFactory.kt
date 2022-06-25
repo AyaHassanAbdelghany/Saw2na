@@ -2,7 +2,7 @@ package com.example.mcommerceapp.view.ui.profile.view_model.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.view.ui.profile.view_model.ProfileViewModel
 
 class ProfileViewModelFactory(private var userRepo: UserRepo) : ViewModelProvider.Factory {

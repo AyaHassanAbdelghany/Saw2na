@@ -5,6 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <include
         android:id="@+id/toolbar"
         layout="@layout/action_bar_customized"
@@ -37,5 +42,8 @@
         tools:listitem="@layout/item_orders"
         android:layout_marginTop="20dp"
         />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/network_screen"
+        android:id="@+id/network_layout"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,7 @@ package com.example.mcommerceapp.view.ui.authentication.signup.view_model.factor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signup.view_model.SignupViewModel
 
 class SignupViewModelFactory(private var userRepo: UserRepo) : ViewModelProvider.Factory {

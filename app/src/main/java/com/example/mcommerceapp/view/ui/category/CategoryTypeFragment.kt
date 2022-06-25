@@ -3,6 +3,7 @@ package com.example.mcommerceapp.view.ui.category
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentCategoryTypeBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.pojo.products.Products
 import com.example.mcommerceapp.view.ui.category.adapter.CategoryAdapter
 import com.example.mcommerceapp.view.ui.category.adapter.OnClickListener
@@ -30,7 +31,7 @@ import com.google.android.material.slider.RangeSlider
 class CategoryTypeFragment() : OnClickListener, Fragment() {
 
     private var tabTitle: String = ""
-    private var minValue = 100.0
+    private var minValue = 10.0
     private var maxValue = 2000.0
     private lateinit var products: ArrayList<Products>
     private var checkboxText: ArrayList<String> = arrayListOf()
@@ -92,7 +93,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             products = it
             binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it, categoryVM.currencySymbol, categoryVM.currencyValue)
-            binding.recyclerListCategory.adapter = categoryAdapter
+            binding.recyclerProduct.adapter = categoryAdapter
         }
     }
 
@@ -101,15 +102,15 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             products = it
             binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it, categoryVM.currencySymbol, categoryVM.currencyValue)
-            binding.recyclerListCategory.adapter = categoryAdapter
+            binding.recyclerProduct.adapter = categoryAdapter
         }
     }
 
 
     private fun init() {
         categoryVMFactory = CategoryViewModelFactory(
-            ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
-                RemoteSource(), requireContext
+            ProductRepo.getInstance(ProductRemoteSource.getInstance()), CurrencyRepo.getInstance(
+                ProductRemoteSource.getInstance(), requireContext
                     ()
             ),
             UserRepo.getInstance(requireContext())
@@ -128,19 +129,23 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     @SuppressLint("InflateParams")
     fun showSupportBottomSheet() {
         val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
+        val view = layoutInflater.inflate(R.layout.buttom_sheet_filter, null)
 
         val seekBar = view.findViewById<RangeSlider>(R.id.seekBar)
-        checkboxT_Shirt = view.findViewById<CheckBox>(R.id.t_shirt_checkbox)
-        checkboxAccessories = view.findViewById<CheckBox>(R.id.accessories_checkbox)
-        checkboxShoes = view.findViewById<CheckBox>(R.id.shoes_checkbox)
+        checkboxT_Shirt = view.findViewById(R.id.t_shirt_checkbox)
+        checkboxAccessories = view.findViewById(R.id.accessories_checkbox)
+        checkboxShoes = view.findViewById(R.id.shoes_checkbox)
         val btnSubmit = view.findViewById<Button>(R.id.submitBtn)
 
 
         categoryVM.subCategory.observe(viewLifecycleOwner) {
-            checkboxT_Shirt.text = it.elementAt(0).productType
-            checkboxAccessories.text = it.elementAt(1).productType
-            checkboxShoes.text = it.elementAt(2).productType
+            it.forEach {
+                when(it.productType){
+                    "T-SHIRTS" -> checkboxT_Shirt.text = it.productType
+                    "ACCESSORIES" -> checkboxAccessories.text = it.productType
+                    "SHOES" ->  checkboxShoes.text = it.productType
+                }
+            }
         }
 
         btnSubmit.setOnClickListener {
@@ -159,12 +164,13 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             dialog.dismiss()
         }
 
-        seekBar.setValues(1.0f, 2000.0f)
-        seekBar.stepSize = 0f
+        seekBar.setValues(10.0f, 2000.0f)
+        seekBar.stepSize = 5f
 
         seekBar.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
             @SuppressLint("RestrictedApi")
             override fun onStartTrackingTouch(slider: RangeSlider) {
+
             }
 
             @SuppressLint("RestrictedApi")
@@ -181,7 +187,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     }
 
     private fun filterProducts() {
-        var filterProducts: ArrayList<Products> = arrayListOf()
+        val filterProducts: ArrayList<Products> = arrayListOf()
 
         if (checkboxText.size == 0) {
             checkboxText.add(checkboxT_Shirt.text.toString())
@@ -189,7 +195,8 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             checkboxText.add(checkboxShoes.text.toString())
         }
 
-        for (index in 0..this.products.size - 1) {
+        Log.e("data",products.size.toString())
+        for (index in 0 until this.products.size) {
             if ((products[index].variants[0].price?.toDouble()!! >= this.minValue)
                 && (this.maxValue >= this.products[index].variants[0].price!!.toDouble())
                 && (checkboxText.contains(products[index].productType))
@@ -199,17 +206,18 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
             }
         }
         if (filterProducts.size > 0) {
+            binding.foundTxt.visibility = View.INVISIBLE
+            binding.recyclerProduct.visibility = View.VISIBLE
             categoryAdapter.setData(
                 filterProducts,
                 categoryVM.currencySymbol,
                 categoryVM.currencyValue
             )
-        } else {
-            categoryAdapter.setData(
-                this.products,
-                categoryVM.currencySymbol,
-                categoryVM.currencyValue
-            )
+        }  else {
+            binding.foundTxt.visibility = View.VISIBLE
+            binding.recyclerProduct.visibility = View.INVISIBLE
+            this@CategoryTypeFragment.minValue =10.0
+            this@CategoryTypeFragment.maxValue = 2000.0
         }
     }
 }

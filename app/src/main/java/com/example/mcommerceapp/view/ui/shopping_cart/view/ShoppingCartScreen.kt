@@ -15,12 +15,13 @@ import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.payment.view.Payment
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodel
@@ -52,8 +53,6 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         setContentView(binding.root)
 
         binding.cartItemsRecyclerView.setHasFixedSize(true)
-        // supportActionBar?.hide()
-
         loadingDialog = Dialog(this)
 
         binding.progressIndicator.visibility = View.VISIBLE
@@ -90,7 +89,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
             DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
             UserRepo.getInstance(this),
             CouponRepo.getInstance(CouponRemoteSource()),
-            CurrencyRepo.getInstance(RemoteSource(), this)
+            CurrencyRepo.getInstance(ProductRemoteSource.getInstance(), this)
         )
 
         cartViewModel =
@@ -165,6 +164,19 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         binding.shippingCurrencyTx.text = cartViewModel.symbol
         binding.totalCurrencyTx.text = cartViewModel.symbol
 
+        MyConnectivityManager.state.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -2,19 +2,20 @@ package com.example.mcommerceapp.view.ui.order_detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.AcitivityOrderDetailsBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.orders_repository.OrdersRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.orders.OrdersRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
-import com.example.mcommerceapp.view.ui.order_detail.adapter.OnClickListener
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.view.ui.order_detail.adapter.OrderDetailAdapter
 import java.text.SimpleDateFormat
 
-class OrderDetailActivity : AppCompatActivity(), OnClickListener {
+class OrderDetailActivity : AppCompatActivity() {
 
     lateinit var binding: AcitivityOrderDetailsBinding
     lateinit var orderDetailVM: OrderDetailViewModel
@@ -27,18 +28,16 @@ class OrderDetailActivity : AppCompatActivity(), OnClickListener {
         setContentView(binding.root)
 
         val id = intent.getStringExtra("ORDER_ID")
-        Log.d("ooooooooo", id.toString())
 
         orderDetailVMFactory = OrderDetailViewModelFactory(
             OrdersRepo.getInstance(OrdersRemoteSource()), CurrencyRepo.getInstance(
-                RemoteSource(), this
+                ProductRemoteSource.getInstance(), this
             )
         )
         orderDetailVM =
             ViewModelProvider(this, orderDetailVMFactory)[OrderDetailViewModel::class.java]
 
-        orderDetailVM.getOrder(id.toString())
-        val orderDetailAdapter = OrderDetailAdapter(this, this)
+        val orderDetailAdapter = OrderDetailAdapter(this)
 
         orderDetailVM.orders.observe(this) {
             binding.totalOrderTxt.text = "${
@@ -65,11 +64,21 @@ class OrderDetailActivity : AppCompatActivity(), OnClickListener {
         binding.toolbar.backImg.setOnClickListener {
             finish()
         }
+        MyConnectivityManager.state.observe(this) {
+
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                orderDetailVM.getOrder(id.toString())
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
     }
 
-    override fun onClick(id: String) {
-//        val intent = Intent(this, ProductDetail::class.java)
-//        intent.putExtra("PRODUCTS_ID", id)
-//        startActivity(intent)
-    }
 }

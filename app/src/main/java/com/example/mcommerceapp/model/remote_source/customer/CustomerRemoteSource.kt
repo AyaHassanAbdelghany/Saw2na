@@ -3,7 +3,7 @@ package com.example.mcommerceapp.model.remote_source.customer
 import android.util.Log
 import com.example.example.Customers
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
-import com.example.mcommerceapp.network.product.ShopifyService
+import com.example.mcommerceapp.network.customer.CustomerService
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -11,8 +11,8 @@ import okhttp3.RequestBody
 
 class CustomerRemoteSource {
 
-    private val api: ShopifyService =
-        ShopifyRetrofitHelper.getInstance().create(ShopifyService::class.java)
+    private val api: CustomerService =
+        ShopifyRetrofitHelper.getInstance().create(CustomerService::class.java)
     private val gson = Gson()
 
 

@@ -2,15 +2,17 @@ package com.example.mcommerceapp.view.ui.order
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.ActivityOrdersBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.orders_repository.OrdersRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.orders.OrdersRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.view.ui.order.adapter.OnClickListener
 import com.example.mcommerceapp.view.ui.order.adapter.OrderAdapter
 import com.example.mcommerceapp.view.ui.order_detail.OrderDetailActivity
@@ -31,18 +33,15 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
             OrdersRepo.getInstance(OrdersRemoteSource()),
             UserRepo.getInstance(this),
             CurrencyRepo.getInstance(
-                RemoteSource(), this
+                ProductRemoteSource.getInstance(), this
             )
         )
 
         orderVM = ViewModelProvider(this, orderVMFactory)[OrderViewModel::class.java]
 
-        orderVM.getAllOrders()
         val orderAdapter = OrderAdapter(this, this)
         orderVM.orders.observe(this) {
-            Log.d("List", it.toString())
-            Log.d("Currency", "Symbol" + orderVM.currencySymbol + "Value" + orderVM.currencyValue)
-            orderAdapter.setData(it, orderVM.currencySymbol, orderVM.currencyValue)
+           orderAdapter.setData(it, orderVM.currencySymbol, orderVM.currencyValue)
             binding.recycleViewOrder.adapter = orderAdapter
         }
 
@@ -50,6 +49,21 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
             finish()
         }
 
+        MyConnectivityManager.state.observe(this) {
+
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                orderVM.getAllOrders()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
     }
 
     override fun onClick(id: String) {

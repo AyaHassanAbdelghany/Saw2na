@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mcommerceapp.databinding.FragmentCategoryBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.shopify_repository.product.ProductRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.category.adapter.PagerAdapter
 import com.example.mcommerceapp.view.ui.category.viewmodel.CategoryViewModel
@@ -30,7 +30,6 @@ class CategoryTabLayoutFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var pagerAdapter: PagerAdapter
-
     private lateinit var categoryVM: CategoryViewModel
     private lateinit var categoryVMFactory: CategoryViewModelFactory
 
@@ -132,8 +131,8 @@ class CategoryTabLayoutFragment : Fragment() {
         binding.viewPager.registerOnPageChangeCallback(pagerCallback)
 
         categoryVMFactory = CategoryViewModelFactory(
-            ProductRepo.getInstance(RemoteSource()), CurrencyRepo.getInstance(
-                RemoteSource(), requireContext
+            ProductRepo.getInstance(ProductRemoteSource.getInstance()), CurrencyRepo.getInstance(
+                ProductRemoteSource.getInstance(), requireContext
                     ()
             ),
             UserRepo.getInstance(requireContext())

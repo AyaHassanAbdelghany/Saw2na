@@ -1,17 +1,20 @@
 package com.example.mcommerceapp.view.ui.favorite_product.view
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mcommerceapp.databinding.ActivityFavoriteScreenBinding
-import com.example.mcommerceapp.model.currency_repository.CurrencyRepo
-import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
 import com.example.mcommerceapp.model.local_source.LocalSource
-import com.example.mcommerceapp.model.remote_source.RemoteSource
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
 import com.example.mcommerceapp.model.room_repository.RoomRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.view.ui.favorite_product.viewmodel.FavoriteViewModel
 import com.example.mcommerceapp.view.ui.favorite_product.viewmodel.FavoriteViewModelFactory
 import draft_orders.DraftOrder
@@ -39,21 +42,14 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
                 this
             ), DraftOrdersRepo.getInstance(DraftOrdersRemoteSource.getInstance()),
             UserRepo.getInstance(this),
-            CurrencyRepo.getInstance(RemoteSource(), this)
+            CurrencyRepo.getInstance(ProductRemoteSource.getInstance(), this)
         )
 
         favoriteViewModel =
             ViewModelProvider(this, favoriteViewModelFactory)[FavoriteViewModel::class.java]
 
-        favoriteViewModel.getDraftOrder()
-//        favoriteViewModel.getAllFavoriteProducts()
-//        favoriteViewModel.favProductsLiveData.observe(this) {
-//            if (it != null) {
-//                favoriteItemsAdapter.setFavoriteProducts(it)
-//                favoriteItemsAdapter.notifyDataSetChanged()
-//                binding.numberOfItemsTx.text = "You have ${it.count()} items in your favorite"
-//            }
-//        }
+       // favoriteViewModel.getDraftOrder()
+
 
         favoriteItemsAdapter = FavoriteItemsAdapter(this, favProductsList, this)
         binding.favItemsRecyclerView.adapter = favoriteItemsAdapter
@@ -76,6 +72,21 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
             finish()
         }
 
+        MyConnectivityManager.state.observe(this) {
+
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                favoriteViewModel.getDraftOrder()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
     }
 
     override fun performDeleteProduct(product: DraftOrder) {

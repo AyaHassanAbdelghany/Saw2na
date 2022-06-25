@@ -41,7 +41,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:overScrollMode="never"
-        android:id="@+id/grid"
+        android:id="@+id/recycler_product"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -51,9 +51,22 @@
         app:layout_constraintTop_toBottomOf="@id/categoryType_txt"
         app:spanCount="2"
         tools:listitem="@layout/product_card" />
+
+        <TextView
+            android:id="@+id/foundTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_found"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 <include layout="@layout/network_screen"
     android:id="@+id/network_layout"
-
     />
 </androidx.constraintlayout.widget.ConstraintLayout>

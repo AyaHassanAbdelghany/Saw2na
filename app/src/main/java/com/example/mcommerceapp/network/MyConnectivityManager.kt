@@ -12,7 +12,9 @@ import java.net.InetSocketAddress
 import javax.net.SocketFactory
 
 class MyConnectivityManager {
+
     companion object{
+
         private val _state = MutableLiveData<Boolean>()
         val state :LiveData<Boolean> = _state
         val networkRequest = NetworkRequest.Builder()
@@ -27,7 +29,6 @@ class MyConnectivityManager {
                 super.onAvailable(network)
                 _state.postValue(execute(network.socketFactory))
             }
-
 
             // lost network connection
             override fun onLost(network: Network) {

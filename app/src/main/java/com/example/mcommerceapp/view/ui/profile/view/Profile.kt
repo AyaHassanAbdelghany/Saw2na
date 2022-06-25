@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentProfileBinding
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
 import com.example.mcommerceapp.view.ui.authentication.signup.view.SignUpActivity
 import com.example.mcommerceapp.view.ui.favorite_product.view.FavoriteScreen

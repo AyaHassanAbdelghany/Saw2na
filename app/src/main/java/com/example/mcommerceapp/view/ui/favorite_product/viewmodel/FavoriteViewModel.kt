@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mcommerceapp.model.Keys
-import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
-import com.example.mcommerceapp.model.draft_orders_repository.DraftOrdersRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.StoredCurrency
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
 import com.example.mcommerceapp.model.room_repository.IFavProductRoomRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.pojo.favorite_products.FavProducts
 import draft_orders.DraftOrder
 import kotlinx.coroutines.Dispatchers

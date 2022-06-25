@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcommerceapp.model.currency_repository.interfaces.ICurrencyRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.ICurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.pojo.currency.CurrencySymbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

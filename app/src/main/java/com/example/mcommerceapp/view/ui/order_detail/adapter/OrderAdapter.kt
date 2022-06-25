@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceapp.databinding.ItemOrderDetailsBinding
 import orders.LineItems
 
-class OrderDetailAdapter(var context: Context, var listner: OnClickListener) :
+class OrderDetailAdapter(var context: Context) :
     RecyclerView.Adapter<OrderDetailAdapter.ViewHolder>() {
     private var orderList: ArrayList<LineItems> = arrayListOf()
     private lateinit var symbol: String
@@ -32,9 +32,7 @@ class OrderDetailAdapter(var context: Context, var listner: OnClickListener) :
             priceOrderDetailTxt.text = "${currentItem.price?.toDouble()?.times(value)} $symbol"
             quantityOrderDetail.text = "quantity  ${currentItem.quantity}"
         }
-        holder.itemView.setOnClickListener {
-            listner.onClick(currentItem.id.toString())
-        }
+
     }
 
     override fun getItemCount(): Int {

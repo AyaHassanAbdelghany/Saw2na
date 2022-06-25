@@ -2,8 +2,8 @@ package com.example.mcommerceapp.view.ui.more.view_model.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.currency_repository.interfaces.ICurrencyRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.ICurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.view.ui.more.view_model.MoreViewModel
 
 class MoreViewModelFactory(

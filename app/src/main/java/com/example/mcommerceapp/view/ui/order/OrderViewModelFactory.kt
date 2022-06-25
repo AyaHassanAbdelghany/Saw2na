@@ -2,9 +2,9 @@ package com.example.mcommerceapp.view.ui.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mcommerceapp.model.currency_repository.interfaces.StoredCurrency
-import com.example.mcommerceapp.model.orders_repository.OrdersRepo
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.StoredCurrency
+import com.example.mcommerceapp.model.shopify_repository.orders.OrdersRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 
 class OrderViewModelFactory(
     private val iOrders: OrdersRepo,

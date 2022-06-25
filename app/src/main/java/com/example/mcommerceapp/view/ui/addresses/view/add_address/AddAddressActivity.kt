@@ -25,7 +25,9 @@ class AddAddressActivity : AppCompatActivity() {
             }
         }
 
-
+        binding.backImg.setOnClickListener{
+            finish()
+        }
     }
 
     private fun isValid(): Boolean {

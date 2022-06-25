@@ -7,6 +7,16 @@
     tools:context=".view.ui.addresses.view.add_address.AddAddressActivity">
 
 
+    <ImageView
+        android:id="@+id/back_img"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_black_back_bt"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

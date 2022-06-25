@@ -10,7 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySignUpBinding
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.user.User
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.example.mcommerceapp.view.ui.authentication.signin.view.SigninActivity
@@ -79,7 +80,22 @@ class SignUpActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, SigninActivity::class.java))
         }
+        MyConnectivityManager.state.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
 
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
+        binding.backImg.setOnClickListener{
+            finish()
+        }
     }
 
     private fun initViews() {

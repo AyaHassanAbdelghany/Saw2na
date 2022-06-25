@@ -2,14 +2,15 @@ package com.example.mcommerceapp.view.ui.addresses.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.ActivityAddressesBinding
-import com.example.mcommerceapp.model.addresses_repository.AddressesRepo
+import com.example.mcommerceapp.model.shopify_repository.addresses.AddressesRepo
 import com.example.mcommerceapp.model.remote_source.addresses.AddressesRemoteSource
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.customers.Addresses
 import com.example.mcommerceapp.view.ui.addresses.view.adapter.AddressesAdapter
 import com.example.mcommerceapp.view.ui.addresses.view.adapter.AddressesCommunicator
@@ -56,6 +57,22 @@ class AddressesActivity : AppCompatActivity(), AddressesCommunicator {
         }
 
 
+        MyConnectivityManager.state.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
+        binding.backImg.setOnClickListener{
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,17 +90,14 @@ class AddressesActivity : AppCompatActivity(), AddressesCommunicator {
 
             }
 
-
         }
     }
 
     override fun setDefaultAddress(addressID: String) {
-        Log.i("address", "setDefaultAddress: $addressID ")
         viewModel.setDefaultAddress(customerID, addressID)
     }
 
     override fun deleteAddress(addressID: String) {
-        Log.i("address", "deleteAddress: $addressID ")
         viewModel.deleteAddressByID(customerID, addressID)
     }
 

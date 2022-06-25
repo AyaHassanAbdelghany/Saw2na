@@ -2,7 +2,6 @@ package com.example.mcommerceapp.view.ui.authentication.signin.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.*
@@ -10,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivitySigninBinding
-import com.example.mcommerceapp.model.user_repository.UserRepo
+import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
+import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.view.ui.authentication.AuthState
 import com.example.mcommerceapp.view.ui.authentication.signin.view_model.SignInViewModel
 import com.example.mcommerceapp.view.ui.authentication.signin.view_model.factory.SigninViewModelFactory
@@ -21,9 +21,6 @@ class SigninActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySigninBinding
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var signinButton: Button
-    private lateinit var loading: ProgressBar
-    private lateinit var signup: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,15 +31,12 @@ class SigninActivity : AppCompatActivity() {
         setContentView(binding.root)
         emailEditText = binding.usernameEditText
         passwordEditText = binding.passwordEditText
-        signinButton = binding.signinButton
-        loading = binding.loadingProgressBar
-        signup = binding.signupTextView
 
         val viewModelFactory = SigninViewModelFactory(UserRepo.getInstance(this))
         val signinViewModel = ViewModelProvider(this, viewModelFactory)[SignInViewModel::class.java]
 
         signinViewModel.authState.observe(this) {
-            loading.visibility = View.INVISIBLE
+            binding.loadingProgressBar.visibility = View.INVISIBLE
             when (it) {
                 AuthState.SUCCESS -> {
                     signinViewModel.setLoggedInState(true)
@@ -52,18 +46,30 @@ class SigninActivity : AppCompatActivity() {
                 AuthState.EMAIL_NOT_VERIFIED -> {
                     Toast.makeText(this, "please verify your email...", Toast.LENGTH_SHORT).show()
                 }
-                AuthState.LOADING -> loading.visibility = View.VISIBLE
+                AuthState.LOADING ->   binding.loadingProgressBar.visibility = View.VISIBLE
                 else -> {
-                    Log.i("TAG", "onCreate: AuthState.error :${it} ")
                     Toast.makeText(this, "${it}...", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
 
-        signinButton.setOnClickListener {
+        MyConnectivityManager.state.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
+                binding.mainLayout.visibility = View.VISIBLE
+
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
+                binding.mainLayout.visibility = View.INVISIBLE
+
+            }
+        }
+        binding.signinButton.setOnClickListener {
             if (isEmailValid() && isPasswordValid()) {
-                loading.visibility = View.VISIBLE
+                binding.loadingProgressBar.visibility = View.VISIBLE
                 signinViewModel.signIn(
                     emailEditText.text.toString(),
                     passwordEditText.text.toString()
@@ -71,10 +77,12 @@ class SigninActivity : AppCompatActivity() {
             }
 
         }
-
-        signup.setOnClickListener {
+        binding.signupTextView.setOnClickListener {
             finish()
             startActivity(Intent(this, SignUpActivity::class.java))
+        }
+        binding.backImg.setOnClickListener{
+            finish()
         }
 
     }
