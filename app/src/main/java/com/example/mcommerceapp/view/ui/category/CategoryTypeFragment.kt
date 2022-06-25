@@ -72,7 +72,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     override fun onResume() {
         super.onResume()
         when (tabTitle) {
-            "ALL" -> observerAllProducts()
+            getString(R.string.all_types) -> observerAllProducts()
             else -> {
                 categoryVM.getCollectionId(tabTitle)
                 observerCollectionId()

@@ -52,6 +52,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     private var isCart = 0
     private lateinit var variant: ArrayList<Variants>
 
+    private var isLoggedIn = false
+
     private lateinit var loadingDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,7 +133,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         }
 
         binding.detailBtn.checkoutBtn.setOnClickListener {
-            if (!detailVM.isLogged) {
+            if (!isLoggedIn) {
                 startActivity(Intent(this, SigninActivity::class.java))
             } else {
                 if (isCart == 0) {
@@ -153,32 +155,36 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         }
 
         binding.detailBtn.favImage.setOnClickListener {
-            if (isFav == 0) {
-                showLoadingDialog("Adding to favorite")
-                detailVM.addOrder(
-                    DraftOrder(
-                        note = Keys.FAV, email = detailVM.user.email,
-                        noteAttributes = arrayListOf(
-                            NoteAttributes(
-                                name = "image",
-                                value = image
-                            )
-                        ),
-                        lineItems = arrayListOf(
-                            LineItems(
-                                variantId = id,
-                                productId = productDetail.id,
-                                quantity = 1,
-                                title = productDetail.title,
-                                price = productDetail.variants[0].price
+            if (!isLoggedIn) {
+                startActivity(Intent(this, SigninActivity::class.java))
+            } else {
+                if (isFav == 0) {
+                    showLoadingDialog("Adding to favorite")
+                    detailVM.addOrder(
+                        DraftOrder(
+                            note = Keys.FAV, email = detailVM.user.email,
+                            noteAttributes = arrayListOf(
+                                NoteAttributes(
+                                    name = "image",
+                                    value = image
+                                )
+                            ),
+                            lineItems = arrayListOf(
+                                LineItems(
+                                    variantId = id,
+                                    productId = productDetail.id,
+                                    quantity = 1,
+                                    title = productDetail.title,
+                                    price = productDetail.variants[0].price
+                                )
                             )
                         )
                     )
-                )
 
-            } else {
-                showLoadingDialog("Removing from favorite")
-                detailVM.deleteOrder(productDetail.id!!)
+                } else {
+                    showLoadingDialog("Removing from favorite")
+                    detailVM.deleteOrder(productDetail.id!!)
+                }
             }
         }
 
@@ -188,6 +194,11 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isLoggedIn = detailVM.isLogged()
     }
 
     private fun updateUI(products: Products) {

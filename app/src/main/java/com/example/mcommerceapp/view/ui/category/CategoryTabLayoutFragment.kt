@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentCategoryBinding
 import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
 import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
@@ -24,6 +25,7 @@ import com.example.mcommerceapp.view.ui.search.view.SearchActivity
 import com.example.mcommerceapp.view.ui.shopping_cart.view.ShoppingCartScreen
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.util.*
 
 
 class CategoryTabLayoutFragment : Fragment() {
@@ -32,6 +34,9 @@ class CategoryTabLayoutFragment : Fragment() {
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var categoryVM: CategoryViewModel
     private lateinit var categoryVMFactory: CategoryViewModelFactory
+    private val myList = listOf(getString(R.string.all_types), getString(R.string.men_type), getString(
+        R.string.women_type), getString(R.string.kids_type), getString(R.string.sale_type))
+    private lateinit var myEnglishList:List<String>
 
     private var isLoggedIn = false
 
@@ -55,7 +60,8 @@ class CategoryTabLayoutFragment : Fragment() {
         init()
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = listOf("ALL", "MEN", "WOMEN", "KID", "SALE")[position]
+            tab.text = listOf(getString(R.string.all_types), getString(R.string.men_type), getString(
+                            R.string.women_type), getString(R.string.kids_type), getString(R.string.sale_type))[position]
         }.attach()
 
         binding.actionBar.backImg.visibility = ImageView.INVISIBLE
@@ -111,7 +117,7 @@ class CategoryTabLayoutFragment : Fragment() {
             @SuppressLint("ResourceType")
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 binding.viewPager.adapter = pagerAdapter
-                pagerAdapter.tabTitle = tab?.text as String
+                pagerAdapter.tabTitle = myEnglishList[myList.indexOf(tab?.text as String)]
                 binding.viewPager.currentItem = tab.position
             }
 
@@ -122,6 +128,16 @@ class CategoryTabLayoutFragment : Fragment() {
             }
 
         })
+        var res = resources
+        val confg = res.configuration
+        val savedLocal = confg.locale
+        confg.locale = Locale("en")
+        res.updateConfiguration(confg,null)
+        myEnglishList = listOf(res.getString(R.string.all_types), res.getString(R.string.men_type), res.getString(
+            R.string.women_type), res.getString(R.string.kids_type), res.getString(R.string.sale_type))
+        confg.locale = savedLocal
+        res.updateConfiguration(confg,null)
+
     }
 
     private fun init() {

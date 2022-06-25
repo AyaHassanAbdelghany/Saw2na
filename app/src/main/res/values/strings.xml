@@ -78,5 +78,11 @@
     <string name="searching_for_network_connection">Searching for network connection</string>
     <string name="Sign_in_tx">Sign in</string>
     <string name="Sign_up_tx">Sign up</string>
+    <string name="Cannot_delete_your_default_address">Cannot delete your default address</string>
     <string name="review">Reviews</string>
+    <string name="all_types">ALL</string>
+    <string name="men_type">MEN</string>
+    <string name="women_type">WOMEN</string>
+    <string name="kids_type">KID</string>
+    <string name="sale_type">SALE</string>
 </resources>

@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.nav_host_fragment_activity_main, fragment)
@@ -103,6 +104,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_profile ->
             {setCurrentFragment(Profile())
+
                 binding.navView.selectedItemId = R.id.navigation_profile
             }
             R.id.navigation_setting ->

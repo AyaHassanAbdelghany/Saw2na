@@ -8,7 +8,7 @@ import com.example.mcommerceapp.model.shopify_repository.currency.interfaces.Sto
 import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.pojo.currency.CurrencySymbols
 
-class CurrencyRepo private constructor(private var remoteSource: ProductRemoteSource, private val context: Context) : StoredCurrency ,ICurrencyRepo {
+class CurrencyRepo private constructor(private var remoteSource: ProductRemoteSource, context: Context) : StoredCurrency ,ICurrencyRepo {
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("currency", 0)
     companion object {

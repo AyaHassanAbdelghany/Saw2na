@@ -64,11 +64,19 @@
     <string name="favourite">المفضله</string>
     <string name="shopping_cart">عربه التسوق</string>
     <string name="country">البلد</string>
-    <string name="zip_code">Zip Code</string>
+    <string name="zip_code">الرقم البريدي</string>
     <string name="addresses">العناوين</string>
     <string name="notify_me">Notify Me</string>
     <string name="city">المدينه</string>
     <string name="searching_for_network_connection">البحث عن الانترنت</string>
     <string name="Sign_in_tx">تسجيل الدخول</string>
     <string name="Sign_up_tx">التسجيل</string>
+    <string name="Cannot_delete_your_default_address">لا يمكن مسح العنوان الافتراضي</string>
+    <string name="review">التعليقات</string>
+    <string name="all_types">الكل</string>
+    <string name="men_type">الرجال</string>
+    <string name="women_type">النساء</string>
+    <string name="kids_type">الاطفال</string>
+    <string name="sale_type">الخصومات</string>
+
 </resources>

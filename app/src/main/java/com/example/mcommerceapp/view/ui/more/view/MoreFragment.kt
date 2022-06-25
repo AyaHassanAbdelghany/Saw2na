@@ -106,7 +106,6 @@ class MoreFragment : Fragment() {
             }
         }
 
-
         binding.languageSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -126,7 +125,6 @@ class MoreFragment : Fragment() {
             override fun onNothingSelected(parentView: AdapterView<*>?) {
             }
         }
-
 
         binding.currencySpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {

@@ -34,8 +34,8 @@ class AddressesAdapter(var context: Context, private var listener: AddressesComm
             if (currentItem.default == true)
                 Toast.makeText(
                     context,
-                    "Cannot delete your default address",
-                    Toast.LENGTH_SHORT
+                    context.getString(R.string.Cannot_delete_your_default_address),
+                    Toast.LENGTH_LONG
                 ).show()
             else listener.deleteAddress(currentItem.id.toString())
         }

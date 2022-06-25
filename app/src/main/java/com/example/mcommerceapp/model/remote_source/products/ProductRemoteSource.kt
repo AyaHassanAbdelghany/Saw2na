@@ -2,6 +2,7 @@ package com.example.mcommerceapp.model.remote_source.products
 
 import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.network.ShopifyRetrofitHelper
+import com.example.mcommerceapp.network.currency.CurrencyRetrofitHelper
 import com.example.mcommerceapp.network.currency.ICurrencyService
 import com.example.mcommerceapp.network.products.ProductService
 import com.example.mcommerceapp.pojo.currency.CurrencyConversion
@@ -22,7 +23,7 @@ class ProductRemoteSource  private constructor(): IProductRemoteSource, ICurrenc
         ShopifyRetrofitHelper.getInstance().create(ProductService::class.java)
 
     private val currencyApi: ICurrencyService =
-        ShopifyRetrofitHelper.getInstance().create(ICurrencyService::class.java)
+        CurrencyRetrofitHelper.getInstance().create(ICurrencyService::class.java)
 
     companion object {
         private var remoteSource: ProductRemoteSource? = null

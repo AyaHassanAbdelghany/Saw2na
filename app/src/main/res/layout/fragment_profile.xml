@@ -10,6 +10,7 @@
         android:id="@+id/loggedIn_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
         android:background="@android:color/transparent"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -243,7 +244,7 @@
         android:id="@+id/not_loggedIn_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -253,7 +254,7 @@
             android:layout_width="200dp"
             android:layout_height="202dp"
             android:layout_marginTop="100dp"
-            android:src="@drawable/icon_profile"
+            android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -298,7 +299,8 @@
                 android:id="@+id/sign_in_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/icon_profile"
+                android:src="@drawable/log_in"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -336,7 +338,7 @@
                 android:id="@+id/sign_up_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/icon_profile"
+                android:src="@drawable/sign_up"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -35,7 +35,6 @@ class ProductDetailVM(
     var order: LiveData<DraftOrder> = _order
 
     val user = iUser.getUser()
-    val isLogged = iUser.getLoggedInState()
 
     val currencySymbol = iCurrency.getCurrencySymbol()
     val currencyValue = iCurrency.getCurrencyValue()
@@ -129,5 +128,9 @@ class ProductDetailVM(
             iFavRepo.deleteFavoriteProduct(product)
             checkForFavouriteProductById(product.productId)
         }
+    }
+
+    fun isLogged():Boolean{
+        return iUser.getLoggedInState()
     }
 }
