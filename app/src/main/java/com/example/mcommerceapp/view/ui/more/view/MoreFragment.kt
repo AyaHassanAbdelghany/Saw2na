@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceapp.databinding.FragmentMoreBinding
@@ -69,6 +69,7 @@ class MoreFragment : Fragment() {
             ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, languagesArray)
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
+
         languageSpinner.setSelection(languagesArray.indexOf(lang))
 
         binding.saveSettingsButton.setOnClickListener {
@@ -77,13 +78,6 @@ class MoreFragment : Fragment() {
 
             val lang = languagesArray[languageSpinner.selectedItemPosition]
             viewModel.setLanguage(lang)
-
-//            val locale = Locale(lang)
-//            Locale.setDefault(locale)
-//            val resources: Resources = resources
-//            val config: Configuration = resources.configuration
-//            config.setLocale(locale)
-//            resources.updateConfiguration(config, resources.displayMetrics)
 
             requireActivity().finish()
             requireActivity().startActivity(requireActivity().intent)
@@ -109,6 +103,47 @@ class MoreFragment : Fragment() {
                 startActivity(Intent(requireContext(), AddressesActivity::class.java))
             } else {
                 startActivity(Intent(requireContext(), SigninActivity::class.java))
+            }
+        }
+
+
+        binding.languageSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (currencyArray.isNotEmpty())
+                if (languagesArray[position] == lang && currencyArray[currencySpinner.selectedItemPosition] == cur )
+                    binding.saveSettingsButton.visibility = View.INVISIBLE
+                else
+                    binding.saveSettingsButton.visibility = View.VISIBLE
+
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        }
+
+
+        binding.currencySpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (currencyArray[position] == cur && languagesArray[languageSpinner.selectedItemPosition] == lang)
+                    binding.saveSettingsButton.visibility = View.INVISIBLE
+                else
+                    binding.saveSettingsButton.visibility = View.VISIBLE
+
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
             }
         }
 

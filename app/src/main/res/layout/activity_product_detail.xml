@@ -58,6 +58,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="70dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -69,12 +70,11 @@
                 android:id="@+id/content_detail"
                 layout="@layout/content_scrolling" />
 
-            <include
-                android:id="@+id/detail_btn"
-                layout="@layout/detail_btn" />
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+    <include
+        android:id="@+id/detail_btn"
+        layout="@layout/detail_btn" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
