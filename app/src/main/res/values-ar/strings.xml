@@ -78,5 +78,32 @@
     <string name="women_type">النساء</string>
     <string name="kids_type">الاطفال</string>
     <string name="sale_type">الخصومات</string>
+    <string name="products">المنتجات</string>
+
+    <string name="sub_category">مصنفات فرعية</string>
+    <string name="submit">تأكيد</string>
+    <string name="view_more">عرض المزيد</string>
+    <string name="your_items">العناصر التي لديك</string>
+    <string name="you_have_no_item">ليس لديك اي عناصر مفضلة</string>
+    <string name="you_have">لديك</string>
+    <string name="itemi_number">عنصر</string>
+    <string name="item_in_your_cart">عنصر في عربة التسوق</string>
+    <string name="copied">تم النسخ</string>
+    <string name="validate">تحقق</string>
+    <string name="search_by_name" >البحث بالاسم</string>
+    <string name="enter_coupon">ادخل كود الخصم</string>
+    <string name="get_coupon">احصل علي كود؟</string>
+    <string name="subtotal">القيمة المبدئية:</string>
+    <string name="discount">الخصم:</string>
+    <string name="shipping_in_cart_screen">الشحن:</string>
+    <string name="checkout">استمر للشراء</string>
+    <string name="purchase_details">تفاصيل الشراء</string>
+    <string name="date">التاريخ</string>
+    <string name="time">الوقت</string>
+    <string name="purchase_description">بيانات الشراء</string>
+    <string name="amount">الكمية</string>
+    <string name="change">تغير</string>
+    <string name="or">أو</string>
+    <string name="choose_an_address">Choose an address first</string>
 
 </resources>

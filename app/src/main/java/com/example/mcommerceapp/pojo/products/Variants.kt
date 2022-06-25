@@ -46,7 +46,7 @@ data class Variants(
     @SerializedName("weight_unit")
     var weightUnit: String? = null,
     @SerializedName("inventory_item_id")
-    var inventoryItemId: Double? = null,
+    var inventoryItemId: Long? = null,
     @SerializedName("inventory_quantity")
     var inventoryQuantity: Int? = null,
     @SerializedName("old_inventory_quantity")

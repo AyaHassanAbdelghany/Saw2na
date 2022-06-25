@@ -105,7 +105,16 @@ class Payment : AppCompatActivity() {
 
         // Setup buttons
         googlePayButton = binding.googlePayButton.root
-        googlePayButton.setOnClickListener { requestPayment(total = total) }
+        googlePayButton.setOnClickListener {
+
+            if (binding.addressValueTx.text.toString().isNotEmpty())
+                requestPayment(total = total)
+            else {
+                binding.addressValueTx.error = getString(R.string.choose_an_address)
+                Toast.makeText(this, getString(R.string.choose_an_address), Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
 
         // Check Google Pay availability
         model.canUseGooglePay.observe(this, Observer(::setGooglePayAvailable))
@@ -150,6 +159,13 @@ class Payment : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onBackPressed() {
+        val newIntent = Intent()
+        newIntent.putExtra("isSuccessful", isSuccessful)
+        setResult(ShoppingCartScreen.PAY_INTENT_CODE, newIntent)
+        finish()
     }
 
     /**

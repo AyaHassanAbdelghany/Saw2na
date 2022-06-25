@@ -50,5 +50,24 @@ interface OrdersService {
         @Path("resource", encoded = true) orderID: String
     ): Response<JsonObject>
 
+    @Headers(
+        "X-Shopify-Access-Token: ${Keys.ACCESS_TOKEN}",
+        "Content-Type: application/json"
+    )
+    @POST("inventory_levels/adjust.json")
+    suspend fun adjustInventoryLevel(
+        @Body requestBody: RequestBody
+    ): Response<JsonObject>
+
+
+    @Headers(
+        "X-Shopify-Access-Token: ${Keys.ACCESS_TOKEN}",
+        "Content-Type: application/json"
+    )
+    @GET("variants/{resource}.json")
+    suspend fun getVariantByID(
+        @Path("resource", encoded = true) variantID: String
+    ): Response<JsonObject>
+
 
 }

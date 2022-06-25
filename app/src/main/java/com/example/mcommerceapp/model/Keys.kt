@@ -33,6 +33,7 @@ class Keys {
         const val CUSTOMER_ADDRESS = "customer_address"
         const val ADDRESS = "addresses"
         const val JSON_Extension = ".json"
+        const val INVENTORY_LOCATION = 65322057866
 
 
         const val PRODUCT_TYPE = "product_type"

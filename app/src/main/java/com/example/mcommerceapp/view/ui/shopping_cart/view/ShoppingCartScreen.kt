@@ -67,7 +67,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         cartItemsAdapter = CartItemsAdapter(cartList, this, this)
         binding.cartItemsRecyclerView.adapter = cartItemsAdapter
 
-        binding.numberOfItemsTx.text= "You have ${cartList.size} item in your cart"
+        if (cartList.size > 0)
+            binding.numberOfItemsTx.text =
+                "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
+        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
 
         binding.checkoutBt.setOnClickListener {
             val myTitleList = retrieveProductsTitle(cartList)
@@ -116,7 +119,12 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 binding.progressIndicator.visibility = View.INVISIBLE
                 cartItemsAdapter.setOrders(cartList, cartViewModel.symbol, cartViewModel.value)
                 calculateTotalAmountOfMoney()
-                binding.numberOfItemsTx.text= "You have ${cartList.size} item in your cart"
+
+                if (cartList.size > 0)
+                    binding.numberOfItemsTx.text =
+                        "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
+                else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+
             }
         }
 
@@ -210,7 +218,11 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         val obj = cartList[index]
         cartViewModel.deleteProductFromDraftOrder(obj.id!!)
         deleteDraftOrderFromList(obj)
-        binding.numberOfItemsTx.text= "You have ${cartList.size} item in your cart"
+        if (cartList.size > 0)
+            binding.numberOfItemsTx.text =
+                "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
+        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+
     }
 
     override fun increaseUpdateInList(index: Int) {
@@ -229,7 +241,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     override fun onClick(code: String, limit: String) {
         dialog.cancel()
-        Toast.makeText(this, "Copied!", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.copied), Toast.LENGTH_LONG).show()
         binding.couponEditText.setText(code)
         discountLimit = limit
     }

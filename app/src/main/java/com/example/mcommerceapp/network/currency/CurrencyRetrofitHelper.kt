@@ -21,7 +21,7 @@ class CurrencyRetrofitHelper {
                 retrofit = Retrofit.Builder()
                     .baseUrl(Keys.CURRENCY_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
+                    //.client(client)
                     .build()
             }
             return retrofit!!

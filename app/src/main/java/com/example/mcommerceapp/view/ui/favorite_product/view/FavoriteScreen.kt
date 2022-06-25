@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityFavoriteScreenBinding
 import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
 import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
@@ -34,7 +35,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
         binding = ActivityFavoriteScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.numberOfItemsTx.text = "You have no item in your favorite"
+        binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
 
         favoriteViewModelFactory = FavoriteViewModelFactory(
             RoomRepo.getInstance(
@@ -48,7 +49,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
         favoriteViewModel =
             ViewModelProvider(this, favoriteViewModelFactory)[FavoriteViewModel::class.java]
 
-       // favoriteViewModel.getDraftOrder()
+        // favoriteViewModel.getDraftOrder()
 
 
         favoriteItemsAdapter = FavoriteItemsAdapter(this, favProductsList, this)
@@ -61,7 +62,10 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
                 favoriteViewModel.symbol,
                 favoriteViewModel.value
             )
-            binding.numberOfItemsTx.text = "You have ${favProductsList.size} item"
+            if (favProductsList.size > 0)
+                binding.numberOfItemsTx.text =
+                    "${getString(R.string.you_have)} ${favProductsList.size} ${getString(R.string.itemi_number)}"
+            else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
         }
 
         binding.favItemsRecyclerView.setHasFixedSize(true)
@@ -98,6 +102,10 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
             favoriteViewModel.symbol,
             favoriteViewModel.value
         )
-        binding.numberOfItemsTx.text = "You have ${favProductsList.size} item"
+        if (favProductsList.size > 0)
+            binding.numberOfItemsTx.text =
+                "${getString(R.string.you_have)} ${favProductsList.size} ${getString(R.string.itemi_number)}"
+        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+
     }
 }

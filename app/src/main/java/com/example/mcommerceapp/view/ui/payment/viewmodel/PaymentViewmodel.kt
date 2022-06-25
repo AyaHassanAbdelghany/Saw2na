@@ -1,5 +1,6 @@
 package com.example.mcommerceapp.view.ui.payment.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,6 +56,16 @@ class PaymentViewmodel(
         }
     }
 
+
+    private fun adjustInventoryItem(variantId:String,amount:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val res = iOrder.getVariantByID(variantId)
+            res.inventoryItemId?.let {
+                Log.e("TAG", "adjustInventoryItem: $it $amount", )
+                iOrder.adjustInventoryItem(it,amount) }
+        }
+    }
+
     private fun makeOrder(
         draftOrders: ArrayList<DraftOrder>,
         shippingAddress: ShippingAddress,
@@ -81,11 +92,18 @@ class PaymentViewmodel(
             orders.lineItems.add(
                 LineItems(
                     quantity = draftOrder.lineItems[0].quantity,
-                    variantId = draftOrder.lineItems[0].variantId
+                    variantId = draftOrder.lineItems[0].variantId,
                 )
             )
+            draftOrder.lineItems[0].quantity?.let {
+                adjustInventoryItem(draftOrder.lineItems[0].variantId.toString(),
+                    it
+                )
+            }
         }
 
         return orders
     }
+
+
 }

@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -178,6 +180,8 @@ class HomeFragment : OnClickListner, Fragment() {
         homeVM.vendors.observe(viewLifecycleOwner) {
             vendorAdapter.setData(it)
             binding.recyclerListVendor.adapter = vendorAdapter
+            TransitionManager.beginDelayedTransition(binding.recyclerListVendor, Slide())
+
         }
     }
 
@@ -192,6 +196,7 @@ class HomeFragment : OnClickListner, Fragment() {
             binding.viewMoreTx.visibility = TextView.VISIBLE
             binding.view.visibility = TextView.VISIBLE
             binding.recycleViewProduct.adapter = allProductsAdapter
+            TransitionManager.beginDelayedTransition(binding.recycleViewProduct, Slide())
 
         }
     }

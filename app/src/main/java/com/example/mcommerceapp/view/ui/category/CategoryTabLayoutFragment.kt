@@ -34,8 +34,7 @@ class CategoryTabLayoutFragment : Fragment() {
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var categoryVM: CategoryViewModel
     private lateinit var categoryVMFactory: CategoryViewModelFactory
-    private val myList = listOf(getString(R.string.all_types), getString(R.string.men_type), getString(
-        R.string.women_type), getString(R.string.kids_type), getString(R.string.sale_type))
+    private lateinit var myList:List<String>
     private lateinit var myEnglishList:List<String>
 
     private var isLoggedIn = false
@@ -56,6 +55,9 @@ class CategoryTabLayoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
+
+        myList = listOf(getString(R.string.all_types), getString(R.string.men_type), getString(
+        R.string.women_type), getString(R.string.kids_type), getString(R.string.sale_type))
 
         init()
 

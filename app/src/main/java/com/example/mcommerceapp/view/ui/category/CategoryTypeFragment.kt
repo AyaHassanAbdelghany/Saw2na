@@ -12,6 +12,8 @@ import android.widget.CheckBox
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.FragmentCategoryTypeBinding
 import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
@@ -72,7 +74,7 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     override fun onResume() {
         super.onResume()
         when (tabTitle) {
-            getString(R.string.all_types) -> observerAllProducts()
+            "ALL"-> observerAllProducts()
             else -> {
                 categoryVM.getCollectionId(tabTitle)
                 observerCollectionId()
@@ -89,20 +91,27 @@ class CategoryTypeFragment() : OnClickListener, Fragment() {
     }
 
     private fun observerCollectionProducts() {
+        categoryVM.collectionProducts.removeObservers(viewLifecycleOwner)
         categoryVM.collectionProducts.observe(viewLifecycleOwner) {
             products = it
             binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it, categoryVM.currencySymbol, categoryVM.currencyValue)
             binding.recyclerProduct.adapter = categoryAdapter
+            TransitionManager.beginDelayedTransition(binding.recyclerProduct, Slide())
+
+
         }
     }
 
     private fun observerAllProducts() {
+        categoryVM.allProducts.removeObservers(viewLifecycleOwner)
         categoryVM.allProducts.observe(viewLifecycleOwner) {
             products = it
             binding.progressBar.visibility = ProgressBar.INVISIBLE
             categoryAdapter.setData(it, categoryVM.currencySymbol, categoryVM.currencyValue)
             binding.recyclerProduct.adapter = categoryAdapter
+            TransitionManager.beginDelayedTransition(binding.recyclerProduct, Slide())
+
         }
     }
 

@@ -49,10 +49,10 @@
     <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
-    <string name="sub_category" translatable="false">Sub Category</string>
-    <string name="submit" translatable="false">Submit</string>
-    <string name="products" translatable="false">Products</string>
-    <string name="view_more" translatable="false">view more</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="submit">Submit</string>
+    <string name="view_more">view more</string>
+    <string name="products">Products</string>
     <string name="add_google_wallet_success">The pass was added successfully!</string>
     <string name="orders">Orders</string>
     <string name="order_again">Order Again</string>
@@ -74,7 +74,7 @@
     <string name="zip_code">Zip Code</string>
     <string name="addresses">Addresses</string>
     <string name="city">City</string>
-    <string name="search_by_name" translatable="false">Search by name</string>
+    <string name="search_by_name" >Search by name</string>
     <string name="searching_for_network_connection">Searching for network connection</string>
     <string name="Sign_in_tx">Sign in</string>
     <string name="Sign_up_tx">Sign up</string>
@@ -85,4 +85,25 @@
     <string name="women_type">WOMEN</string>
     <string name="kids_type">KID</string>
     <string name="sale_type">SALE</string>
+    <string name="your_items">Your Items</string>
+    <string name="you_have_no_item">You have no item in your favorite</string>
+    <string name="you_have">You have</string>
+    <string name="itemi_number">item</string>
+    <string name="item_in_your_cart">item in your cart</string>
+    <string name="copied">Copied!</string>
+    <string name="validate">Validate</string>
+    <string name="enter_coupon">Enter Coupon</string>
+    <string name="get_coupon">get coupon?</string>
+    <string name="subtotal">Subtotal:</string>
+    <string name="discount">Discount:</string>
+    <string name="shipping_in_cart_screen">Shipping:</string>
+    <string name="checkout">Checkout</string>
+    <string name="purchase_details">Purchase Details</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="purchase_description">Purchase Description</string>
+    <string name="amount">Amount</string>
+    <string name="change">Change</string>
+    <string name="or">OR</string>
+    <string name="choose_an_address">Choose an address first</string>
 </resources>

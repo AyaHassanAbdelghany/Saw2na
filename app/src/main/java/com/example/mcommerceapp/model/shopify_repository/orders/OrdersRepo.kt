@@ -1,7 +1,9 @@
 package com.example.mcommerceapp.model.shopify_repository.orders
 
 import android.util.Log
+import com.example.mcommerceapp.model.Keys
 import com.example.mcommerceapp.model.remote_source.orders.OrdersRemoteSource
+import com.example.mcommerceapp.pojo.products.Variants
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -40,6 +42,21 @@ class OrdersRepo private constructor(private val source: OrdersRemoteSource) : I
         source.deleteOrderByID(orderID)
     }
 
+    override suspend fun adjustInventoryItem(inventoryID:Long, amount:Int){
+        source.adjustInventoryItem(getAdjustRequestBody(inventoryID , amount))
+    }
+
+    override suspend fun getVariantByID(variantID:String): Variants{
+        return source.getVariantByID(variantID)
+    }
+
+    private fun getAdjustRequestBody(inventoryID:Long,amount:Int):RequestBody{
+        val jsonReq = JSONObject()
+        jsonReq.put("location_id", Keys.INVENTORY_LOCATION)
+        jsonReq.put("inventory_item_id", inventoryID)
+        jsonReq.put("available_adjustment", amount*-1)
+        return jsonReq.toString().toRequestBody("application/json".toMediaTypeOrNull())
+    }
 
     private fun getRequest(order: Order): RequestBody {
 
