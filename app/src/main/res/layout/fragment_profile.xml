@@ -299,7 +299,7 @@
                 android:id="@+id/sign_in_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/log_in"
+                android:src="@drawable/icon_sign_in"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -338,7 +338,7 @@
                 android:id="@+id/sign_up_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/sign_up"
+                android:src="@drawable/icon_sign_up"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
