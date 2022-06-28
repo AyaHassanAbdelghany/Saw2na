@@ -31,6 +31,8 @@ class MoreFragment : Fragment() {
     private lateinit var viewModel: MoreViewModel
     private var currencyArray: List<String> = ArrayList()
     private val languagesArray = arrayOf("en", "ar")
+    private val languagesArray2 = arrayOf("EN", "AR")
+
 
     private lateinit var currencySpinner: Spinner
     private lateinit var languageSpinner: Spinner
@@ -66,7 +68,7 @@ class MoreFragment : Fragment() {
         currencyAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
         val languageAdapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, languagesArray)
+            ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, languagesArray2)
         languageAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
 
