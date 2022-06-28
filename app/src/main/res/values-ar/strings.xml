@@ -66,7 +66,7 @@
     <string name="country">البلد</string>
     <string name="zip_code">الرقم البريدي</string>
     <string name="addresses">العناوين</string>
-    <string name="notify_me">Notify Me</string>
+    <string name="notify_me">نبهنى</string>
     <string name="city">المدينه</string>
     <string name="searching_for_network_connection">البحث عن الانترنت</string>
     <string name="Sign_in_tx">تسجيل الدخول</string>
@@ -84,7 +84,8 @@
     <string name="submit">تأكيد</string>
     <string name="view_more">عرض المزيد</string>
     <string name="your_items">العناصر التي لديك</string>
-    <string name="you_have_no_item">ليس لديك اي عناصر مفضلة</string>
+    <string name="you_have_no_item_fav">ليس لديك اي عناصر مفضلة</string>
+    <string name="you_have_no_item_cart">ليس لديك اي عناصر فى عربة التسوق</string>
     <string name="you_have">لديك</string>
     <string name="itemi_number">عنصر</string>
     <string name="item_in_your_cart">عنصر في عربة التسوق</string>
@@ -104,8 +105,9 @@
     <string name="amount">الكمية</string>
     <string name="change">تغير</string>
     <string name="or">أو</string>
-    <string name="choose_an_address">Choose an address first</string>
+    <string name="choose_an_address">ادخل العنوان اولاً</string>
     <string name="ar">عربى</string>
     <string name="en">انجليزى</string>
+    <string name="confirm_delete">هل أنت متأكد من انك تريد ان تمسح؟</string>
 
 </resources>

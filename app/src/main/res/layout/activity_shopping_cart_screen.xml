@@ -64,7 +64,7 @@
         android:id="@+id/items_constraint"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintHeight_percent="0.40"
         app:layout_constraintTop_toBottomOf="@id/number_of_items_constraint">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
-        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintHeight_percent="0.30"
         app:layout_constraintTop_toBottomOf="@id/coupon_constraint">
 
         <LinearLayout
@@ -216,45 +216,45 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/shipping_constraint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/shipping_constraint"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="8dp">-->
 
-                <TextView
-                    android:id="@+id/shippint_tx"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@string/shipping_in_cart_screen"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.6" />
-
-
-                <TextView
-                    android:id="@+id/shipping_value_tx"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:gravity="end"
-                    app:layout_constraintEnd_toStartOf="@id/shipping_currency_tx"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.2" />
+<!--                <TextView-->
+<!--                    android:id="@+id/shippint_tx"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="6dp"-->
+<!--                    android:text="@string/shipping_in_cart_screen"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintWidth_percent="0.6" />-->
 
 
-                <TextView
-                    android:id="@+id/shipping_currency_tx"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="$"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.1" />
+<!--                <TextView-->
+<!--                    android:id="@+id/shipping_value_tx"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="6dp"-->
+<!--                    android:gravity="end"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/shipping_currency_tx"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintWidth_percent="0.2" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--                <TextView-->
+<!--                    android:id="@+id/shipping_currency_tx"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="6dp"-->
+<!--                    android:text="$"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintWidth_percent="0.1" />-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <View
                 android:layout_width="match_parent"

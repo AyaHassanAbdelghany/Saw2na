@@ -66,7 +66,7 @@
     <string name="shipping">Shipping</string>
     <string name="phone">Phone</string>
     <string name="items">Items</string>
-    <string name="notify_me" translatable="false">Notify Me</string>
+    <string name="notify_me">Notify Me</string>
     <string name="favourite">Favourite</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="country">Country</string>
@@ -85,7 +85,8 @@
     <string name="kids_type">KID</string>
     <string name="sale_type">SALE</string>
     <string name="your_items">Your Items</string>
-    <string name="you_have_no_item">You have no item in your favorite</string>
+    <string name="you_have_no_item_fav">You have no item in your favorite</string>
+    <string name="you_have_no_item_cart">You have no item in your cart</string>
     <string name="you_have">You have</string>
     <string name="itemi_number">item</string>
     <string name="item_in_your_cart">item in your cart</string>
@@ -108,4 +109,5 @@
     <string name="address">Address</string>
     <string name="en">EN</string>
     <string name="ar">AR</string>
+    <string name="confirm_delete">Are you sure, you want to delete?</string>
 </resources>

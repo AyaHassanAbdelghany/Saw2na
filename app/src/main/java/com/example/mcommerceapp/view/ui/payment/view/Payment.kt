@@ -256,15 +256,15 @@ class Payment : AppCompatActivity() {
                 JSONObject(paymentInformation).getJSONObject("paymentMethodData")
             val billingName = paymentMethodData.getJSONObject("info")
                 .getJSONObject("billingAddress").getString("name")
-            Log.d("BillingName", billingName)
+            //Log.d("BillingName", billingName)
 
             binding.statusImg.setImageResource(R.drawable.paid)
 
-            Toast.makeText(
-                this,
-                getString(R.string.payments_show_name, billingName),
-                Toast.LENGTH_LONG
-            ).show()
+//            Toast.makeText(
+//                this,
+//                getString(R.string.payments_show_name, billingName),
+//                Toast.LENGTH_LONG
+//            ).show()
 
             binding.googlePayButton.root.visibility = View.INVISIBLE
             binding.seperatorLineConstraint.visibility = View.INVISIBLE
@@ -280,14 +280,14 @@ class Payment : AppCompatActivity() {
             )
 
             // Logging token string.
-            Log.d(
-                "Google Pay token", paymentMethodData
-                    .getJSONObject("tokenizationData")
-                    .getString("token")
-            )
+//            Log.d(
+//                "Google Pay token", paymentMethodData
+//                    .getJSONObject("tokenizationData")
+//                    .getString("token")
+//            )
 
         } catch (error: JSONException) {
-            Log.e("handlePaymentSuccess", "Error: $error")
+//            Log.e("handlePaymentSuccess", "Error: $error")
         }
     }
 

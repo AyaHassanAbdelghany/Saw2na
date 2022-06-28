@@ -1,12 +1,13 @@
 package com.example.mcommerceapp.view.ui.shopping_cart.view
 
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +16,11 @@ import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceapp.R
 import com.example.mcommerceapp.databinding.ActivityShoppingCartScreenBinding
-import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
-import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
-import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
 import com.example.mcommerceapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceapp.model.remote_source.orders.DraftOrdersRemoteSource
+import com.example.mcommerceapp.model.remote_source.products.ProductRemoteSource
+import com.example.mcommerceapp.model.shopify_repository.currency.CurrencyRepo
+import com.example.mcommerceapp.model.shopify_repository.draft_orders.DraftOrdersRepo
 import com.example.mcommerceapp.model.shopify_repository.user.UserRepo
 import com.example.mcommerceapp.network.MyConnectivityManager
 import com.example.mcommerceapp.pojo.user.User
@@ -28,6 +29,7 @@ import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartView
 import com.example.mcommerceapp.view.ui.shopping_cart.viewmodel.ShoppingCartViewmodelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import draft_orders.DraftOrder
+
 
 class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private lateinit var discountLimit: String
@@ -70,7 +72,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         if (cartList.size > 0)
             binding.numberOfItemsTx.text =
                 "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
-        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item_cart)
 
         binding.checkoutBt.setOnClickListener {
             val myTitleList = retrieveProductsTitle(cartList)
@@ -112,9 +114,6 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         {
             if (it != null) {
                 loadingDialog.dismiss()
-                if (it.size > 0) {
-                    binding.shippingValueTx.text = "30.0"
-                }
                 cartList = it
                 binding.progressIndicator.visibility = View.INVISIBLE
                 cartItemsAdapter.setOrders(cartList, cartViewModel.symbol, cartViewModel.value)
@@ -123,7 +122,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 if (cartList.size > 0)
                     binding.numberOfItemsTx.text =
                         "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
-                else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+                else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item_cart)
 
             }
         }
@@ -165,11 +164,9 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         }
         binding.subTotalValueTx.text = "0.0"
         binding.discountValueTx.text = "0.0"
-        binding.shippingValueTx.text = "0.0"
         binding.totalValueTx.text = "0.0"
         binding.subTotalCurrencyTx.text = cartViewModel.symbol
         binding.discountCurrencyTx.text = cartViewModel.symbol
-        binding.shippingCurrencyTx.text = cartViewModel.symbol
         binding.totalCurrencyTx.text = cartViewModel.symbol
 
         MyConnectivityManager.state.observe(this) {
@@ -196,7 +193,6 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
                 } else {
                     loadingDialog.dismiss()
                 }
-                binding.shippingValueTx.text = "0.0"
                 binding.discountValueTx.text = "0.0"
                 binding.couponEditText.setText("")
             }
@@ -213,14 +209,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     }
 
     override fun deleteProductFromCart(index: Int) {
-        val obj = cartList[index]
-        cartViewModel.deleteProductFromDraftOrder(obj.id!!)
-        deleteDraftOrderFromList(obj)
-        if (cartList.size > 0)
-            binding.numberOfItemsTx.text =
-                "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
-        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
-
+        confirmDelete(getString(R.string.confirm_delete), index)
     }
 
     override fun increaseUpdateInList(index: Int) {
@@ -246,9 +235,6 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
     private fun deleteDraftOrderFromList(draftOrder: DraftOrder) {
         cartList.remove(draftOrder)
         cartItemsAdapter.setOrders(cartList, cartViewModel.symbol, cartViewModel.value)
-        if (cartList.size == 0) {
-            binding.shippingValueTx.text = "0.0"
-        }
         calculateTotalAmountOfMoney()
     }
 
@@ -257,8 +243,7 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         binding.subTotalValueTx.text = subTotal.toString()
         val total = calculateTotal(
             subTotal,
-            binding.discountValueTx.text.toString().toDouble(),
-            binding.shippingValueTx.text.toString().toDouble()
+            binding.discountValueTx.text.toString().toDouble()
         )
         binding.totalValueTx.text = total.toString()
     }
@@ -272,8 +257,8 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         return subTotal
     }
 
-    private fun calculateTotal(subTotal: Double, discount: Double, shipping: Double): Double {
-        return (subTotal - discount + shipping)
+    private fun calculateTotal(subTotal: Double, discount: Double): Double {
+        return (subTotal - discount)
     }
 
     private fun retrieveProductsTitle(list: ArrayList<DraftOrder>): ArrayList<String> {
@@ -311,6 +296,35 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
         loadingDialog.findViewById<TextView>(R.id.loading_tx).text = string
 
         loadingDialog.show()
+    }
+
+    private fun confirmDelete(msg: String, index: Int) {
+        val builder1: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder1.setMessage(msg)
+        builder1.setCancelable(true)
+
+        builder1.setPositiveButton(
+            "Yes",
+            DialogInterface.OnClickListener { dialog, id ->
+                val obj = cartList[index]
+                cartViewModel.deleteProductFromDraftOrder(obj.id!!)
+                deleteDraftOrderFromList(obj)
+                if (cartList.size > 0)
+                    binding.numberOfItemsTx.text =
+                        "${getString(R.string.you_have)} ${cartList.size} ${getString(R.string.item_in_your_cart)}"
+                else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item_cart)
+                dialog.cancel()
+            }
+        )
+        builder1.setNegativeButton(
+            "No",
+            DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            }
+        )
+
+        val alert11: AlertDialog = builder1.create()
+        alert11.show()
     }
 
     companion object {

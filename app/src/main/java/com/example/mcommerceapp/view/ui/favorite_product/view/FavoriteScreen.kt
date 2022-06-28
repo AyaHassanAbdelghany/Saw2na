@@ -1,8 +1,9 @@
 package com.example.mcommerceapp.view.ui.favorite_product.view
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,7 +36,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
         binding = ActivityFavoriteScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+        binding.numberOfItemsTx.text = getString(R.string.you_have_no_item_fav)
 
         favoriteViewModelFactory = FavoriteViewModelFactory(
             RoomRepo.getInstance(
@@ -65,7 +66,7 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
             if (favProductsList.size > 0)
                 binding.numberOfItemsTx.text =
                     "${getString(R.string.you_have)} ${favProductsList.size} ${getString(R.string.itemi_number)}"
-            else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+            else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item_fav)
         }
 
         binding.favItemsRecyclerView.setHasFixedSize(true)
@@ -92,18 +93,40 @@ class FavoriteScreen : AppCompatActivity(), FavoriteScreenCommunicator {
     }
 
     override fun performDeleteProduct(product: DraftOrder) {
-        // favoriteViewModel.deleteFavoriteProduct(product)
-        favoriteViewModel.deleteOrder(product.lineItems[0].productId!!)
-        favProductsList.remove(product)
-        favoriteItemsAdapter.setFavoriteProducts(
-            favProductsList,
-            favoriteViewModel.symbol,
-            favoriteViewModel.value
-        )
-        if (favProductsList.size > 0)
-            binding.numberOfItemsTx.text =
-                "${getString(R.string.you_have)} ${favProductsList.size} ${getString(R.string.itemi_number)}"
-        else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item)
+        confirmDelete(getString(R.string.confirm_delete),product)
+    }
 
+    private fun confirmDelete(msg: String, product: DraftOrder) {
+        val builder1: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder1.setMessage(msg)
+        builder1.setCancelable(true)
+
+        builder1.setPositiveButton(
+            "Yes",
+            DialogInterface.OnClickListener { dialog, id ->
+                // favoriteViewModel.deleteFavoriteProduct(product)
+                favoriteViewModel.deleteOrder(product.lineItems[0].productId!!)
+                favProductsList.remove(product)
+                favoriteItemsAdapter.setFavoriteProducts(
+                    favProductsList,
+                    favoriteViewModel.symbol,
+                    favoriteViewModel.value
+                )
+                if (favProductsList.size > 0)
+                    binding.numberOfItemsTx.text =
+                        "${getString(R.string.you_have)} ${favProductsList.size} ${getString(R.string.itemi_number)}"
+                else binding.numberOfItemsTx.text = getString(R.string.you_have_no_item_fav)
+                dialog.cancel()
+            }
+        )
+        builder1.setNegativeButton(
+            "No",
+            DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            }
+        )
+
+        val alert11: AlertDialog = builder1.create()
+        alert11.show()
     }
 }
