@@ -40,28 +40,21 @@ class SigninActivity : AppCompatActivity() {
             when (it) {
                 AuthState.SUCCESS -> {
                     signinViewModel.setLoggedInState(true)
-                    Toast.makeText(this, "welcome ...", Toast.LENGTH_SHORT).show()
                     finish()
                 }
                 AuthState.EMAIL_NOT_VERIFIED -> {
-                    Toast.makeText(this, "please verify your email...", Toast.LENGTH_SHORT).show()
                 }
                 AuthState.LOADING ->   binding.loadingProgressBar.visibility = View.VISIBLE
-                else -> {
-                    Toast.makeText(this, "${it}...", Toast.LENGTH_SHORT).show()
-                }
             }
         }
 
 
         MyConnectivityManager.state.observe(this) {
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
                 binding.mainLayout.visibility = View.VISIBLE
 
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
                 binding.mainLayout.visibility = View.INVISIBLE
 

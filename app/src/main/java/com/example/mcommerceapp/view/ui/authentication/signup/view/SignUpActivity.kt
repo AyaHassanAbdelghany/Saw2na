@@ -44,7 +44,6 @@ class SignUpActivity : AppCompatActivity() {
             loading.visibility = View.INVISIBLE
             when (it) {
                 AuthState.SUCCESS -> {
-                    Toast.makeText(this, "please check your mail ..", Toast.LENGTH_SHORT).show()
 
                     val user = User(
                         displayNameEditText.text.toString(),
@@ -58,7 +57,6 @@ class SignUpActivity : AppCompatActivity() {
                 AuthState.LOADING -> loading.visibility = View.VISIBLE
                 else -> {
                     Log.i("TAG", "onCreate: AuthState.error :${it} ")
-                    Toast.makeText(this, "${it}...", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -82,12 +80,10 @@ class SignUpActivity : AppCompatActivity() {
         }
         MyConnectivityManager.state.observe(this) {
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
                 binding.mainLayout.visibility = View.VISIBLE
 
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
                 binding.mainLayout.visibility = View.INVISIBLE
 

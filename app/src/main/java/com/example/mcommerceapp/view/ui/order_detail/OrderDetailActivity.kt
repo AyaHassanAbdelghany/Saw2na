@@ -48,7 +48,6 @@ class OrderDetailActivity : AppCompatActivity() {
             } ${orderDetailVM.currencySymbol}"
             binding.priceItemsTxt.text = it.totalShippingPriceSet?.shopMoney?.amount
 
-            binding.phoneItemsTxt.text = it.phone
             binding.addressItemsTxt.text = it.customer?.defaultAddress?.address1
             val spf = SimpleDateFormat("yyyy-MM-dd")
             val createdAt = spf.format(spf.parse(it.createdAt))
@@ -67,13 +66,11 @@ class OrderDetailActivity : AppCompatActivity() {
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 orderDetailVM.getOrder(id.toString())
                 binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
                 binding.mainLayout.visibility = View.VISIBLE
 
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
                 binding.mainLayout.visibility = View.INVISIBLE
 

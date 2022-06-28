@@ -111,8 +111,6 @@ class Payment : AppCompatActivity() {
                 requestPayment(total = total)
             else {
                 binding.addressValueTx.error = getString(R.string.choose_an_address)
-                Toast.makeText(this, getString(R.string.choose_an_address), Toast.LENGTH_LONG)
-                    .show()
             }
         }
 
@@ -148,12 +146,10 @@ class Payment : AppCompatActivity() {
 
         MyConnectivityManager.state.observe(this) {
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
                 binding.mainLayout.visibility = View.VISIBLE
 
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
                 binding.mainLayout.visibility = View.INVISIBLE
 

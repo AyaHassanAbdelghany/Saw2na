@@ -2,6 +2,7 @@ package com.example.mcommerceapp.view.ui.product_detail.view
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -211,11 +212,9 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         id = getVariant(variant, color, size)
         productDetail = products
 
-        binding.toolbarLayout.title = products.title
+        binding.toolbarLayout.title = products.title?.split("|")?.get(1)
 
-        binding.contentDetail.ProductPriceTxt.text = "${
-            products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)
-        }"
+        binding.contentDetail.ProductPriceTxt.text = "${products.variants[0].price?.toDouble()?.times(detailVM.currencyValue)}"
         binding.contentDetail.ProductPriceCurrencyTxt.text = detailVM.currencySymbol
         binding.contentDetail.ProductRating.rating =
             (products.variants[0].inventoryQuantity)!!.toFloat()

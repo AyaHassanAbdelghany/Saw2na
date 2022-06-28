@@ -59,7 +59,7 @@
     <string name="address">العنوان</string>
     <string name="items">العناصر</string>
     <string name="add_google_wallet_success" translatable="false">الرقم السري صحيح</string>
-    <string name="recommendation" translatable="false">اقتراحات</string>
+    <string name="recommendation" translatable="false">ترشيحات</string>
     <string name="buy_with_googlepay_button_content_description" translatable="false">الدفع عن طريق google pay</string>
     <string name="favourite">المفضله</string>
     <string name="shopping_cart">عربه التسوق</string>

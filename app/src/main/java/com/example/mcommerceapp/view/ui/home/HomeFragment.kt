@@ -119,6 +119,9 @@ class HomeFragment : OnClickListner, Fragment() {
         sliderItems()
         itemSliderView()
         isLoggedIn = homeVM.isLogged()
+
+        vendorAdapter.setData(hashSetOf())
+        allProductsAdapter.setData(ArrayList(), "", 0.0)
     }
 
     private fun itemSliderView() {
@@ -181,7 +184,6 @@ class HomeFragment : OnClickListner, Fragment() {
             vendorAdapter.setData(it)
             binding.recyclerListVendor.adapter = vendorAdapter
             TransitionManager.beginDelayedTransition(binding.recyclerListVendor, Slide())
-
         }
     }
 

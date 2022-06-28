@@ -174,12 +174,10 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
         MyConnectivityManager.state.observe(this) {
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.INVISIBLE
                 binding.mainLayout.visibility = View.VISIBLE
 
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.networkLayout.noNetworkLayout.visibility = View.VISIBLE
                 binding.mainLayout.visibility = View.INVISIBLE
 
@@ -241,7 +239,6 @@ class ShoppingCartScreen : AppCompatActivity(), CartCommunicator {
 
     override fun onClick(code: String, limit: String) {
         dialog.cancel()
-        Toast.makeText(this, getString(R.string.copied), Toast.LENGTH_LONG).show()
         binding.couponEditText.setText(code)
         discountLimit = limit
     }
