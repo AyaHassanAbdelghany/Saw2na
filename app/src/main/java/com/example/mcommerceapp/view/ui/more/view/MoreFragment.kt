@@ -31,7 +31,7 @@ class MoreFragment : Fragment() {
     private lateinit var viewModel: MoreViewModel
     private var currencyArray: List<String> = ArrayList()
     private val languagesArray = arrayOf("en", "ar")
-    private val languagesArray2 = arrayOf("EN", "AR")
+    private lateinit var  languagesArray2: ArrayList<String>
 
 
     private lateinit var currencySpinner: Spinner
@@ -160,6 +160,8 @@ class MoreFragment : Fragment() {
     }
 
     private fun init() {
+        languagesArray2 = arrayListOf(getString(com.example.mcommerceapp.R.string.en), getString(com.example.mcommerceapp.R.string.ar))
+
         languageSpinner = binding.languageSpinner
         currencySpinner = binding.currencySpinner
 

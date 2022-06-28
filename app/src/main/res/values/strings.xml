@@ -106,4 +106,6 @@
     <string name="or">OR</string>
     <string name="choose_an_address">Choose an address first</string>
     <string name="address">Address</string>
+    <string name="en">EN</string>
+    <string name="ar">AR</string>
 </resources>

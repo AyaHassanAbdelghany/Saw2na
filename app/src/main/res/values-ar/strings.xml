@@ -105,5 +105,7 @@
     <string name="change">تغير</string>
     <string name="or">أو</string>
     <string name="choose_an_address">Choose an address first</string>
+    <string name="ar">عربى</string>
+    <string name="en">انجليزى</string>
 
 </resources>
