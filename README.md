@@ -77,11 +77,11 @@ add/remove products to/from shopping carts and complete the whole online shoppin
 
 <img src="https://user-images.githubusercontent.com/54456549/193086411-04dfa820-f3db-4c25-8bd6-ae8feb0b29bd.png" height="640" width="288">
 
--Sign up screens
+-Sign up screen
 
 <img src="https://user-images.githubusercontent.com/54456549/193086466-526ef60c-d081-42b5-aece-ec9449058bef.png" height="640" width="288">
 
--No network screens
+-No network screen
 
 <img src="https://user-images.githubusercontent.com/54456549/193086518-e82a47cb-36f3-4ce3-9484-3de4a5a1ab27.png" height="640" width="288">
 
